@@ -1,0 +1,74 @@
+﻿@model HashNetFramework.cFilterContract
+<div class="modal fade" id="filterdatadialogpaymentbilluplodINVPAT" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            @using (Ajax.BeginForm("clnPaymentRegisINVPAT", new { Controller = "Finance" }, new AjaxOptions
+            {
+                HttpMethod = "POST",
+                OnBegin = "vmFinance.CooBeerBeginInvPPAT",
+                OnSuccess = "vmFinance.CooBeerSuccessInvPPAT"
+            }, new
+            {
+                id = "billpayment_form",
+                @class = "form-horizontal",
+                enctype = "multipart/form-data"
+            }))
+            {
+
+                @Html.AntiForgeryToken()
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">Rekap Data Tagihan HT </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-horizontal">
+
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <div class="note note-searchpanenls font-whitea marginnol paddingbotnol">
+                                    <h4 class="font-whitea"><strong>Catatan:</strong></h4>
+                                    <p class="font-whitea">
+                                            Data yang tidak sesuai dengan hasil dokumen yang telah diupload, tagihan invoice akan dipending oleh sistem, pastikan data
+                                            yang akan ditagihkan benar adanya.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" style="padding-left:20px">
+                            <div class="col-md-8">
+                                <label class="control-label">No Invoice/No Perjanjian</label>
+                                @Html.TextBoxFor(m => m.NoPengajuanRequest, new { @class = "form-control", @maxlength = "35" })
+                                <span class="form-control NonEdittableSpanTxt" disabled="disabled">Isikan jika ingin menampilkan Data tagihan yang sudah ada</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn green" data-dismiss="modal">
+                        <i class="fa fa-close"></i>
+                        <span>&nbsp;Tutup</span>
+                    </button>
+                    <button type="submit" value="" class="btn green">
+                        <i class="fa fa-check-square"></i>
+                        <span>&nbsp;Proses </span>
+                    </button>
+                </div>
+            }
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<script>
+    $('.select2').select2();
+    $('.date-picker').datepicker({
+        rtl: App.isRTL(),
+        orientation: "right bottom",
+        autoclose: true
+    });
+    $.getScript("Scripts/vmFinance.js", function () {
+    });
+</script>

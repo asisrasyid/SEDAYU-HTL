@@ -1,0 +1,154 @@
+﻿@model List<HashNetFramework.cDashMonitoring>
+
+<style>
+    td:not(:first-child) {
+        white-space: nowrap;
+    }
+
+    td:first-child {
+        width: 30%;
+    }
+</style>
+
+
+<center>
+    <h3 class="page-title" style="font-size:16px">
+        <b>@ViewBag.captiondesc</b>
+    </h3>
+</center>
+
+
+<div class="portlet-body">
+    <div class="row">
+
+        <div class="col-md-11 col-sm-12">
+            <div class="row widget-row">
+                <div class="col-md-3">
+                    <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered" style="font-size:12px">
+                        <h4 class="widget-thumb-heading">Ready To Verifikasi</h4>
+                        <div class="widget-thumb-wrap">
+                            <i class="widget-thumb-icon bg-green icon-layers"></i>
+                            <div class="widget-thumb-body">
+                                <span class="widget-thumb-body-stat" data-counter="counterup" style="font-size:42px">@Html.Raw(Model[0].TotalreadyVerifikasi)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END WIDGET THUMB -->
+                </div>
+
+                <div class="col-md-3">
+                    <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered" style="font-size:12px">
+                        <h4 class="widget-thumb-heading">Ready To Order Notaris</h4>
+                        <div class="widget-thumb-wrap">
+                            <i class="widget-thumb-icon bg-blue-soft icon-layers"></i>
+                            <div class="widget-thumb-body">
+                                <span class="widget-thumb-body-stat" data-counter="counterup" id="totalordernota" style="font-size:42px">@Html.Raw(Model[0].TotalReadyToNotaris)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END WIDGET THUMB -->
+                </div>
+                <div class="col-md-3">
+                    <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered" style="font-size:12px">
+                        <h4 class="widget-thumb-heading">Inbox Notaris</h4>
+                        <div class="widget-thumb-wrap">
+                            <i class="widget-thumb-icon bg-red-flamingo-opacity icon-layers"></i>
+                            <div class="widget-thumb-body">
+                                <span class="widget-thumb-body-stat" data-counter="counterup" style="font-size:42px">@Html.Raw(Model[0].TotalInBoxNotaris)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END WIDGET THUMB -->
+                </div>
+                <div class="col-md-3">
+                    <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered" style="font-size:12px">
+                        <h4 class="widget-thumb-heading">Ready To Order AHU</h4>
+                        <div class="widget-thumb-wrap">
+                            <i class="widget-thumb-icon bg-yellow-gold icon-layers"></i>
+                            <div class="widget-thumb-body">
+                                <span class="widget-thumb-body-stat" data-counter="counterup" style="font-size:42px">@Html.Raw(Model[0].TotalreadyToRegisAHU)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END WIDGET THUMB -->
+                </div>
+                <div class="col-md-3">
+                    <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered" style="font-size:12px">
+                        <h4 class="widget-thumb-heading">Ready To Paid </h4>
+                        <div class="widget-thumb-wrap">
+                            <i class="widget-thumb-icon bg-green-turquoise icon-layers"></i>
+                            <div class="widget-thumb-body">
+                                <span class="widget-thumb-body-stat" data-counter="counterup" id="totalpaid" style="font-size:42px">@Html.Raw(Model[0].TotalreadytoPaid)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END WIDGET THUMB -->
+                </div>
+                <div class="col-md-3">
+                    <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered" style="font-size:12px">
+                        <h4 class="widget-thumb-heading">Ready To Get Sertifikat</h4>
+                        <div class="widget-thumb-wrap">
+                            <i class="widget-thumb-icon bg-blue-dark icon-layers"></i>
+                            <div class="widget-thumb-body">
+                                <span class="widget-thumb-body-stat" data-counter="counterup" style="font-size:42px">@Html.Raw(Model[0].Totalreadytogetserti)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END WIDGET THUMB -->
+                </div>
+                <div class="col-md-3">
+                    <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered" style="font-size:12px">
+                        <h4 class="widget-thumb-heading">Ready To Get Lamp. Object</h4>
+                        <div class="widget-thumb-wrap">
+                            <i class="widget-thumb-icon bg-grey-silver icon-layers"></i>
+                            <div class="widget-thumb-body">
+                                <span class="widget-thumb-body-stat" data-counter="counterup" style="font-size:42px">@Html.Raw(Model[0].Totalreadytoobjtserti)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END WIDGET THUMB -->
+                </div>
+                <div class="col-md-3">
+                    <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
+                        <h4 class="widget-thumb-heading">Ready To Invoice</h4>
+                        <div class="widget-thumb-wrap">
+                            <i class="widget-thumb-icon bg-green-dark icon-layers"></i>
+                            <div class="widget-thumb-body">
+                                <span class="widget-thumb-body-stat" data-counter="counterup" id="totalinvoice" style="font-size:42px">@Html.Raw(Model[0].Totalreadytoinvoice)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END WIDGET THUMB -->
+                </div>
+
+                <div class="col-md-3">
+                    <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
+                        <h4 class="widget-thumb-heading">Ready To Send Txt</h4>
+                        <div class="widget-thumb-wrap">
+                            <i class="widget-thumb-icon bg-green-dark icon-layers"></i>
+                            <div class="widget-thumb-body">
+                                <span class="widget-thumb-body-stat" data-counter="counterup" style="font-size:42px">@Html.Raw(Model[0].Totalreadysendtxt)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END WIDGET THUMB -->
+                </div>
+
+                <div class="col-md-3">
+                    <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
+                        <h4 class="widget-thumb-heading">PendingTask</h4>
+                        <div class="widget-thumb-wrap">
+                            <i class="widget-thumb-icon bg-red icon-layers"></i>
+                            <div class="widget-thumb-body">
+                                <span class="widget-thumb-body-stat" data-counter="counterup" style="font-size:42px">@Html.Raw(Model[0].TotalPendingTask)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END WIDGET THUMB -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

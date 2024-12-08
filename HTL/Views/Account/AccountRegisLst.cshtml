@@ -1,0 +1,35 @@
+﻿@model DusColl.vmAccount
+
+<style>
+    .font-whitea {
+        color: #555;
+    }
+ 
+</style>
+<div class="portlet">
+    <div class="portlet-title">
+        <div class="caption LoadMenu" data-value="@ViewBag.menu,@ViewBag.caption,@ViewBag.rute,@ViewBag.action" style="cursor:pointer" id="relodregs">
+            <i class="icon-settings font-whitea"></i>
+            <span class="caption-subject font-whitea sbold uppercase">
+                @ViewBag.captiondesc
+            </span>
+        </div>
+        <div id="gridTx">
+            @{Html.RenderPartial("~/Views/Account/AccountRegisLstGrid.cshtml");}
+        </div>
+    </div>
+</div>
+
+
+<div id="uidivfilter">
+</div>
+<div id="uidivadd">
+</div>
+
+<script>
+    $.getScript("Scripts/vmAccount.js", function () {
+    });
+</script>
+
+
+

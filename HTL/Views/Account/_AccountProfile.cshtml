@@ -1,0 +1,132 @@
+﻿@model HashNetFramework.cAccount
+<link href="~/Content/assets/pages/css/profile.min.css" rel="stylesheet" />
+<div class="page-content" style="min-height:956px">
+    <!-- BEGIN PAGE TITLE-->
+    <!-- END PAGE TITLE-->
+    <!-- END PAGE HEADER-->
+    <div class="row">
+        <div class="col-md-12">
+            <!-- BEGIN PROFILE SIDEBAR -->
+            <div class="profile-sidebar">
+                <!-- PORTLET MAIN -->
+                <div class="portlet light profile-sidebar-portlet ">
+                    <!-- SIDEBAR USERPIC -->
+                    <!-- SIDEBAR USER TITLE -->
+                    <div class="profile-usertitle">
+                        @{
+                            if ((Model.Photo ?? "") == "")
+                            {
+
+                                <img alt="" class="img-circle" src="~/Content/assets/layouts/layout2/img/avatar.png">
+                            }
+                            else
+                            {
+                                //prepare to encrypt
+                                byte[] imageBytes = Convert.FromBase64String(Model.Photo);
+                                string KECEP = HashNetFramework.HasKeyProtect.Encryption("dodol");
+                                imageBytes = HashNetFramework.HasKeyProtect.SetFileByteDecrypt(imageBytes, KECEP);
+                                string im = "data:image/png;base64," + Convert.ToBase64String(imageBytes, 0, imageBytes.Length);
+                                <img alt="" class="img-circle" src="@im" id="pop" />
+                            }
+                        }
+
+                    </div>
+                    <div class="profile-usertitle">
+                        <div class="profile-usertitle-name"> @Model.Jabatan</div>
+                        <div class="profile-usertitle-job"> @Model.Pekerjaan </div>
+                    </div>
+                        <!-- END SIDEBAR USER TITLE -->
+                        <!-- SIDEBAR MENU -->
+                        <!-- END MENU -->
+                    </div>
+                    <!-- END PORTLET MAIN -->
+
+                </div>
+            <!-- END BEGIN PROFILE SIDEBAR -->
+            <!-- BEGIN PROFILE CONTENT -->
+            <div class="profile-content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="portlet light ">
+                            <div class="portlet-title tabbable-line">
+                                <div class="caption caption-md">
+                                    <i class="icon-globe theme-font hide"></i>
+                                    <span class="caption-subject font-blue-madison bold uppercase">Informasi Personal</span>
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                                <div class="tab-content">
+                                    <!-- PERSONAL INFO TAB -->
+                                    <div class="tab-pane active" id="tab_1_1">
+
+                                        @using (Ajax.BeginForm("clnAccountChucgongProfle", new { Controller = "Account" }, new AjaxOptions
+                                        {
+                                            HttpMethod = "POST",
+                                        }, new { id = "frmaccountchangegrup", @class = "form-horizontal", enctype = "multipart/form-data" }))
+                                        {
+                                            @Html.Hidden("UserID", HashNetFramework.HasKeyProtect.Encryption(Model.UserID));
+                                            @Html.AntiForgeryToken();
+                                            <div class="form-group">
+                                                <div class="col-md-6">
+                                                    <label class="control-label">Nama</label>
+                                                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @maxlength = "25" })
+                                                    @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "error-block" })
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="control-label">Photo</label>
+                                                    <input type="file" id="potofile" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-md-6">
+                                                    <label class="control-label">Jabatan</label>
+                                                    @Html.TextBoxFor(m => m.Jabatan, new { @class = "form-control", @maxlength = "50" })
+                                                    @Html.ValidationMessageFor(m => m.Jabatan, "", new { @class = "error-block" })
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="control-label">Pekerjaan</label>
+                                                    @Html.TextBoxFor(m => m.Pekerjaan, new { @class = "form-control", @maxlength = "50" })
+                                                    @Html.ValidationMessageFor(m => m.Pekerjaan, "", new { @class = "error-block" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="col-md-6">
+                                                    <label class="control-label">Email</label>
+                                                    @Html.TextBoxFor(m => m.email, new { @class = "form-control", @maxlength = "30" })
+                                                    @Html.ValidationMessageFor(m => m.email, "", new { @class = "error-block" })
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="control-label">No handphone</label>
+                                                    @Html.TextBoxFor(m => m.Phone, new { @class = "form-control Numberonly", @maxlength = "17" })
+                                                    @Html.ValidationMessageFor(m => m.Phone, "", new { @class = "error-block" })
+                                                </div>
+                                            </div>
+                                            <button type="button" class="btn green" onclick="vmAccount.ApplySbmt('#frmaccountchangegrup')">
+                                                <i class="fa fa-check-square"></i>
+                                                <span>&nbsp;Simpan </span>
+                                            </button>
+                                        }
+                                    </div>
+                                    <!-- END PERSONAL INFO TAB -->
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END PROFILE CONTENT -->
+        </div>
+    </div>
+</div>
+
+
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<script src="~/Scripts/vmAccount.js"></script>
+
+<script>
+    vmAccount.initnumber();
+</script>

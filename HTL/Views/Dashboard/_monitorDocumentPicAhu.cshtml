@@ -1,0 +1,249 @@
+﻿@model List<HashNetFramework.cDashMonitoring>
+
+@*<style>
+        td:not(:first-child) {
+            white-space: nowrap;
+        }
+
+        td:first-child {
+            width: 30%;
+        }
+    </style>*@
+
+
+
+<center>
+    <h1 class="page-title">
+        @ViewBag.captiondesc
+    </h1>
+</center>
+<div class="portlet-body">
+    <div class="row">
+        <div class="col-md-3 col-sm-3">
+            <!-- BEGIN DRAGGABLE EVENTS PORTLET-->
+            <!-- END DRAGGABLE EVENTS PORTLET-->
+        </div>
+        <div class="col-md-11 col-sm-12">
+            <div class="row widget-row">
+                <div class="col-md-2">
+                    <!-- BEGIN WIDGET THUMB -->
+
+                    @{
+                        var regis = Model;
+                        var TotalOrder = 0;
+                        var TotalSelesai = 0;
+                        var TotalPending = 0;
+                    }
+                    <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
+                        <h4 class="widget-thumb-heading">Sertifikat (SoftCopy)</h4>
+                        <div class="widget-thumb-wrap">
+                            <i class="widget-thumb-icon bg-red icon-layers"></i>
+                            <div class="widget-thumb-body">
+                                <span class="widget-thumb-body-stat" style="font-size:40px" data-counter="counterup">0</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END WIDGET THUMB -->
+                </div>
+                <div class="col-md-2">
+                    <!-- BEGIN WIDGET THUMB -->
+                    @{
+                        var Roya = Model;
+                        TotalOrder = 0;
+                        TotalOrder = 0;
+                        foreach (var x in Roya)
+                        {
+                            TotalOrder = TotalOrder + (x.stat0);
+                        }
+                    }
+                    <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
+                        <h4 class="widget-thumb-heading">Salinan Akta (SoftCopy)</h4>
+                        <div class="widget-thumb-wrap">
+                            <i class="widget-thumb-icon bg-red icon-layers"></i>
+                            <div class="widget-thumb-body">
+                                <span class="widget-thumb-body-stat" style="font-size:40px" data-counter="counterup">0</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END WIDGET THUMB -->
+                </div>
+                <div class="col-md-2">
+                    <!-- BEGIN WIDGET THUMB -->
+                    @{
+                        var revisi = Model;
+                        TotalSelesai = 0;
+                        foreach (var x in revisi)
+                        {
+                            TotalSelesai = TotalSelesai + (x.stat1);
+                        }
+                    }
+
+                    <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
+                        <h4 class="widget-thumb-heading">Minuta <br />(SoftCopy)</h4>
+                        <div class="widget-thumb-wrap">
+                            <i class="widget-thumb-icon bg-red icon-layers"></i>
+                            <div class="widget-thumb-body">
+                                <span class="widget-thumb-body-stat" style="font-size:40px" data-counter="counterup">0</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END WIDGET THUMB -->
+                </div>
+                <div class="col-md-2">
+
+                    @{
+                        var pending = Model;
+                        TotalPending = 0;
+                        foreach (var x in pending)
+                        {
+                            TotalPending = TotalPending + (x.stat2);
+                        }
+                    }
+
+                    <!-- BEGIN WIDGET THUMB -->
+                    <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
+                        <h4 class="widget-thumb-heading">Sertifikat <br /> (Print)</h4>
+                        <div class="widget-thumb-wrap">
+                            <i class="widget-thumb-icon bg-red icon-layers"></i>
+                            <div class="widget-thumb-body">
+                                <span class="widget-thumb-body-stat" style="font-size:40px" data-counter="counterup">200</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END WIDGET THUMB -->
+                </div>
+                <div class="col-md-2">
+
+                    @{
+                        var pending1 = Model;
+                        TotalPending = 0;
+                        foreach (var x in pending1)
+                        {
+                            TotalPending = TotalPending + (x.stat2);
+                        }
+                    }
+
+                    <!-- BEGIN WIDGET THUMB -->
+                    <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
+                        <h4 class="widget-thumb-heading">Salinan Akta <br />(Print)</h4>
+                        <div class="widget-thumb-wrap">
+                            <i class="widget-thumb-icon bg-red icon-layers"></i>
+                            <div class="widget-thumb-body">
+                                <span class="widget-thumb-body-stat" style="font-size:40px" data-counter="counterup">100</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END WIDGET THUMB -->
+                </div>
+                <div class="col-md-2">
+
+                    @{
+                        var pending2 = Model;
+                        TotalPending = 0;
+                        foreach (var x in pending2)
+                        {
+                            TotalPending = TotalPending + (x.stat2);
+                        }
+                    }
+
+                    <!-- BEGIN WIDGET THUMB -->
+                    <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
+                        <h4 class="widget-thumb-heading">Minuta Print <br />(Print)</h4>
+                        <div class="widget-thumb-wrap">
+                            <i class="widget-thumb-icon bg-red icon-layers"></i>
+                            <div class="widget-thumb-body">
+                                <span class="widget-thumb-body-stat" style="font-size:40px" data-counter="counterup">200</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END WIDGET THUMB -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="">
+    <div class="portlet light bordered">
+        <div class="portlet-title tabbable-line">
+            <div class="caption">
+                <i class="icon-bubbles font-dark hide"></i>
+                <span class="caption-subject font-dark bold uppercase">Status Dokumen </span>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="">
+                <table class="table table-hover table-light" id="Pendaftaran">
+                    <thead>
+                        <tr class="uppercase">
+                            <th>No Kontrak</th>
+                            <th>Nama Notaris</th>
+                            <th>Sertifkat(SoftCopy)</th>
+                            <th>SalinanAkta(SoftCopy)</th>
+                            <th>Minuta(SoftCopy)</th>
+                            <th>Sertifkat(Print)</th>
+                            <th>SalinanAkta(Print)</th>
+                            <th>Minuta(Print)</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var x in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.Raw(x.NoPerjanjian)
+                                </td>
+                                <td>
+                                    @Html.Raw(x.NamaNotaris)
+                                </td>
+                                <td>
+                                    @Html.Raw("OK")
+                                </td>
+                                <td>
+                                    @Html.Raw("OK")
+                                </td>
+                                <td>
+                                    @Html.Raw("OK")
+                                </td>
+                                <td>
+                                    @Html.Raw("Pending")
+                                </td>
+                                <td>
+                                    @Html.Raw("Pending")
+                                </td>
+                                <td>
+                                    @Html.Raw("Pending")
+                                </td>
+                                <td>
+                                    @Html.Raw("<a href='#'>Buat Ulang</a> | ")
+                                    @Html.Raw("<a href='#'>Print Ulang</a>")
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<script>
+        $("#Pendaftaran").dataTable(
+            {
+                "bInfo": false,
+                "bLengthChange": false,
+                "pageLength": 10,
+                "autoWidth": false,
+                "responsive": true,
+                //altEditor: true,     // Enable altEditor
+                language: {
+                    "sSearch": "Cari Data",
+                    searchPlaceholder: "Ketikan Kata Kunci",
+                    "emptyTable": "Tidak ada data",
+                    "infoEmpty": ""
+                }
+            });
+    </script>*@
+

@@ -1,0 +1,84 @@
+﻿@model  HashNetFramework.cMasterLogHIstory
+<div class="modal fade" id="datadialogaddupdatemaster" tabindex="-1" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            @using (Ajax.BeginForm("clnUpdMasterMTDLOGCOMMENT", new { Controller = "MasterData" }, new AjaxOptions
+            {
+                HttpMethod = "POST"
+            }, new { id = "clnMaster_form", @class = "form-horizontal" }))
+            {
+                @Html.AntiForgeryToken();
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">@ViewBag.OprMenu (@ViewBag.menu)</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-body">
+                        @Html.HiddenFor(x => x.keylookup)
+                        <div class="form-horizontal">
+                            <div class="form-body" style="padding:20px">
+                                @if (ViewBag.oprvalue == "view")
+                                {
+
+                                }
+                                else
+                                {
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            @Html.DropDownListFor(m => m.SelectDivisi, (MultiSelectList)ViewData["SelectStatus"], new { @class = "form-control select2" })
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn green" data-dismiss="modal">
+                        <i class="fa fa-close"></i>
+                        <span>&nbsp;Tutup</span>
+                    </button>
+                    @if (ViewBag.oprvalue != "view")
+                    {
+                        <button type="button" class="btn green masteradd">
+                            <i class="fa fa-check-square"></i>
+                            <span>&nbsp;Simpan </span>
+                        </button>
+                    }
+                </div>
+            }
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<script src="~/Scripts/vmMasterData.js"></script>
+<script>
+   $('.select2').select2({
+        dropdownParent: $('#datadialogaddupdatemaster')
+    });
+
+    $.fn.datepicker.defaults.format = "dd-MM-yyyy";
+    $('.date-picker').datepicker({
+        rtl: App.isRTL(),
+        orientation: "bottom",
+        autoclose: true
+    });
+    $("#datadialogaddupdatemaster").draggable();
+
+    @*$("#TglINV").datepicker('setDate', '@Model.TglINV');
+
+    var opp = '@ViewBag.oprvalue';
+    if (opp == "view")
+    {
+        $("#clnMaster_form").removeAttr("action");
+    }
+    $("#PPATID").val('@Model.PPATID').change();*@
+
+    vmMasterData.initbuton();
+    vmMasterData.init();
+</script>

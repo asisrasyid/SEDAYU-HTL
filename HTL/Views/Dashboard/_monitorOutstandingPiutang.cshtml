@@ -1,0 +1,227 @@
+﻿@model List<HashNetFramework.cDashMonitoring>
+
+<style>
+    td:not(:first-child) {
+        white-space: nowrap;
+    }
+
+    td:first-child {
+        width: 30%;
+    }
+</style>
+
+<center>
+    <h1 class="page-title">
+        @ViewBag.captiondesc
+    </h1>
+</center>
+<div class="row">
+    <div class="col-md-6 col-sm-8">
+        <div class="portlet light ">
+            <div class="portlet-title">
+                <div class="caption caption-md">
+                    <i class="icon-bar-chart font-dark hide"></i>
+                    <span class="caption-subject font-dark bold uppercase">Outstanding Piutang</span>
+                    <span class="caption-helper">...</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="row number-stats margin-bottom-30">
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <div class="stat-right">
+                            <div class="stat-number">
+                                <div class="title"> Total </div>
+                                <div class="number" id="gdtotal">
+                                    @{
+                                        decimal Gtotalall = 0;
+
+                                        var ModelPiutang = Model.AsEnumerable().Where(x => x.Kode == "Piutang").ToList();
+
+                                        if (ModelPiutang.Count > 0)
+                                        {
+                                            Gtotalall = ModelPiutang.AsEnumerable().Sum(x => x.Total);
+                                        }
+                                        @Html.Raw(string.Format("{0:n0}", Gtotalall));
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-scrollable table-scrollable-borderless">
+                    <table class="table table-hover table-light">
+                        <thead>
+                            <tr class="uppercase">
+                                <th>Klien  </th>
+                                <th> Periode  </th>
+                                <th> Jml.Berkas </th>
+                                <th> PNBP </th>
+                                <th> Fee Fidusia </th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var x in ModelPiutang)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.Raw(x.Klien)
+                                    </td>
+                                    <td>
+                                        @Html.Raw(x.Periode)
+                                    </td>
+                                    <td align="center">@string.Format("{0:n0}", x.stat0) </td>
+                                    <td align="right">@string.Format("{0:n0}", x.PNBP)</td>
+                                    <td align="right"> @string.Format("{0:n0}", x.FEEFidusia)</td>
+                                    <td align="right">
+                                        <span class="bold theme-font">@string.Format("{0:n0}", x.Total)</span>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-sm-8">
+        <div class="portlet light ">
+            <div class="portlet-title">
+                <div class="caption caption-md">
+                    <i class="icon-bar-chart font-dark hide"></i>
+                    <span class="caption-subject font-dark bold uppercase">Outstanding Claim FeeBase</span>
+                    <span class="caption-helper">...</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="row number-stats margin-bottom-30">
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <div class="stat-right">
+                            <div class="stat-number">
+                                <div class="title"> Total </div>
+                                <div class="number" id="gdtotal">
+                                    @{
+                                        decimal Gtotalallc = 0;
+
+                                        var ModelClaim = Model.AsEnumerable().Where(x => x.Kode == "Claim").ToList();
+
+                                        if (ModelClaim.Count > 0)
+                                        {
+                                            Gtotalallc = ModelClaim.AsEnumerable().Sum(x => x.Total);
+                                        }
+                                        @Html.Raw(string.Format("{0:n0}", Gtotalallc));
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-scrollable table-scrollable-borderless">
+                    <table class="table table-hover table-light">
+                        <thead>
+                            <tr class="uppercase">
+                                <th>Klien  </th>
+                                <th> Periode  </th>
+                                <th style="text-align:center"> Jml.Berkas </th>
+                                <th style="text-align:right"> ClaimBase </th>
+                                <th style="text-align:right"> PPN </th>
+                                <th style="text-align:right">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var x in ModelClaim)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.Raw(x.Klien)
+                                    </td>
+                                    <td>
+                                        @Html.Raw(x.Periode)
+                                    </td>
+                                    <td align="center">@string.Format("{0:n0}", x.stat0) </td>
+                                    <td align="right">@string.Format("{0:n0}", x.PNBP)</td>
+                                    <td align="right"> @string.Format("{0:n0}", x.FEEFidusia)</td>
+                                    <td align="right">
+                                        <span class="bold theme-font">@string.Format("{0:n0}", x.Total)</span>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-5 col-sm-6">
+        <div class="portlet light ">
+            <div class="portlet-title tabbable-line">
+                <div class="caption">
+                    <i class=" icon-social-twitter font-dark hide"></i>
+                    <span class="caption-subject font-dark bold uppercase">LastTime Update</span>
+                </div>
+                <ul class="nav nav-tabs"></ul>
+            </div>
+            <div class="portlet-body">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tab_actions_pending">
+                        <!-- BEGIN: Actions -->
+                        <div class="mt-actions">
+                            <div class="mt-action">
+                                <div class="mt-action-body">
+                                    <div class="mt-action-row">
+                                        <div class="mt-action-info ">
+                                            <div class="mt-action-icon ">
+                                                <i class="icon-magnet"></i>
+                                            </div>
+                                            <div class="mt-action-details ">
+                                                <span class="mt-action-author">Schedule</span>
+                                                <p class="mt-action-desc">Menerima TxtFile</p>
+                                            </div>
+                                        </div>
+                                        <div class="mt-action-datetime ">
+                                            @if (ModelPiutang.Count > 0)
+                                            {
+                                                <span class="mt-action-date">@Html.Raw(string.Format("{0:dd-MMM-yyyy}", ModelPiutang[0].TanggalUpdate));</span>
+                                                <span class="mt-action-dot bg-green"></span>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- END: Actions -->
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+
+<script>
+    $("#Pendaftaran").dataTable(
+        {
+            "bInfo": false,
+            "bLengthChange": false,
+            "pageLength": 10,
+            "autoWidth": false,
+            "responsive": true,
+            //altEditor: true,     // Enable altEditor
+            language: {
+                "sSearch": "Cari Data",
+                searchPlaceholder: "Ketikan Kata Kunci",
+                "emptyTable": "Tidak ada data",
+                "infoEmpty": ""
+            }
+        });
+</script>
+

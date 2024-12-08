@@ -1,0 +1,83 @@
+﻿@model DusColl.vmAccount
+<style>
+    td:not(:first-child) {
+        white-space: nowrap;
+    }
+
+    td:last-child {
+        width: 30%;
+    }
+</style>
+
+<table class="table table-striped table-hover table-bordered" id="table_tx_log">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Persetujuan</th>
+            <th>PIC Persetujuan</th>
+            <th>Tindakan</th>
+            <th>Tipe</th>
+            <th>Diajukan</th>
+            <th>Diproses</th>
+            <th>Keterangan</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.DTLogTx != null)
+        {
+            foreach (System.Data.DataRow item in Model.DTLogTx.Rows)
+            {
+                <tr class="DrillDownRow">
+                    <td align="center">
+                        @Html.Raw(item["DateOut"].ToString() != "" ? "<i class='fa fa-check'></i>" : "" )
+                    </td>
+                    <td>
+                        @Html.Raw(item["ApprovalName"])
+                    </td>
+                    <td>
+                        @Html.Raw(item["PICApproval"])
+                    </td>
+                    <td>
+                        @Html.Raw(item["Action"])
+                    </td>
+                    <td>
+                        @Html.Raw(item["ApprovalTypeDesc"])
+                    </td>
+                    <td>
+                        @Html.Raw(item["DateIN"])
+                    </td>
+                    <td>
+                        @Html.Raw(item["DateOut"])
+                    </td>
+                    <td>
+                        @Html.Raw(item["Comment"])
+                    </td>
+                </tr>
+
+            }
+        }
+    </tbody>
+</table>
+<script>
+
+    $.getScript("/Content/assets/pages/scripts/table-datatable-custom.js")
+        .done(function (script, textStatus) {
+
+            var currentP =@Model.FilterTransaksi.pagenumberclientLog.ToString();
+            var totalRDBAll =@Model.FilterTransaksi.TotalRecordLog.ToString();
+            var totalR =@Model.FilterTransaksi.totalRecordclientLog.ToString();
+            var totalP =@Model.FilterTransaksi.totalPageclientLog.ToString();
+            var nextP =@Model.FilterTransaksi.pagenumberclientLog+1;
+            var prevP =@Model.FilterTransaksi.pagenumberclientLog-1;
+
+            var parurl = 'Account/clnRgridHeaderTxLog';
+            var divgrid = 'gridTxLog';
+            var tabled = 'table_tx_log';
+
+            $("#" + tabled).DataTable().destroy();
+
+            TableDatatablesEditable1.initPaging(tabled, currentP, totalR, totalP, nextP, prevP, parurl, divgrid, 0);
+
+        });
+</script>
+

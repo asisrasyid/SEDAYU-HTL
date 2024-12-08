@@ -1,0 +1,169 @@
+﻿@model  HashNetFramework.cMasterDataBranch
+<style>
+    .disabled {
+        background-color: #eef1f5
+    }
+</style>
+
+<div class="modal fade" id="datadialogaddupdatemaster" tabindex="-1" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            @using (Ajax.BeginForm("clnUpdMasterMTDBRCH", new { Controller = "MasterData" }, new AjaxOptions
+            {
+                HttpMethod = "POST"
+            }, new { id = "clnMaster_form", @class = "form-horizontal" }))
+            {
+                @Html.AntiForgeryToken();
+                @Html.HiddenFor(x => x.hdPicSelect)
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">@ViewBag.OprMenu (@ViewBag.menu)</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-body">
+                        @Html.HiddenFor(x => x.keylookup)
+                        <div class="form-horizontal">
+                            <div class="form-body" style="padding:20px">
+                                @if (ViewBag.oprvalue == "view")
+                                {
+
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            Kode Cabang
+                                            @Html.TextBoxFor(m => m.BRCH_CODE, new { @class = "form-control NonEdittable", @maxlength = "50", @disabled = "disabled" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            Nama Cabang
+                                            @Html.TextBoxFor(m => m.BRCH_NAME, new { @class = "form-control NonEdittable", @maxlength = "50", @disabled = "disabled" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            Area
+                                            @Html.TextBoxFor(m => m.AREA_NAME, new { @class = "form-control NonEdittable", @maxlength = "50", @disabled = "disabled" })
+                                        </div>
+                                    </div>
+                                    <div class="md-checkbox-list">
+                                        <div class="md-checkbox">
+                                            @Html.CheckBoxFor(m => m.IsPusat, new { @class = "md-check", @disabled = "disabled" })
+                                            <label for="IsPusat">
+                                                <span></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span> Head Office
+                                            </label>
+                                        </div>
+                                        <div class="md-checkbox">
+                                            @Html.CheckBoxFor(m => m.IsActive, new { id = "IsActive", @class = "md-check", @disabled = "disabled" })
+                                            <label for="IsActive">
+                                                <span></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span> Status Aktif
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                }
+                                else
+                                {
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            Kode Cabang
+                                            @Html.TextBoxFor(m => m.BRCH_CODE, new { @class = "form-control", @maxlength = "4" })
+                                            @Html.ValidationMessageFor(m => m.BRCH_CODE, "", new { @class = "error-block" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            Nama Cabang
+                                            @Html.TextBoxFor(m => m.BRCH_NAME, new { @class = "form-control", @maxlength = "50" })
+                                            @Html.ValidationMessageFor(m => m.BRCH_NAME, "", new { @class = "error-block" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            Area
+                                            @Html.DropDownListFor(m => m.REGION, (IEnumerable<SelectListItem>)ViewData["SelectArea"], "Pilih..", new { @class = "form-control select2", @onchange = "vmMasterData.validobjt(this);" })
+                                            @Html.ValidationMessageFor(m => m.REGION, "", new { @class = "error-block" })
+                                        </div>
+                                    </div>
+
+                                    <div class="md-checkbox-list">
+                                        <div class="md-checkbox">
+                                            @Html.CheckBoxFor(m => m.IsPusat, new { @class = "md-check" })
+                                            <label for="IsPusat">
+                                                <span></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span> Head Office
+                                            </label>
+                                        </div>
+                                        <div class="md-checkbox">
+                                            @Html.CheckBoxFor(m => m.IsActive, new { id = "IsActive", @class = "md-check" })
+                                            <label for="IsActive">
+                                                <span></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span> Status Aktif
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn green" data-dismiss="modal">
+                        <i class="fa fa-close"></i>
+                        <span>&nbsp;Tutup</span>
+                    </button>
+                    @if (ViewBag.oprvalue != "view")
+                    {
+                        <button type="button" class="btn green masteradd">
+                            <i class="fa fa-check-square"></i>
+                            <span>&nbsp;Simpan </span>
+                        </button>
+                    }
+                </div>
+            }
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<script src="~/Scripts/vmMasterData.js"></script>
+<script>
+    $('.select2').select2({
+        dropdownParent: $('#datadialogaddupdatemaster')
+    });
+
+
+    $(".select2").width("");
+
+    $.fn.datepicker.defaults.format = "dd-MM-yyyy";
+    $('.date-picker').datepicker({
+        rtl: App.isRTL(),
+        orientation: "bottom",
+        autoclose: true
+    });
+
+     ComponentsBootstrapSelect.init();
+    var valmul = '@Model.PicSelect'.split(',');
+    $('#PIC').selectpicker('val', valmul);
+
+    var opp = '@ViewBag.oprvalue';
+    if (opp == "view")
+    {
+        $("#clnMaster_form").removeAttr("action");
+        $("#clnMaster_form").removeAttr("method");
+        $("#clnMaster_form").removeAttr("id");
+    }
+
+</script>

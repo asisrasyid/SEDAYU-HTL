@@ -1,0 +1,58 @@
+﻿@model DusColl.vmHome
+<style>
+    td:not(:first-child) {
+        white-space: nowrap;
+    }
+
+
+    td:last-child {
+        width: 2%;
+    }
+
+    .btn {
+        padding: 6px 7px;
+        margin-bottom: 0;
+        /*border-radius: 0;*/
+        /*border: 0;*/
+    }
+
+    .btngridx {
+        padding: 1px 5px;
+        margin-bottom: 0;
+    }
+
+    .btngrid {
+        padding: 6.7px 7px;
+        margin-bottom: 0;
+        border-radius: 0;
+        border: 0;
+    }
+</style>
+
+
+<table class="table table-striped table-hover table-bordered" id="table_tx1">
+    <thead>
+        <tr>
+
+            <th>Cabang</th>
+            <th>Perbaikan</th>
+            <th>Pending</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.TodoNOT != null)
+        {
+            var i = 0;
+            foreach (System.Data.DataRow item in Model.TodoNOT.Rows)
+            {
+                <tr class="DrillDownRow">
+                    <td width="150px" align="center">@item["OrderKeNotaris"].ToString()</td>
+                    <td width="30px" align="center">@item["Pengecekan Sertifikat"].ToString()</td>
+                    <td width="30px" align="center">@item["Sending BPN"].ToString()</td>
+                </tr>
+            }
+
+        }
+
+    </tbody>
+</table>

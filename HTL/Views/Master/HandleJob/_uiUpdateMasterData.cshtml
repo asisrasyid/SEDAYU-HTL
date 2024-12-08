@@ -1,0 +1,155 @@
+﻿@model  HashNetFramework.cMasterDataHandleJobs
+<style>
+    .disabled {
+        background-color: #eef1f5
+    }
+</style>
+<div class="modal fade" id="datadialogaddupdatemaster" tabindex="-1" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            @using (Ajax.BeginForm("clnUpdMasterMTDJOBDESC", new { Controller = "MasterData" }, new AjaxOptions
+            {
+                HttpMethod = "POST"
+            }, new { id = "clnMaster_form", @class = "form-horizontal" }))
+            {
+                @Html.AntiForgeryToken();
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">@ViewBag.OprMenu (@ViewBag.menu)</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-body">
+                        @Html.HiddenFor(x => x.keylookup)
+                        @Html.HiddenFor(x => x.hdDivisiSelect)
+                        <div class="form-horizontal">
+                            <div class="form-body" style="padding:20px">
+                                @if (ViewBag.oprvalue == "view")
+                                {
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            Deskripsi Jobs
+                                            @Html.TextBoxFor(m => m.JOBDESC, new { @class = "form-control NonEdittable", @maxlength = "50", @disabled = "disabled" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            Dibutuhkan divisi
+                                            @Html.DropDownListFor(m => m.DIVISI, (IEnumerable<SelectListItem>)ViewData["SelectDivisi"], new { @class = "bs-select form-control disabled", multiple = "multiple", @title = "Pilih ", @disabled = "disabled", @onchange = "vmMasterData.validobjt(this);" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            Divisi
+                                            @Html.DropDownListFor(m => m.DivisiSelectOne, (IEnumerable<SelectListItem>)ViewData["SelectDivisi"], "Pilih..", new { @class = "form-control select2", @disabled = "disabled", @onchange = "vmMasterData.validobjt(this);" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-6">
+                                            <div class="md-checkbox-list">
+                                                <div class="md-checkbox">
+                                                    @Html.CheckBoxFor(m => m.IsActive, new { id = "IsActive", @class = "md-check", @disabled = "disabled" })
+                                                    <label for="IsActive">
+                                                        <span></span>
+                                                        <span class="check"></span>
+                                                        <span class="box"></span> Status Aktif
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            Deskripsi Handle Jobs
+                                            @Html.TextBoxFor(m => m.JOBDESC, new { @class = "form-control", @maxlength = "50" })
+                                            @Html.ValidationMessageFor(m => m.JOBDESC, "", new { @class = "error-block" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            Divisi Handle
+                                            @Html.DropDownListFor(m => m.DIVISI, (IEnumerable<SelectListItem>)ViewData["SelectDivisi"], new { @class = "bs-select form-control", multiple = "multiple", @title = "Pilih " })
+                                            @Html.ValidationMessageFor(m => m.DIVISI, "", new { @class = "error-block" })
+                                        </div>
+                                    </div>
+                                    if (ViewBag.oprvalue == "edit")
+                                    {
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                Divisi
+                                                @Html.DropDownListFor(m => m.DivisiSelectOne, (IEnumerable<SelectListItem>)ViewData["SelectDivisi"], "Pilih..", new { @class = "form-control select2"})
+                                            </div>
+                                        </div>
+                                    }
+                                    <div class="form-group">
+                                        <div class="col-md-6">
+                                            <div class="md-checkbox-list">
+                                                <div class="md-checkbox">
+                                                    @Html.CheckBoxFor(m => m.IsActive, new { id = "IsActive", @class = "md-check" })
+                                                    <label for="IsActive">
+                                                        <span></span>
+                                                        <span class="check"></span>
+                                                        <span class="box"></span> Status Aktif
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn green" data-dismiss="modal">
+                        <i class="fa fa-close"></i>
+                        <span>&nbsp;Tutup</span>
+                    </button>
+                    @if (ViewBag.oprvalue != "view")
+                    {
+                        <button type="button" class="btn green masteradd">
+                            <i class="fa fa-check-square"></i>
+                            <span>&nbsp;Simpan </span>
+                        </button>
+                    }
+                </div>
+            }
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<script src="~/Scripts/vmMasterData.js"></script>
+<script>
+    $('.select2').select2({
+        dropdownParent: $('#datadialogaddupdatemaster'),
+    });
+
+    $(".select2").width("");
+
+    $.fn.datepicker.defaults.format = "dd-MM-yyyy";
+    $('.date-picker').datepicker({
+        rtl: App.isRTL(),
+        orientation: "bottom",
+        autoclose: true
+    });
+
+    ComponentsBootstrapSelect.init();
+    var valmul = '@Model.DivisiSelect'.split(',');
+    $('#DIVISI').selectpicker('val', valmul);
+
+    var opp = '@ViewBag.oprvalue';
+    if (opp == "view")
+    {
+        $("#clnMaster_form").removeAttr("action");
+        $("#clnMaster_form").removeAttr("method");
+        $("#clnMaster_form").removeAttr("id");
+    }
+
+</script>

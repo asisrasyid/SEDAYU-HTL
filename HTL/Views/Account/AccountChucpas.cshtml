@@ -1,0 +1,139 @@
+﻿@model DusColl.vmAccount
+@{
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+<div class="logo">
+    <a href="javascript:;">
+        <h3 class="form-title font-green"> <img src="~/Content/assets/layouts/layout2/img/logo-fdcm-default-login-Blue.png" alt="logo" class="logo-default home" style="width:140px; padding-top: 0px;" /></h3>
+    </a>
+</div>
+
+<div class="content" style="padding-top:25px;">
+    <h4 style="padding:15px;padding-left:0px">Perubahan Kata Sandi</h4>
+
+
+    <div id="cssShowMessagex" style="display:none;">
+        <button class="close" data-close="alert"></button>
+        <h4>Selamat..</h4>
+        <span id="idShowMessagex"></span>
+        <div style="padding-top:20px">
+            <a href="@Url.Action("LogUserIn","Account")" class="btn green">
+                <i class="icon-key"></i>&nbsp; Sign In
+            </a>
+        </div>
+    </div>
+
+    <p style="color:#fff">
+        @using (Ajax.BeginForm("clnKipatkay", new { Controller = "Account" }, new AjaxOptions { HttpMethod = "POST", OnBegin = "vmAccount.ChacctBegin", OnSuccess = "vmAccount.ChacctSuccess", OnFailure = "vmAccount.ChacctFailure" }, new { id = "frmmanabisa", @class = "form-horizontal" }))
+        {
+
+            @Html.AntiForgeryToken();
+            @Html.HiddenFor(m => m.AccountLogin.secIDUser)
+            @Html.Hidden("majutakgentar")
+            @Html.Hidden("kursakukenji")
+
+            <div id="cssShowMessage" style="display:none;">
+                <button class="close" data-close="alert"></button>
+                <span id="idShowMessage"></span>
+            </div>
+
+            <div id="inptk">
+                <div class="">
+                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            @Html.TextBoxFor(m => m.AccountLogin.UserID, new { @class = "form-control placeholder-no-fix", autocomplete = "off", placeholder = "ID Pengguna", @readonly = "readonly", Value = @Model.AccountLogin.UserID })
+                            @Html.ValidationMessageFor(m => m.AccountLogin.UserID, "", new { @class = "error-block" })
+                        </div>
+                    </div>
+                </div>
+                <div class="">
+                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <div class="input-group">
+                                @Html.TextBoxFor(m => m.AccountLogin.UserPass, new { @class = "form-control powderhide", autocomplete = "off", placeholder = "Input Kata sandi lama", Value = "",@id= "UserPass" })
+                                <span class="input-group-addon psdefeusr">
+                                    <i class="fa fa-eye"></i>
+                                </span>
+                            </div>
+                            @Html.ValidationMessageFor(m => m.AccountLogin.UserPass, "", new { @class = "error-block" })
+                        </div>
+                    </div>
+                </div>
+                <div class="">
+                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <div class="input-group">
+                                @Html.TextBoxFor(m => m.AccountLogin.PasswordChange, new { @class = "form-control powderhide", autocomplete = "off", placeholder = "Input Kata sandi baru",@id= "PasswordChange" })
+                                <span class="input-group-addon psdefe">
+                                    <i class="fa fa-eye"></i>
+                                </span>
+                            </div>
+                            @Html.ValidationMessageFor(m => m.AccountLogin.PasswordChange, "", new { @class = "error-block" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="">
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <div class="input-group">
+                            @Html.TextBoxFor(m => m.AccountLogin.RetypePassword, new { @class = "form-control powderhide", autocomplete = "off", placeholder = "Ulangi kata sandi baru", @id = "RetypePassword" })
+                            <span class="input-group-addon psdefetype">
+                                <i class="fa fa-eye"></i>
+                            </span>
+                        </div>
+                        @Html.ValidationMessageFor(m => m.AccountLogin.RetypePassword, "", new { @class = "error-block" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="">
+                <div class="form-group  hideblock" id="powderkep">
+                    <div class="col-md-12">
+                        <div class="">
+                            @Html.TextBoxFor(m => m.AccountLogin.Userkodeverified, new { @class = "form-control placeholder-no-fix", autocomplete = "off", placeholder = "Input Kode Verifikasi disini" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.AccountLogin.Userkodeverified, "", new { @class = "error-block" })
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" class="btn green" id="sbtchangepass">
+                <i class="fa fa-gear"></i><span>&nbsp;Submit</span>
+            </button>
+
+            <a href="@Url.Action("HomeGate", new { @Controller = "Home" })" class="btn green">
+                <i class="icon arrow-left"></i><span>&nbsp;Kembali</span>
+            </a>
+
+        }
+    </p>
+
+</div>
+<script src="~/Content/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="~/Content/assets/global/plugins/jquery-migrate.min.js"></script>
+<script src="~/Content/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="~/Content/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="~/Content/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="~/Content/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+<script src="~/Content/assets/global/scripts/app.js" type="text/javascript"></script>
+<script src="~/Scripts/sweetalert.min.js"></script>
+<script src="~/Scripts/vmAccount.js"></script>
+
+@*<script>
+        try {
+            $.validator.unobtrusive.parse("#frmaccountchange");
+        } catch
+        {
+        }
+    </script>*@

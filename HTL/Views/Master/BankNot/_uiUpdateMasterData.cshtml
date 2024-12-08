@@ -1,0 +1,212 @@
+﻿@model  HashNetFramework.cMasterDataBank
+<div class="modal fade" id="datadialogaddupdatemaster" tabindex="-1" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            @using (Ajax.BeginForm("clnUpdMasterMTDBANKNOT", new { Controller = "MasterData" }, new AjaxOptions
+            {
+                HttpMethod = "POST"
+            }, new { id = "clnMaster_form", @class = "form-horizontal" }))
+            {
+                @Html.AntiForgeryToken();
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">@ViewBag.OprMenu (@ViewBag.menu)</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-body">
+                        @Html.HiddenFor(x => x.keylookup)
+                        <div class="form-horizontal">
+                            <div class="form-body" style="padding:20px">
+                                @if (ViewBag.oprvalue == "view")
+                                {
+
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            Nama PPAT
+                                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control NonEdittable", @maxlength = "50", @disabled = "disabled" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            No Rekening
+                                            @Html.TextBoxFor(m => m.NoRekening, new { @class = "form-control NonEdittable", @maxlength = "50", @disabled = "disabled" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            Pemilik Rekening
+                                            @Html.TextBoxFor(m => m.PemilikRekening, new { @class = "form-control NonEdittable", @maxlength = "50", @disabled = "disabled" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            Nama Bank
+                                            @Html.TextBoxFor(m => m.NamaBank, new { @class = "form-control NonEdittable", @maxlength = "50", @disabled = "disabled" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            Cabang Rekening
+                                            @Html.TextBoxFor(m => m.CabangBank, new { @class = "form-control NonEdittable", @maxlength = "50", @disabled = "disabled" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            Jasa Checking
+                                            @Html.TextBoxFor(m => m.PRC_CHECK, new { @class = "form-control NonEdittable", @maxlength = "50", @disabled = "disabled" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            Jasa SKMHT
+                                            @Html.TextBoxFor(m => m.PRC_SKMHT, new { @class = "form-control NonEdittable", @maxlength = "50", @disabled = "disabled" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            Jasa APHT
+                                            @Html.TextBoxFor(m => m.PRC_APHT, new { @class = "form-control NonEdittable", @maxlength = "50", @disabled = "disabled" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            Jasa Batal Pengajuan
+                                            @Html.TextBoxFor(m => m.PRC_CNLBAKD, new { @class = "form-control NonEdittable", @maxlength = "50", @disabled = "disabled" })
+                                        </div>
+                                    </div>
+
+                                }
+                                else
+                                {
+
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            Nama PPAT
+                                            @Html.DropDownListFor(m => m.SelectNotaris, (MultiSelectList)ViewData["SelectNotaris"], new { @class = "form-control select2" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            Kode Invoice
+                                            @Html.TextBoxFor(m => m.KodeInvoice, new { @class = "form-control", @maxlength = "3" })
+                                            @Html.ValidationMessageFor(m => m.KodeInvoice, "", new { @class = "error-block" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            No Rekening
+                                            @Html.TextBoxFor(m => m.NoRekening, new { @class = "form-control Numberonly", @maxlength = "30" })
+                                            @Html.ValidationMessageFor(m => m.NoRekening, "", new { @class = "error-block" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            Pemilik Rekening
+                                            @Html.TextBoxFor(m => m.PemilikRekening, new { @class = "form-control", @maxlength = "320" })
+                                            @Html.ValidationMessageFor(m => m.PemilikRekening, "", new { @class = "error-block" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            Nama Bank
+                                            @Html.TextBoxFor(m => m.NamaBank, new { @class = "form-control", @maxlength = "50" })
+                                            @Html.ValidationMessageFor(m => m.NamaBank, "", new { @class = "error-block" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            Cabang Rekening
+                                            @Html.TextBoxFor(m => m.CabangBank, new { @class = "form-control", @maxlength = "50" })
+                                            @Html.ValidationMessageFor(m => m.CabangBank, "", new { @class = "error-block" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            Jasa Checking
+                                            @Html.TextBoxFor(m => m.PRC_CHECK, new { @class = "form-control floatCurdisp", @maxlength = "50", @style = "text-align:right" })
+                                            @Html.ValidationMessageFor(m => m.PRC_CHECK, "", new { @class = "error-block" })
+                                            <strong><span id="idPRC_CHECK"></span></strong>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            Jasa SKMHT
+                                            @Html.TextBoxFor(m => m.PRC_SKMHT, new { @class = "form-control floatCurdisp", @maxlength = "50", @style = "text-align:right" })
+                                            @Html.ValidationMessageFor(m => m.PRC_SKMHT, "", new { @class = "error-block" })
+                                            <strong><span id="idPRC_SKMHT"></span></strong>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            Jasa APHT
+                                            @Html.TextBoxFor(m => m.PRC_APHT, new { @class = "form-control floatCurdisp", @maxlength = "50", @style = "text-align:right" })
+                                            @Html.ValidationMessageFor(m => m.PRC_APHT, "", new { @class = "error-block" })
+                                            <strong><span id="idPRC_APHT"></span></strong>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            Jasa Batal Pengajuan
+                                            @Html.TextBoxFor(m => m.PRC_CNLBAKD, new { @class = "form-control floatCurdisp", @maxlength = "50", @style = "text-align:right" })
+                                            @Html.ValidationMessageFor(m => m.PRC_CNLBAKD, "", new { @class = "error-block" })
+                                            <strong><span id="idPRC_CNLBAKD"></span></strong>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn green" data-dismiss="modal">
+                        <i class="fa fa-close"></i>
+                        <span>&nbsp;Tutup</span>
+                    </button>
+                    @if (ViewBag.oprvalue != "view")
+                    {
+                        <button type="button" class="btn green masteradd">
+                            <i class="fa fa-check-square"></i>
+                            <span>&nbsp;Simpan </span>
+                        </button>
+                    }
+                </div>
+            }
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<script src="~/Scripts/vmMasterData.js"></script>
+<script>
+    $('.select2').select2({
+        dropdownParent: $('#datadialogaddupdatemaster')
+    });
+
+    $.fn.datepicker.defaults.format = "dd-MM-yyyy";
+    $('.date-picker').datepicker({
+        rtl: App.isRTL(),
+        orientation: "bottom",
+        autoclose: true
+    });
+    $("#datadialogaddupdatemaster").draggable();
+
+    var opp = '@ViewBag.oprvalue';
+    if (opp == "view")
+    {
+        $("#clnMaster_form").removeAttr("action");
+    }
+    $("#SelectNotaris").val('@Model.SelectNotaris').change();
+
+    vmMasterData.initbuton();
+    vmMasterData.init();
+    vmMasterData.initcur('@Model.PRC_CHECK', '@Model.PRC_APHT', '@Model.PRC_SKMHT', '@Model.PRC_CNLBAKD','PRC_CHECK', 'PRC_APHT', 'PRC_SKMHT', 'PRC_CNLBAKD');
+
+
+</script>

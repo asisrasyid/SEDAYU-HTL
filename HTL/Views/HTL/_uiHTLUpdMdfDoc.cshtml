@@ -1,0 +1,34 @@
+﻿@model  HashNetFramework.cHTLIPTData
+
+<div class="modal fade" id="datadialogaupdhtlipt" tabindex="-1" role="basic" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            @using (Ajax.BeginForm("clnUpdHTLIPT", new { Controller = "HTL" }, new AjaxOptions
+            {
+                HttpMethod = "POST"
+            }, new { id = "clnHTL_formipt", @class = "form-horizontal" }))
+            {
+
+                @Html.AntiForgeryToken();
+                @Html.HiddenFor(x => x.keylookupdataHTXIpt)
+                @Html.Hidden("ctexipt")
+                @Html.Hidden("jntexipt", HashNetFramework.HasKeyProtect.Encryption(Model.JenisData))
+                @Html.Hidden("euxipt");
+                @Html.Hidden("auxipt", HashNetFramework.HasKeyProtect.Encryption(Model.NoApplIpt));
+                <div class="modal-header">
+                    <h4 class="modal-title"><strong>FORM PENGAJUAN </strong></h4>
+                </div>
+            }
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<script src="~/Content/assets/pages/scripts/form-fileupload.js"></script>
+<script src="~/Scripts/vmHTL.js"></script>
+<script src="~/Scripts/jquery.Jcrop.min.js"></script>
+

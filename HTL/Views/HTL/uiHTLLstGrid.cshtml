@@ -1,0 +1,233 @@
+﻿@model DusColl.vmHTL
+<style>
+    td:not(:first-child) {
+        white-space: nowrap;
+    }
+
+
+    td:last-child {
+        width: 10%;
+    }
+
+    .btn {
+        padding: 6px 7px;
+        margin-bottom: 0;
+        /*border-radius: 0;*/
+        /*border: 0;*/
+    }
+
+    .btngridx {
+        padding: 1px 5px;
+        margin-bottom: 0;
+    }
+
+    .btngrid {
+        padding: 6.7px 7px;
+        margin-bottom: 0;
+        border-radius: 0;
+        border: 0;
+    }
+</style>
+
+<table class="table table-striped table-bordered table-hover dt-responsive" width="100%" id="table_tx">
+    <thead>
+        <tr>
+            <th align="left" width="1%" class="all"><input type="checkbox" onclick="vmHTL.Checklist(this.checked, 'AktaSelectdwn')" /></th>
+            <th data-priority="1">No<br /> Aplikasi</th>
+            <th>Nama <br /> Cabang</th>
+            <th data-priority="1">Nama<br /> Debitur</th>
+            <th data-priority="1">Wilayah</th>
+            <th>Ditangani <br /> PPAT</th>
+            <th>Tidak ada <br /> penanganan (Hari)</th>
+            <th data-priority="1">Status <br /> Penanganan</th>
+            <th>Status <br /> Penagihan</th>
+            <th class="all"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.DTHeaderTx != null)
+        {
+            var i = 0;
+            foreach (System.Data.DataRow item in Model.DTHeaderTx.Rows)
+            {
+                i = i + 1;
+                <tr class="DrillDownRow">
+                    <td align="center">
+                        @if (item["AllowCheckBox"].ToString() == "allow")
+                        {
+                            <input type="checkbox" name="AktaSelectdwn" value="@Html.Raw(item["keylookupdata"])" />
+                        }
+                    </td>
+                    <td>@item["NoAppl"].ToString()</td>
+                    <td>@item["NamaCabang"].ToString().ToUpper()</td>
+                    <td>@item["Debitur"].ToString()</td>
+                    <td>@item["LokasiTanahDiKota"].ToString()</td>
+                    <th>@item["OrderKeNotarisDesc"].ToString()</th>
+                    <td>@item["NoACTION"].ToString()</td>
+                    <td>
+                        @if (item["StatusDesc"].ToString().Contains("Menyelesaikan Isue") || item["StatusDesc"].ToString().Contains("Sudah Akad (CN)"))
+                        {
+                            @(item["StatusDesc"].ToString() + " (" + item["PosisiBerkas"].ToString() + " - " + item["GroupPosisi"].ToString() + ")")
+                        }
+                        else
+                        {
+                            @item["StatusDesc"].ToString()
+                        }
+                    </td>
+                    <td>
+                        @if (!item["StatusPenagihan"].ToString().Contains("Input Berkas"))
+                        {
+                            @item["StatusPenagihan"].ToString()
+                        }
+                    </td>
+                    <td style="background-color:#eee">
+                        <div class="btn-group pull-right">
+                            <button class="btn green btn-xs btn-outline dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                Proses
+                                <i class="fa fa-angle-down"></i>
+                            </button>
+                            <ul class="dropdown-menu bottom-up">
+                                <li>
+                                    <a class="open4view" data-value="@Model.FilterTransaksi.ModuleName.ToString(),@item["keylookupdata"],x4vw">
+                                        <i class="fa fa-eye"></i> Lihat
+                                    </a>
+                                </li>
+                                @if (Model.Permission.AllowEdit == true)
+                                {
+                                    if (item["AllowEdit"].ToString() == "allow")
+                                    {
+                                        <li>
+                                            <a class="open4edit" data-value="@Model.FilterTransaksi.ModuleName.ToString(),@item["keylookupdata"],x4vwe">
+                                                <i class="fa fa-pencil-square"></i>&nbsp;Ubah
+                                            </a>
+                                        </li>
+                                        if (item["StatusDesc"].ToString().Contains("Menyelesaikan Isue") || item["StatusDesc"].ToString().Contains("Sudah Akad (CN)"))
+                                        {
+                                            <li>
+                                                <a class="openedit_grouping" data-value="@HashNetFramework.HasKeyProtect.Encryption(item["NoAppl"].ToString()),@HashNetFramework.HasKeyProtect.Encryption("1"),gd">
+                                                    <i class="fa fa-th-large"></i>&nbsp;Posisi Pengajuan
+                                                </a>
+                                            </li>
+                                        }
+                                    }
+                                    if (item["AllowEditInv"].ToString() == "allow")
+                                    {
+                                        <li>
+                                            <a class="open4editInv" data-value="@HashNetFramework.HasKeyProtect.Encryption(item["NoAppl"].ToString()),@HashNetFramework.HasKeyProtect.Encryption("inv"),gd">
+                                                <i class="fa fa-check"></i>&nbsp;Validasi Penagihan
+                                            </a>
+                                        </li>
+                                    }
+                                    if (item["AllowEditExpired"].ToString() == "allow")
+                                    {
+                                        <li>
+                                            <a class="open4editExp" data-value="@HashNetFramework.HasKeyProtect.Encryption(item["NoAppl"].ToString()),@HashNetFramework.HasKeyProtect.Encryption("inv"),gd">
+                                                <i class="fa fa-check"></i>&nbsp;Validasi Siap Akad
+                                            </a>
+                                        </li>
+                                    }
+                                    if (item["AllowEditReject"].ToString() == "allow")
+                                    {
+                                        <li>
+                                            <a class="open4editRjt" data-value="@HashNetFramework.HasKeyProtect.Encryption(item["NoAppl"].ToString()),@HashNetFramework.HasKeyProtect.Encryption("inv"),gd">
+                                                <i class="fa fa-check"></i>&nbsp;Validasi Aktivasi Pengajuan
+                                            </a>
+                                        </li>
+                                    }
+
+                                }
+                                @if (item["StatusDesc"].ToString() != "Input Berkas")
+                                {
+                                    <li>
+                                        <a class="open4riwayat" data-value="@HashNetFramework.HasKeyProtect.Encryption(item["NoAppl"].ToString()),@HashNetFramework.HasKeyProtect.Encryption("1"),gd">
+                                            <i class="fa fa-sticky-note"></i>&nbsp;Riwayat
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+
+<script src="~/Scripts/vmHTL.js"></script>
+<script>
+    $.getScript("/Content/assets/pages/scripts/table-datatable-custom.js")
+        .done(function (script, textStatus) {
+            var currentP =@Model.FilterTransaksi.pagenumberclient.ToString();
+            var totalRDBAll =@Model.FilterTransaksi.TotalRecord.ToString();
+            var totalR =@Model.FilterTransaksi.totalRecordclient.ToString();
+            var totalP =@Model.FilterTransaksi.totalPageclient.ToString();
+            var nextP =@Model.FilterTransaksi.pagenumberclient+1;
+            var prevP =@Model.FilterTransaksi.pagenumberclient-1;
+
+            var tbj = '@Model.Permission.AllowAdd';
+            var tbjd = '@Model.Permission.AllowDownload'
+            var tbjg = '@Model.Permission.AllowGenerate'
+
+            var parurl = 'HTL/clnRgridHeaderTx';
+            var divgrid = 'gridTx';
+            var tabled = 'table_tx';
+
+            $("#" + tabled).DataTable().destroy();
+
+              TableDatatablesEditable1.initPaging(tabled, currentP, totalR, totalP, nextP, prevP, parurl, divgrid, 0);
+            $("#table_tx_filter > label > input").before("<div style='padding-left:5px'>@Html.Raw(ViewBag.Total)</div>");
+            $("#table_tx_filter > label > input").after(
+                "<button type='button' class='btn green btngrid OpenFilter' title='Pencarian' data-value='\"@Model.FilterTransaksi.ModuleName.ToString()\"'> <i class='fa fa-filter'></i></button > "+
+                "<button type='button' class='btn green btngrid LoadMenu' title='Refresh' data-value='\"Transaksi Data\",\"@Model.FilterTransaksi.ModuleName.ToString()\",\"HTL\",\"clnHeaderTx\"'><i class='fa fa-refresh'></i></button > " +
+                (tbjd == "true" || tbjd == "True" || tbjd == "1" ?
+                "<button type='button' class='btn green btngrid cetserti' title='Unduh Sertifikat' data-value='\"AktaSelectdwn\",\"\"'> <i class='fa fa-download'></i></button > "
+                    : "") +
+                (tbjg == "true" || tbjg == "True" || tbjg == "1" ?
+                    "<button type='button' class='btn green btngrid cetbrks' title='Unduh Berkas' data-value='\"AktaSelectdwn\",\"brk\"'> <i class='fa fa-cloud-download'></i></button > "
+                    : "") +
+                (tbj == "true" || tbj == "True" || tbj == "1" ?
+                "<button type='button' class='btn green btngrid openadd' title='Tambah Data' id='tbh' data-value='\"@Model.FilterTransaksi.ModuleName.ToString()\",\"\"'><i class='fa fa-plus'></i></button >"
+                    : "")
+            );
+            $("#table_tx_filter > label > div").css("color", "#95A5A6 !important")
+            vmHTL.initbuton();
+        });
+    /*$(document).ready(function () {
+        $('.openedit_grouping').on('click', function () {
+            var dataValue = $(this).data('value');
+            //alert(dataValue);
+            $.ajax({
+                url: "HTL/clnOpenShowHisTL",
+                type: "POST",
+                data: { paramkey: idkey, oprfun: oprgt },
+                dataType: "json",
+                beforeSend: function () {
+                    App.blockUI({});
+                },
+                success: function (data) {
+                    if (data.moderror == false) {
+                        App.unblockUI();
+                        $("#uidivhis").html(data.view);
+                        if (oprd !== "gd") {
+                            $("#grdl").hide();
+                        }
+                        $("#_vmGrpIsue").modal("show");
+                    } else {
+                        window.location.href = data.url;
+                    }
+                },
+                error: function (x, y, z) {
+                    App.unblockUI(elemntupload);
+                    jsoncoll = JSON.stringify(x);
+                    jsonreposn = JSON.parse(jsoncoll);
+                    if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
+                }
+            });
+        });
+    });*/
+
+
+</script>
+
+

@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+
+
+@model HashNetFramework.cAccountRegis
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8" />
+    <title>REGMIT | Registrasi Mitra</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    @* <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />*@
+    <link href="~/Content/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN THEME GLOBAL STYLES -->
+    <link href="~/Content/assets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
+    <link href="~/Content/assets/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
+    <!-- END THEME GLOBAL STYLES -->
+    <!-- BEGIN PAGE LEVEL STYLES -->
+    <link href="~/Content/assets/pages/css/login.min.css" rel="stylesheet" type="text/css" />
+    <!-- END PAGE LEVEL STYLES -->
+    <!-- BEGIN THEME LAYOUT STYLES -->
+    <!-- END THEME LAYOUT STYLES -->
+    <link rel="shortcut icon" href="favicon.ico" />
+</head>
+<!-- END HEAD -->
+<body class=" login">
+    <!-- BEGIN LOGO -->
+    <div class="logo">
+        <a href="javascript:;">
+            <h3 class="form-title font-green"> <img src="~/Content/assets/layouts/layout2/img/logo-fdcm-default-login-Blue.png" alt="logo" class="logo-default home" style="width:140px; padding-top: 0px;" /></h3>
+        </a>
+    </div>
+    <!-- END LOGO -->
+    <!-- BEGIN LOGIN -->
+    <div class="content" style="padding-top:25px;">
+        <h4 style="padding:15px;padding-left:0px">Aktivasi ID Pengguna</h4>
+
+
+        <div id="cssShowMessage" style="display:none;">
+            <button class="close" data-close="alert"></button>
+            <h4>Selamat..</h4>
+            <span id="idShowMessage"></span>
+            <div style="padding-top:20px">
+                <a href="@Url.Action("LogUserIn","Account")" class="btn green">
+                    <i class="icon-key"></i>&nbsp; Sign In
+                </a>
+            </div>
+        </div>
+
+
+        @using (Ajax.BeginForm("AccountRegisAktivasi", new { Controller = "Account" }, new AjaxOptions { HttpMethod = "POST" }, new { id = "form_regisfu", @class = "login-form" }))
+        {
+            @Html.AntiForgeryToken();
+
+
+            @Html.HiddenFor(x => x.KodeRegisCabang)
+
+            <div id="cssShowMessage" style="display:none;">
+                <button class="close" data-close="alert"></button>
+                <span id="idShowMessage"></span>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    @Html.TextBoxFor(m => m.email, new { @class = "form-control form-control-solid placeholder-no-fix form-group", autocomplete = "off", placeholder = "Email" })
+                    @Html.ValidationMessageFor(m => m.email, "", new { @class = "error-block" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <label class="control-label visible-ie8 visible-ie9">Kode aktivasi</label>
+                    <div class="col-xs-12">
+                        @Html.TextBoxFor(m => m.Userkodeverified, new { @class = "form-control form-control-solid placeholder-no-fix form-group ", autocomplete = "off", placeholder = "Kode Aktivasi" })
+                        @Html.ValidationMessageFor(m => m.Userkodeverified, "", new { @class = "error-block" })
+                    </div>
+                </div>
+            </div>
+            <button type="button" class="btn green" onclick="vmAccount.ApplySbmtActv('#form_regisfu', '')">
+                <i class="fa fa-gear"></i>
+                <span>&nbsp;Submit</span>
+            </button>
+
+        }
+        <div class="row" id="footnoted">
+            <div class="create-account" style="margin-top:50px">
+                <p>
+                    Tidak Menerima Kode Aktivasi ?&nbsp;  <br />
+                    <a href="@Url.Action("AccountRegis","Account")" id="register-btn"> Kirim ulang </a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="copyright"> 2022 © PT Solusi Mitra Sejahtera. </div>
+    <script src="~/Content/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+    <script src="~/Content/assets/global/plugins/jquery-migrate.min.js"></script>
+    <script src="~/Content/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="~/Content/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+    <script src="~/Content/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+    <script src="~/Content/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+    <script src="~/Content/assets/global/plugins/backstretch/jquery.backstretch.min.js"></script>
+
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/sweetalert.min.js"></script>
+    <!-- BEGIN THEME GLOBAL SCRIPTS -->
+    <script src="~/Content/assets/global/scripts/app.js" type="text/javascript"></script>
+    <!-- END THEME GLOBAL SCRIPTS -->
+    <!-- BEGIN THEME LAYOUT SCRIPTS -->
+    <script src="~/Scripts/vmAccount.js"></script>
+    <script src="~/Scripts/jquery-ai.js"></script>
+    <script>
+
+        $.getScript("Scripts/vmHomePages.js", function () {
+            vmHomePages.initbackground();
+        });
+
+        $(document).bind("contextmenu", function (e) {
+            e.preventDefault();
+        });
+
+        $(document).keydown(function (e) {
+            if (e.which === 123) {
+                return false;
+            }
+        });
+
+    </script>
+</body>
+
+
+

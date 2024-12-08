@@ -1,0 +1,42 @@
+﻿@model HashNetFramework.cHTL
+<div class="modal fade" id="dialogwarkah" role="basic" aria-hidden="true" style="max-width:75%; margin: 20px auto" data-backdrop="false">
+    <div class="modal-full">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title"><span id="capt"></span></h4>
+            </div>
+            <div class="modal-body togl" id="dialogmodal">
+                <div class="panel-group accordion" id="accordion99999">
+                    <div class="panel" style="border:none">
+                        <div class="row">
+                            <div class="col-md-12" id="pilihdoc">
+                                <h2 class="panel-title">
+                                    <strong style="color:#000">Pilih Dokumen</strong>
+                                </h2>
+                                @{var pop = (IEnumerable<SelectListItem>)ViewData["SelectDocumentReg"]; }
+                                @if (pop != null)
+                                {
+                                    @Html.DropDownListFor(m => m.DokumenTyped, (IEnumerable<SelectListItem>)ViewData["SelectDocumentReg"], "Pilih..", new { @class = "form-control select2" })
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div id="collapse_99999" class="panel-collapse collapse in" aria-expanded="true" style="">
+                        <div class="">
+                            <h4 class="modal-title"><strong><span id="captdoc"></span></strong></h4>
+                            <div class="form-group" id="warkahdoc">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn green" data-dismiss="modal">
+                    <i class="fa fa-close"></i>
+                    <span>&nbsp;Tutup</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

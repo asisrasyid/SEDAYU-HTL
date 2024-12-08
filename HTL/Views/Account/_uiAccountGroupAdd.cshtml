@@ -1,0 +1,82 @@
+﻿<!-- BEGIN LOGIN FORM -->
+@model DusColl.vmAccount
+<div class="modal fade" id="addgroupaccountdialog"  role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">@ViewBag.caption</h4>
+            </div>
+            <div class="modal-body" id="addgroupaccountbody">
+
+                @using (Ajax.BeginForm("clnGroupAccountSave", new { Controller = "Account" }, new AjaxOptions { HttpMethod = "POST" }, new { id = "frmaddaccountgroup", @class = "form-horizontal" }))
+                {
+                 
+                    @Html.AntiForgeryToken();
+                    @Html.HiddenFor(m => m.AccountGroupUser.secIDUser)
+                    @Html.HiddenFor(m => m.AccountGroupUser.SecGroupName)
+                    @Html.Hidden("hdparopsgrp");
+                    
+                    <div class="">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">
+                                Group Name
+                            </label>
+                            <div class="col-md-6">
+                                @Html.DropDownListFor(m => m.AccountGroupUser.GroupName, (IEnumerable<SelectListItem>)ViewData["SelectGroupUser"], "Select..", new { @class = "form-control select2" })
+                                 @Html.ValidationMessageFor(m => m.AccountGroupUser.GroupName, "", new { @class = "error-block" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">
+                                User ID
+                            </label>
+                            <div class="col-md-6">
+                                @Html.DropDownListFor(m => m.AccountGroupUser.UserGrup, (IEnumerable<SelectListItem>)ViewData["SelectUserID"], "Select..", new { @class = "form-control select2" })
+                             @Html.ValidationMessageFor(m => m.AccountGroupUser.UserGrup, "", new { @class = "error-block" })
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-offset-3 col-md-4">
+                                    <button type="button" class="btn green" onclick="vmAccount.SubmitAfterajaxcallGroupAccount('#frmaddaccountgroup')">
+                                        <i class="fa fa-save"></i><span>&nbsp;Save</span></button>
+                                    <button type="button" class="btn green" data-dismiss="modal">
+                                        <i class="fa fa-close"></i><span>&nbsp;Close</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+</div>
+
+
+<script>
+    var placeholder = "Select..";
+    $(".select2, .select2-multiple").select2({
+        placeholder: placeholder,
+        width: null
+    });
+    $('.date-picker').datepicker({
+        rtl: App.isRTL(),
+        orientation: "left",
+        autoclose: true
+    });
+    $.getScript("Scripts/jquery.unobtrusive-ajax.min.js", function () {
+        $.validator.unobtrusive.parse("#frmaddaccountgroup");
+    });
+</script>
+
+<!-- END LOGIN FORM -->
+

@@ -1,0 +1,140 @@
+﻿<!-- BEGIN LOGIN FORM -->
+@model DusColl.vmAccount
+<div class="modal fade" id="addaccountdialog" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">@ViewBag.caption</h4>
+            </div>
+            <div class="modal-body" id="addaccountbody">
+
+                @using (Ajax.BeginForm("clnAccountSave", new { Controller = "Account" }, new AjaxOptions { HttpMethod = "POST" }, new { id = "frmaddaccount", @class = "form-horizontal" }))
+                {
+
+                    @Html.AntiForgeryToken();
+                    @Html.HiddenFor(m => m.AccountDetail.secIDUser)
+                    @Html.Hidden("hdparops");
+                    <div class="">
+                        <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                        <label class="control-label visible-ie8 visible-ie9">Username</label>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">
+                                UserID
+                            </label>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(m => m.AccountDetail.IDUser, new { @class = "form-control placeholder-no-fix", autocomplete = "off", placeholder = "UserID", Value = @Model.AccountDetail.IDUser })
+                                @Html.ValidationMessageFor(m => m.AccountDetail.IDUser, "", new { @class = "error-block" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                        <label class="control-label visible-ie8 visible-ie9">Username</label>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">
+                                UserName
+                            </label>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(m => m.AccountDetail.UserName, new { @class = "form-control placeholder-no-fix", autocomplete = "off", placeholder = "Username", Value = @Model.AccountDetail.UserName })
+                                @Html.ValidationMessageFor(m => m.AccountDetail.UserName, "", new { @class = "error-block" })
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">
+                                Email
+                            </label>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(m => m.AccountDetail.Email, new { @class = "form-control placeholder-no-fix", autocomplete = "off", placeholder = "Email", Value = @Model.AccountDetail.Email })
+                                @Html.ValidationMessageFor(m => m.AccountDetail.Email, "", new { @class = "error-block" })
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">
+                                User Type
+                            </label>
+                            <div class="col-md-6">
+                                @Html.DropDownListFor(m => m.AccountDetail.UserType, (IEnumerable<SelectListItem>)ViewData["SelectUserTypeID"], "Select..", new { @class = "form-control select2" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">
+                                Client ID
+                            </label>
+                            <div class="col-md-6">
+                                @Html.DropDownListFor(m => m.AccountDetail.ClientID, (IEnumerable<SelectListItem>)ViewData["SelectClientID"], "Select..", new { @class = "form-control select2", Value = @Model.AccountDetail.ClientID })
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">
+                                Notary ID
+                            </label>
+                            <div class="col-md-6">
+                                @Html.DropDownListFor(m => m.AccountDetail.IDNotaris, (IEnumerable<SelectListItem>)ViewData["SelectNotarisID"], "Select..", new { @class = "form-control select2" })
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">
+                            </label>
+                            <div class="col-md-6">
+                                <label class="rememberme check mt-checkbox mt-checkbox-outline">
+                                    <input type="checkbox" name="AccountDetail.Actived" class="form-control" id="cekactive" @Html.Raw(Model.AccountDetail.Actived == true ? "checked" : "unchecked") />
+                                    Active <span></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="modal-footer">
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-offset-3 col-md-4">
+                                    <button type="button" class="btn green" onclick="vmAccount.SubmitAfterajaxcalladdaccount('#frmaddaccount')">
+                                        <i class="fa fa-save"></i><span>&nbsp;Save</span>
+                                    </button>
+                                    <button type="button" class="btn green" data-dismiss="modal">
+                                        <i class="fa fa-close"></i><span>&nbsp;Close</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+</div>
+
+
+<script>
+    var placeholder = "Select..";
+    $(".select2, .select2-multiple").select2({
+        placeholder: placeholder,
+        width: null
+    });
+    $.getScript("Scripts/jquery.unobtrusive-ajax.min.js", function () {
+        $.validator.unobtrusive.parse("#frmaddaccount");
+    });
+    $("#AccountDetail_Actived").attr("data-val", "false");
+</script>
+
+<!-- END LOGIN FORM -->

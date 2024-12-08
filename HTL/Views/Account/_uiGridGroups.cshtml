@@ -1,0 +1,51 @@
+﻿@model DusColl.vmAccount
+<style>
+    #sample_editable_group td:not(:last-child) {
+        white-space: nowrap;
+    }
+
+    #sample_editable_group td:last-child {
+        width: 30%;
+    }
+</style>
+
+<table class="table table-striped table-hover table-bordered" id="sample_editable_group">
+    <thead>
+        <tr>
+            <th>Group Name</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+
+        @{
+            if (Model.AccountGroupList != null)
+            {
+                if (Model.AccountGroupList.Count > 0)
+                {
+                    foreach (var item in Model.AccountGroupList)
+                    {
+            <tr>
+                <td>
+                    @Html.Raw(item.GroupName)
+                </td>
+
+                <td>
+                    <a class="" href="javascript:;" onclick="vmAccount.deletegroup('@item.SecGroupName')">
+                        <i class="fa fa-eraser"></i>
+                        Delete</a>
+                    <span>&nbsp;</span>
+                    <a class="" href="javascript:;" onclick="vmAccount.showmetrikgroup('@item.SecGroupName')">
+                        <i class="fa fa-unlock-alt"></i>
+                        Permission</a>
+
+                </td>
+
+            </tr>
+                    }
+                }
+            }}
+
+    </tbody>
+</table>

@@ -1,0 +1,25 @@
+﻿@model DusColl.vmHome
+<style>
+    .font-white {
+        background-color: #95A5A6;
+    }
+
+    .font-whitea {
+        color: #555;
+    }
+</style>
+
+<div class="portlet">
+    <div class="portlet-title">
+        <div class="caption" onclick="AppCalendar.getdatarecord()" style="cursor:pointer">
+            <i class="icon-settings font-whitea"></i>
+            <span class="caption-subject font-whitea sbold uppercase">@ViewBag.captiondesc (@ViewBag.menu)</span>
+        </div>
+        <div id="gridTx">
+            @{Html.RenderPartial("~/Views/Home/_HomeTodoGrid.cshtml");}
+        </div>
+    </div>
+</div>
+
+<div id="uidivfilter">
+</div>

@@ -1,0 +1,53 @@
+﻿@model HashNetFramework.cFilterContract
+<div class="modal fade" id="filterdatadialog" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            @using (Ajax.BeginForm("clnHeaderTxRegisFilter", new { Controller = "Account" }, new AjaxOptions { HttpMethod = "POST" }, new { id = "DashboardFilter_form", @class = "form-horizontal" }))
+            {
+                @Html.AntiForgeryToken();
+                @Html.HiddenFor(m => m.idcaption)
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">Pencarian Data</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-body">
+                        <div class="">
+                            <div class="form-group" style="margin-bottom: 10px">
+                                <label class="control-label col-md-3">Kata Kunci</label>
+                                <div class="col-md-7">
+                                    @Html.TextBoxFor(m => m.RequestNo, new { @class = "form-control", @placeholder = "No Registrasi / Email" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="">
+                            <div class="form-group" style="margin-bottom: 10px">
+                                <label class="control-label col-md-3">Status Aktivasi</label>
+                                <div class="col-md-7">
+                                    @Html.DropDownListFor(m => m.SelectContractStatus, (IEnumerable<SelectListItem>)ViewData["SelectStatus"], "Pilih..", new { @class = "form-control select2" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn green accregfilref">
+                        <i class="fa fa-circle-o"></i>
+                        <span>&nbsp;Ulangi</span>
+                    </button>
+                    <button type="button" class="btn green accregfil">
+                        <i class="fa fa-search"></i>
+                        <span>&nbsp;Cari</span>
+                    </button>
+                </div>
+            }
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<script src="~/Scripts/vmAccount.js">
+</script>
+<script>
+    vmAccount.initbutton();
+</script>

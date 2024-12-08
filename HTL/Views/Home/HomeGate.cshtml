@@ -1,0 +1,190 @@
+﻿@model DusColl.vmHome
+@{
+    /**/
+
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+
+<div class="row">
+    <div class="page-bar">
+        <div class="page-toolbar">
+            <div id="dashboard-report-range" class="pull-right tooltips btn btn-sm" data-container="body" data-placement="bottom" data-original-title="Change dashboard date range" style="color:#ffffff">
+                <i class="icon-calendar"></i>&nbsp;
+                <span class="thin uppercase hidden-xs" style="color:#000"><strong>@ViewBag.dattime</strong></span>&nbsp;
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row shadowfirst">
+    <div class="col-md-8">
+        <div class="portlet">
+            <div class="portlet-title">
+                <div class="caption caption-md">
+                    <i class="icon-bar-chart font-dark hide"></i>
+                    <span class="caption-subject font-blue-steel uppercase bold">Todo-List</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="row">
+                    <div class="flowstep">
+                        <div class="mt-element-step">
+                            <div class="row step-line">
+                                <div class="mt-step-desc">
+                                    <div class="font-dark bold uppercase"></div>
+                                    <div class="caption-desc font-grey-cascade">
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mt-step-col first error">
+                                    <div class="mt-step-number bg-white">@ViewBag.PendingTask</div>
+                                    <div class="mt-step-title uppercase font-grey-cascade" style="font-size:16px">HO/CABANG <br /> FIF</div>
+                                </div>
+                                <div class="col-md-4 mt-step-col">
+                                    <div class="mt-step-number bg-white">@ViewBag.PendingVerifikasi</div>
+                                    <div class="mt-step-title uppercase font-grey-cascade" style="font-size:16px">TEAM <br /> VERIFIKASI</div>
+                                </div>
+                                <div class="col-md-4 mt-step-col last ">
+                                    <div class="mt-step-number bg-white active">@ViewBag.PendingCek</div>
+                                    <div class="mt-step-title uppercase font-grey-cascade" style="font-size:16px">TEAM <br /> PPAT</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="note note-success  col-md-4">
+                            <h4 class="block"><strong>Terbit HT</strong></h4>
+                            <p>
+                                <h2><strong>@Model.OrderAll6.ToString("N0")</strong></h2>
+                                Silahkan Download Stiker dan SHT pada menu <strong> "Pendaftaran SHT"</strong>
+                            </p>
+                        </div>
+                        <div class="note note-danger col-md-4">
+                            <h4 class="block"><strong>Belum Diterim FIF</strong></h4>
+                            <p>
+                                <h2><strong>@Model.TotalYetFIF.ToString("N0")</strong></h2>Silahkan dibuat BAST melalui <strong>aplikasi SIMASHT.</strong> dan kirimkan ke Cabang FIF.
+                            </p>
+                        </div>
+                        <div class="note note-warning col-md-4">
+                            <h4 class="block"><strong>Penagihan Invoice</strong></h4>
+                            <p>
+                                <h2><strong>@Model.TotalInv.ToString("N0")</strong></h2>Silahkan tagihkan invoice setiap <strong>hari kamis</strong> melalui <strong>aplikasi SIMASHT.</strong>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+   
+    <div class="col-md-4">
+        <div class="portletx">
+            <div class="portlet mt-element-ribbon light portlet-fit">
+                <div class="ribbon ribbon-left ribbon-clip ribbon-shadow ribbon-border-dash-hor ribbon-color-warning uppercase">
+                    <div class="ribbon-sub ribbon-clip ribbon-left"></div>Pengajuan
+                </div>
+                <div class="portlet-title">
+                    <div class="caption caption-md">
+                        <i class="icon-bar-chart font-dark hide"></i>
+                        <span class="caption-subject font-green-steel uppercase bold"></span>
+                    </div>
+                </div>
+                <div class="actions floteft">
+                    <div class="btn-group btn-group-devided" data-toggle="buttons">
+                        @*<label class="btn btn-transparent btn-no-border blue-oleo btn-outline btn-circle btn-sm active alldtaju">
+                                <input type="radio" name="options" class="toggle">All
+                            </label>*@
+                        <label class="btn btn-transparent btn-no-border blue-oleo btn-outline btn-circle btn-sm daydtaju">
+                            <input type="radio" name="options" class="toggle">Today
+                        </label>
+                        <label class="btn btn-transparent btn-no-border blue-oleo btn-outline btn-circle btn-sm active mondtaju">
+                            <input type="radio" name="options" class="toggle">Month
+                        </label>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <a class="dashboard-stat dashboard-stat-v2 blue">
+                                <div class="visual">
+                                    <i class="fa fa-comments"></i>
+                                </div>
+                                <div class="details">
+                                    <div class="number">
+                                        <span data-counter="counterup" class="todoaju1">@Model.OrderAll1.ToString("N0")</span>
+                                    </div>
+                                    <div class="desc"> Pengajuan </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="col-md-6">
+                            <a class="dashboard-stat dashboard-stat-v2 green">
+                                <div class="visual">
+                                    <i class="fa fa-comments"></i>
+                                </div>
+                                <div class="details">
+                                    <div class="number">
+                                        <span data-counter="counterup" class="todoaju2">@Model.OrderAll3.ToString("N0")</span>
+                                    </div>
+                                    <div class="desc"> Sudah Akad </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div style="padding-top:60px"><span>&nbsp;</span></div>
+                        <div class="col-md-6">
+                            <a class="dashboard-stat dashboard-stat-v2 default">
+                                <div class="visual">
+                                    <i class="fa fa-comments"></i>
+                                </div>
+                                <div class="details">
+                                    <div class="number">
+                                        <span data-counter="counterup" class="todoaju3">@Model.OrderAll4.ToString("N0")</span>
+                                    </div>
+                                    <div class="desc"> SKMHT</div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-6">
+                            <a class="dashboard-stat dashboard-stat-v2 default">
+                                <div class="visual">
+                                    <i class="fa fa-comments"></i>
+                                </div>
+                                <div class="details">
+                                    <div class="number">
+                                        <span data-counter="counterup" class="todoaju3">@Model.OrderAll5.ToString("N0")</span>
+                                    </div>
+                                    <div class="desc"> Terbit SPA</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+<div class="panel-body">
+    @using (Html.BeginForm("clnKoncePloddocResend", "Regmitra", new { @id = "frmattacmentdowmload" }))
+    {
+        @Html.AntiForgeryToken();
+        @Html.Hidden("prevedid");
+        @Html.Hidden("namaidpool");
+        @Html.Hidden("reooo");
+        <button type="submit" style="display: none" id="btndownload"></button>
+    }
+</div>
+
+<div id="uidivfilter">
+</div>
+<div id="uidivadd">
+</div>
+<div id="uidivhis">
+</div>
+<div id="uidivupdocvw"></div>
+<script src="~/Content/assets/global/plugins/jquery.min.js"></script>
+<script src="~/Content/assets/pages/scripts/table-datatable-custom.js"></script>
+<script src="~/Scripts/vmHomepages.js"></script>

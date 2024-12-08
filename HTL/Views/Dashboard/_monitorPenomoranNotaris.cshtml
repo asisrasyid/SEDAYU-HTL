@@ -1,0 +1,178 @@
+﻿@model List<HashNetFramework.cDashMonitoring>
+
+<style>
+    td:not(:first-child) {
+        white-space: nowrap;
+    }
+
+    td:first-child {
+        width: 30%;
+    }
+</style>
+
+
+<center>
+
+    <h3 class="page-title">
+        <b>@ViewBag.captiondesc</b>
+    </h3>
+
+</center>
+
+<div class="portlet-body">
+    <div class="row">
+        <div class="col-md-3 col-sm-3">
+            <!-- BEGIN DRAGGABLE EVENTS PORTLET-->
+            <!-- END DRAGGABLE EVENTS PORTLET-->
+        </div>
+        <div class="col-md-11 col-sm-12">
+            <div class="row widget-row">
+                <div class="col-md-3">
+                    <!-- BEGIN WIDGET THUMB -->
+
+                    @{
+                        var regis = Model;
+                        var TotalOrder = 0;
+                        var TotalSelesai = 0;
+                        var TotalPending = 0;
+                    }
+                    <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
+                        <h4 class="widget-thumb-heading">Total Notaris </h4>
+                        <div class="widget-thumb-wrap">
+                            <i class="widget-thumb-icon bg-green icon-user"></i>
+                            <div class="widget-thumb-body">
+                                <span class="widget-thumb-body-stat" style="font-size:40px" data-counter="counterup">@Html.Raw(Model.Count.ToString())</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END WIDGET THUMB -->
+                </div>
+                <div class="col-md-3">
+                    <!-- BEGIN WIDGET THUMB -->
+                    @{
+                        var Roya = Model;
+                        TotalOrder = 0;
+                        TotalOrder = 0;
+                        foreach (var x in Roya)
+                        {
+                            TotalOrder = TotalOrder + (x.stat0);
+                        }
+                    }
+                    <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
+                        <h4 class="widget-thumb-heading">Total Kontrak</h4>
+                        <div class="widget-thumb-wrap">
+                            <i class="widget-thumb-icon bg-blue icon-basket-loaded"></i>
+                            <div class="widget-thumb-body">
+                                <span class="widget-thumb-body-stat" style="font-size:40px" data-counter="counterup">@Html.Raw(TotalOrder.ToString())</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END WIDGET THUMB -->
+                </div>
+                <div class="col-md-3">
+                    <!-- BEGIN WIDGET THUMB -->
+                    @{
+                        var revisi = Model;
+                        TotalSelesai = 0;
+                        foreach (var x in revisi)
+                        {
+                            TotalSelesai = TotalSelesai + (x.stat1);
+                        }
+                    }
+
+                    <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
+                        <h4 class="widget-thumb-heading">Selesai</h4>
+                        <div class="widget-thumb-wrap">
+                            <i class="widget-thumb-icon bg-green icon-check"></i>
+                            <div class="widget-thumb-body">
+                                <span class="widget-thumb-body-stat" style="font-size:40px" data-counter="counterup">@Html.Raw(TotalSelesai.ToString())</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END WIDGET THUMB -->
+                </div>
+                <div class="col-md-3">
+
+                    @{
+                        var pending = Model;
+                        TotalPending = 0;
+                        foreach (var x in pending)
+                        {
+                            TotalPending = TotalPending + (x.stat2);
+                        }
+                    }
+
+                    <!-- BEGIN WIDGET THUMB -->
+                    <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
+                        <h4 class="widget-thumb-heading">Belum Selesai</h4>
+                        <div class="widget-thumb-wrap">
+                            <i class="widget-thumb-icon bg-red icon-layers"></i>
+                            <div class="widget-thumb-body">
+                                <span class="widget-thumb-body-stat" style="font-size:40px" data-counter="counterup">@Html.Raw(TotalPending.ToString()) </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END WIDGET THUMB -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="">
+    <div class="portlet light bordered">
+        <div class="portlet-title tabbable-line">
+            <div class="caption">
+                <i class="icon-bubbles font-dark hide"></i>
+                <span class="caption-subject font-dark bold uppercase">Penomoran Akta Notaris</span>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="">
+                <table class="table table-hover table-light" id="Pendaftaran">
+                    <thead>
+                        <tr class="uppercase">
+                            <th> Nama Notaris </th>
+                            <th> Total Kontrak</th>
+                            <th> Selesai </th>
+                            <th> Belum Selesai</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var x in Model)
+                        {
+                            <tr style="text-align:center;">
+                                <td style="text-align:left;font-size:16px">
+                                    @Html.Raw(x.NamaPic)
+                                </td>
+                                <td style="font-size:16px">@x.stat0.ToString()</td>
+                                <td style="font-size:16px">@x.stat1.ToString()</td>
+                                <td style="font-size:16px">@x.stat2.ToString()</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $("#Pendaftaran").dataTable(
+        {
+            "bInfo": false,
+            "bLengthChange": false,
+            "pageLength": 10,
+            "autoWidth": false,
+            "responsive": true,
+            //altEditor: true,     // Enable altEditor
+            language: {
+                "sSearch": "Cari Data",
+                searchPlaceholder: "Ketikan Kata Kunci",
+                "emptyTable": "Tidak ada data",
+                "infoEmpty": ""
+            }
+        });
+</script>
+

@@ -1,0 +1,156 @@
+﻿
+@{
+    var control = (@ViewBag.caption == "UPLODSERTICEK" ? "clnKoncePlodsrtsve" : "clnKoncePloddocsve");
+    var controlmulti = (@ViewBag.caption == "UPLODSERTICEK" ? "3" : "1");
+    var controlmulticss = (@ViewBag.caption == "UPLODSERTICEK" ? "col-md-7" : "col-md-7");
+
+}
+
+<style>
+    .font-white {
+        background-color: #95A5A6;
+    }
+
+    .font-whitea {
+        color: #555;
+    }
+
+    .table > tbody > tr > td {
+        border-top: 1px solid #eee
+    }
+</style>
+
+<div class="portlet">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="icon-settings font-whitea"></i>
+            <span class="caption-subject font-whitea sbold uppercase">@ViewBag.captiondesc</span>
+        </div>
+        <div class="row"></div>
+        <div id="formandal">
+            @using (Ajax.BeginForm(control, new { Controller = "HTL" }, new AjaxOptions { HttpMethod = "POST" }, new { id = "fileuploadform", @class = "form-horizontal", enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken();
+                @Html.Hidden("caption");
+                <div class="modal-body">
+                    <div class="form-body">
+                        <div class="form-group">
+                            <div class="note note-searchpanenl font-whitea">
+                                <h4 class="font-whitea"><strong>Catatan:</strong></h4>
+                                <ol class="font-whitea">
+                                    <li> Tipe File .jpg/.jpeg /.pdf </li>
+                                    <li> Nama File tidak lebih dari 100 Karakter dan  Ukuran File tidak lebih dari 500 KB </li>
+                                    @{
+                                        if (controlmulti == "1")
+                                        {
+                                            <li> Nama File harus gabungan dari <strong>No Aplikasi dan Jenis dokumen</strong> yang dipisahkan dengan garis bawah "(_)"</li>
+                                            <li> Tanggal upload diisi jika ingin melakukan pengecekan data yang terupload</li>
+                                        }
+                                        if (controlmulti == "3")
+                                        {
+                                            <li> Nama File harus gabungan dari <strong>No Aplikasi dan Atas Nama Sertifikat</strong> yang dipisahkan dengan garis bawah "(_)"</li>
+
+                                        }
+                                        if (controlmulti == "2")
+                                        {
+                                            <li> Tanggal Proses diisi untuk pengecekan SPPI </li>
+                                        }
+                                    }
+                                </ol>
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            @*@if (@ViewBag.caption != "UPLOADDOC")
+                                {
+                                    <div class="col-md-2">
+                                        <label class="control-label">* Jenis Dokumen</label>
+                                        @Html.DropDownList("JENIS_DOCUMENT", (IEnumerable<SelectListItem>)ViewData["SelectDocument"], "Pilih..", new { @class = "form-control select2", @id = "dodol" })
+                                    </div>
+                                }*@
+
+
+                            @*<div class="col-md-3">
+                                <label class="control-label">
+                                    Tanggal Upload
+                                </label>
+                                <div class="input-group date date-picker" data-date-format="dd-MM-yyyy" data-date-viewmode="years" data-date-minviewmode="months">
+                                    <input type="text" name="tglpro" id="tglpro" class="form-control col-md-4" />
+                                    <span class="input-group-btn">
+                                        <button class="btn green" type="button">
+                                            <i class="fa fa-calendar"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>*@
+
+                            <div class="@controlmulticss">
+                                <label class="control-label">&nbsp;</label>
+                                <div class="row fileupload-buttonbar">
+                                    <div class="col-lg-12">
+                                        <!-- The fileinput-button span is used to style the file input field as button -->
+                                        <span class="btn green fileinput-button">
+                                            <i class="fa fa-plus"></i>
+                                            <span> Pilih Files </span>
+                                            <input type="file" name="files" multiple id="fileupload" />
+                                        </span>
+                                        <button type="button" class="btn green blue start upploddsrt">
+                                            <i class="fa fa-upload"></i>
+                                            <span> Upload  </span>
+                                        </button>
+
+                                        <button type="button" class="btn green warning cancel">
+                                            <i class="fa fa-circle-o"></i>
+                                            <span> Ulangi</span>
+                                        </button>
+
+
+                                        @*<button type="button" class="btn green blue start" onclick="FormFileUpload.subsvelod('chk')">
+                                            <i class="fa fa-check"></i>
+                                            <span> Check Data Upload</span>
+                                        </button>*@
+
+
+                                        <div style="float:right;padding-top:-10px">
+                                            <h4>
+                                                <strong>
+                                                    Berhasil  : <span id="info">0</span>
+                                                    &nbsp;
+                                                    Gagal  : <span id="infog">0</span>
+                                                </strong>
+                                            </h4>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- The table listing the files available for upload/download -->
+
+                            <table class="table table-striped clearfix" id="tblupp">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody class="files"> </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script src="~/Content/assets/global/plugins/jquery-file-upload/js/jquery.fileupload.js" type="text/javascript"></script>
+<script src="~/Content/assets/pages/scripts/form-fileupload.js" type="text/javascript"></script>
+
+<script>
+    $('.select2').select2();
+    $(".select2").val($(".select2 option:eq(1)").val()).change();
+</script>

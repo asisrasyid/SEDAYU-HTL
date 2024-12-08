@@ -1,0 +1,38 @@
+﻿@model  HashNetFramework.cHTL
+<div class="portlet box green col-md-9">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-comments"></i>ALASAN PEMBATALAN
+        </div>
+    </div>
+    <div class="portlet-body portlet-bodyies">
+        <div class="row">
+            <div class="form-group" style="padding:0px 20px 0px 20px">
+                <div class="col-md-12">
+                    @if (ViewBag.oprvalue != "view")
+                    {
+                        <label class="control-label">Pilih Daftar Alasan Pengajuan</label>
+                        @Html.DropDownListFor(m => m.CaseCab, (IEnumerable<SelectListItem>)ViewData["SelectCaseCab"], new { @class = "select2 form-control cmb", @title = "Pilih " })
+                    }
+                    else
+                    {
+                        <span class="form-control NonEdittableSpanTxt" disabled="disabled">@Model.CaseCabDesc</span>
+                    }
+                </div>
+            </div>
+        </div>
+        @if (ViewBag.oprvalue != "view")
+        {
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="note note-warning">
+                        <p>
+                        </p>
+                        Diisi jika pengajuan dibatalkan, Jika Alasan Pembatalan tidak ada di "Daftar Alasan Pengajuan", silahkan untuk menghubungi team SIMASHT untuk ditambahkan
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

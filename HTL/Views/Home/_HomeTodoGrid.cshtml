@@ -1,0 +1,135 @@
+﻿@model DusColl.vmHome
+
+
+<style>
+    td:not(:first-child) {
+        white-space: nowrap;
+    }
+
+    td:first-child {
+        width: 2%;
+    }
+
+    .btn {
+        padding: 6.7px 7px;
+        margin-bottom: 0;
+        border-radius: 0;
+        border: 0;
+    }
+</style>
+
+
+
+<table class="table table-striped table-hover table-bordered" id="table_tx">
+    <thead>
+        <tr>
+            <th></th>
+            <th data-priority="1">Pengajuan</th>
+            <th data-priority="1">No<br />Pengajuan</th>
+            <th>No KTP</th>
+            <th data-priority="1">Nama Mitra</th>
+            <th data-priority="1">Cabang</th>
+            <th data-priority="1">Area</th>
+            <th>Tgl<br />Pengajuan</th>
+            <th>Diajukan<br />Oleh</th>
+            <th data-priority="1">Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.TodoUser != null)
+        {
+            foreach (System.Data.DataRow item in Model.TodoUser.Rows)
+            {
+        <tr class="DrillDownRow">
+            <td align="center">
+                @if (int.Parse(item["TransStatus"].ToString()) == (int)HashNetFramework.StatusDocTrans.WAITAPRV)
+                {
+                    <i class='fa fa-user' title="Menunggu Verifikasi"></i>
+                }
+                else if (int.Parse(item["TransStatus"].ToString()) == (int)HashNetFramework.StatusDocTrans.COMPLATE)
+                {
+                    <i class='fa fa-check-square' title="Pengajuan Selesai"></i>
+                }
+                else if (int.Parse(item["TransStatus"].ToString()) == (int)HashNetFramework.StatusDocTrans.REJECT)
+                {
+                    <i class='fa fa-minus-circle' title="Pengajuan Ditolak"></i>
+                }
+                else if (int.Parse(item["TransStatus"].ToString()) == (int)HashNetFramework.StatusDocTrans.CANCELLED)
+                {
+                    <i class='fa fa-times-circle' title="Pengajuan DiBatalkan"></i>
+                }
+                else if (int.Parse(item["TransStatus"].ToString()) == (int)HashNetFramework.StatusDocTrans.REVISE)
+                {
+                    <i class='fa fa-edit' title="Pengajuan Direvisi"></i>
+                }
+                else if (int.Parse(item["TransStatus"].ToString()) == (int)HashNetFramework.StatusDocTrans.WAITEMPLID)
+                {
+                    <i class='fa fa-user-secret' title="Menunggu Generate EmployeeID"></i>
+                }
+                else if (int.Parse(item["TransStatus"].ToString()) == (int)HashNetFramework.StatusDocTrans.PENDTASK)
+                {
+                    <i class='fa fa-edit' title="Menunggu Kelengkapan Data"></i>
+                }
+
+            </td>
+            <td>
+                @Html.Raw(item["jenispengajuandesc"])
+            </td>
+            <td>
+                <a href="javascript:;" onclick="vmHomePages.OpenView('@HashNetFramework.HasKeyProtect.Encryption(item["ModuleID"].ToString()+ViewBag.dashaction)','@HashNetFramework.HasKeyProtect.Encryption(item["curmodule"].ToString())','@item["Controller"]','@item["TransNo"]')">
+                    @Html.Raw(item["TransNo"])
+                </a>
+            </td>
+            <th>
+                @Html.Raw(item["NoKey"].ToString())
+            </th>
+            <td>
+                @Html.Raw(item["Keterangan"].ToString())
+            </td>
+            <td>
+                @Html.Raw(item["BRCH_CODE"].ToString() +"-" + item["KeteranganCab"].ToString())
+            </td>
+            <td>
+                @Html.Raw(item["REGION_NAME"].ToString())
+            </td>
+            <td>
+                @Html.Raw(item["CreatedDate"].ToString())
+            </td>
+            <td>
+                @Html.Raw(item["CreatedBy"].ToString())
+            </td>
+            <td>
+                @Html.Raw(item["StatusDocDesc"].ToString())
+            </td>
+        </tr>
+
+            }
+        }
+    </tbody>
+</table>
+
+
+
+<script>
+    $.getScript("/Content/assets/pages/scripts/table-datatable-custom.js")
+        .done(function (script, textStatus) {
+
+            var currentP =@Model.DetailFilter.pagenumberclient.ToString();
+            var totalRDBAll =@Model.DetailFilter.TotalRecord.ToString();
+            var totalR =@Model.DetailFilter.totalRecordclient.ToString();
+            var totalP =@Model.DetailFilter.totalPageclient.ToString();
+            var nextP =@Model.DetailFilter.pagenumberclient+1;
+            var prevP =@Model.DetailFilter.pagenumberclient-1;
+
+            var parurl = 'Home/clnHomeRgrid';
+            var divgrid = 'gridTx';
+            var tabled = 'table_tx';
+
+            $("#" + tabled).DataTable().destroy();
+
+            TableDatatablesEditable1.initPaging(tabled, currentP, totalR, totalP, nextP, prevP, parurl, divgrid, 0);
+            $("#table_tx_filter > label > input").after("<button type='button' class='btn green' title='Pencarian' onclick='vmHomePages.OpenFilter();'> <i class='fa fa-filter'></i></button > ");
+          
+        });
+</script>
+

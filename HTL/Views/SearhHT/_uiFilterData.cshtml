@@ -1,0 +1,83 @@
+﻿@model HashNetFramework.cFilterContract
+
+<style>
+</style>
+@using (Ajax.BeginForm("clnListFilterCreateReport", new { Controller = "Report" }, new AjaxOptions { HttpMethod = "POST" }, new { id = "ReportFilter_form", @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken();
+    @Html.HiddenFor(m => m.idcaption)
+    @Html.HiddenFor(m => m.CreateInvoice)
+
+    <div class="portlet light">
+        <div class="portlet-title">
+        </div>
+        <div class="form-body">
+            <div class="form-group">
+                <label class="control-label col-md-3"></label>
+                <div class="col-md-4">
+                    @Html.TextBoxFor(m => m.NoPengajuanRequest, new { @class = "form-control", @maxlength = "50", @placeholder = "Ketikan NoAplikasi/NoSertifikat" })
+                </div>
+            </div>
+            <div class="form-group" id="alled">
+                <label class="control-label col-md-3"></label>
+                <div class="col-md-4">
+                    <div class="input-group date-picker input-daterange" data-date="31/01/1999" data-date-format="dd-MM-yyyy" autocomplete="off">
+                        <input class="form-control" name="fromdate" id="fromdate" type="text" placeholder="Pilih tanggal pengajuan">
+                        <span class="input-group-addon">Sampai </span>
+                        <input class="form-control" name="todate" id="todate" type="text" placeholder="Pilih tanggal pengajuan">
+                    </div>
+                </div>
+            </div>
+            <div class="">
+                <div class="form-group" style="margin-bottom: 10px">
+                    <label class="control-label col-md-3"></label>
+                    <div class="col-md-4">
+                        @Html.DropDownListFor(m => m.SelectContractStatusMulti, (IEnumerable<SelectListItem>)ViewData["SelectStatus"], new { @class = "form-control bs-select mltstatus", multiple = "multiple", @title = "Pilih Status" })
+                    </div>
+                </div>
+            </div>
+            @if (ViewBag.shownotaris == "yes")
+            {
+                <div class="">
+                    <div class="form-group" style="margin-bottom: 10px">
+                        <label class="control-label col-md-3"></label>
+                        <div class="col-md-4">
+                            @Html.DropDownListFor(m => m.SelectNotarisMulti, (IEnumerable<SelectListItem>)ViewData["SelectNotaris"], new { @class = "form-control bs-select mltnota", multiple = "multiple", @title = "Pilih PPAT" })
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @if (ViewBag.showsrc == "yes")
+            {
+                <div class="">
+                    <div class="form-group" style="margin-bottom: 10px">
+                        <label class="control-label col-md-3"></label>
+                        <div class="col-md-4">
+                            @Html.DropDownListFor(m => m.TipeTransaksiA, (IEnumerable<SelectListItem>)ViewData["SelectSRC"], new { @class = "form-control select2 mkp", @title = "Pilih Status" })
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <div class="alert alert-danger display-hide" style="display: none;" id="cssShowMessage">
+                <span id="idShowMessage"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer" style="background-color:#ffffff;border-color:#eee">
+        <button type="button" class="btn green dreportref">
+            <i class="fa fa-circle-o"></i>
+            <span>&nbsp;Ulangi</span>
+        </button>
+
+        <div class="btn-group">
+            <a class="btn green dreport" aria-expanded="false">
+                <i class="fa fa-cloud-download"></i> &nbsp;Unduh
+            </a>
+        </div>
+    </div>
+
+}
+

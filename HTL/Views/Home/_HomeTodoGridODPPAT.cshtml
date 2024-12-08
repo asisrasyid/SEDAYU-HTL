@@ -1,0 +1,60 @@
+﻿@model DusColl.vmHome
+<style>
+    td:not(:first-child) {
+        white-space: nowrap;
+    }
+
+
+    td:last-child {
+        width: 2%;
+    }
+
+    .btn {
+        padding: 6px 7px;
+        margin-bottom: 0;
+        /*border-radius: 0;*/
+        /*border: 0;*/
+    }
+
+    .btngridx {
+        padding: 1px 5px;
+        margin-bottom: 0;
+    }
+
+    .btngrid {
+        padding: 6.7px 7px;
+        margin-bottom: 0;
+        border-radius: 0;
+        border: 0;
+    }
+</style>
+
+
+<table class="table table-striped table-hover table-bordered" id="table_txodppat">
+    <thead>
+        <tr>
+            <th>Nama <br /> PPAT</th>
+            <th>Wilayah<br /> PPAT</th>
+            <th>0-3 Hari</th>
+            <th>4-7 Hari</th>
+            <th>>7 Hari</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.TodoNOTOD != null)
+        {
+            foreach (System.Data.DataRow item in Model.TodoNOTOD.Rows)
+            {
+                <tr class="DrillDownRow">
+                    <td width="35%" align="left">@item["OrderKeNotaris"].ToString()</td>
+                    <td width="35%" align="left">@item["Wilayah"].ToString()</td>
+                    <td width="10%" align="center">@item["GP1"].ToString()</td>
+                    <td width="10%" align="center">@item["GP2"].ToString()</td>
+                    <td width="10%" align="center">@item["GP3"].ToString()</td>
+                </tr>
+            }
+
+        }
+
+    </tbody>
+</table>

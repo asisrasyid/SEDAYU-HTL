@@ -1,0 +1,79 @@
+﻿
+@model HashNetFramework.cAccountRegis
+@{
+    /**/
+
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+<body class=" login">
+    <!-- BEGIN LOGO -->
+    <div class="logo">
+        <h3 class="form-title font-green">
+            <img src="~/Content/assets/layouts/layout2/img/logo-fdcm-default-login-Blue.png" alt="logo" class="logo-default home" style="width:140px; padding-top: 0px;" />
+        </h3>
+    </div>
+    <!-- END LOGO -->
+    <!-- BEGIN LOGIN -->
+    <div class="content" style="padding:10px 30px 0px;">
+        <div class="col-md-12">
+            <div class="details">
+                <h4>@ViewBag.caption</h4>
+                <p style="color:#fff">
+
+                    <div id="cssShowMessage" style="display:none;background-color:#fff">
+                        <button class="close" data-close="alert"></button>
+                        <span id="idShowMessage"></span>
+                        <div style="padding-top:20px;display:none;" id="btnMessage">
+                            <a href="@Url.Action("LogUserIn","Account")" class="btn green">
+                                <i class="fa fa-arrow-circle-o-left"></i>&nbsp;Kembali
+                            </a>
+                        </div>
+                    </div>
+
+                    @using (Ajax.BeginForm("clnAccountChucgongProNew", "Account", new AjaxOptions { HttpMethod = "POST", OnBegin = "vmAccount.ChacctBeginNew", OnSuccess = "vmAccount.ChacctSuccessNew", OnFailure = "vmAccount.ChacctFailureNew" }, new { id = "login_form", @class = "form-horizontal", autocomplete = "off" }))
+                    {
+
+                        @Html.AntiForgeryToken();
+
+                        <div id="cssShowMessage" style="display:none;">
+                            <button class="close" data-close="alert"></button>
+                            <span id="idShowMessage"></span>
+                        </div>
+
+                        @Html.HiddenFor(x => x.KodeRegisCabang)
+
+                        <div class="">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    @Html.TextBoxFor(m => m.email, new { @class = "form-control form-control-solid", autocomplete = "off", placeholder = "Isikan Email Anda" })
+                                    @Html.ValidationMessageFor(m => m.email, "", new { @class = "error-block" })
+                                </div>
+                            </div>
+                        </div>
+                      
+                       
+                        <div class="modal-footer" style="border-top:none;background:none">
+                            <div class="form-actions" style="padding:0px 0px;margin-right: -5px;">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <a href="@Url.Action("LogUserIn","Account")" class="btn green">
+                                            <i class="icon-arrow-left"></i>&nbsp;<span id="capregis">Kembali</span>
+                                        </a>
+                                        <button type="submit" class="btn green">
+                                            <i class="fa fa-check-square"></i><span>&nbsp;Reset</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+

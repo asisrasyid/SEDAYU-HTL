@@ -1,0 +1,56 @@
+﻿@model DusColl.vmHTL
+
+<div class="modal fade" id="_vmGrpIsue" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="portlet light portlet-fitx">
+                <div class="portlet-title">
+                    <div class="modal-header" style="border:none">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                        <div class="caption">
+                            &nbsp;
+                            <span class="caption-subject bold uppercase"> GROUPING ISUE- </span>
+                            <span class="caption-helper">@ViewBag.NoAPP</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="mt-timeline-2">
+                        <div class="mt-timeline-line border-grey-steel"></div>
+                        <ul class="mt-container">
+                            @foreach (System.Data.DataRow dta in Model.DTHistory.Rows)
+                            {
+                                <li class="mt-item">
+                                    <div class="mt-timeline-icon bg-red bg-font-red border-grey-steel">
+                                        <i class="icon-arrow-up">
+                                            <span class="" style="font-size:12px">@dta["TotalMenit"].ToString()</span>
+                                        </i>
+                                    </div>
+                                    <div class="mt-timeline-content">
+                                        <div class="mt-content-container">
+                                            <div class="mt-title">
+                                                <h5 class="mt-content-title">@dta["GroupName"].ToString()</h5>
+                                            </div>
+                                            <div class="mt-author-name">
+                                                <h4></h4>
+                                                <a href="javascript:;" class="font-blue-madison">@dta["CreatedBy"].ToString()</a>
+                                                <div class="mt-author-notes font-grey-mint">Modified <br /> @dta["CreatedDate"].ToString()</div>
+                                                <div class="mt-author-notes font-grey-mint">Penanganan <br /> @dta["Descr"].ToString()</div>
+                                            </div>
+                                            <div class="mt-content border-grey-salt">
+                                                <p>
+                                                    @dta["Comment"].ToString()
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

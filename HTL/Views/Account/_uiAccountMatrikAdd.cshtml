@@ -1,0 +1,185 @@
+﻿<!-- BEGIN LOGIN FORM -->
+@model DusColl.vmAccount
+<div class="modal fade" id="addmetrikgroupdialog" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">@ViewBag.caption</h4>
+            </div>
+            <div class="modal-body" id="addmetrikgroupbody">
+
+                @using (Ajax.BeginForm("clnMetrikGroupSave", new { Controller = "Account" }, new AjaxOptions { HttpMethod = "POST" }, new { id = "frmaddaccountmetrik", @class = "form-horizontal" }))
+                {
+
+                    @Html.AntiForgeryToken();
+                    @Html.HiddenFor(m => m.AccountMetrik.SecModuleID)
+                    @Html.HiddenFor(m => m.AccountMetrik.SecGroupName)
+                    @Html.Hidden("hdparops");
+                    <div class="">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">
+                                Group Name
+                            </label>
+                            <div class="col-md-6">
+                                @Html.DropDownListFor(m => m.AccountMetrik.GroupName, (IEnumerable<SelectListItem>)ViewData["SelectGroupID"], "Select..", new { @class = "form-control select2" })
+                                @Html.ValidationMessageFor(m => m.AccountMetrik.GroupName, "", new { @class = "error-block" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">
+                                Module
+                            </label>
+                            <div class="col-md-6">
+                                @Html.DropDownListFor(m => m.AccountMetrik.MenuItem.ModuleID, (IEnumerable<SelectListItem>)ViewData["SelectModuleID"], "Select..", new { @class = "form-control select2" })
+                                @Html.ValidationMessageFor(m => m.AccountMetrik.MenuItem.ModuleID, "", new { @class = "error-block" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">
+                            </label>
+                            <div class="col-md-3">
+                                <label class="rememberme check mt-checkbox mt-checkbox-outline">
+                                    <input type="checkbox" name="AccountMetrik.AllowView" class="form-control" id="cekactive" @Html.Raw(Model.AccountMetrik.AllowView == true ? "checked" : "unchecked") />
+                                    AllowView <span></span>
+                                </label>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="rememberme check mt-checkbox mt-checkbox-outline">
+                                    <input type="checkbox" name="AccountMetrik.AllowAdd" class="form-control" id="cekactiveAllowAdd" @Html.Raw(Model.AccountMetrik.AllowAdd == true ? "checked" : "unchecked") />
+                                    AllowAdd <span></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">
+                            </label>
+                            <div class="col-md-3">
+                                <label class="rememberme check mt-checkbox mt-checkbox-outline">
+                                    <input type="checkbox" name="AccountMetrik.AllowEdit" class="form-control" id="cekactiveAllowEdit" @Html.Raw(Model.AccountMetrik.AllowEdit == true ? "checked" : "unchecked") />
+                                    AllowEdit <span></span>
+                                </label>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="rememberme check mt-checkbox mt-checkbox-outline">
+                                    <input type="checkbox" name="AccountMetrik.AllowDelete" class="form-control" id="cekactiveAllowDelete" @Html.Raw(Model.AccountMetrik.AllowDelete == true ? "checked" : "unchecked") />
+                                    AllowDelete <span></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">
+                            </label>
+                            <div class="col-md-3">
+                                <label class="rememberme check mt-checkbox mt-checkbox-outline">
+                                    <input type="checkbox" name="AccountMetrik.AllowPrint" class="form-control" id="cekactiveAllowPrint" @Html.Raw(Model.AccountMetrik.AllowPrint == true ? "checked" : "unchecked") />
+                                    AllowPrint <span></span>
+                                </label>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="rememberme check mt-checkbox mt-checkbox-outline">
+                                    <input type="checkbox" name="AccountMetrik.AllowDownload" class="form-control" id="cekactiveAllowDownload" @Html.Raw(Model.AccountMetrik.AllowDownload == true ? "checked" : "unchecked") />
+                                    AllowDownload <span></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">
+                            </label>
+                            <div class="col-md-3">
+                                <label class="rememberme check mt-checkbox mt-checkbox-outline">
+                                    <input type="checkbox" name="AccountMetrik.AlloApprove" class="form-control" id="cekactiveAlloApprove" @Html.Raw(Model.AccountMetrik.AllowApprove == true ? "checked" : "unchecked") />
+                                    AlloApprove <span></span>
+                                </label>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="rememberme check mt-checkbox mt-checkbox-outline">
+                                    <input type="checkbox" name="AccountMetrik.AllowSubmit" class="form-control" id="cekactiveAllowSubmit" @Html.Raw(Model.AccountMetrik.AllowSubmit == true ? "checked" : "unchecked") />
+                                    AllowSubmit <span></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">
+                            </label>
+                            <div class="col-md-3">
+                                <label class="rememberme check mt-checkbox mt-checkbox-outline">
+                                    <input type="checkbox" name="AccountMetrik.AllowCancel" class="form-control" id="cekactiveAllowCancel" @Html.Raw(Model.AccountMetrik.AllowCancel == true ? "checked" : "unchecked") />
+                                    AllowCancel <span></span>
+                                </label>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="rememberme check mt-checkbox mt-checkbox-outline">
+                                    <input type="checkbox" name="AccountMetrik.AllowGenerate" class="form-control" id="cekactiveAllowGenerate" @Html.Raw(Model.AccountMetrik.AllowGenerate == true ? "checked" : "unchecked") />
+                                    AllowGenerate <span></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">
+                            </label>
+                            <div class="col-md-6">
+                                <label class="rememberme check mt-checkbox mt-checkbox-outline">
+                                    <input type="checkbox" name="AccountMetrik.AllowUpload" class="form-control" id="cekactiveAllowUpload" @Html.Raw(Model.AccountMetrik.AllowUpload == true ? "checked" : "unchecked") />
+                                    AllowUpload <span></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="modal-footer">
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-offset-3 col-md-4">
+                                    <button type="button" class="btn green" onclick="vmAccount.SubmitAfterajaxcallMetrikGroup('#frmaddaccountmetrik')">
+                                        <i class="fa fa-save"></i><span>&nbsp;Save</span>
+                                    </button>
+                                    <button type="button" class="btn green" data-dismiss="modal">
+                                        <i class="fa fa-close"></i><span>&nbsp;Close</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+</div>
+
+
+
+<script>
+    var placeholder = "Select..";
+    $(".select2, .select2-multiple").select2({
+        placeholder: placeholder,
+        width: null
+    });
+    $.getScript("Scripts/jquery.unobtrusive-ajax.min.js", function () {
+        $.validator.unobtrusive.parse("#frmaddaccountmetrik");
+    });
+    //$("#AccountDetail_Actived").attr("data-val", "false");
+</script>
+<!-- END LOGIN FORM -->

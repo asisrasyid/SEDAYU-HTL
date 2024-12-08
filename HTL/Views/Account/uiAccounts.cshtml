@@ -1,0 +1,87 @@
+﻿@model DusColl.vmAccount
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <i class="icon-home"></i>
+            <a href="@Url.Action("HomeGate", "Home")">Home</a>
+            <i class="fa fa-angle-right"></i>
+
+        </li>
+        <li>
+            <a href="javascript:;">@ViewBag.menu</a>
+        </li>
+        <li>
+            <a href="javascript:;" onclick="vmHomePages.UserProp()">@ViewBag.caption</a>
+
+        </li>
+
+    </ul>
+</div>
+
+
+<div class="portlet light ">
+    <div class="portlet-title tabbable-line">
+        <div class="caption caption-md">
+            <i class="icon-globe theme-font hide"></i>
+            <span class="caption-subject font-blue-madison bold uppercase" id="captap">@ViewBag.captiontab</span>
+        </div>
+
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a aria-expanded="true" href="#tab_1_1" data-toggle="tab" onclick="vmAccount.SelectTab(0)">Users</a>
+            </li>
+            <li class="">
+                <a aria-expanded="false" href="#tab_1_2" data-toggle="tab" onclick="vmAccount.SelectTab(1)">Users Group</a>
+            </li>
+        </ul>
+    </div>
+    <div class="portlet-body">
+        <div class="tab-content">
+            <!-- PERSONAL INFO TAB -->
+            <div class="tab-pane active" id="tab_1_1">
+                <div class="table-toolbar" id="gridaccountlist">
+                </div>
+            </div>
+            <!-- END PERSONAL INFO TAB -->
+            <!-- CHANGE AVATAR TAB -->
+            <div class="tab-pane" id="tab_1_2">
+               <div class="table-toolbar" id="gridgroupaccountlist">
+               </div>
+            </div>
+            <!-- END CHANGE AVATAR TAB -->
+        </div>
+    </div>
+</div>
+
+<div id="uiAcccountAdd">
+</div>
+<div id="uiGroupAdd">
+</div>
+
+
+@{Html.RenderPartial("~/Views/Shared/_uiMessage.cshtml");}
+
+@{Html.RenderPartial("~/Views/Shared/_uiMessageConfirm.cshtml");}
+
+@using (Html.BeginForm("sav", "sav", "", FormMethod.Post, new { @id = "frmadd" }))
+{
+    @Html.AntiForgeryToken();
+}
+
+@using (Html.BeginForm("del", "del", "", FormMethod.Post, new { @id = "frmdel" }))
+{
+    @Html.AntiForgeryToken();
+}
+@using (Html.BeginForm("res", "res", "", FormMethod.Post, new { @id = "frmres" }))
+{
+    @Html.AntiForgeryToken();
+}
+
+
+
+<script>
+    $.getScript("Scripts/vmAccount.js", function () {
+    });
+</script>
+
+

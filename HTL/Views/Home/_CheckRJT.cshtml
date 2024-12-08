@@ -1,0 +1,54 @@
+﻿@model DusColl.vmHTL
+
+<div class="modal fade" id="filterdatadialoghist" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="portlet light portlet-fitx">
+                <div class="portlet-title">
+                    <div class="modal-header" style="border:none">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                        <div class="caption">
+                            &nbsp;
+                            <span class="caption-subject bold uppercase"> HASIL VALIDASI - </span>
+                            <span class="caption-helper">@ViewBag.NoAPP</span>
+                        </div>
+                    </div>
+                </div>
+
+                @{ var tot = Model.DTHistory.Rows.Count;}
+                <div class="portlet-body">
+                    @if (tot > 0)
+                    {
+                        <div class="mt-element-list">
+                            <div class="mt-list-container list-default">
+                                <ul>
+                                    @foreach (System.Data.DataRow dta in Model.DTHistory.Rows)
+                                    {
+                                        <li class="mt-list-item">
+                                            <div class="list-item-content">
+                                                <p> <i class="fa fa-list-alt"></i> @dta["Keterangan"].ToString()</p>
+                                            </div>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="mt-element-step">
+                            <div class="row step-default">
+                                <div class="col-md-12 bg-grey mt-step-col done">
+                                    <div class="mt-step-number first bg-white font-grey">BERHASIL</div>
+                                    <div class="mt-step-title uppercase font-grey-cascade">Aktivasi Pengajuan </div>
+                                    <div class="mt-step-content font-grey-cascade">Pengajuan Dapat Dilanjutkan </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

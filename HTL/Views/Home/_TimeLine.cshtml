@@ -1,0 +1,234 @@
+﻿@model DusColl.vmHTL
+
+<div class="modal fade" id="filterdatadialoghist" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="portlet light portlet-fitx">
+                <div class="portlet-title">
+                    <div class="modal-header" style="border:none">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                        <div class="caption">
+                            &nbsp;
+                            <span class="caption-subject bold uppercase"> RIWAYAT PROGRES - </span>
+                            <span class="caption-helper">@ViewBag.NoAPP</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="mt-timeline-2">
+                        <div class="mt-timeline-line border-grey-steel"></div>
+                        <ul class="mt-container">
+                            @foreach (System.Data.DataRow dta in Model.DTHistory.Rows)
+                            {
+                                <li class="mt-item">
+                                    <div class="mt-timeline-icon bg-red bg-font-red border-grey-steel">
+                                        <i class="icon-arrow-up">
+                                            <span class="" style="font-size:12px">@dta["TotalMenit"].ToString()</span>
+                                        </i>
+                                    </div>
+                                    <div class="mt-timeline-content">
+                                        <div class="mt-content-container">
+                                            <div class="mt-title">
+                                                <h5 class="mt-content-title">@dta["GroupName"].ToString()</h5>
+                                            </div>
+                                            <div class="mt-author-name">
+                                                <h4></h4>
+                                                <a href="javascript:;" class="font-blue-madison">@dta["CreatedBy"].ToString()</a>
+                                                <div class="mt-author-notes font-grey-mint">Modified <br /> @dta["CreatedDate"].ToString()</div>
+                                                <div class="mt-author-notes font-grey-mint">Penanganan <br /> @dta["Descr"].ToString()</div>
+                                            </div>
+                                            <div class="mt-content border-grey-salt">
+                                                <p>
+                                                    @dta["Comment"].ToString()
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="_vmGrpIsue" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="portlet light portlet-fitx">
+                <div class="portlet-title">
+                    <div class="modal-header" style="border:none">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                        <div class="caption">
+                            &nbsp;
+                            <span class="caption-subject bold uppercase"> GROUPING ISUE- </span>
+                            <span class="caption-helper">@ViewBag.NoAPP</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="modal-body">
+                        <form class="row g-3">
+                            <div class="col-12">
+                                <label for="NApk_isue" class="form-label">Nomor Aplikasi</label>
+                                <input type="text" class="form-control" id="NApk_isue" value="@ViewBag.NoAPP" disabled>
+                                <input type="hidden" class="form-control" id="NApk_isue_hde" value="@ViewBag.No_App" hidden>
+                                <input type="hidden" class="form-control" id="User_isue_hde" value="@ViewBag.User" hidden>
+                            </div>
+                            <div class="col-12">
+                                <label for="Posisi_Berkas" class="form-label">Posisi Berkas</label>
+                                <input class="form-control" list="PosisiBerkas" id="Posisi_Berkas" placeholder="Type to search...">
+                                <datalist id="PosisiBerkas">
+                                    @{
+                                        var uniqueValues = new HashSet<string>();
+                                    }
+
+                                    @foreach (System.Data.DataRow dta in Model.DTGIsue.Rows)
+                                    {
+                                        string posisBerkas = dta["Posis_Berkas"].ToString();
+
+                                        if (!uniqueValues.Contains(posisBerkas))
+                                        {
+                                            uniqueValues.Add(posisBerkas);
+                                            <option value="@posisBerkas"></option>
+                                        }
+                                    }
+                                </datalist>
+                            </div>
+                            <div class="col-12">
+                                <label for="Group_Posisi" class="form-label">Group Posisi</label>
+                                <input class="form-control" list="GroupPosisi" id="Group_Posisi" placeholder="Type to search..." />
+
+                                <datalist id="GroupPosisi">
+                                    @foreach (System.Data.DataRow dta in Model.DTGIsue.Rows)
+                                    {
+                                        <option value="@dta["Group_Posisi"].ToString()"></option>
+                                    }
+                                </datalist>
+                            </div>
+                            <div class="col-12 nominal_hdt" style="display:none">
+                                <label for="Keterangan_isue" class="form-label">Nominal</label>
+                                <input class="form-control" id="nominal_isue" rows="3">
+                            </div>
+                            <div class="col-12">
+                                <label for="Keterangan_isue" class="form-label">Keterangan</label>
+                                <textarea class="form-control" id="Keterangan_isue" rows="3"></textarea>
+                            </div>
+                            <div class="col-12" style="margin-top:20px">
+                                <button id="simpan_data" class="btn btn-primary">Simpan</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#Group_Posisi').on('input', function () {
+            var selectedValue = $(this).val();
+            if (selectedValue === "BELUM BAYAR") {
+                $('.nominal_hdt').show();
+            } else {
+                $('.nominal_hdt').hide(); // Sembunyikan kembali jika nilainya bukan "Belum Bayar"
+            }
+        });
+    });
+    $('#simpan_data').on('click', function (e) {
+        e.preventDefault();
+        var nomorAplikasi = $('#NApk_isue_hde').val();
+        var posisiBerkas = $('#Posisi_Berkas').val();
+        var groupPosisi = $('#Group_Posisi').val();
+        var Keterangan_pos = $('#Keterangan_isue').val();
+        var nominal_val = $('#nominal_isue').val() || 0;
+        var username = $('#User_isue_hde').val();
+
+        if (nomorAplikasi === "" || posisiBerkas === "" || groupPosisi === "") {
+            $("#_vmGrpIsue").modal("hide");
+            swal({
+                title: "Informasi",
+                text: "Mohon Lengkapi Data, Tidak boleh ada 'Filed' yang kosong",
+                type: "warning",
+                confirmButtonText: 'Ok',
+                closeOnConfirm: true,
+            },
+            function(isConfirm) {
+                if (isConfirm) {
+                    $("#_vmGrpIsue").modal("show");
+                }
+            });
+          return;
+        }
+        if (groupPosisi === "BELUM BAYAR" && (nominal_val === "" || nominal_val === undefined)) {
+            $("#_vmGrpIsue").modal("hide");
+            swal({
+                title: "Informasi",
+                text: "Nominal Tidak Boleh Kosong",
+                type: "warning",
+                confirmButtonText: 'Ok',
+                closeOnConfirm: true,
+            },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        $("#_vmGrpIsue").modal("show");
+                    }
+                });
+            return;
+        }
+        if (groupPosisi === "BELUM BAYAR" && isNaN(nominal_val)) {
+            $("#_vmGrpIsue").modal("hide");
+            swal({
+                title: "Informasi",
+                text: "Nominal Harus dalam Bentuk Angka",
+                type: "warning",
+                confirmButtonText: 'Ok',
+                closeOnConfirm: true,
+            },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        $("#_vmGrpIsue").modal("show");
+                    }
+            });
+            return;
+        }
+        $.ajax({
+            url: '/HTL/GroupPos', // Ubah ke URL action yang sesuai
+            type: 'POST',
+            data: {
+                NoAPP: nomorAplikasi,
+                PosBerkas: posisiBerkas,
+                GroupPos: groupPosisi,
+                ketPos: Keterangan_pos,
+                nominal: nominal_val,
+                user: username
+            },
+            success: function (response) {
+                $("#_vmGrpIsue").modal("hide");
+                swal({
+                    title: "Informasi",
+                    text: "Data Berhasil di Simpan",
+                    icon: "success",
+                    /*type: "success",*/
+                    confirmButtonText: 'Ok',
+                    closeOnConfirm: true,
+                });
+            },
+            error: function (xhr, status, error) {
+                $("#_vmGrpIsue").modal("hide");
+                swal({
+                    title: "Informasi",
+                    text: "Terjadi kesalahan saat menyimpan data: " + error,
+                    type: "warning",
+                    confirmButtonText: 'Ok',
+                    closeOnConfirm: true,
+                });
+            }
+        });
+  });
+
+</script>

@@ -1,0 +1,40 @@
+﻿@model DusColl.vmFinance
+
+
+<div class="portlet" id="grdl">
+    <div class="portlet-title" style="min-height:0px;margin-bottom:0px">
+        <div class="caption LoadMenu" data-value="@ViewBag.menu,@ViewBag.caption,@ViewBag.rute,@ViewBag.action" style="cursor:pointer">
+            <i class="icon-settings font-whitea"></i>
+            <span class="caption-subject font-whitea sbold uppercase">@ViewBag.captiondesc</span>
+            <br />
+            <span class="caption-subject font-whitea sbold text-uppercase jenser">
+            </span>
+        </div>
+        <div class="actions" id="actiongrid">
+            <div class="btn-group">
+            </div>
+        </div>
+    </div>
+
+   @* <div><button class="pdprint"> print </button> </div>*@
+    <div id="gridbillingpaymentlist">
+        @{Html.RenderPartial("~/Views/Finance/_uiGridBillingPaymentUploadINVPAT.cshtml");}
+    </div>
+</div>
+
+
+<div id="uidivfilter">
+</div>
+<div id="uidivadd">
+</div>
+
+<script>
+    $('.date-picker').datepicker({
+        rtl: App.isRTL(),
+        orientation: "right bottom",
+        autoclose: true
+    });
+    $.getScript("Scripts/vmFinance.js", function () {
+    });
+</script>
+

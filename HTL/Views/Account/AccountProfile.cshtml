@@ -1,0 +1,342 @@
+﻿@model HashNetFramework.cAccount
+
+
+<link href="~/Content/assets/pages/css/profile.min.css" rel="stylesheet" />
+
+<div class="page-content" style="min-height:956px">
+    <!-- BEGIN PAGE TITLE-->
+    <!-- END PAGE TITLE-->
+    <!-- END PAGE HEADER-->
+    <div class="row">
+        <div class="col-md-12">
+            <!-- BEGIN PROFILE SIDEBAR -->
+            <div class="profile-sidebar">
+                <!-- PORTLET MAIN -->
+                <div class="portlet light profile-sidebar-portlet ">
+                    <!-- SIDEBAR USERPIC -->
+                    <!-- SIDEBAR USER TITLE -->
+                    <div class="profile-usertitle">
+                        @{
+                            if ((Model.Photo ?? "") == "")
+                            {
+
+                                <img alt="" class="img-circle" src="~/Content/assets/layouts/layout2/img/avatar.png">
+                            }
+                            else
+                            {
+                                //prepare to encrypt
+                                byte[] imageBytes = Convert.FromBase64String(Model.Photo);
+                                string KECEP = HashNetFramework.HasKeyProtect.Encryption(Model.UserID);
+                                imageBytes = HashNetFramework.HasKeyProtect.SetFileByteDecrypt(imageBytes, KECEP);
+                                string im = "data:image/png;base64," + Convert.ToBase64String(imageBytes, 0, imageBytes.Length);
+                                <img alt="" class="img-circle" src="@im" id="pop" />
+                            }
+                        }
+
+                    </div>
+                    <div class="profile-usertitle">
+                        <div class="profile-usertitle-name"> @Model.Jabatan</div>
+                        <div class="profile-usertitle-job"> @Model.Pekerjaan </div>
+                        <div class="profile-usertitle-job"> @Model.AreaName<br />@Model.CabangName  </div>
+                    </div>
+                    <!-- END SIDEBAR USER TITLE -->
+                    <!-- SIDEBAR MENU -->
+                    <!-- END MENU -->
+                </div>
+                <!-- END PORTLET MAIN -->
+
+            </div>
+            <!-- END BEGIN PROFILE SIDEBAR -->
+            <!-- BEGIN PROFILE CONTENT -->
+            <div class="profile-content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="portlet light ">
+                            <div class="portlet-title tabbable-line">
+                                <div class="caption caption-md">
+                                    <i class="icon-globe theme-font hide"></i>
+                                    <span class="caption-subject font-blue-madison bold uppercase">Informasi Personal</span>
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                                <div class="tab-content">
+                                    <!-- PERSONAL INFO TAB -->
+                                    <div class="tab-pane active" id="tab_1_1">
+
+                                        @using (Ajax.BeginForm("clnAccountChucgongProfle", new { Controller = "Account" }, new AjaxOptions
+                                        {
+                                            HttpMethod = "POST",
+                                        }, new { id = "frmaccountchangegrup", @class = "form-horizontal", enctype = "multipart/form-data" }))
+                                        {
+                                            @Html.Hidden("UserID", HashNetFramework.HasKeyProtect.Encryption(Model.UserID));
+                                            @Html.AntiForgeryToken();
+                                            <div class="form-group">
+                                                <div class="col-md-4">
+                                                    <label class="control-label">Nama</label>
+                                                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @maxlength = "25" })
+                                                    @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "error-block" })
+                                                </div>
+                                                @if (ViewBag.Nota == "ntt")
+                                                {
+                                                    <div class="col-md-4">
+                                                        <label class="control-label">Nama (Gelar Notaris/PPAT)</label>
+                                                        @Html.TextBoxFor(m => m.NotarisName, new { @class = "form-control", @maxlength = "40" })
+                                                        @Html.ValidationMessageFor(m => m.NotarisName, "", new { @class = "error-block" })
+                                                    </div>
+                                                }
+                                                <div class="col-md-4">
+                                                    <label class="control-label">Photo Profile</label>
+                                                    <input type="file" id="potofile" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-md-4">
+                                                    <label class="control-label">NIK</label>
+                                                    @Html.TextBoxFor(m => m.NIK, new { @class = "form-control Numberonly", @maxlength = "16" })
+                                                    @Html.ValidationMessageFor(m => m.NIK, "", new { @class = "error-block" })
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="control-label">Tempat Lahir</label>
+                                                    @Html.TextBoxFor(m => m.tptlahir, new { @class = "form-control", @maxlength = "50" })
+                                                    @Html.ValidationMessageFor(m => m.tptlahir, "", new { @class = "error-block" })
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="control-label">Tgl Lahir</label>
+                                                    <div class="input-group date date-picker" data-date-format="dd-MM-yyyy" data-date-viewmode="years" data-date-minviewmode="months">
+                                                        @Html.TextBoxFor(m => m.tgllahir, new { @class = "form-control" })
+                                                        <span class="input-group-btn">
+                                                            <button class="btn green " type="button">
+                                                                <i class="fa fa-calendar"></i>
+                                                            </button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="col-md-4">
+                                                    <label class="control-label">Jenis Kelamin</label>
+                                                    <select id="JenisKelamin" class="form-control select2" name="JenisKelamin">
+                                                        <option value="Laki-Laki">Laki-Laki</option>
+                                                        <option value="Perempuan">Perempuan</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="control-label">No SK</label>
+                                                    @Html.TextBoxFor(m => m.NoSK, new { @class = "form-control", @maxlength = "35" })
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="control-label">Tgl SK</label>
+                                                    <div class="input-group date date-picker" data-date-format="dd-MM-yyyy" data-date-viewmode="years" data-date-minviewmode="months">
+                                                        @Html.TextBoxFor(m => m.TglSK, new { @class = "form-control" })
+                                                        <span class="input-group-btn">
+                                                            <button class="btn green " type="button">
+                                                                <i class="fa fa-calendar"></i>
+                                                            </button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="col-md-4">
+                                                    <label class="control-label">Jabatan</label>
+                                                    @Html.TextBoxFor(m => m.Jabatan, new { @class = "form-control", @maxlength = "50" })
+                                                    @Html.ValidationMessageFor(m => m.Jabatan, "", new { @class = "error-block" })
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="control-label">Pekerjaan</label>
+                                                    @Html.TextBoxFor(m => m.Pekerjaan, new { @class = "form-control", @maxlength = "50" })
+                                                    @Html.ValidationMessageFor(m => m.Pekerjaan, "", new { @class = "error-block" })
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="control-label">No handphone</label>
+                                                    @Html.TextBoxFor(m => m.Phone, new { @class = "form-control Numberonly", @maxlength = "17" })
+                                                    @Html.ValidationMessageFor(m => m.Phone, "", new { @class = "error-block" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="col-md-8">
+                                                    <label class="control-label">Alamat</label>
+                                                    @Html.TextBoxFor(m => m.Alamat, new { @class = "form-control", @maxlength = "150" })
+                                                    @Html.ValidationMessageFor(m => m.Alamat, "", new { @class = "error-block" })
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="control-label">Kota</label>
+                                                    @Html.TextBoxFor(m => m.Kota, new { @class = "form-control", @maxlength = "50" })
+                                                    @Html.ValidationMessageFor(m => m.Kota, "", new { @class = "error-block" })
+                                                </div>
+                                            </div>
+
+                                            if (ViewBag.Nota == "ntt")
+                                            {
+                                                <div class="form-group">
+                                                    <div class="col-md-4">
+                                                        <label class="control-label">Provinsi</label>
+                                                        @Html.TextBoxFor(m => m.Domisili, new { @class = "form-control", @maxlength = "50" })
+                                                        @Html.ValidationMessageFor(m => m.Domisili, "", new { @class = "error-block" })
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label class="control-label">Wilayah</label>
+                                                        @Html.TextBoxFor(m => m.Wilayah, new { @class = "form-control", @maxlength = "50" })
+                                                        @Html.ValidationMessageFor(m => m.Wilayah, "", new { @class = "error-block" })
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label class="control-label">ID Akses BPN</label>
+                                                        @Html.TextBoxFor(m => m.IDBPN, new { @class = "form-control", @maxlength = "30" })
+                                                        @Html.ValidationMessageFor(m => m.IDBPN, "", new { @class = "error-block" })
+                                                    </div>
+                                                </div>
+                                            }
+
+                                            if (ViewBag.Nota == "nttxx")
+                                            {
+
+                                                <div class="form-group">
+                                                    <div class="col-md-4">
+                                                        <label class="control-label">ttd Formulir Permohonan</label>
+                                                        <input type="file" id="ttdform" />
+                                                        @if (@Model.ttdfform != "")
+                                                        {
+                                                            <a onclick="vmAccount.OpenPrevProf('@Model.ttdfform','Formulir Permohonan')">Lihat</a>
+                                                        }
+                                                        <br />
+                                                        <label class="control-label">Margin Atas</label>
+                                                        @Html.TextBoxFor(m => m.topForm, new { @class = "form-control Numberonly", @maxlength = "5", @Style = "width:70px" })
+                                                        <label class="control-label">Margin Kiri</label>
+                                                        @Html.TextBoxFor(m => m.leftForm, new { @class = "form-control Numberonly", @maxlength = "5", @Style = "width:70px" })
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        <label class="control-label">ttd surat kuasa</label>
+                                                        <input type="file" id="ttdsk" />
+                                                        @if (@Model.ttdsk != "")
+                                                        {
+                                                            <a onclick="vmAccount.OpenPrevProf('@Model.ttdsk','Surat Kuasa')">Lihat</a>
+                                                        }
+                                                        <br />
+                                                        <label class="control-label">Margin Atas</label>
+                                                        @Html.TextBoxFor(m => m.topSK, new { @class = "form-control Numberonly", @maxlength = "5", @Style = "width:70px" })
+                                                        <label class="control-label">Margin Kiri</label>
+                                                        @Html.TextBoxFor(m => m.leftSK, new { @class = "form-control Numberonly", @maxlength = "5", @Style = "width:70px" })
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        <label class="control-label">ttd surat Keabsahaan</label>
+                                                        <input type="file" id="ttdabs" />
+                                                        @if (@Model.ttdabsah != "")
+                                                        {
+                                                            <a onclick="vmAccount.OpenPrevProf('@Model.ttdabsah','Surat Keabsahan')">Lihat</a>
+                                                        }
+                                                        <br />
+                                                        <label class="control-label">Margin Atas</label>
+                                                        @Html.TextBoxFor(m => m.topAB, new { @class = "form-control Numberonly", @maxlength = "5", @Style = "width:70px" })
+                                                        <label class="control-label">Margin Kiri</label>
+                                                        @Html.TextBoxFor(m => m.leftAB, new { @class = "form-control Numberonly", @maxlength = "5", @Style = "width:70px" })
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <div class="col-md-4">
+                                                        <label class="control-label">Template Formulir Permohonan</label>
+                                                        <input type="file" id="docform" />
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        <label class="control-label">Template Surat Keabsahan</label>
+                                                        <input type="file" id="docAB" />
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        <label class="control-label">Template Surat Kuasa</label>
+                                                        <input type="file" id="docSK" />
+                                                    </div>
+                                                </div>
+                                            }
+                                            if (ViewBag.Nota == "adm")
+                                            {
+
+                                                <div class="form-group">
+                                                    <div class="col-md-12">
+                                                        <label class="control-label">Pilih PPAT :</label>
+                                                        @Html.DropDownListFor(m => m.handlemap, Model.handlemaplist, new { @class = "bs-select multi-select mlt", multiple = "multiple", @title = "Pilih Perihal PPAT" })
+                                                    </div>
+                                                </div>
+                                            }
+                                            <div class="" style="padding-top:15px">
+                                                <button type="button" class="btn green accprof">
+                                                    <i class="fa fa-check-square"></i>
+                                                    <span>&nbsp;Simpan </span>
+                                                </button>
+                                            </div>
+                                        }
+                                    </div>
+                                    <!-- END PERSONAL INFO TAB -->
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END PROFILE CONTENT -->
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="dialogwarkah" role="basic" aria-hidden="true" style="max-width:75%; margin: 20px auto">
+    <div class="modal-full">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title"><span id="capt"></span></h4>
+            </div>
+            <div class="modal-body" id="dialogmodal">
+                <div class="panel-group accordion" id="accordion99999">
+                    <div class="panel" style="border:none">
+                        <div class="panel-heading" />
+                    </div>
+                    <div id="collapse_99999" class="panel-collapse collapse in" aria-expanded="true" style="">
+                        <div class="">
+                            <div class="form-group" id="warkahdoc">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn green" data-dismiss="modal">
+                    <i class="fa fa-close"></i>
+                    <span>&nbsp;Tutup</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<script src="~/Scripts/vmAccount.js"></script>
+
+<script>
+    vmAccount.initnumber();
+    $.fn.datepicker.defaults.format = "dd-MM-yyyy";
+    $('.date-picker').datepicker({
+        rtl: App.isRTL(),
+        orientation: "bottom",
+        autoclose: true
+    });
+    $.validator.setDefaults({
+        ignore: []
+    });
+    $(".select2").select2();
+    $("#JenisKelamin").val('@Model.JenisKelamin').change();
+    $("#handlemap").multiSelect();
+    var datanot = '@ViewBag.namappat';
+    var valustr = datanot.split(",");
+    valustr.forEach(element => $("#handlemap").multiSelect('select', element));
+    vmAccount.initbutton();
+</script>

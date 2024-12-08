@@ -1,0 +1,191 @@
+﻿@model DusColl.vmAccount
+<style>
+    .modal-open .modal {
+        overflow-x: hidden;
+        overflow-y: hidden;
+    }
+</style>
+<div class="portlet light">
+    <div class="portlet-title">
+        <div class="caption" onclick="vmHomePages.LoadMenu('@ViewBag.menu','@ViewBag.caption','@ViewBag.rute','@ViewBag.action')" style="cursor:pointer">
+            <i class="icon-settings font-green"></i>
+            <span class="caption-subject font-green sbold uppercase">Pengajuan ID Pengguna</span>
+        </div>
+    </div>
+
+    <div class="">
+        <div class="form-body">
+
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a href="#tab_1_1" data-toggle="tab" aria-expanded="false"> Form Pengajuan </a>
+                </li>
+
+                <li class="">
+                    <a href="#tab_1_2" data-toggle="tab" aria-expanded="true">Riwayat Persetujuan </a>
+                </li>
+                @if (Model.HeaderInfo.IsPICApproval == true && ViewBag.CurModule == "WFTODOREG")
+                {
+                    if (int.Parse(Model.HeaderInfo.StatusDoc) == (int)HashNetFramework.StatusDocTrans.WAITAPRV)
+                    {
+                        <li class="">
+                            <a href="#tab_1_3" data-toggle="tab" aria-expanded="true">Tindakan</a>
+                        </li>
+                    }
+                }
+
+
+                @if (int.Parse(Model.HeaderInfo.StatusDoc) == (int)HashNetFramework.StatusDocTrans.DRAFT || int.Parse(Model.HeaderInfo.StatusDoc) == (int)HashNetFramework.StatusDocTrans.REVISE)
+                {
+                    <li class="dropdown pull-right tabdrop">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;" aria-expanded="false"><i class="fa fa-ellipsis-v"></i>&nbsp;Tindakan<i class="fa fa-angle-down"></i> <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="#tab5" data-toggle="tab" onclick="vmForecast.OpenAdd('@ViewBag.caption','REVHDR');" id="request">Ajukan Forecast</a>
+                            </li>
+                            <li>
+                                <a href="#tab6" data-toggle="tab" onclick="vmForecast.OpenAdd('@ViewBag.caption','CNLHDR');">Batalkan Forecast</a>
+                            </li>
+                            <li>
+                                <a href="#tab7" data-toggle="tab" onclick="vmForecast.OpenAdd('@ViewBag.caption','');">Tambah Barang</a>
+                            </li>
+                            <li>
+                                <a href="#tab7" data-toggle="tab" onclick="vmForecast.DelAdd('SelectGrid','');" id="delrequest">Hapus Barang</a>
+                            </li>
+                            <li>
+                                <a href="#tab8" data-toggle="tab" id="backpage" onclick="vmHomePages.LoadMenu('@ViewBag.menu','@ViewBag.caption','@ViewBag.rute','@ViewBag.action')">Kembali</a>
+                            </li>
+                        </ul>
+                    </li>
+                }
+                else
+                {
+                    <li class="dropdown pull-right tabdrop">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;" id="backpage" onclick="vmHomePages.LoadMenu('@ViewBag.menu','@ViewBag.caption','@ViewBag.rute','@ViewBag.action')" aria-expanded="false"><i class="fa fa-ellipsis-v"></i>&nbsp;Kembali</a>
+                    </li>
+                }
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane fade active in" id="tab_1_1">
+                    <div class="form-horizontal">
+                        <div class="form-body" style="padding-top:15px">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4">No Registrasi:</label>
+                                        <div class="col-md-6">
+                                            <p class="form-control-static"> @Model.HeaderInfo.RegAccountNo </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4">Tgl Registrasi:</label>
+                                        <div class="col-md-6">
+                                            <p class="form-control-static">  @DateTime.Parse(Model.HeaderInfo.RegAccountDate).ToString("dd/MMM/yyyy") </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4">Divisi:</label>
+                                        <div class="col-md-6">
+                                            <p class="form-control-static"> @Model.HeaderInfo.Devisi </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4">Area:</label>
+                                        <div class="col-md-6">
+                                            <p class="form-control-static"> @Model.HeaderInfo.Area </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4">Cabang:</label>
+                                        <div class="col-md-6">
+                                            <p class="form-control-static"> @Model.HeaderInfo.Cabang</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4">Nama:</label>
+                                        <div class="col-md-6">
+                                            <p class="form-control-static"> @Model.HeaderInfo.FullName</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4">Email:</label>
+                                        <div class="col-md-6">
+                                            <p class="form-control-static"> @Model.HeaderInfo.email</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4">Status Pengajuan:</label>
+                                        <div class="col-md-6">
+                                            <p class="form-control-static"> @Model.HeaderInfo.StatusDocDesc </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4">Aktivasi:</label>
+                                        <div class="col-md-6">
+                                            <p class="form-control-static"> @Model.HeaderInfo.StatusAktif</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="tab-pane fade " id="tab_1_2">
+                    <div id="gridTxLog">
+                        @{Html.RenderPartial("~/Views/Account/WFAccountRegisAprvLog.cshtml");}
+                    </div>
+                </div>
+                @if (Model.HeaderInfo.IsPICApproval == true && ViewBag.CurModule== "WFTODOREG")
+                {
+                    if (int.Parse(Model.HeaderInfo.StatusDoc) == (int)HashNetFramework.StatusDocTrans.WAITAPRV)
+                    {
+                        <div class="tab-pane fade " id="tab_1_3">
+                            <div id="FollowTx">
+                                @{Html.RenderPartial("~/Views/Account/WFAccountRegisFollow.cshtml", Model.HeaderInfo);}
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="uidivfilter">
+</div>
+<div id="uidivadd">
+</div>
+
+
+<!-- /.modal-content -->
+@*<script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>*@
+<script>
+    $.fn.datepicker.defaults.format = "dd-MM-yyyy";
+    $('.date-picker').datepicker({
+        rtl: App.isRTL(),
+        orientation: "bottom",
+        autoclose: true
+    });
+    //$("#datadialogaddupdatemaster").draggable();
+    $.getScript("Scripts/vmAccount.js", function () {});
+</script>

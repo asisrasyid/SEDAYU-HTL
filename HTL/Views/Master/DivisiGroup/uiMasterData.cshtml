@@ -1,0 +1,31 @@
+﻿@model DusColl.vmMasterData
+
+<div class="portlet light">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="icon-settings font-green"></i>
+            <span class="caption-subject font-green sbold uppercase">@ViewBag.captiondesc </span>
+        </div>
+
+        <div id="gridMasterData">
+            @{Html.RenderPartial("~/Views/Master/DivisiGroup/_uiGridMasterDataList.cshtml");}
+        </div>
+    </div>
+</div>
+
+
+
+<div id="uidivfilter">
+</div>
+<div id="uidivadd">
+</div>
+
+<div id="uiinfocontractpendingtask">
+</div>
+
+<script>
+    $('.select2').select2();
+    $.getScript("Scripts/vmMasterData.js", function () {
+    });
+</script>
+

@@ -1,0 +1,67 @@
+﻿@model  HashNetFramework.cAccountRegis
+<style>
+    .modal-open .modal {
+        overflow-x: hidden;
+        overflow-y: hidden;
+    }
+</style>
+<div class="" id="datadialogaddupdatemaster">
+    <div class="">
+        <div class="modal-body">
+            @using (Ajax.BeginForm("clnHeaderSve", new { Controller = "Account" }, new AjaxOptions
+            {
+                HttpMethod = "POST"
+            }, new { id = "clformFollowup", @class = "form-horizontal" }))
+            {
+                @Html.AntiForgeryToken();
+                <div class="">
+                    <div class="form-body">
+                        @Html.Hidden("FlagOperation", "APRHDR")
+                        @Html.HiddenFor(x=>x.keylookupdataHTX)
+                        <div class="form-horizontal">
+                            <div class="form-body">
+                                <div class="form-group">
+                                    <div class="col-md-3">
+                                        Pilih Tindakan
+                                        @Html.DropDownListFor(m => m.StatusFollow, (IEnumerable<SelectListItem>
+                                            )ViewData["SelectFollow"], "Pilih..", new { @class = "form-control select2" })
+                                        @Html.ValidationMessageFor(m => m.StatusFollow, "", new { @class = "error-block" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-6">
+                                        Catatan:
+                                        @Html.TextAreaFor(m => m.NotesFollow, new { @rows = "4", @class = "form-control", @id = "notenote" })
+                                        @Html.ValidationMessageFor(m => m.NotesFollow, "", new { @class = "error-block" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="">
+                    <button type="button" class="btn green btn-outline" onclick="vmAccount.ApplySbmtWF('#clformFollowup')">
+                        <i class="fa fa-check-square"></i>
+                        <span>&nbsp;Proses </span>
+                    </button>
+                </div>
+            }
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+<script>
+    $('.select2').select2({});
+    $.fn.datepicker.defaults.format = "dd-MM-yyyy";
+    $('.date-picker').datepicker({
+        rtl: App.isRTL(),
+        orientation: "bottom",
+        autoclose: true
+    });
+</script>
