@@ -1551,6 +1551,449 @@ namespace DusColl.Controllers
 
         }
 
+
+
+        public async Task<ActionResult> clnOpenAddRoya(string paramkey, string oprfun)
+        {
+            Account = (vmAccount)Session["Account"];
+            bool IsErrorTimeout = false;
+            if (Account != null)
+            {
+                Account.AccountLogin = lgAccount.NotExistSesionID(Request.Cookies[FormsAuthentication.FormsCookieName], Account.AccountLogin);
+                if (Account.AccountLogin.RouteName != "")
+                {
+                    IsErrorTimeout = true;
+                }
+            }
+            else
+            {
+                IsErrorTimeout = true;
+            }
+            if (IsErrorTimeout == true)
+            {
+                string urlpath = Url.Action("AccountTimeOut", "Account", new { area = "" });
+                return Json(new
+                {
+                    url = urlpath,
+                    moderror = IsErrorTimeout
+                }, JsonRequestBehavior.AllowGet);
+            }
+            try
+            {
+                //get session filterisasi //
+                if ((paramkey ?? "") == "")
+                {
+                    modFilter = new cFilterContract();
+                    HTL = new vmHTL();
+                    modFilter.idcaption = HasKeyProtect.Encryption("HTLLIST");
+                }
+                else
+                {
+                    modFilter = TempData[tempTransksifilter] as cFilterContract;
+                    HTL = TempData[tempTransksi] as vmHTL;
+                }
+
+                Common = (TempData["common"] as vmCommon);
+                Common = Common == null ? new vmCommon() : Common;
+
+                string UserID = Account.AccountLogin.UserID;
+                string GroupName = Account.AccountLogin.GroupName;
+                string caption = HashNetFramework.HasKeyProtect.Decryption(modFilter.idcaption);
+
+                string UserTypes = HasKeyProtect.Decryption(Account.AccountLogin.UserType);
+
+
+                //if (int.Parse(UserTypes) == (int)UserType.Notaris)
+                //{
+                //    Common.ddlstatus = Common.ddlstatus.AsEnumerable().Where(x => x.Value == "6" || x.Value == "11" || x.Value == "7" || (int.Parse(x.Value) >= 20 && int.Parse(x.Value) < 30)).ToList();
+                //}
+
+                //if (int.Parse(UserTypes) == (int)UserType.HO || int.Parse(UserTypes) == (int)UserType.Branch)
+                //{
+                //    Common.ddlstatus = Common.ddlstatus.AsEnumerable().Where(x => x.Value == "0").ToList();
+                //}
+
+                //if (int.Parse(UserTypes) == (int)UserType.FDCM)
+                //{
+                //    Common.ddlstatus = Common.ddlstatus.AsEnumerable().Where(x => x.Value == "6" || x.Value == "10" || x.Value == "7" || (int.Parse(x.Value) >= 20 && int.Parse(x.Value) < 50)).ToList();
+                //}
+
+                //Common.ddlnotaris = await HTLddl.dbdbGetDdlNotarisListByEncrypt(caption, UserID, GroupName);
+                //if (int.Parse(UserTypes) == (int)UserType.Notaris)
+                //{
+                //    string notrs = HashNetFramework.HasKeyProtect.Encryption(UserID);
+                //    Common.ddlnotaris = Common.ddlnotaris.AsEnumerable().Where(x => x.Value == notrs).ToList();
+                //}
+                //ViewData["SelectHak"] = new MultiSelectList(Common.ddlhak, "Value", "Text");
+                //ViewData["SelectNotaris"] = new MultiSelectList(Common.ddlnotaris, "Value", "Text");
+
+
+
+                string Opr4view = "add";
+                string keyup = paramkey;
+                string keyup1 = "";
+                string keyup2 = "";
+
+                cHTL modeldata = new cHTL();
+                if (HTL.DTAllTx is null)
+                {
+                    modeldata.IDHeaderTx = 0;
+                    modeldata.TglOrder = "1984-04-29";
+                    //modeldata.TgllahirDebitur = "1984-04-29";
+                    modeldata.NoAppl = "";
+                    modeldata.keylookupdataHTX = "";
+                    modeldata.DataTNH = new DataTable();
+                    modeldata.DataPSG = new DataTable();
+                    modeldata.DataSRT = new DataTable();
+                    modeldata.DataSRTPSG = new DataTable();
+                    modeldata.Status = "0";
+                }
+                else
+                {
+                    DataRow dr = HTL.DTAllTx.AsEnumerable().Where(x => x.Field<string>("keylookupdata") == paramkey).SingleOrDefault();
+                    if (dr != null)
+                    {
+
+                        Opr4view = "edit";
+                        if (oprfun == "x4vw")
+                        {
+                            Opr4view = "view";
+                        }
+
+
+                        modeldata.IDHeaderTx = int.Parse(dr["Id"].ToString());
+                        modeldata.TglOrder = dr["TglOrder"].ToString();
+                        modeldata.NoBlanko = dr["NoBlanko"].ToString();
+                        modeldata.NoSertifikat = dr["NoSertifikat"].ToString();
+                        modeldata.NoAppl = dr["NoAppl"].ToString();
+                        modeldata.JenisSertifikat = dr["JenisSertifikat"].ToString();
+                        modeldata.NomorNIB = dr["NomorNIB"].ToString();
+                        modeldata.NoSuratUkur = dr["NoSuratUkur"].ToString();
+                        modeldata.LuasTanah = dr["LuasTanah"].ToString().Replace(".00", "");
+                        modeldata.LokasiTanahDiProvinsi = dr["LokasiTanahDiProvinsi"].ToString();
+                        modeldata.LokasiTanahDiKota = dr["LokasiTanahDiKota"].ToString();
+                        modeldata.LokasiTanahDiKecamatan = dr["LokasiTanahDiKecamatan"].ToString();
+                        modeldata.LokasiTanahDiDesaKelurahan = dr["LokasiTanahDiDesaKelurahan"].ToString();
+                        modeldata.NamaDebitur = dr["Debitur"].ToString();
+                        modeldata.WargaDebitur = dr["WargaDebitur"].ToString();
+                        modeldata.JKelaminDebitur = dr["JKelaminDebitur"].ToString();
+                        modeldata.TptLahirDebitur = dr["TptLahirDebitur"].ToString();
+                        modeldata.TgllahirDebitur = dr["TgllahirDebitur"].ToString();
+                        modeldata.PekerjaanDebitur = dr["PekerjaanDebitur"].ToString();
+                        modeldata.NIKDebitur = dr["NIKDebitur"].ToString();
+                        modeldata.JenisPengajuan = dr["JenisPengajuan"].ToString();
+                        modeldata.JenisPengajuanDesc = dr["JenisPengajuanDesc"].ToString();
+                        modeldata.AlamatDebitur = dr["AlamatDebitur"].ToString();
+                        modeldata.ProvinsiDebitur = dr["ProvinsiDebitur"].ToString();
+                        modeldata.KotaDebitur = dr["KotaDebitur"].ToString();
+                        modeldata.RTDebitur = dr["RTDebitur"].ToString();
+                        modeldata.RWDebitur = dr["RWDebitur"].ToString();
+                        modeldata.StatusDebitur = dr["StatusDebitur"].ToString();
+                        modeldata.KecamatanDebitur = dr["KecamatanDebitur"].ToString();
+                        modeldata.DesaKelurahanDebitur = dr["DesaKelurahanDebitur"].ToString();
+                        modeldata.PekerjaanPemilikSertifikat = dr["PekerjaanPemilikSertifikat"].ToString();
+                        modeldata.NIKPemilikSertifikat = dr["NIKPemilikSertifikat"].ToString();
+                        modeldata.JenisPengajuan = dr["JenisPengajuan"].ToString();
+                        modeldata.JenisPengajuanDesc = dr["JenisPengajuanDesc"].ToString();
+                        modeldata.NamaPemilikSertifikat = dr["NamaPemilikSertifikat"].ToString();
+
+                        modeldata.JKelaminPemilikSertifikat = dr["JKelaminPemilikSertifikat"].ToString();
+                        modeldata.TptlahirPemilikSertifikat = dr["TptlahirPemilikSertifikat"].ToString();
+                        modeldata.TgllahirPemilikSertifikat = dr["TgllahirPemilikSertifikat"].ToString().Replace("00:00:00", "");
+                        modeldata.WargaPemilikSertifikat = dr["WargaPemilikSertifikat"].ToString();
+
+                        modeldata.AlamatPemilikSertifikat = dr["AlamatPemilikSertifikat"].ToString();
+                        modeldata.ProvinsiPemilikSertifikat = dr["ProvinsiPemilikSertifikat"].ToString();
+                        modeldata.KotaPemilikSertifikat = dr["KotaPemilikSertifikat"].ToString();
+                        modeldata.KecamatanPemilikSertifikat = dr["KecamatanPemilikSertifikat"].ToString();
+                        modeldata.DesaKelurahanPemilikSertifikat = dr["DesaKelurahanPemilikSertifikat"].ToString();
+
+                        modeldata.OrderKeNotaris = dr["OrderKeNotaris"].ToString();
+                        modeldata.NilaiHT = dr["NilaiHT"].ToString().Replace(".00", "");
+                        modeldata.NilaiPinjamanDiterima = dr["NilaiTerimaNasabah"].ToString().Replace(".00", "");
+                        modeldata.KodeAkta = dr["KodeAkta"].ToString();
+                        modeldata.NoHT = dr["NoHT"].ToString();
+                        modeldata.kodesht = dr["KodeSHT"].ToString();
+                        modeldata.nosht = dr["NoSHT"].ToString();
+                        modeldata.TglSertifikatCEK = dr["TglSertifikatCek"].ToString().Replace("00:00:00", "");
+                        modeldata.TglSuratUkur = dr["TglSuratUkur"].ToString().Replace("00:00:00", "");
+
+                        modeldata.JasaPengecekan = bool.Parse(dr["JasaPengecekan"].ToString());
+                        modeldata.JasaValidasi = bool.Parse(dr["JasaValidasi"].ToString());
+                        modeldata.SKMHT = bool.Parse(dr["SKMHT"].ToString());
+                        modeldata.APHT_SHT = bool.Parse(dr["APHT_SHT"].ToString());
+                        modeldata.ROYA = bool.Parse(dr["ROYA"].ToString());
+                        modeldata.PENCORETAN_PTSL = bool.Parse(dr["PENCORETAN_PTSL"].ToString());
+                        modeldata.KUASA_MENGAMBIL = bool.Parse(dr["KUASA_MENGAMBIL"].ToString());
+                        modeldata.PNBP = bool.Parse(dr["PNBP"].ToString());
+                        modeldata.ADM_HT = bool.Parse(dr["ADM_HT"].ToString());
+
+                        modeldata.NoPerjanjian = dr["NoPerjanjian"].ToString();
+                        modeldata.TglPerjanjian = dr["TglPerjanjian"].ToString();
+
+                        modeldata.Keterangan = dr["Keterangan"].ToString();
+                        modeldata.Status = dr["Status"].ToString();
+                        modeldata.Statusdesc = dr["Statusdesc"].ToString();
+                        modeldata.Statushakdesc = dr["Statushakdesc"].ToString();
+                        //modeldata.StatusHT = dr["Statusdesc"].ToString();
+                        modeldata.StatusHTdesc = dr["StatusHTDesc"].ToString();
+                        modeldata.NamaCabang = dr["NamaCabang"].ToString();
+
+
+                        modeldata.DeadlineSLA = dr["DeadlineSLA"].ToString();
+                        modeldata.PosisiPenangan = dr["PosHandleIsue"].ToString();
+
+                        //percobaan//
+                        string perihal = dr["Perihal"].ToString();
+                        string perihalPending = dr["AlasanPending"].ToString();
+                        string perihalPendingAkd = dr["AlasanPendingAkd"].ToString();
+
+                        string ShowPen = dr["ShowTabPend"].ToString();
+                        string ShowPenAkd = dr["ShowTabPendAkd"].ToString();
+                        string ShowTabTangan = dr["ShowTabTangan"].ToString();
+                        string ShowTabFillSPA = dr["ShowTabFillSPA"].ToString();
+
+                        modeldata.Case = perihal;
+                        modeldata.CaseDesc = dr["PerihalDesc"].ToString();
+                        modeldata.ShowTabCancel = dr["ShowTabCancel"].ToString();
+
+                        modeldata.CaseCabPending = perihalPending;
+                        modeldata.CaseCabPendingDesc = dr["AlasanPendingDesc"].ToString();
+
+                        modeldata.CaseCabPendingAkd = perihalPendingAkd;
+                        modeldata.CaseCabPendingAkdDesc = dr["AlasanPendingAkdDesc"].ToString();
+
+                        modeldata.CaseCabDesc = dr["PerihalCabDesc"].ToString();
+
+                        modeldata.noberkasht = dr["NoBerkasSHT"].ToString();
+                        modeldata.noberkasceking = dr["NoBerkasCEK"].ToString();
+
+                        modeldata.keylookupdataHTX = paramkey;
+
+                        modeldata.JmlTerbitSPA = bool.Parse(dr["JmlTerbitSPA"].ToString());
+
+
+                        //ambil data psangan debitur//
+                        modeldata.DataPSG = await HTLddl.dbGetMultiData(modeldata.NoAppl, "0", caption, UserID, GroupName);
+                        //ambil data tanah//
+                        modeldata.DataTNH = await HTLddl.dbGetMultiData(modeldata.NoAppl, "1", caption, UserID, GroupName);
+                        //ambil data SPA//
+                        modeldata.DataTNHSPA = await HTLddl.dbGetMultiData(modeldata.NoAppl, "1", caption, UserID, GroupName);
+                        //ambil data sertifikat//
+                        modeldata.DataSRT = await HTLddl.dbGetMultiData(modeldata.NoAppl, "2", caption, UserID, GroupName);
+                        //ambil data pasangan sertifikat//
+                        modeldata.DataSRTPSG = await HTLddl.dbGetMultiData(modeldata.NoAppl, "3", caption, UserID, GroupName);
+
+                        //ambil data upload document//
+                        modeldata.DTDokumen = await Commonddl.dbdbGetJenisDokumen("0", modeldata.NoAppl, "4", caption, UserID, GroupName);
+
+                        ViewBag.Nappl = modeldata.NoAppl;
+                        ViewBag.Jndata1 = "1";
+                        ViewBag.Jndata2 = "2";
+                        ViewBag.Jndata3 = "0";
+                        ViewBag.Jndata4 = "3";
+                        ViewBag.ShowTabPend = ShowPen;
+                        ViewBag.ShowTabPendAkad = ShowPenAkd;
+                        ViewBag.ShowTabTangan = ShowTabTangan;
+                        ViewBag.ShowTabFillSPA = ShowTabFillSPA;
+
+                    }
+
+                }
+
+                if (Common.ddlDocument == null)
+                {
+                    Common.ddlDocument = await Commonddl.dbdbGetJenisDokumenDll("-900", modeldata.NoAppl, "3", caption, UserID, GroupName);
+                }
+                ViewData["SelectDocumentReg"] = OwinLibrary.Get_SelectListItem(Common.ddlDocument);
+
+                //if (Common.ddlstatus == null)
+                //{
+                Common.ddlstatus = await Commonddl.dbdbGetDdlEnumsListByEncryptNw("STATHDL", caption, UserID, GroupName, modeldata.Status);
+                Common.ddlstatusmap = await Commonddl.dbdbGetDdlEnumsListByEncryptNwdt("MAPSTAT", caption, UserID, GroupName, modeldata.Status);
+                //}
+                ViewData["SelectStatus"] = new MultiSelectList(Common.ddlstatus, "Value", "Text");
+
+                if (Common.ddlhak == null)
+                {
+                    Common.ddlhak = await Commonddl.dbdbGetDdlEnumsListByEncrypt("HAK", caption, UserID, GroupName, "99");
+                }
+                ViewData["SelectHak"] = new MultiSelectList(Common.ddlhak, "Value", "Text");
+
+                if (Common.ddlJenPen == null)
+                {
+                    Common.ddlJenPen = await Commonddl.dbdbGetDdlEnumsListByEncrypt("JNAJU", caption, UserID, GroupName, "99");
+                }
+                ViewData["SelectJEN"] = new MultiSelectList(Common.ddlJenPen, "Value", "Text");
+
+                if (Common.ddlJenKel == null)
+                {
+                    Common.ddlJenKel = await Commonddl.dbdbGetDdlEnumsListByEncrypt("JENKEL", caption, UserID, GroupName, "99");
+                }
+                ViewData["SelectJENKEL"] = new MultiSelectList(Common.ddlJenKel, "Value", "Text");
+
+                if (Common.ddlStatKW == null)
+                {
+                    Common.ddlStatKW = await Commonddl.dbdbGetDdlEnumsListByEncrypt("WARGA", caption, UserID, GroupName, "99");
+                }
+                ViewData["SelectWarga"] = new MultiSelectList(Common.ddlStatKW, "Value", "Text");
+
+                if (Common.ddlStatNKH == null)
+                {
+                    Common.ddlStatNKH = await Commonddl.dbdbGetDdlEnumsListByEncrypt("NIKAH", caption, UserID, GroupName, "99");
+                }
+                ViewData["SelectStatusNikah"] = new MultiSelectList(Common.ddlStatNKH, "Value", "Text");
+
+                if (Common.ddlnotaris == null)
+                {
+                    Common.ddlnotaris = await HTLddl.dbdbGetDdlNotarisListByEncrypt(caption, modeldata.NoAppl, UserID, GroupName);
+                }
+                if (int.Parse(UserTypes) == (int)UserType.Notaris)
+                {
+                    string notrs = HashNetFramework.HasKeyProtect.Encryption(UserID);
+                    Common.ddlnotaris = Common.ddlnotaris.AsEnumerable().Where(x => x.Value == notrs).ToList();
+                }
+
+                if (int.Parse(UserTypes) == (int)UserType.Branch && (int.Parse(modeldata.Status ?? "0") <= 0 || int.Parse(modeldata.Status ?? "0") == 6))
+                {
+                    Common.ddlnotaris = await HTLddl.dbdbGetDdlNotarisListByEncrypt(caption, modeldata.NoAppl, UserID, GroupName);
+                }
+
+                ViewData["SelectNotaris"] = OwinLibrary.Get_SelectListItem(Common.ddlnotaris);
+
+                if (Common.ddlCase == null)
+                {
+                    Common.ddlCase = await Commonddl.dbdbGetDdlEnumsListByEncrypt("CASE", caption, UserID, GroupName, "99");
+                }
+                ViewData["SelectCase"] = new MultiSelectList(Common.ddlCase, "Value", "Text");
+
+                if (Common.ddlCaseCab == null)
+                {
+                    Common.ddlCaseCab = await Commonddl.dbdbGetDdlEnumsListByEncrypt("CASECAB", caption, UserID, GroupName, "99");
+                }
+                ViewData["SelectCaseCab"] = new MultiSelectList(Common.ddlCaseCab, "Value", "Text");
+
+                if (Common.ddlCasepen == null)
+                {
+                    Common.ddlCasepen = await Commonddl.dbdbGetDdlEnumsListByEncrypt("CASEPEN", caption, UserID, GroupName, "99");
+                }
+                ViewData["SelectCasePending"] = new MultiSelectList(Common.ddlCasepen, "Value", "Text");
+
+                if (Common.ddlCasepenAkd == null)
+                {
+                    Common.ddlCasepenAkd = await Commonddl.dbdbGetDdlEnumsListByEncrypt("PENAKD", caption, UserID, GroupName, "99");
+                }
+                ViewData["SelectCasePendingAkd"] = new MultiSelectList(Common.ddlCasepenAkd, "Value", "Text");
+
+                if (Common.ddlPosistionPenanganan == null)
+                {
+                    Common.ddlPosistionPenanganan = await Commonddl.dbdbGetDdlEnumsListByEncrypt("POSHDNLE", caption, UserID, GroupName, "99");
+                }
+                ViewData["SelectPosisiPenanganan"] = new MultiSelectList(Common.ddlPosistionPenanganan, "Value", "Text");
+
+
+                ViewBag.showtabnotaris = "";
+                string usrtp = HasKeyProtect.Decryption(Account.AccountLogin.UserType);
+                if (int.Parse(usrtp) == (int)UserType.Notaris || int.Parse(usrtp) == (int)UserType.FDCM)
+                {
+                    ViewBag.showtabnotaris = "allow";
+                }
+
+                ViewBag.hidesave = "";
+                if (int.Parse(usrtp) == (int)UserType.FDCM && Opr4view == "add")
+                {
+                    ViewBag.hidesave = "hidden";
+                }
+
+                ViewBag.btncaption = "Simpan";
+                if ((int.Parse(usrtp) != (int)UserType.HO && int.Parse(usrtp) != (int)UserType.Branch) || (modeldata.Status == "21")) //pending
+                {
+                    ViewBag.btncaption = "Submit";
+                }
+
+                ViewBag.OprMenu = Opr4view == "add" ? "PENAMBAHAN DATA" : Opr4view == "edit" ? "PERUBAHAN DATA (" + modeldata.NoAppl + ")" : "";
+                ViewBag.OprMenu = Opr4view == "view" ? "NO APLIKASI " + modeldata.NoAppl : ViewBag.OprMenu;
+                ViewBag.oprvalue = Opr4view;
+                ViewBag.Menu = modFilter.Menu;
+
+
+
+                ViewBag.keyup = keyup;
+                ViewBag.keyup1 = keyup1;
+                ViewBag.keyup2 = keyup2;
+
+
+                ////pengecekan on progress editable u nokontak //
+                //if (((int.Parse(usrtp) == (int)UserType.Branch || int.Parse(usrtp) == (int)UserType.HO))
+                //    && int.Parse((modeldata.Status ?? "0")) >= 10 && int.Parse((modeldata.Status ?? "0")) < 40)
+                //{
+                //    ViewBag.editkontrak = "allow";
+                //    ViewBag.oprvalue = "view";
+                //    ViewBag.hidesave = "show";
+                //}
+
+                string viewbro = "/Views/HTL/_uiRoyaUpdNw.cshtml";
+                if (int.Parse(usrtp) == (int)UserType.Branch)
+                {
+                    ViewBag.user = "cabang";
+                }
+
+                if (int.Parse(usrtp) == (int)UserType.Notaris)
+                {
+                    ViewBag.user = "notaris";
+                    // viewbro = "/Views/HTL/_uiHTLUpd.cshtml"; //_uiHTLUpdNw.cshtml
+                }
+
+                if (int.Parse(usrtp) == (int)UserType.FDCM)
+                {
+                    ViewBag.user = "admin";
+                }
+
+                if (int.Parse(usrtp) == (int)UserType.FDCM && (modeldata.StatusHT == "47" || modeldata.StatusHT == "54"))
+                {
+                    ViewBag.allowht = "allow";
+                }
+
+
+                HTL.HeaderInfo = modeldata;
+                TempData[tempTransksi] = HTL;
+                TempData[tempTransksifilter] = modFilter;
+                TempData["common"] = Common;
+                // senback to client browser//
+
+
+                return Json(new
+                {
+                    moderror = IsErrorTimeout,
+                    loadcabang = 0,
+                    keydata = paramkey,
+                    view = CustomEngineView.RenderRazorViewToString(ControllerContext, viewbro, HTL.HeaderInfo),
+                });
+
+            }
+            catch (Exception ex)
+            {
+                var msg = ex.Message.ToString();
+                OwinLibrary.CreateLog(msg, "LogErrorFDCM.txt");
+                string urlpath = Url.Action("AccountTimeOut", "Account", new { area = "" });
+                if (IsErrorTimeout == false)
+                {
+                    Response.StatusCode = 406;
+                    Response.TrySkipIisCustomErrors = true;
+                    urlpath = Url.Action("Index", "Error", new { area = "" });
+                }
+                return Json(new
+                {
+                    url = urlpath,
+                    moderror = IsErrorTimeout
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
+
+
+
         [HttpPost]
         public async Task<ActionResult> GroupPos(string NoAPP, string PosBerkas, string GroupPos, string ketPos, int nominal, string user)
         {

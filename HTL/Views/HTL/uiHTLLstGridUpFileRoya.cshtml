@@ -1,0 +1,129 @@
+﻿@model HashNetFramework.cHTL
+<style>
+    td:not(:first-child) {
+        white-space: nowrap;
+    }
+
+
+    td:last-child {
+        width: 2%;
+    }
+
+    .btn {
+        padding: 6px 7px;
+        margin-bottom: 0;
+        /*border-radius: 0;*/
+        /*border: 0;*/
+    }
+
+    .btngridx {
+        padding: 1px 5px;
+        margin-bottom: 0;
+    }
+
+    .btngrid {
+        padding: 6.7px 7px;
+        margin-bottom: 0;
+        border-radius: 0;
+        border: 0;
+    }
+</style>
+
+
+
+<table class="table table-striped table-hover table-bordered" id="table_txttnh">
+    <thead>
+        <tr>
+            <th data-priority="1" width="7%">No</th>
+            <th>Jenis <br />Hak</th>
+            <th data-priority="1">No <br />Nama FILE</th>
+            <th>Nomor <br /> NIB</th>
+            <th>No<br /> Surat Ukur</th>
+            <th>Tgl<br /> Surat Ukur</th>
+            <th>Luas<br /> Tanah (m2)</th>
+            <th>Desa/kelurahan</th>
+            <th>Kecamatan</th>
+            <th data-priority="1">Kota/<br />Kabupaten</th>
+            <th>Provinsi</th>
+            <th data-priority="1"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.DataTNH != null)
+        {
+            var i = 0;
+            foreach (System.Data.DataRow item in Model.DataTNH.Rows)
+            {
+
+                i = i + 1;
+                <tr class="DrillDownRow">
+                    <td>@i.ToString()</td>
+                    <td>@item["JenisHakDesc"].ToString().ToUpper()</td>
+                    <td>@item["NoSertifikat"].ToString().ToUpper()</td>
+                    <td>@item["NoNIB"].ToString()</td>
+                    <td>@item["NoSuratUkur"].ToString()</td>
+                    <td>@item["TglSuratUkurlkp"].ToString()</td>
+                    <td>@item["LuasTanah"].ToString()</td>
+                    <td>@item["DesaKelurahanTanah"].ToString()</td>
+                    <td>@item["KecamatanTanah"].ToString()</td>
+                    <td>@item["KotaTanah"].ToString()</td>
+                    <td>@item["ProvinsiTanah"].ToString().ToUpper()</td>
+                    <td>
+                        <a class="btn green btngrid open4viewtipt" data-value="HTLIST,@item["keylookupdata"],@HashNetFramework.HasKeyProtect.Encryption(Model.NoAppl).ToString()),x4vw,gdtnh,table_txttnh">
+                            <i class="fa fa-eye"></i>&nbsp;Lihat
+                        </a>
+                        @if (item["AllowEdit"].ToString() == "allow" && ViewBag.oprvalue != "view")
+                        {
+                            <span>&nbsp;</span>
+                            <a class="btn green btngrid open4editipt" data-value="HTLIST,@item["keylookupdata"],@HashNetFramework.HasKeyProtect.Encryption(Model.NoAppl).ToString()),x4vwe,gdtnh,table_txttnh">
+                                <i class="fa fa-pencil-square"></i>&nbsp;Ubah
+                            </a>
+                        }
+                        else
+                        {
+                            <span>&nbsp;</span>
+                            <a href="javascript:;" class="btn green btngrid" style="background-color:#eee;cursor:none">
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </a>
+                        }
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<script src="~/Scripts/vmHTL.js"></script>
+<script>
+    $.getScript("/Content/assets/pages/scripts/table-datatable-custom.js")
+        .done(function (script, textStatus) {
+            var currentP = 1;
+            var totalRDBAll = '@Model.DataTNH.Rows.Count.ToString()';
+            var totalR = '@Model.DataTNH.Rows.Count.ToString()';
+            var totalP = 1;
+            var nextP = 1;
+            var prevP = 1;
+            var tbj = true
+            var tbjd = true
+            var tbjg = true
+            var parurl = 'HTL/clnRgridHeaderTx';
+            var divgrid = 'gdtnh';
+            var tabled = 'table_txttnh';
+
+
+            $("#" + tabled).DataTable().destroy();
+            $("#" + tabled).DataTable({
+                responsive: true
+            });
+            $("#table_txttnh_filter > label > input").before("<div style='padding-left:5px'>@Html.Raw(ViewBag.Total)</div>");
+            $("#table_txttnh_filter > label > input").after(
+                '@ViewBag.oprvalue' != "view" ?
+                "<button type='button' class='btn green btngrid LoadMenuIpt' title='Refresh' data-value='\"@Html.Raw(HashNetFramework.HasKeyProtect.Encryption(Model.NoAppl))\",\"@Html.Raw(HashNetFramework.HasKeyProtect.Encryption(ViewBag.Jndata1))\",\"gdtnh\",\"table_txttnh\"'><i class='fa fa-refresh'></i></button > " +
+                "<button type='button' class='btn green btngrid openaddipt' title='Tambah Data' id='tbh' data-value='\"HTLLIST\",\"\",\"@Html.Raw(HashNetFramework.HasKeyProtect.Encryption(Model.NoAppl))\",\"x0s\",\"gdtnh\",\"table_txttnh\"'><i class='fa fa-plus'></i></button >" : ""
+            );
+            $("#table_txttnh_filter > label > div").css("color", "#95A5A6 !important")
+            vmHTL.initbuton();
+        });
+
+</script>
+

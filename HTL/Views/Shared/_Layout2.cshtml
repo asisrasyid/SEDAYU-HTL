@@ -62,6 +62,143 @@
             width: 100% !important;
         }
     </style>
+    <style>
+        .contentwiz {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        .form-wizard {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            padding: 20px;
+        }
+
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .progress-step {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #ddd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+        }
+
+            .progress-step.active {
+                background-color: #4CAF50;
+            }
+
+        .form-step {
+            display: none;
+        }
+
+            .form-step.active {
+                display: block;
+            }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+            .form-group label {
+                display: block;
+                margin-bottom: 5px;
+            }
+
+            .form-group input {
+                width: 100%;
+                padding: 8px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+            }
+
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-next {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .btn-prev {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        .btn-submit {
+            background-color: #007bff;
+            color: white;
+        }
+    </style>
+    <style>
+        .cardcard {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 300px;
+            position: relative;
+        }
+
+        .card-label {
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 18px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .card-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+            .card-button:hover {
+                background-color: #45a049;
+            }
+    </style>
 </head>
 
 
@@ -138,6 +275,7 @@
                                     @{
 
                                         var prosub = "";
+                                        <!--Tempat meletakan group metrik tergantung jenis user  hasilnya di dapat dari module.AccountMetrikList -->
                                         var parentmodul = module.AccountMetrikList.Where(x => x.MenuItem.Action.ToString() != "" && x.AllowShowInMenu == true).Select(x => x.MenuItem.ParentModuleName).Distinct().ToList();
                                         foreach (var cmatrik in parentmodul)
                                         {

@@ -1429,6 +1429,8 @@
     <Content Include="Views\Master\CabangUser\_uiUpdateMasterData.cshtml" />
     <Content Include="Views\Account\redouth.cshtml" />
     <Content Include="Views\Home\_GrpIsue.cshtml" />
+    <Content Include="Views\HTL\_uiRoyaUpdNw.cshtml" />
+    <Content Include="Views\HTL\uiHTLLstGridUpFileRoya.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
