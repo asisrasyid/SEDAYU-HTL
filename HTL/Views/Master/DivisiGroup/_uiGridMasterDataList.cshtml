@@ -1,6 +1,5 @@
 ﻿@model DusColl.vmMasterData
 
-
 <style>
     td:not(:first-child) {
         white-space: nowrap;
@@ -22,7 +21,6 @@
     }
 </style>
 
-
 <table class="table table-striped table-hover table-bordered" id="table_List_master">
     <thead>
         <tr>
@@ -36,34 +34,32 @@
             foreach (System.Data.DataRow item in Model.DTDetailForGrid.Rows)
             {
 
-                <tr>
-                    <td align="center">
-                        @i
-                    </td>
-                    <td>
-                        @Html.Raw(item["GROUP_NAME"])
-                    </td>
-                    <td align="center">
-                        <a href="javascript:;" onclick="vmMasterData.OpenAdd('@Model.MasterFilter.ModuleName.ToString()','@item["keylookupdata"]','x4vw')">
-                            <i class="fa fa-eye"></i>Lihat
-                        </a>
-                        <span>&nbsp;</span>
-                        <a href="javascript:;" onclick="vmMasterData.OpenAdd('@Model.MasterFilter.ModuleName.ToString()','@item["keylookupdata"]','x4vwe')">
-                            <i class="fa fa-pencil-square"></i>Ubah
-                        </a>
-                        <span>&nbsp;</span>
-                        <a href="javascript:;" onclick="vmMasterData.DelAdd('@Model.MasterFilter.ModuleName.ToString()','@item["keylookupdata"]')">
-                            <i class="fa fa-remove"></i>Hapus
-                        </a>
-                    </td>
-                </tr>
+            <tr>
+                <td align="center">
+                    @i
+                </td>
+                <td>
+                    @Html.Raw(item["GROUP_NAME"])
+                </td>
+                <td align="center">
+                    <a href="javascript:;" onclick="vmMasterData.OpenAdd('@Model.MasterFilter.ModuleName.ToString()','@item["keylookupdata"]','x4vw')">
+                        <i class="fa fa-eye"></i>Lihat
+                    </a>
+                    <span>&nbsp;</span>
+                    <a href="javascript:;" onclick="vmMasterData.OpenAdd('@Model.MasterFilter.ModuleName.ToString()','@item["keylookupdata"]','x4vwe')">
+                        <i class="fa fa-pencil-square"></i>Ubah
+                    </a>
+                    <span>&nbsp;</span>
+                    <a href="javascript:;" onclick="vmMasterData.DelAdd('@Model.MasterFilter.ModuleName.ToString()','@item["keylookupdata"]')">
+                        <i class="fa fa-remove"></i>Hapus
+                    </a>
+                </td>
+            </tr>
                 i = i + 1;
             }
         }
     </tbody>
 </table>
-
-
 
 <script>
 
@@ -89,6 +85,4 @@
                    "<button type='button' class='btngrid' title='Tambah Data' onclick='vmMasterData.OpenAdd(\"@Model.MasterFilter.ModuleName.ToString()\",\"\");'><i class='fa fa-plus'></i></button >"
             );
        });
-
 </script>
-

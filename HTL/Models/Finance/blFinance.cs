@@ -1,19 +1,13 @@
 ﻿using HashNetFramework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace DusColl
 {
     public class blFinance
     {
-
         public string CheckFilterisasiBillingCreate(cFilterContract model, string isdownload = "")
         {
-
             string validtxt = "";
-
 
             if (((model.fromdate ?? "") != "" && (model.todate ?? "") != "") && (model.NoPerjanjian ?? "") == "")
             {
@@ -49,30 +43,21 @@ namespace DusColl
                     validtxt = EnumsDesc.GetDescriptionEnums(ProccessOutput.FilterValidTanggal);
                 }
 
-
                 if (((model.UserTypeApps == (int)UserType.FDCM) && model.UserType == model.UserTypeApps))
                 {
-
                     string client = (model.SelectClient ?? "") != "" ? HasKeyProtect.Decryption(model.SelectClient) : model.SelectClient ?? "";
                     if (client == "")
                     {
                         validtxt = EnumsDesc.GetDescriptionEnums(ProccessOutput.FilterValidClient);
                     }
-
                 }
-
             }
             return validtxt;
-
         }
-
-
 
         public string CheckFilterisasiBilling(cFilterContract model, string isdownload = "")
         {
-
             string validtxt = "";
-
 
             if ((model.fromdate ?? "") != "" && (model.todate ?? "") != "")
             {
@@ -86,7 +71,6 @@ namespace DusColl
                     validtxt = EnumsDesc.GetDescriptionEnums(ProccessOutput.FilterValidRangeTanggalFilter);
                 }
             }
-
 
             if (isdownload == "1")
             {
@@ -105,10 +89,8 @@ namespace DusColl
                     }
                 }
 
-
                 if (((model.UserTypeApps == (int)UserType.FDCM) && model.UserType == model.UserTypeApps))
                 {
-
                     string cabang = (model.SelectBranch ?? "") != "" ? HasKeyProtect.Decryption(model.SelectBranch) : model.SelectBranch ?? "";
                     if (cabang == "")
                     {
@@ -120,13 +102,9 @@ namespace DusColl
                     {
                         validtxt = EnumsDesc.GetDescriptionEnums(ProccessOutput.FilterValidClient);
                     }
-
                 }
-
             }
             return validtxt;
-
-
         }
     }
 }

@@ -47,6 +47,7 @@
     <Prefer32Bit>false</Prefer32Bit>
     <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
     <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <UseWinFormsOutOfProcDesigner>True</UseWinFormsOutOfProcDesigner>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -56,6 +57,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <UseWinFormsOutOfProcDesigner>True</UseWinFormsOutOfProcDesigner>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BouncyCastle.Crypto, Version=1.8.6.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
@@ -1431,6 +1433,12 @@
     <Content Include="Views\Home\_GrpIsue.cshtml" />
     <Content Include="Views\HTL\_uiRoyaUpdNw.cshtml" />
     <Content Include="Views\HTL\uiHTLLstGridUpFileRoya.cshtml" />
+    <Content Include="Views\HTL\uiRoyaLst.cshtml" />
+    <Content Include="Views\HTL\_uiRoyaUpdNwShwo.cshtml" />
+    <Content Include="Views\HTL\uiHTLLstGridRoya.cshtml" />
+    <Content Include="Views\HTL\uiRoyaProsLst.cshtml" />
+    <Content Include="Views\HTL\uiRoyaUploadDocNw.cshtml" />
+    <Content Include="Views\HTL\uiHTLLstGridDRYA.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

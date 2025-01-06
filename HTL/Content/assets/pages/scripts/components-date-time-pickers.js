@@ -1,8 +1,5 @@
 var ComponentsDateTimePickers = function () {
-
     var handleDatePickers = function () {
-
-
         if (jQuery().datepicker) {
             $('.date-picker').datepicker({
                 rtl: App.isRTL(),
@@ -21,7 +18,6 @@ var ComponentsDateTimePickers = function () {
     }
 
     var handleTimePickers = function () {
-
         if (jQuery().timepicker) {
             $('.timepicker-default').timepicker({
                 autoclose: true,
@@ -79,7 +75,7 @@ var ComponentsDateTimePickers = function () {
     //        function (start, end) {
     //            $('#defaultrange input').val(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
     //        }
-    //    );        
+    //    );
 
     //    $('#defaultrange_modal').daterangepicker({
     //            opens: (App.isRTL() ? 'left' : 'right'),
@@ -93,7 +89,7 @@ var ComponentsDateTimePickers = function () {
     //        function (start, end) {
     //            $('#defaultrange_modal input').val(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
     //        }
-    //    );  
+    //    );
 
     //    // this is very important fix when daterangepicker is used in modal. in modal when daterange picker is opened and mouse clicked anywhere bootstrap modal removes the modal-open class from the body element.
     //    // so the below code will fix this issue.
@@ -149,7 +145,6 @@ var ComponentsDateTimePickers = function () {
     //}
 
     //var handleDatetimePicker = function () {
-
     //    if (!jQuery().datetimepicker) {
     //        return;
     //    }
@@ -189,7 +184,6 @@ var ComponentsDateTimePickers = function () {
     //}
 
     //var handleClockfaceTimePickers = function () {
-
     //    if (!jQuery().clockface) {
     //        return;
     //    }
@@ -232,10 +226,8 @@ var ComponentsDateTimePickers = function () {
             handleDatePickers();
             handleTimePickers();
             //handleDateRangePickers();
-
         }
     };
-
 }();
 
 if (App.isAngularJsApp() === false) {

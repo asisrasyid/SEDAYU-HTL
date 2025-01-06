@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace DusColl.Controllers
 {
@@ -10,7 +6,6 @@ namespace DusColl.Controllers
     {
         //
         // GET: /Error/
-
 
         public ActionResult Index(string aspxerrorpath)
         {
@@ -24,7 +19,6 @@ namespace DusColl.Controllers
                     return RedirectToAction("RequestPush");
             }
             return View();
-
         }
 
         public ActionResult UnsupportBrowser()

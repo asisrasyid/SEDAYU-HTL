@@ -1,6 +1,5 @@
 ﻿@model DusColl.vmFinance
 
-
 <div class="portlet" id="grdl">
     <div class="portlet-title" style="min-height:0px;margin-bottom:0px">
         <div class="caption LoadMenu" data-value="@ViewBag.menu,@ViewBag.caption,@ViewBag.rute,@ViewBag.action" style="cursor:pointer">
@@ -16,12 +15,11 @@
         </div>
     </div>
 
-   @* <div><button class="pdprint"> print </button> </div>*@
+    @* <div><button class="pdprint"> print </button> </div>*@
     <div id="gridbillingpaymentlist">
         @{Html.RenderPartial("~/Views/Finance/_uiGridBillingPaymentUploadINVPAT.cshtml");}
     </div>
 </div>
-
 
 <div id="uidivfilter">
 </div>
@@ -37,4 +35,3 @@
     $.getScript("Scripts/vmFinance.js", function () {
     });
 </script>
-

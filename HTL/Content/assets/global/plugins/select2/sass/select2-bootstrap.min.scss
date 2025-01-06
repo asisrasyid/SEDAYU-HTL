@@ -67,7 +67,7 @@ $clear-selection-color: $dropdown-arrow-color !default;
 
 // dropdown arrow when dropdown is open
 @mixin dropdown-arrow {
-        .select2-selection--single {
+    .select2-selection--single {
         /**
          * Make the dropdown arrow point up while the dropdown is visible.
          */
@@ -79,17 +79,8 @@ $clear-selection-color: $dropdown-arrow-color !default;
     }
 }
 
-
-
-
-
 .select2-container--bootstrap {
     display: block;
-
-
-
-
-
     /*------------------------------------*\
             #COMMON STYLES
     \*------------------------------------*/
@@ -98,7 +89,6 @@ $clear-selection-color: $dropdown-arrow-color !default;
         @include bootstrap-input-defaults;
         outline: 0;
     }
-
     /**
      * Search field in the Select2 dropdown.
      */
@@ -108,7 +98,6 @@ $clear-selection-color: $dropdown-arrow-color !default;
             @include bootstrap-input-defaults;
         }
     }
-
     /**
      * No outline for all search fields - in the dropdown
      * and inline in multi Select2s.
@@ -120,12 +109,10 @@ $clear-selection-color: $dropdown-arrow-color !default;
         &::-webkit-input-placeholder {
             color: $input-color-placeholder;
         }
-
         /* Firefox 18- */
         &:-moz-placeholder {
             color: $input-color-placeholder;
         }
-
         /**
          * Firefox 19+
          *
@@ -140,7 +127,6 @@ $clear-selection-color: $dropdown-arrow-color !default;
             color: $input-color-placeholder;
         }
     }
-
     /**
      * Adjust Select2's choices hover and selected styles to match
      * Bootstrap 3's default dropdown styles.
@@ -149,11 +135,9 @@ $clear-selection-color: $dropdown-arrow-color !default;
      */
 
     .select2-results__option {
-
         &[role=group] {
             padding: 0;
         }
-
         /**
          * Disabled results.
          *
@@ -164,7 +148,6 @@ $clear-selection-color: $dropdown-arrow-color !default;
             color: $dropdown-link-disabled-color;
             cursor: $cursor-disabled;
         }
-
         /**
          * Hover state.
          */
@@ -173,7 +156,6 @@ $clear-selection-color: $dropdown-arrow-color !default;
             background-color: $dropdown-link-hover-bg;
             color: $dropdown-link-hover-color;
         }
-
         /**
          * Selected state.
          */
@@ -244,7 +226,6 @@ $clear-selection-color: $dropdown-arrow-color !default;
             border-color: transparent transparent $dropdown-arrow-color transparent;
             border-width: 0 $caret-width-base $caret-width-base $caret-width-base;
         }
-
         /**
          * Handle border radii of the container when the dropdown is showing.
          */
@@ -263,7 +244,6 @@ $clear-selection-color: $dropdown-arrow-color !default;
             }
         }
     }
-
     /**
      * Clear the selection.
      */
@@ -279,7 +259,6 @@ $clear-selection-color: $dropdown-arrow-color !default;
             color: #333;
         }
     }
-
     /**
      * Address disabled Select2 styles.
      *
@@ -288,7 +267,6 @@ $clear-selection-color: $dropdown-arrow-color !default;
      */
 
     &.select2-container--disabled {
-
         .select2-selection {
             border-color: $input-border;
             @include box-shadow(none);
@@ -309,15 +287,9 @@ $clear-selection-color: $dropdown-arrow-color !default;
             display: none;
         }
     }
-
-
-
-
-
     /*------------------------------------*\
             #DROPDOWN
     \*------------------------------------*/
-
     /**
      * Dropdown border color and box-shadow.
      */
@@ -327,11 +299,11 @@ $clear-selection-color: $dropdown-arrow-color !default;
         border-color: $input-border-focus;
         overflow-x: hidden;
         margin-top: -1px;
+
         &--above {
             margin-top: 1px;
         }
     }
-
     /**
      * Limit the dropdown height.
      */
@@ -340,11 +312,6 @@ $clear-selection-color: $dropdown-arrow-color !default;
         max-height: 200px;
         overflow-y: auto;
     }
-
-
-
-
-
     /*------------------------------------*\
             #SINGLE SELECT2
     \*------------------------------------*/
@@ -353,7 +320,6 @@ $clear-selection-color: $dropdown-arrow-color !default;
         height: $input-height-base;
         line-height: $line-height-base;
         padding: $padding-base-vertical $padding-base-horizontal + $caret-width-base*3 $padding-base-vertical $padding-base-horizontal;
-
         /**
          * Adjust the single Select2's dropdown arrow button appearance.
          */
@@ -388,11 +354,6 @@ $clear-selection-color: $dropdown-arrow-color !default;
             color: $input-color-placeholder;
         }
     }
-
-
-
-
-
     /*------------------------------------*\
         #MULTIPLE SELECT2
     \*------------------------------------*/
@@ -418,7 +379,6 @@ $clear-selection-color: $dropdown-arrow-color !default;
             float: left;
             margin-top: 5px;
         }
-
         /**
          * Make Multi Select2's choices match Bootstrap 3's default button styles.
          */
@@ -433,7 +393,6 @@ $clear-selection-color: $dropdown-arrow-color !default;
             margin: ($padding-base-vertical - 1) 0 0 $padding-base-horizontal/2;
             padding: 0 $padding-base-vertical;
         }
-
         /**
          * Minus 2px borders.
          */
@@ -460,7 +419,6 @@ $clear-selection-color: $dropdown-arrow-color !default;
                 color: #333;
             }
         }
-
         /**
          * Clear the selection.
          */
@@ -469,11 +427,6 @@ $clear-selection-color: $dropdown-arrow-color !default;
             margin-top: $padding-base-vertical;
         }
     }
-
-
-
-
-
     /**
      * Address Bootstrap control sizing classes
      *
@@ -482,7 +435,6 @@ $clear-selection-color: $dropdown-arrow-color !default;
      *
      * @see http://getbootstrap.com/css/#forms-control-sizes
      */
-
     /* 1 */
     &.input-sm,
     &.input-lg {
@@ -502,7 +454,6 @@ $clear-selection-color: $dropdown-arrow-color !default;
             height: $input-height-small;
             line-height: $line-height-small;
             padding: $padding-small-vertical $padding-small-horizontal + $caret-width-base*3 $padding-small-vertical $padding-small-horizontal;
-
             /* 2 */
             .select2-selection__arrow b {
                 margin-left: -$padding-small-vertical;
@@ -541,7 +492,6 @@ $clear-selection-color: $dropdown-arrow-color !default;
             height: $input-height-large;
             line-height: $line-height-large;
             padding: $padding-large-vertical $padding-large-horizontal + $caret-width-large*3 $padding-large-vertical $padding-large-horizontal;
-
             /* 1 */
             .select2-selection__arrow {
                 width: $caret-width-large;
@@ -588,17 +538,11 @@ $clear-selection-color: $dropdown-arrow-color !default;
             @include dropdown-arrow;
         }
     }
-
-
-
-
-
     /*------------------------------------*\
         #RTL SUPPORT
     \*------------------------------------*/
 
     &[dir="rtl"] {
-
         /**
          * Single Select2
          *
@@ -609,6 +553,7 @@ $clear-selection-color: $dropdown-arrow-color !default;
         .select2-selection--single {
             padding-left: $padding-base-horizontal + $caret-width-base*3;
             padding-right: $padding-base-horizontal;
+
             .select2-selection__rendered {
                 padding-right: 0;
                 padding-left: 0;
@@ -628,7 +573,6 @@ $clear-selection-color: $dropdown-arrow-color !default;
                 }
             }
         }
-
         /**
          * Multiple Select2
          */
@@ -651,10 +595,6 @@ $clear-selection-color: $dropdown-arrow-color !default;
         }
     }
 }
-
-
-
-
 
 /*------------------------------------*\
     #ADDITIONAL GOODIES

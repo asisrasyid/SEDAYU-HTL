@@ -1,17 +1,9 @@
 ﻿using HashNetFramework;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
-using System.Web;
-using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Web.Security;
@@ -20,21 +12,19 @@ namespace DusColl.Controllers
 {
     public class HomeController : Controller
     {
+        private vmAccount Account = new vmAccount();
+        private blAccount lgAccount = new blAccount();
+        private vmCommon Common = new vmCommon();
+        private vmHome Home = new vmHome();
+        private vmCommonddl Commonddl = new vmCommonddl();
+        private vmHomeddl Homeddl = new vmHomeddl();
 
-        vmAccount Account = new vmAccount();
-        blAccount lgAccount = new blAccount();
-        vmCommon Common = new vmCommon();
-        vmHome Home = new vmHome();
-        vmCommonddl Commonddl = new vmCommonddl();
-        vmHomeddl Homeddl = new vmHomeddl();
-
-        cFilterContract modFilter = new cFilterContract();
+        private cFilterContract modFilter = new cFilterContract();
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> HomeFilter(cFilterContract model)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -68,7 +58,6 @@ namespace DusColl.Controllers
                 Common = (TempData["common"] as vmCommon);
                 Common = Common == null ? new vmCommon() : Common;
 
-
                 string UserID = Account.AccountLogin.UserID;
                 string UserName = Account.AccountLogin.UserName;
                 string ClientID = Account.AccountLogin.ClientID;
@@ -83,7 +72,6 @@ namespace DusColl.Controllers
                 string idcaption = HasKeyProtect.Decryption(modFilter.idcaption);
                 string caption = idcaption;
                 string menu = modFilter.Menu;
-
 
                 // extend //
                 caption = caption.Replace("TODODASH", "");
@@ -127,8 +115,6 @@ namespace DusColl.Controllers
                 string validtxt = "";
                 if (validtxt == "")
                 {
-
-
                     //set paging in grid client//
                     List<String> recordPage = await Homeddl.dbGetHomeListCount(KeySearch, SelectDivisi, SelectArea, SelectBranch, Status, fromdate, todate, ModeTodo, PageNumber, caption, UserID, GroupName);
                     TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -157,13 +143,11 @@ namespace DusColl.Controllers
                     TempData["HomeList"] = Home;
                     TempData["common"] = Common;
 
-
                     ViewBag.menu = menu;
                     ViewBag.caption = caption;
                     ViewBag.captiondesc = menuitemdescription;
                     ViewBag.rute = "Home";
                     ViewBag.action = "clnHomeTodo";
-
 
                     //string filteron = isModeFilter == false ? "" : "<br /> Pencarian Data :  Aktif";
                     //ViewBag.Total = "Total Data : " + TotalRecord.ToString() + " Kontrak <br /> Data on Pages : " + totalRecordclient.ToString() + " Kontrak" + filteron;
@@ -190,7 +174,6 @@ namespace DusColl.Controllers
                         message = validtxt
                     });
                 }
-
             }
             catch (Exception ex)
             {
@@ -298,11 +281,9 @@ namespace DusColl.Controllers
                         branchjson = new JavaScriptSerializer().Serialize(tempbrach),
                         brachselect = SelectBranch, //HasKeyProtect.Decryption(SelectBranch),
                     });
-
                 }
                 else
                 {
-
                     // get value filter before//
                     string Keykode = modFilter.RequestNo;
                     string SelectArea = modFilter.SelectArea;
@@ -311,7 +292,6 @@ namespace DusColl.Controllers
                     string SelectRequestStatus = modFilter.SelectRequestStatus;
                     string fromdate = modFilter.fromdate ?? "";
                     string todate = modFilter.todate ?? "";
-
 
                     //decript for db//
                     //string decSelectClient = HasKeyProtect.Decryption(SelectClient);
@@ -380,14 +360,10 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
-
 
         public async Task<ActionResult> HomeGate(int id = 1, string Keycode = "")
         {
-
-
             string browser = HttpContext.Request.Browser.Browser;
             if (browser.ToLower() != "chrome")  //&& browser.ToLower() != "firefox"
             {
@@ -398,7 +374,6 @@ namespace DusColl.Controllers
             Response.AppendHeader("Pragma", "no-cache"); // HTTP 1.0.
             Response.AppendHeader("Expires", "0"); // Proxies.
 
-
             Keycode = Keycode ?? "";
             Account = (vmAccount)Session["Account"];
             if (Account != null)
@@ -406,7 +381,6 @@ namespace DusColl.Controllers
                 Account.AccountLogin = lgAccount.NotExistSesionID(Request.Cookies[FormsAuthentication.FormsCookieName], Account.AccountLogin);
                 if (Account.AccountLogin.RouteName != "")
                 {
-
                     return RedirectToRoute(Account.AccountLogin.RouteName);
                 }
                 Account.AccountTodo = await Commonddl.dbGetApprovalTodo("0", "", Keycode, Account.AccountLogin.UserID, Account.AccountLogin.GroupName);
@@ -466,7 +440,6 @@ namespace DusColl.Controllers
                 Home.TodoNOTOD3 = int.Parse(Home.TodoNOTOD.Compute("Sum(GP3)", "").ToString());
             }
 
-
             Keycode = "all";
             Home.TodoCAB = await Commonddl.dbGetApprovalTodo("30", "", Keycode, Account.AccountLogin.UserID, Account.AccountLogin.GroupName);
             if (Home.TodoCAB.Rows.Count > 0)
@@ -501,9 +474,8 @@ namespace DusColl.Controllers
                 Home.OrderAll4 = int.Parse(Home.OrderAll.Compute("Sum(GP4)", "").ToString());
                 Home.OrderAll5 = int.Parse(Home.OrderAll.Compute("Sum(GP5)", "").ToString());
                 Home.OrderAll6 = int.Parse(Home.OrderAll.Compute("Sum(GP6)", "").ToString());
-                Home.TotalYetFIF= int.Parse(Home.OrderAll.Compute("Sum(GP7)", "").ToString());
+                Home.TotalYetFIF = int.Parse(Home.OrderAll.Compute("Sum(GP7)", "").ToString());
             }
-
 
             Keycode = "allod";
             Home.TodoReadyINV = await Commonddl.dbGetApprovalTodo("80", "", Keycode, Account.AccountLogin.UserID, Account.AccountLogin.GroupName);
@@ -517,7 +489,6 @@ namespace DusColl.Controllers
             Home.TotalInv = Home.TotalInvCEK + Home.TotalInvSKMHTAPHT + Home.TotalInvCANCEL;
             ViewBag.UserTypes = HashNetFramework.HasKeyProtect.Decryption(Account.AccountLogin.UserType);
 
-
             ViewBag.menu = menu;
             ViewBag.caption = menu;
             ViewBag.captiondesc = menuitemdescription;
@@ -529,13 +500,11 @@ namespace DusColl.Controllers
             TempData["common"] = new vmCommon();
 
             return View(Home);
-
         }
 
         [HttpPost]
         public async Task<ActionResult> clnHomeTodo(String menu, String caption)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -593,7 +562,6 @@ namespace DusColl.Controllers
                 string todate = "";
                 string Status = "";
 
-
                 // set default for paging//
                 int PageNumber = 1;
                 double TotalRecord = 0;
@@ -626,7 +594,6 @@ namespace DusColl.Controllers
                 modFilter.SelectRequestStatus = Status;
                 modFilter.ModeTODO = ModeTodo;
                 modFilter.PageNumber = PageNumber;
-
 
                 //descript some value for db//
                 //SelectClient = ""; // HasKeyProtect.Decryption(SelectClient);
@@ -673,7 +640,6 @@ namespace DusColl.Controllers
 
                 ViewBag.Total = "Total Data : " + modFilter.TotalRecord.ToString() + " Kontrak <br /> Data on Pages : " + modFilter.totalRecordclient.ToString() + " Kontrak";
 
-
                 // senback to client browser//
                 return Json(new
                 {
@@ -705,7 +671,6 @@ namespace DusColl.Controllers
 
         public async Task<ActionResult> clnHomeRgrid(int paged)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -803,9 +768,7 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
-
 
         public async Task<ActionResult> clnRgrTodo(string ap, string jn)
         {
@@ -843,7 +806,6 @@ namespace DusColl.Controllers
                 string UserID = Account.AccountLogin.UserID;
                 string GroupName = Account.AccountLogin.GroupName;
                 string caption = modFilter.ModuleID;
-
 
                 string viewdt = "";
                 string tbl = "";
@@ -893,7 +855,6 @@ namespace DusColl.Controllers
                     }
                 }
 
-
                 if (ap == "30")
                 {
                     if (jn == "all" || jn == "day" || jn == "month")
@@ -931,7 +892,6 @@ namespace DusColl.Controllers
                     //}
                 }
 
-
                 if (ap == "60")
                 {
                     if (jn == "all" || jn == "day" || jn == "month")
@@ -963,7 +923,6 @@ namespace DusColl.Controllers
                         dv = "todoododvry";
                     }
                 }
-
 
                 if (ap == "70")
                 {
@@ -1023,7 +982,6 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
     }
 }

@@ -2,8 +2,6 @@
 var elemntupload = "modal-content";
 
 var vmAccount = function () {
-
-
     var onshowpowder = function (idhide) {
         $("#" + idhide).removeClass("powderhide");
         $("#" + idhide).addClass("powdershow");
@@ -32,7 +30,6 @@ var vmAccount = function () {
             }
         });
     };
-
 
     var onChcoChuc = function () {
         var jsoncoll = "";
@@ -101,8 +98,8 @@ var vmAccount = function () {
             $.ajax({
                 type: frm.attr('method'),
                 url: frm.attr('action'),
-                contentType: false, // Not to set any content header  
-                processData: false, // Not to process data  
+                contentType: false, // Not to set any content header
+                processData: false, // Not to process data
                 data: fieldata,
                 beforeSend: function () {
                     App.blockUI();
@@ -123,7 +120,6 @@ var vmAccount = function () {
                         });
                     } else {
                         window.location.href = data.url;
-
                     }
                 },
                 error: function (x, y, z) {
@@ -134,11 +130,9 @@ var vmAccount = function () {
                 },
             });
         };
-
     };
 
     var onSearchCabangAjax = function (parm) {
-
         var ParReg = $("#SelectArea").val();
         var jsoncoll = "";
         var jsonreposn = "[]";
@@ -181,11 +175,9 @@ var vmAccount = function () {
                     jsoncoll = JSON.stringify(x);
                     jsonreposn = JSON.parse(jsoncoll);
                     if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
-
                 }
             });
         }
-
     };
 
     var onOpenFURegis = function (modul, idkey, opr) {
@@ -218,7 +210,6 @@ var vmAccount = function () {
                 if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
             }
         });
-
     };
 
     var onOpenPrevProf = function (parame, pereme) {
@@ -253,7 +244,6 @@ var vmAccount = function () {
                 if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
             }
         });
-
     };
 
     var onOpenView = function (modul, idkey) {
@@ -286,7 +276,6 @@ var vmAccount = function () {
                 if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
             }
         });
-
     };
 
     var onOpenFilter = function () {
@@ -346,7 +335,6 @@ var vmAccount = function () {
                 if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
             }
         });
-
     };
 
     var onResetFilter = function (parForm) {
@@ -422,7 +410,6 @@ var vmAccount = function () {
                                 });
                             }
                         } else {
-
                             swal({
                                 title: "Informasi",
                                 text: data.msg,
@@ -497,7 +484,6 @@ var vmAccount = function () {
                                 $("#relodregs").click();
                             });
                         } else {
-
                             $("#cssShowMessage").removeClass();
                             if ((data.probitusertxt == "1")) {
                                 $("#cssShowMessage").addClass(data.ShowMessagex).show();
@@ -507,7 +493,6 @@ var vmAccount = function () {
                                 $("#cssShowMessage").addClass(data.ShowMessagex).show();
                                 $("#idShowMessage").html(data.msg);
                             }
-
                         }
                     }
                     else {
@@ -574,7 +559,6 @@ var vmAccount = function () {
     };
 
     return {
-
         OpenFURegis: function (module, key, opr) {
             onOpenFURegis(module, key, opr);
         },
@@ -630,7 +614,6 @@ var vmAccount = function () {
         ChcoChucNew: function () {
             onChcoChucNew();
         },
-
 
         ApplySbmt: function (frm) {
             onApplySbmt(frm);
@@ -692,7 +675,6 @@ var vmAccount = function () {
             });
         },
         initbutton: function () {
-
             $(".OpenFilter").unbind("click");
             $(".OpenFilter").bind("click", function () {
                 var pop = $(this).attr("data-value");
@@ -709,7 +691,6 @@ var vmAccount = function () {
                 var par2 = pop[2].replace(/["]/g, "");
                 var par3 = pop[3].replace(/["]/g, "");
                 vmHomePages.LoadMenu(par0, par1, par2, par3);
-
             });
 
             $(".actreg").unbind("click");
@@ -720,7 +701,6 @@ var vmAccount = function () {
                 var par1 = pop[1].replace(/["]/g, "");
                 var par2 = pop[2].replace(/["]/g, "");
                 vmAccount.OpenFURegis(par0, par1, par2);
-
             });
 
             $(".applyreg").unbind("click");
@@ -747,7 +727,6 @@ var vmAccount = function () {
             $("#sbtchangepass").bind("click", function () {
                 vmAccount.ApplySbmtChgp('#frmmanabisa');
             })
-
         },
 
         initbackground: function () {
@@ -760,12 +739,8 @@ var vmAccount = function () {
             }
             );
         },
-
     };
-
 }();
-
-
 
 $(document).bind("contextmenu", function (e) {
     e.preventDefault();
@@ -778,9 +753,7 @@ $(document).keydown(function (e) {
 });
 
 $(document).ready(function () {
-
     try {
-
         vmAccount.initnumber();
         vmAccount.initbutton();
 
@@ -799,7 +772,6 @@ $(document).ready(function () {
         $(".psdefe").mouseout(function () {
             vmAccount.hidepowder('PasswordChange');
         }).mouseover(function () {
-            
             vmAccount.showpowder('PasswordChange');
         });
 
@@ -808,7 +780,6 @@ $(document).ready(function () {
         }).mouseover(function () {
             vmAccount.showpowder('RetypePassword');
         });
-
 
         $(".select2-selection").css("border", "1px solid #00417c");
 
@@ -827,5 +798,4 @@ $(document).ready(function () {
     } catch (error) {
         console.log(error);
     }
-
 });

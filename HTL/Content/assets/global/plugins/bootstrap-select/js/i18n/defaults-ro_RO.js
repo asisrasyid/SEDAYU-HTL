@@ -20,7 +20,6 @@
     factory(jQuery);
   }
 }(this, function (jQuery) {
-
 (function ($) {
   $.fn.selectpicker.defaults = {
     noneSelectedText: 'Nu a fost selectat nimic',
@@ -30,6 +29,4 @@
     multipleSeparator: ', '
   };
 })(jQuery);
-
-
 }));

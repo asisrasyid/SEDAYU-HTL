@@ -1,9 +1,7 @@
 ﻿var elemntupload = ".modal-body";
 
 var vmReportData = function () {
-
     var onInit = function () {
-
         if ($("#todate").length) {
             $('.date-picker').datepicker({
                 rtl: App.isRTL(),
@@ -20,7 +18,6 @@ var vmReportData = function () {
                 });
             }
             else {
-
                 $('.date-picker').datepicker({
                     rtl: App.isRTL(),
                     format: "yyyy",
@@ -29,12 +26,10 @@ var vmReportData = function () {
                     orientation: "right bottom",
                     autoclose: true
                 });
-
             }
 
-        
         ComponentsBootstrapSelect.init();
-        
+
         var lengthbrn = ($('#SelectArea > option').length) - 1;
         if (lengthbrn == 1) {
             $('#SelectArea').val($('#SelectArea option:eq(1)').val()).change();
@@ -47,7 +42,6 @@ var vmReportData = function () {
 
         $('.select2').select2();
 
-
         $(".dreport").unbind("click");
         $(".dreport").bind("click", function () {
             vmReportData.ApplyFilter('#ReportFilter_form', '2');
@@ -57,7 +51,6 @@ var vmReportData = function () {
         $(".dreportref").bind("click", function () {
             vmReportData.ResetFilter('#ReportFilter_form');
         })
-
     };
 
     var onResetFilter = function (parForm) {
@@ -75,7 +68,6 @@ var vmReportData = function () {
     };
 
     var onFilterBranchByClient = function (parm) {
-
         var Parclientid = $("#SelectArea").val();
         var jsoncoll = "";
         var jsonreposn = "[]";
@@ -122,7 +114,6 @@ var vmReportData = function () {
         }
     };
     var onApplyFilter = function (parForm, pardownloadexcel) {
-
         var jsoncoll = "";
         var jsonreposn = "[]";
         var byteArray = null;
@@ -142,7 +133,6 @@ var vmReportData = function () {
             url: frm.attr('action'),
             data: frm.serialize() + "&download=" + pardownloadexcel,
             beforeSend: function () {
-
                 App.blockUI();
             },
             success: function (x) {
@@ -157,14 +147,12 @@ var vmReportData = function () {
                             confirmButtonText: "Tutup",
                         });
                     } else {
-
                         if (downloadmode < 2) {
                             byteArray = new Uint8Array(x.bytetyipe);
                             link = window.URL.createObjectURL(new Blob([byteArray], { type: x.contenttype }));
                             viewerUrl = x.viewpath + encodeURIComponent(link + "#" + x.filename);
                             window.open(viewerUrl, '', 'height=650,width=840');
                         } else {
-
                             var a = document.createElement("a");
                             document.body.appendChild(a);
                             a.style = "display: block";
@@ -191,9 +179,7 @@ var vmReportData = function () {
         });
     };
 
-
     var onCretBILL = function (parForm, pardownloadexcel) {
-
         var jsoncoll = "";
         var jsonreposn = "[]";
         var byteArray = null;
@@ -213,7 +199,6 @@ var vmReportData = function () {
             url: frm.attr('action'),
             data: frm.serialize() + "&download=" + pardownloadexcel,
             beforeSend: function () {
-
                 App.blockUI({ target: elemntupload });
             },
             success: function (x) {
@@ -227,7 +212,6 @@ var vmReportData = function () {
                             confirmButtonText: "Tutup",
                         });
                     } else {
-
                         if (downloadmode < 2) {
                             byteArray = new Uint8Array(x.bytetyipe);
                             link = window.URL.createObjectURL(new Blob([byteArray], { type: x.contenttype }));
@@ -258,9 +242,7 @@ var vmReportData = function () {
         });
     };
 
-
     return {
-
         init: function () {
             onInit();
         },
@@ -289,7 +271,6 @@ var vmReportData = function () {
             onUploadConvertFile();
         }
     };
-
 }();
 
 $(document).ready(function () {

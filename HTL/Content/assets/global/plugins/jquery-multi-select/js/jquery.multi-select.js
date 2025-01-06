@@ -10,9 +10,7 @@
 */
 
 !function ($) {
-
   "use strict";
-
 
  /* MULTISELECT CLASS DEFINITION
   * ====================== */
@@ -246,7 +244,6 @@
 
       $elems.removeClass('ms-hover');
       if (direction === 1){ // DOWN
-
         $nextElem = $currElem.nextAll(this.elemsSelector).first();
         if ($nextElem.length === 0){
           var $optgroupUl = $currElem.parent();
@@ -265,7 +262,6 @@
           }
         }
       } else if (direction === -1){ // UP
-
         $nextElem = $currElem.prevAll(this.elemsSelector).first();
         if ($nextElem.length === 0){
           var $optgroupUl = $currElem.parent();
@@ -286,7 +282,7 @@
       }
       if ($nextElem.length > 0){
         $nextElem.addClass('ms-hover');
-        var scrollTo = $list.scrollTop() + $nextElem.position().top - 
+        var scrollTo = $list.scrollTop() + $nextElem.position().top -
                        containerHeight / 2 + elemHeight / 2;
 
         $list.scrollTop(scrollTo);
@@ -528,5 +524,4 @@
       }
     });
 }
-
 }(window.jQuery);

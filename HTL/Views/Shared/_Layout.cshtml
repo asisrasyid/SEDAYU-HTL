@@ -71,7 +71,7 @@
             <!-- BEGIN LOGO -->
             <div class="page-logo">
                 <div style="background-color:#fdfdfd">
-                    <a >
+                    <a>
                         <img src="~/Content/assets/layouts/layout2/img/logo-fdcm-default-login-Blue.png" alt="logo" class="logo-default home" style="width:140px; padding-top: 0px;" />
                     </a>
                     <div class="menu-toggler sidebar-toggler">
@@ -81,7 +81,7 @@
             </div>
             <!-- END LOGO -->
             <!-- BEGIN RESPONSIVE MENU TOGGLER -->
-            <a  id="hideside" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"></a>
+            <a id="hideside" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"></a>
             <!-- END RESPONSIVE MENU TOGGLER -->
             <!-- BEGIN PAGE ACTIONS -->
             <!-- END PAGE ACTIONS -->
@@ -95,41 +95,41 @@
                         <!-- BEGIN USER LOGIN DROPDOWN -->
                         @if (module.AccountTodo.Rows.Count > 0)
                         {
-                            <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
-                                <a  class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                    <i class="icon-bell"></i>
-                                    <span class="badge badge-default" id="TotalTodoAll">@module.AccountTodo.Rows[0]["TotalTodo"].ToString()</span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li class="external">
-                                        <h3>
-                                            <span class="bold" id="TotalTodoAll1">@module.AccountTodo.Rows[0]["TotalTodo"].ToString()</span> Pengajuan
-                                        </h3>
-                                        <a  onclick="vmHomePages.LoadMenu('Pengajuan Pending','','Home','HomeTodo')" style="cursor:pointer" id="todoall">Tampilkan Semua</a>
-                                    </li>
-                                    <li>
-                                        <ul class="dropdown-menu-list scroller" style="height: 250px;" data-handle-color="#637283">
+                        <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
+                            <a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                <i class="icon-bell"></i>
+                                <span class="badge badge-default" id="TotalTodoAll">@module.AccountTodo.Rows[0]["TotalTodo"].ToString()</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="external">
+                                    <h3>
+                                        <span class="bold" id="TotalTodoAll1">@module.AccountTodo.Rows[0]["TotalTodo"].ToString()</span> Pengajuan
+                                    </h3>
+                                    <a onclick="vmHomePages.LoadMenu('Pengajuan Pending','','Home','HomeTodo')" style="cursor:pointer" id="todoall">Tampilkan Semua</a>
+                                </li>
+                                <li>
+                                    <ul class="dropdown-menu-list scroller" style="height: 250px;" data-handle-color="#637283">
 
-                                            @foreach (System.Data.DataRow row in module.AccountTodo.Rows)
+                                        @foreach (System.Data.DataRow row in module.AccountTodo.Rows)
                                             {
-                                                <li>
-                                                    <a onclick="vmHomePages.LoadMenu('Pengajuan Pending', '@row["ModuleID"]','Home','HomeTodo')" style="cursor:pointer" id="todoreq">
-                                                        <span class="details">
-                                                            <span class="label label-sm label-icon label-warning">
-                                                                <i class="fa fa-bell-o"></i>
-                                                            </span> @row["ModuleName"]
-                                                        </span>
-                                                    </a>
-                                                </li>
+                                        <li>
+                                            <a onclick="vmHomePages.LoadMenu('Pengajuan Pending', '@row["ModuleID"]','Home','HomeTodo')" style="cursor:pointer" id="todoreq">
+                                                <span class="details">
+                                                    <span class="label label-sm label-icon label-warning">
+                                                        <i class="fa fa-bell-o"></i>
+                                                    </span> @row["ModuleName"]
+                                                </span>
+                                            </a>
+                                        </li>
                                             }
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
                         }
                         <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
                         <li class="dropdown dropdown-user">
-                            <a  class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                            <a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                 <img alt="" class="img-circle" src="~/Content/assets/global/img/loginuser1.png">
                                 <span class="username username-hide-on-mobile">@ViewBag.Username </span>
                                 <i class="fa fa-angle-down"></i>
@@ -137,12 +137,11 @@
                             <ul class="dropdown-menu dropdown-menu-default">
                                 @if (module.AccountGroupUserList.Count > 1)
                                 {
-                                    <li>
-                                        <a href="@Url.Action("AccountChucgrp", "Account" )">
-                                            <i class="fa fa-group"></i>Group Akses
-                                        </a>
-
-                                    </li>
+                                <li>
+                                    <a href="@Url.Action("AccountChucgrp", "Account" )">
+                                        <i class="fa fa-group"></i>Group Akses
+                                    </a>
+                                </li>
                                 }
                                 <li class="divider"></li>
                                 <li>
@@ -153,7 +152,6 @@
                             </ul>
                         </li>
                         <!-- END USER LOGIN DROPDOWN -->
-
                     </ul>
                 </div>
                 <!-- END TOP NAVIGATION MENU -->
@@ -162,8 +160,6 @@
         </div>
         <!-- END HEADER INNER -->
     </div>
-
-
 
     <!-- END HEADER -->
     <!-- BEGIN HEADER & CONTENT DIVIDER -->
@@ -188,53 +184,53 @@
 
                                 var parentmodulicon = module.AccountMetrikList.Where(x => x.MenuItem.ParentModuleName == cmatrik.ToString() && x.AllowShowInMenu == true).Select(x => x.MenuItem.ParentIcon).Distinct().SingleOrDefault();
 
-                                <li class="nav-item  ">
-                                    <a  class="nav-link nav-toggle">
-                                        <i class="@parentmodulicon.ToString()"></i>
-                                        <span class="title">@cmatrik.ToString()</span>
-                                        <span class="arrow"></span>
-                                    </a>
-                                    <ul class="sub-menu">
-                                        @foreach (var cmatrikmap in parentmodulmap)
+                        <li class="nav-item  ">
+                            <a class="nav-link nav-toggle">
+                                <i class="@parentmodulicon.ToString()"></i>
+                                <span class="title">@cmatrik.ToString()</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                @foreach (var cmatrikmap in parentmodulmap)
                                         {
-                                            <li class="nav-item  ">
-                                                @{
+                                <li class="nav-item  ">
+                                    @{
                                                     var submodulicon = module.AccountMetrikList.Where(x => x.MenuItem.ParentModuleName == cmatrik.ToString() && x.MenuItem.SubModuleName == cmatrikmap.MenuItem.SubModuleName && x.MenuItem.SubModuleName != "" && x.AllowShowInMenu == true).ToList();
                                                     if (submodulicon.Count() > 0)
                                                     {
                                                         if (!prosub.Contains(cmatrikmap.MenuItem.SubModuleName + cmatrikmap.MenuItem.ParentModuleID))
                                                         {
                                                             prosub = cmatrikmap.MenuItem.SubModuleName + cmatrikmap.MenuItem.ParentModuleID + "|";
-                                                            <a  class="nav-link ">
-                                                                <i class="icon-upload"></i>
-                                                                <span class="title">@cmatrikmap.MenuItem.SubModuleName</span>
-                                                            </a>
-                                                            <ul class="sub-menu">
-                                                                @foreach (var cmatrikmapp in submodulicon)
+                                        <a class="nav-link ">
+                                            <i class="icon-upload"></i>
+                                            <span class="title">@cmatrikmap.MenuItem.SubModuleName</span>
+                                        </a>
+                                        <ul class="sub-menu">
+                                            @foreach (var cmatrikmapp in submodulicon)
                                                                 {
-                                                                    <li class="nav-item  ">
-                                                                        <a  onclick="@cmatrikmapp.MenuItem.Action.ToString()" class="nav-link ">
-                                                                            <i class="icon-upload"></i>
-                                                                            <span class="title">@cmatrikmapp.MenuItem.ModuleName</span>
-                                                                        </a>
-                                                                    </li>
+                                            <li class="nav-item  ">
+                                                <a onclick="@cmatrikmapp.MenuItem.Action.ToString()" class="nav-link ">
+                                                    <i class="icon-upload"></i>
+                                                    <span class="title">@cmatrikmapp.MenuItem.ModuleName</span>
+                                                </a>
+                                            </li>
                                                                 }
-                                                            </ul>
+                                        </ul>
                                                         }
                                                     }
                                                     else
                                                     {
-                                                        <a  onclick="@cmatrikmap.MenuItem.Action.ToString()" class="nav-link ">
-                                                            <i class="icon-upload"></i>
-                                                            <span class="title">@cmatrikmap.MenuItem.ModuleName</span>
-                                                        </a>
+                                        <a onclick="@cmatrikmap.MenuItem.Action.ToString()" class="nav-link ">
+                                            <i class="icon-upload"></i>
+                                            <span class="title">@cmatrikmap.MenuItem.ModuleName</span>
+                                        </a>
 
                                                     }
-                                                }
-                                            </li>
-                                        }
-                                    </ul>
+                                    }
                                 </li>
+                                        }
+                            </ul>
+                        </li>
                             }
                             else
                             {
@@ -243,20 +239,18 @@
 
                                 var parentmodulicon = module.AccountMetrikList.Where(x => x.MenuItem.ParentModuleName == cmatrik.ToString() && x.AllowShowInMenu == true).Select(x => x.MenuItem.ParentIcon).Distinct().SingleOrDefault();
 
-
-                                <li class="nav-item  ">
-                                    <a  class="nav-link nav-toggle" onclick="@cmatrikmap[0].MenuItem.Action">
-                                        <i class="@parentmodulicon.ToString()"></i>
-                                        <span class="title">@cmatrikmap[0].MenuItem.ModuleName</span>
-                                        <span class="arrow"></span>
-                                    </a>
-                                </li>
+                        <li class="nav-item  ">
+                            <a class="nav-link nav-toggle" onclick="@cmatrikmap[0].MenuItem.Action">
+                                <i class="@parentmodulicon.ToString()"></i>
+                                <span class="title">@cmatrikmap[0].MenuItem.ModuleName</span>
+                                <span class="arrow"></span>
+                            </a>
+                        </li>
 
                             }
                         }
 
                     }
-
                 </ul>
                 <!-- END SIDEBAR MENU -->
             </div>
@@ -267,7 +261,6 @@
         <div class="page-content-wrapper">
             <!-- BEGIN CONTENT BODY -->
 
-
             <div class="page-content" id="pagecontent">
 
                 @RenderBody()
@@ -276,18 +269,14 @@
             <!-- END CONTENT BODY -->
         </div>
         <!-- END CONTENT -->
-
-
     </div>
     <!-- END CONTAINER -->
     <!-- BEGIN FOOTER -->
     <div class="page-footer">
         <div class="page-footer-inner">
             2022 &copy; PT Sedayu Dana Banda
-
         </div>
     </div>
-
 
     <!-- BEGIN CORE PLUGINS -->
     <script src="~/Content/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
@@ -327,15 +316,10 @@
     <script src="~/Content/assets/pages/scripts/ui-notific8.min.js" type="text/javascript"></script>
     <script src="~/Content/assets/global/plugins/fullcalendar/fullcalendar.min.js"></script>
 
-
     <!-- BEGIN THEME LAYOUT SCRIPTS -->
     <script src="~/Content/assets/layouts/layout2/scripts/layout.min.js" type="text/javascript"></script>
     <script src="~/Content/assets/layouts/global/scripts/quick-sidebar.min.js" type="text/javascript"></script>
     <!-- END THEME LAYOUT SCRIPTS -->
     <script src="~/Scripts/vmHomepages.js"></script>
 </body>
-
 </html>
-
-
-

@@ -64,20 +64,20 @@
 
                             @foreach (var x in ModelPiutang)
                             {
-                                <tr>
-                                    <td>
-                                        @Html.Raw(x.Klien)
-                                    </td>
-                                    <td>
-                                        @Html.Raw(x.Periode)
-                                    </td>
-                                    <td align="center">@string.Format("{0:n0}", x.stat0) </td>
-                                    <td align="right">@string.Format("{0:n0}", x.PNBP)</td>
-                                    <td align="right"> @string.Format("{0:n0}", x.FEEFidusia)</td>
-                                    <td align="right">
-                                        <span class="bold theme-font">@string.Format("{0:n0}", x.Total)</span>
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td>
+                                    @Html.Raw(x.Klien)
+                                </td>
+                                <td>
+                                    @Html.Raw(x.Periode)
+                                </td>
+                                <td align="center">@string.Format("{0:n0}", x.stat0) </td>
+                                <td align="right">@string.Format("{0:n0}", x.PNBP)</td>
+                                <td align="right"> @string.Format("{0:n0}", x.FEEFidusia)</td>
+                                <td align="right">
+                                    <span class="bold theme-font">@string.Format("{0:n0}", x.Total)</span>
+                                </td>
+                            </tr>
                             }
                         </tbody>
                     </table>
@@ -134,20 +134,20 @@
 
                             @foreach (var x in ModelClaim)
                             {
-                                <tr>
-                                    <td>
-                                        @Html.Raw(x.Klien)
-                                    </td>
-                                    <td>
-                                        @Html.Raw(x.Periode)
-                                    </td>
-                                    <td align="center">@string.Format("{0:n0}", x.stat0) </td>
-                                    <td align="right">@string.Format("{0:n0}", x.PNBP)</td>
-                                    <td align="right"> @string.Format("{0:n0}", x.FEEFidusia)</td>
-                                    <td align="right">
-                                        <span class="bold theme-font">@string.Format("{0:n0}", x.Total)</span>
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td>
+                                    @Html.Raw(x.Klien)
+                                </td>
+                                <td>
+                                    @Html.Raw(x.Periode)
+                                </td>
+                                <td align="center">@string.Format("{0:n0}", x.stat0) </td>
+                                <td align="right">@string.Format("{0:n0}", x.PNBP)</td>
+                                <td align="right"> @string.Format("{0:n0}", x.FEEFidusia)</td>
+                                <td align="right">
+                                    <span class="bold theme-font">@string.Format("{0:n0}", x.Total)</span>
+                                </td>
+                            </tr>
                             }
                         </tbody>
                     </table>
@@ -185,27 +185,21 @@
                                         <div class="mt-action-datetime ">
                                             @if (ModelPiutang.Count > 0)
                                             {
-                                                <span class="mt-action-date">@Html.Raw(string.Format("{0:dd-MMM-yyyy}", ModelPiutang[0].TanggalUpdate));</span>
-                                                <span class="mt-action-dot bg-green"></span>
+                                            <span class="mt-action-date">@Html.Raw(string.Format("{0:dd-MMM-yyyy}", ModelPiutang[0].TanggalUpdate));</span>
+                                            <span class="mt-action-dot bg-green"></span>
                                             }
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                         <!-- END: Actions -->
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
-
-
-
 </div>
-
 
 <script>
     $("#Pendaftaran").dataTable(
@@ -224,4 +218,3 @@
             }
         });
 </script>
-

@@ -6,36 +6,36 @@
             <label class="control-label">Nomor Berkas SHT</label>
             @if (ViewBag.oprvalue != "view" && ViewBag.user == "admin")
             {
-                @Html.TextBoxFor(m => m.noberkasht, new { @class = "form-control", @maxlength = "15" })
-                @Html.ValidationMessageFor(m => m.noberkasht, "", new { @class = "error-block" })
+            @Html.TextBoxFor(m => m.noberkasht, new { @class = "form-control", @maxlength = "15" })
+            @Html.ValidationMessageFor(m => m.noberkasht, "", new { @class = "error-block" })
             }
             else
             {
-                <span class="form-control NonEdittableSpanTxt" disabled="disabled">@Model.noberkasht</span>
+            <span class="form-control NonEdittableSpanTxt" disabled="disabled">@Model.noberkasht</span>
             }
         </div>
         <div class="col-md-4">
             <label class="control-label">Nomor SHT</label>
             @if (ViewBag.oprvalue != "view" && ViewBag.user == "admin")
             {
-                @Html.TextBoxFor(m => m.nosht, new { @class = "form-control", @maxlength = "15" })
-                @Html.ValidationMessageFor(m => m.nosht, "", new { @class = "error-block" })
+            @Html.TextBoxFor(m => m.nosht, new { @class = "form-control", @maxlength = "15" })
+            @Html.ValidationMessageFor(m => m.nosht, "", new { @class = "error-block" })
             }
             else
             {
-                <span class="form-control NonEdittableSpanTxt" disabled="disabled">@Model.nosht</span>
+            <span class="form-control NonEdittableSpanTxt" disabled="disabled">@Model.nosht</span>
             }
         </div>
         <div class="col-md-4">
             <label class="control-label">Kode SHT</label>
             @if (ViewBag.oprvalue != "view" && ViewBag.user == "admin")
             {
-                @Html.TextBoxFor(m => m.kodesht, new { @class = "form-control", @maxlength = "15" })
-                @Html.ValidationMessageFor(m => m.kodesht, "", new { @class = "error-block" })
+            @Html.TextBoxFor(m => m.kodesht, new { @class = "form-control", @maxlength = "15" })
+            @Html.ValidationMessageFor(m => m.kodesht, "", new { @class = "error-block" })
             }
             else
             {
-                <span class="form-control NonEdittableSpanTxt" disabled="disabled">@Model.kodesht</span>
+            <span class="form-control NonEdittableSpanTxt" disabled="disabled">@Model.kodesht</span>
             }
         </div>
     </div>

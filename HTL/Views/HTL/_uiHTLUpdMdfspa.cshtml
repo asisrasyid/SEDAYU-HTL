@@ -14,211 +14,205 @@
                 }, new { id = "clnHTL_formipt", @class = "form-horizontal" }))
                 {
 
-                    @Html.AntiForgeryToken();
-                    @Html.HiddenFor(x => x.keylookupdataHTXIpt)
-                    @Html.Hidden("ctexipt")
-                    @Html.Hidden("jntexipt", HashNetFramework.HasKeyProtect.Encryption(Model.JenisData))
-                    @Html.Hidden("euxipt", HashNetFramework.HasKeyProtect.Encryption("fillspaht"));
-                    @Html.Hidden("auxipt", HashNetFramework.HasKeyProtect.Encryption(Model.NoApplIpt));
+                @Html.AntiForgeryToken();
+                @Html.HiddenFor(x => x.keylookupdataHTXIpt)
+                @Html.Hidden("ctexipt")
+                @Html.Hidden("jntexipt", HashNetFramework.HasKeyProtect.Encryption(Model.JenisData))
+                @Html.Hidden("euxipt", HashNetFramework.HasKeyProtect.Encryption("fillspaht"));
+                @Html.Hidden("auxipt", HashNetFramework.HasKeyProtect.Encryption(Model.NoApplIpt));
 
-
-
-                    <div class="modal-footer" style="background-color:transparent;border-top:none;position: fixed;float:right;z-index: 1; right: 20px; margin:0 auto">
-                        @if (ViewBag.oprvalue != "view")
+                <div class="modal-footer" style="background-color:transparent;border-top:none;position: fixed;float:right;z-index: 1; right: 20px; margin:0 auto">
+                    @if (ViewBag.oprvalue != "view")
                         {
 
                             if (Model.JenisData != "99")
                             {
-                                <button type="button" class="btn green btn-block btn4saveipt" data-value="#clnHTL_formipt,@HashNetFramework.HasKeyProtect.Encryption("Simpan"),@ViewBag.gdv,@ViewBag.idgdv">
-                                    <i class="fa fa-save"></i>
-                                    <span>&nbsp;Simpan </span>
-                                </button>
+                    <button type="button" class="btn green btn-block btn4saveipt" data-value="#clnHTL_formipt,@HashNetFramework.HasKeyProtect.Encryption("Simpan"),@ViewBag.gdv,@ViewBag.idgdv">
+                        <i class="fa fa-save"></i>
+                        <span>&nbsp;Simpan </span>
+                    </button>
                             }
 
                         }
 
-
-                        <button type="button" class="btn green btn-block btn4closeipt">
-                            <i class="fa fa-backward"></i>
-                            <span>&nbsp;Tutup</span>
-                        </button>
-                    </div>
+                    <button type="button" class="btn green btn-block btn4closeipt">
+                        <i class="fa fa-backward"></i>
+                        <span>&nbsp;Tutup</span>
+                    </button>
+                </div>
 
                     if (Model.JenisData == "99")
                     {
+                <div class="row">
+                    <div class="form-group" style="padding:40px">
+                        <input type="hidden" name="imgX1" id="imgX1" />
+                        <input type="hidden" name="imgY1" id="imgY1" />
+                        <input type="hidden" name="imgWidth" id="imgWidth" />
+                        <input type="hidden" name="imgHeight" id="imgHeight" />
+                        <input type="hidden" name="imgCropped" id="imgCropped" />
                         <div class="row">
-                            <div class="form-group" style="padding:40px">
-                                <input type="hidden" name="imgX1" id="imgX1" />
-                                <input type="hidden" name="imgY1" id="imgY1" />
-                                <input type="hidden" name="imgWidth" id="imgWidth" />
-                                <input type="hidden" name="imgHeight" id="imgHeight" />
-                                <input type="hidden" name="imgCropped" id="imgCropped" />
-                                <div class="row">
-                                    <div class="col-md-12" style="padding:0px 20px 0px 20px">
-                                        <div class="col-md-5">
-                                            <input type="file" id="FileUpload1" accept="images/*" />
-                                            <span class="form-control  NonEdittableSpanTxt" disabled="disabled">Pilih KTP dalam bentuk Image (.jpg/jpeg)</span>
-                                        </div>
-                                        <br />
-                                    </div>
+                            <div class="col-md-12" style="padding:0px 20px 0px 20px">
+                                <div class="col-md-5">
+                                    <input type="file" id="FileUpload1" accept="images/*" />
+                                    <span class="form-control  NonEdittableSpanTxt" disabled="disabled">Pilih KTP dalam bentuk Image (.jpg/jpeg)</span>
                                 </div>
-                                <table border="0" cellpadding="0" cellspacing="5">
-                                    <tr>
-                                        <td>
-                                            <img id="Image1" src="" alt="" style="display: none" />
-                                        </td>
-                                        <td>
-                                            <canvas id="canvas" height="5" width="5" style="display: none"></canvas>
-                                        </td>
-                                    </tr>
-                                </table>
                                 <br />
                             </div>
                         </div>
+                        <table border="0" cellpadding="0" cellspacing="5">
+                            <tr>
+                                <td>
+                                    <img id="Image1" src="" alt="" style="display: none" />
+                                </td>
+                                <td>
+                                    <canvas id="canvas" height="5" width="5" style="display: none"></canvas>
+                                </td>
+                            </tr>
+                        </table>
+                        <br />
+                    </div>
+                </div>
                     }
 
                     if (Model.JenisData == "1")
                     {
-                        <div class="">
+                <div class="">
+                    <div class="form-body">
+                        <div class="portlet-body" style="padding-left:25px;padding-right:15px">
                             <div class="form-body">
-                                <div class="portlet-body" style="padding-left:25px;padding-right:15px">
-                                    <div class="form-body">
 
-                                        <div class="iptskmht">
-                                            <h3 class="form-section"><strong>SKMHT </strong></h3>
-                                            <div class="row">
-                                                <div class="form-group" style="padding:0px 20px 0px 20px">
-                                                    <div class="col-md-3">
-                                                        <label class="control-label">No SKMHT</label>
-                                                        @if (ViewBag.oprvalue != "view")
+                                <div class="iptskmht">
+                                    <h3 class="form-section"><strong>SKMHT </strong></h3>
+                                    <div class="row">
+                                        <div class="form-group" style="padding:0px 20px 0px 20px">
+                                            <div class="col-md-3">
+                                                <label class="control-label">No SKMHT</label>
+                                                @if (ViewBag.oprvalue != "view")
                                                         {
-                                                            @Html.TextBoxFor(m => m.NoSKMHT, new { @class = "form-control", @maxlength = "10" })
-                                                            @Html.ValidationMessageFor(m => m.NoSKMHT, "", new { @class = "error-block" })
+                                                @Html.TextBoxFor(m => m.NoSKMHT, new { @class = "form-control", @maxlength = "10" })
+                                                @Html.ValidationMessageFor(m => m.NoSKMHT, "", new { @class = "error-block" })
                                                         }
                                                         else
                                                         {
-                                                            <span class="form-control NonEdittableSpanTxt" disabled="disabled">@Model.KodeAkta</span>
+                                                <span class="form-control NonEdittableSpanTxt" disabled="disabled">@Model.KodeAkta</span>
                                                         }
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <label class="control-label">Tgl SKMHT</label>
-                                                        @if (ViewBag.oprvalue != "view")
-                                                        {
-                                                            <div class="row">
-                                                                <div class="form-group" style="padding:0px 20px 0px 20px">
-                                                                    <div class="input-group date-picker input-daterange" data-date="31/01/1999" data-date-format="dd-MM-yyyy" autocomplete="off">
-                                                                        <input class="form-control" name="TglSKMHT" id="TglSKMHT" type="text" placeholder="Pilih tanggal SKMHT">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        }
-                                                        else
-                                                        {
-                                                            <span class="form-control NonEdittableSpanTxt" disabled="disabled">@Model.TglSKMHT'</span>
-                                                        }
-                                                    </div>
-                                                </div>
                                             </div>
-                                        </div>
-
-                                        <div class="iptspa">
-                                            <h3 class="form-section"><strong>SURAT PERMOHONAN AKTA (SPA) </strong></h3>
-                                            <div class="row">
-                                                <div class="form-group" style="padding:0px 20px 0px 20px">
-                                                    <div class="col-md-3">
-                                                        <label class="control-label">Kode Kata</label>
-                                                        @if (ViewBag.oprvalue != "view")
+                                            <div class="col-md-3">
+                                                <label class="control-label">Tgl SKMHT</label>
+                                                @if (ViewBag.oprvalue != "view")
                                                         {
-                                                            @Html.TextBoxFor(m => m.KodeAkta, new { @class = "form-control", @maxlength = "10" })
-                                                            @Html.ValidationMessageFor(m => m.KodeAkta, "", new { @class = "error-block" })
-                                                        }
-                                                        else
-                                                        {
-                                                            <span class="form-control NonEdittableSpanTxt" disabled="disabled">@Model.KodeAkta</span>
-                                                        }
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <label class="control-label">No Akta</label>
-                                                        @if (ViewBag.oprvalue != "view")
-                                                        {
-                                                            @Html.TextBoxFor(m => m.NoHT, new { @class = "form-control", @maxlength = "20" })
-                                                            @Html.ValidationMessageFor(m => m.NoHT, "", new { @class = "error-block" })
-                                                        }
-                                                        else
-                                                        {
-                                                            <span class="form-control NonEdittableSpanTxt" disabled="disabled">@Model.NoHT'</span>
-                                                        }
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="form-group" style="padding:0px 20px 0px 20px">
-                                                    <div class="col-md-3">
+                                                <div class="row">
+                                                    <div class="form-group" style="padding:0px 20px 0px 20px">
                                                         <div class="input-group date-picker input-daterange" data-date="31/01/1999" data-date-format="dd-MM-yyyy" autocomplete="off">
-                                                            <input class="form-control" name="TglSPA" id="TglSPA" type="text" placeholder="Pilih tanggal SPA">
+                                                            <input class="form-control" name="TglSKMHT" id="TglSKMHT" type="text" placeholder="Pilih tanggal SKMHT">
                                                         </div>
                                                     </div>
                                                 </div>
+                                                        }
+                                                        else
+                                                        {
+                                                <span class="form-control NonEdittableSpanTxt" disabled="disabled">@Model.TglSKMHT'</span>
+                                                        }
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
 
-                                        <div class="iptsht">
-                                            <h3 class="form-section"><strong>SERTIFIKAT HAK TANGGUNGAN (SHT) </strong></h3>
-                                            <div class="row">
-                                                <div class="form-group" style="padding:0px 20px 0px 20px">
-                                                    <div class="col-md-3">
-                                                        <label class="control-label">No Berkas SHT</label>
-                                                        @if (ViewBag.oprvalue != "view")
+                                <div class="iptspa">
+                                    <h3 class="form-section"><strong>SURAT PERMOHONAN AKTA (SPA) </strong></h3>
+                                    <div class="row">
+                                        <div class="form-group" style="padding:0px 20px 0px 20px">
+                                            <div class="col-md-3">
+                                                <label class="control-label">Kode Kata</label>
+                                                @if (ViewBag.oprvalue != "view")
                                                         {
-                                                            @Html.TextBoxFor(m => m.NoBerkasSHT, new { @class = "form-control", @maxlength = "15" })
-                                                            @Html.ValidationMessageFor(m => m.NoBerkasSHT, "", new { @class = "error-block" })
+                                                @Html.TextBoxFor(m => m.KodeAkta, new { @class = "form-control", @maxlength = "10" })
+                                                @Html.ValidationMessageFor(m => m.KodeAkta, "", new { @class = "error-block" })
                                                         }
                                                         else
                                                         {
-                                                            <span class="form-control NonEdittableSpanTxt" disabled="disabled">@Model.NoBerkasSHT</span>
+                                                <span class="form-control NonEdittableSpanTxt" disabled="disabled">@Model.KodeAkta</span>
                                                         }
-                                                    </div>
-
-                                                    <div class="col-md-3">
-                                                        <label class="control-label">Kode SHT</label>
-                                                        @if (ViewBag.oprvalue != "view")
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="control-label">No Akta</label>
+                                                @if (ViewBag.oprvalue != "view")
                                                         {
-                                                            @Html.TextBoxFor(m => m.KodeSHT, new { @class = "form-control", @maxlength = "10" })
-                                                            @Html.ValidationMessageFor(m => m.KodeSHT, "", new { @class = "error-block" })
+                                                @Html.TextBoxFor(m => m.NoHT, new { @class = "form-control", @maxlength = "20" })
+                                                @Html.ValidationMessageFor(m => m.NoHT, "", new { @class = "error-block" })
                                                         }
                                                         else
                                                         {
-                                                            <span class="form-control NonEdittableSpanTxt" disabled="disabled">@Model.KodeSHT</span>
+                                                <span class="form-control NonEdittableSpanTxt" disabled="disabled">@Model.NoHT'</span>
                                                         }
-                                                    </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                                                    <div class="col-md-3">
-                                                        <label class="control-label">No SHT</label>
-                                                        @if (ViewBag.oprvalue != "view")
-                                                        {
-                                                            @Html.TextBoxFor(m => m.NoSHT, new { @class = "form-control", @maxlength = "10" })
-                                                            @Html.ValidationMessageFor(m => m.NoSHT, "", new { @class = "error-block" })
-                                                        }
-                                                        else
-                                                        {
-                                                            <span class="form-control NonEdittableSpanTxt" disabled="disabled">@Model.NoSHT'</span>
-                                                        }
-                                                    </div>
-
+                                    <div class="row">
+                                        <div class="form-group" style="padding:0px 20px 0px 20px">
+                                            <div class="col-md-3">
+                                                <div class="input-group date-picker input-daterange" data-date="31/01/1999" data-date-format="dd-MM-yyyy" autocomplete="off">
+                                                    <input class="form-control" name="TglSPA" id="TglSPA" type="text" placeholder="Pilih tanggal SPA">
                                                 </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="iptsht">
+                                    <h3 class="form-section"><strong>SERTIFIKAT HAK TANGGUNGAN (SHT) </strong></h3>
+                                    <div class="row">
+                                        <div class="form-group" style="padding:0px 20px 0px 20px">
+                                            <div class="col-md-3">
+                                                <label class="control-label">No Berkas SHT</label>
+                                                @if (ViewBag.oprvalue != "view")
+                                                        {
+                                                @Html.TextBoxFor(m => m.NoBerkasSHT, new { @class = "form-control", @maxlength = "15" })
+                                                @Html.ValidationMessageFor(m => m.NoBerkasSHT, "", new { @class = "error-block" })
+                                                        }
+                                                        else
+                                                        {
+                                                <span class="form-control NonEdittableSpanTxt" disabled="disabled">@Model.NoBerkasSHT</span>
+                                                        }
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <label class="control-label">Kode SHT</label>
+                                                @if (ViewBag.oprvalue != "view")
+                                                        {
+                                                @Html.TextBoxFor(m => m.KodeSHT, new { @class = "form-control", @maxlength = "10" })
+                                                @Html.ValidationMessageFor(m => m.KodeSHT, "", new { @class = "error-block" })
+                                                        }
+                                                        else
+                                                        {
+                                                <span class="form-control NonEdittableSpanTxt" disabled="disabled">@Model.KodeSHT</span>
+                                                        }
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <label class="control-label">No SHT</label>
+                                                @if (ViewBag.oprvalue != "view")
+                                                        {
+                                                @Html.TextBoxFor(m => m.NoSHT, new { @class = "form-control", @maxlength = "10" })
+                                                @Html.ValidationMessageFor(m => m.NoSHT, "", new { @class = "error-block" })
+                                                        }
+                                                        else
+                                                        {
+                                                <span class="form-control NonEdittableSpanTxt" disabled="disabled">@Model.NoSHT'</span>
+                                                        }
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
                     }
-
 
                 }
                 <div class="modal-footer">
-
                 </div>
             </div>
         </div>

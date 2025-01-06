@@ -17,7 +17,7 @@
                                 @{var pop = (IEnumerable<SelectListItem>)ViewData["SelectDocumentReg"]; }
                                 @if (pop != null)
                                 {
-                                    @Html.DropDownListFor(m => m.DokumenTyped, (IEnumerable<SelectListItem>)ViewData["SelectDocumentReg"], "Pilih..", new { @class = "form-control select2" })
+                                @Html.DropDownListFor(m => m.DokumenTyped, (IEnumerable<SelectListItem>)ViewData["SelectDocumentReg"], "Pilih..", new { @class = "form-control select2" })
                                 }
                             </div>
                         </div>

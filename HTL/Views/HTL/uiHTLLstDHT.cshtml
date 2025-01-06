@@ -10,7 +10,6 @@
     }
 </style>
 
-
 <div class="portlet" id="grdl">
     <div class="portlet-title" style="min-height:0px;margin-bottom:0px">
         <div class="caption LoadMenu" data-value="@ViewBag.menu,@ViewBag.caption,@ViewBag.rute,@ViewBag.action" style="cursor:pointer">
@@ -24,73 +23,70 @@
     </div>
     @using (Html.BeginForm("clnResendSHT", "HTL", new { @id = "frmattacmentdowmload" }))
     {
-        @Html.AntiForgeryToken();
-        @Html.Hidden("prevedid");
-        @Html.Hidden("namaidpool");
-        @Html.Hidden("reooo");
-        <div class="note note-info col-md-12">
-            @if (ViewBag.caption != "HTLLISTHT6")
+    @Html.AntiForgeryToken();
+    @Html.Hidden("prevedid");
+    @Html.Hidden("namaidpool");
+    @Html.Hidden("reooo");
+    <div class="note note-info col-md-12">
+        @if (ViewBag.caption != "HTLLISTHT6")
             {
-                <h4 class="block"><strong><i>*CATATAN</i></strong></h4>
-                <p>
-                    <ul>
-                        <li>Daftar List BPN akan menampilkan semua data yang belum diterima oleh cabang FIF</li>
-                        <li>Silahkan lakukan pengcekan kembali pada sertifikat SHT yang anda download melalui SIMASHT.</li>
-                        <li>Pastikan semua data yang ada pada sertifikat SHT/Stikcer barcode benar sesuai</li>
-                        <li>Download sertifikat SHT melalui SIMASHT akan diblock setelah 7 hari dari tgl terbit SHT.</li>
-                        <li>Jika Data tidak ditemukan silahkan hubungi Helpdesk SDB</li>
-                    </ul>
-                </p>
-                <h4 class="block"><strong><i>*PILIH STATUS BERIKUT </i></strong></h4>
-                <a class="allht">Semua Pengajuan SHT | </a>
-                <a class="tutup">Pengajuan Ditutup  | </a>
-                <a class="terbit">Terbit SHT | </a>
-                <a class="tangguh">Pengajuan Ditangguhkan | </a>
-                <a class="menuggu">Menunggu Hasil BPN | </a>
+        <h4 class="block"><strong><i>*CATATAN</i></strong></h4>
+        <p>
+            <ul>
+                <li>Daftar List BPN akan menampilkan semua data yang belum diterima oleh cabang FIF</li>
+                <li>Silahkan lakukan pengcekan kembali pada sertifikat SHT yang anda download melalui SIMASHT.</li>
+                <li>Pastikan semua data yang ada pada sertifikat SHT/Stikcer barcode benar sesuai</li>
+                <li>Download sertifikat SHT melalui SIMASHT akan diblock setelah 7 hari dari tgl terbit SHT.</li>
+                <li>Jika Data tidak ditemukan silahkan hubungi Helpdesk SDB</li>
+            </ul>
+        </p>
+        <h4 class="block"><strong><i>*PILIH STATUS BERIKUT </i></strong></h4>
+        <a class="allht">Semua Pengajuan SHT | </a>
+        <a class="tutup">Pengajuan Ditutup  | </a>
+        <a class="terbit">Terbit SHT | </a>
+        <a class="tangguh">Pengajuan Ditangguhkan | </a>
+        <a class="menuggu">Menunggu Hasil BPN | </a>
             }
 
-
-            @if (int.Parse(ViewBag.UserTypess) == 0 && ViewBag.caption != "HTLLISTHT6")
+        @if (int.Parse(ViewBag.UserTypess) == 0 && ViewBag.caption != "HTLLISTHT6")
             {
-                <a class="baruaju">Pengajuan SHT | </a>
-                <div class="">
-                    <div class="col-md-4 form-md-checkboxes">
-                        <div class="md-checkbox-inline">
-                            <div class="md-checkbox has-success">
-                                @if (ViewBag.chk == "on")
+        <a class="baruaju">Pengajuan SHT | </a>
+        <div class="">
+            <div class="col-md-4 form-md-checkboxes">
+                <div class="md-checkbox-inline">
+                    <div class="md-checkbox has-success">
+                        @if (ViewBag.chk == "on")
                                 {
-                                    <input type="checkbox" name="koreksi" id="koreksi" class="md-check" checked />
+                        <input type="checkbox" name="koreksi" id="koreksi" class="md-check" checked />
                                 }
                                 else
                                 {
-                                    <input type="checkbox" name="koreksi" id="koreksi" class="md-check" unchecked />
+                        <input type="checkbox" name="koreksi" id="koreksi" class="md-check" unchecked />
                                 }
-                                <label for="koreksi">
-                                    <span></span>
-                                    <span class="check"></span>
-                                    <span class="box"></span>Koreksi Data
-                                </label>
-                            </div>
-                        </div>
+                        <label for="koreksi">
+                            <span></span>
+                            <span class="check"></span>
+                            <span class="box"></span>Koreksi Data
+                        </label>
                     </div>
-
-                    <div class="row"></div>
-                    <div class="col-md-2">
-                        <label>Cari SHT</label>
-                        @Html.TextBoxFor(m => m.FilterTransaksi.RequestNo, new { @class = "form-control serachsht", @maxlength = "35" ,@placeholder="Ketikan NoSHT lalu Enter" })
-                    </div>
-                
                 </div>
+            </div>
+
+            <div class="row"></div>
+            <div class="col-md-2">
+                <label>Cari SHT</label>
+                @Html.TextBoxFor(m => m.FilterTransaksi.RequestNo, new { @class = "form-control serachsht", @maxlength = "35" ,@placeholder="Ketikan NoSHT lalu Enter" })
+            </div>
+        </div>
 
             }
 
-            <div id="gridTx">
-                @{Html.RenderPartial("~/Views/HTL/uiHTLLstGridDHT.cshtml");}
-            </div>
+        <div id="gridTx">
+            @{Html.RenderPartial("~/Views/HTL/uiHTLLstGridDHT.cshtml");}
         </div>
-        <button type="submit" style="display: none" id="btndownload"></button>
+    </div>
+    <button type="submit" style="display: none" id="btndownload"></button>
     }
-
 </div>
 <div id="uidivfilter">
 </div>
@@ -106,5 +102,3 @@
         vmHTL.initbuton();
     });
 </script>
-
-

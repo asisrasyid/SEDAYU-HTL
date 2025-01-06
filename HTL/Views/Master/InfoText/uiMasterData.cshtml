@@ -10,14 +10,12 @@
             <i class="icon-settings font-whitea"></i>
             <span class="caption-subject font-whitea sbold uppercase">@ViewBag.captiondesc </span>
         </div>
-        
+
         <div id="gridMasterData">
             @{Html.RenderPartial("~/Views/Master/InfoText/_uiGridMasterDataList.cshtml");}
         </div>
     </div>
 </div>
-
-
 
 <div id="uidivfilter">
 </div>
@@ -32,4 +30,3 @@
     $.getScript("Scripts/vmMasterData.js", function () {
     });
 </script>
-

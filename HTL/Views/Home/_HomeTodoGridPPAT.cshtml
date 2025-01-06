@@ -4,7 +4,6 @@
         white-space: nowrap;
     }
 
-
     td:last-child {
         width: 2%;
     }
@@ -29,13 +28,12 @@
     }
 </style>
 
-
 <table class="table table-striped table-hover table-bordered" id="table_txppat">
     <thead>
         <tr>
 
             <th>Nama <br /> PPAT</th>
-            <th>Wilayah <br/> PPAT</th>
+            <th>Wilayah <br /> PPAT</th>
             <th>Pengecekan <br /> Sertifikat</th>
             <th>Sending<br />BPN</th>
             <th>Siap<br /> Akad</th>
@@ -46,16 +44,15 @@
         {
             foreach (System.Data.DataRow item in Model.TodoNOT.Rows)
             {
-                <tr class="DrillDownRow">
-                    <td width="35%" align="left">@item["OrderKeNotaris"].ToString()</td>
-                    <td width="35%" align="left">@item["Wilayah"].ToString()</td>
-                    <td width="10%" align="center">@item["Pengecekan Sertifikat"].ToString()</td>
-                    <td width="10%" align="center">@item["Sending BPN"].ToString()</td>
-                    <td width="10%" align="center">@item["Siap Akad"].ToString()</td>
-                </tr>
+        <tr class="DrillDownRow">
+            <td width="35%" align="left">@item["OrderKeNotaris"].ToString()</td>
+            <td width="35%" align="left">@item["Wilayah"].ToString()</td>
+            <td width="10%" align="center">@item["Pengecekan Sertifikat"].ToString()</td>
+            <td width="10%" align="center">@item["Sending BPN"].ToString()</td>
+            <td width="10%" align="center">@item["Siap Akad"].ToString()</td>
+        </tr>
             }
 
         }
-
     </tbody>
 </table>

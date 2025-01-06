@@ -1,0 +1,157 @@
+﻿@model DusColl.vmHTL
+<style>
+    td:not(:first-child) {
+        white-space: nowrap;
+    }
+
+    td:last-child {
+        width: 30%;
+    }
+
+    .btn {
+        padding: 6px 7px;
+        margin-bottom: 0;
+        /*border-radius: 0;*/
+        /*border: 0;*/
+    }
+
+    .btngridx {
+        padding: 1px 5px;
+        margin-bottom: 0;
+    }
+
+    .btngrid {
+        padding: 6.7px 7px;
+        margin-bottom: 0;
+        border-radius: 0;
+        border: 0;
+    }
+</style>
+
+<table class="table table-striped table-hover table-bordered" id="table_tx">
+    <thead>
+        <tr>
+            <th align="left" width="1%"><input type="checkbox" class="cekedbox" /></th>
+            <th data-priority="1">No<br /> Aplikasi</th>
+            <th>No Perjanjian</th>
+            <th>Cabang</th>
+            <th data-priority="1">Nama<br /> Debitur</th>
+            <th>OD (DAY'S)</th>
+            <th>Pemilik SHM</th>
+            @if (int.Parse(ViewBag.UserTypess) == 0)
+            {
+                if (ViewBag.caption != "HTLLISTHT6")
+                {
+            <th data-priority="1">Kode Akta</th>
+            <th>No Akta</th>
+            <th>NoBerkas SHT</th>
+                }
+                else
+                {
+            <th>NamaPPAT</th>
+            <th>NoBAST</th>
+                }
+            }
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.DTAllTx != null)
+        {
+            var i = 0;
+            foreach (System.Data.DataRow item in Model.DTAllTx.Rows)
+            {
+                i = i + 1;
+        <tr class="DrillDownRow">
+            <td align="center">
+                @if (item["AllowCheckBox"].ToString() == "allow")
+                        {
+                <input type="checkbox" name="AktaSelectdwn" value="@Html.Raw(item["keylookupdata"])" />
+                        }
+            </td>
+            <td>@item["NoAppl"].ToString()</td>
+            <td>@item["NoPerjanjian"].ToString().ToUpper()</td>
+            <td>@item["NamaCabang"].ToString().ToUpper()</td>
+            <td>@item["Debitur"].ToString()</td>
+            <td>@item["NoSHM"].ToString()</td>
+            <td>@item["PemilikHak"].ToString()</td>
+
+            @if (int.Parse(ViewBag.UserTypess) == 0)
+                    {
+                        if (ViewBag.caption != "HTLLISTHT6")
+                        {
+            <td>@item["KodeAkta"].ToString()</td>
+            <td>@item["NoAkta"].ToString()</td>
+            <td>@item["NoBerkasSHT"].ToString()</td>
+                        }
+                        else
+                        {
+            <td>@item["NamaPPAT"].ToString()</td>
+            <td>@item["NoBAST"].ToString()</td>
+                        }
+
+                    }
+
+            <td>@item["Keterangan"].ToString()</td>
+        </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<script src="~/Scripts/vmHTL.js"></script>
+<script>
+    $.getScript("/Content/assets/pages/scripts/table-datatable-custom.js")
+        .done(function (script, textStatus) {
+
+            var currentP =@Model.FilterTransaksi.pagenumberclient.ToString();
+            var totalRDBAll =@Model.FilterTransaksi.TotalRecord.ToString();
+            var totalR =@Model.FilterTransaksi.totalRecordclient.ToString();
+            var totalP =@Model.FilterTransaksi.totalPageclient.ToString();
+            var nextP =@Model.FilterTransaksi.pagenumberclient+1;
+            var prevP =@Model.FilterTransaksi.pagenumberclient-1;
+
+            var tbj = '@Model.Permission.AllowAdd';
+            var tbjd = '@Model.Permission.AllowDownload';
+            var tbjg = '@Model.Permission.AllowGenerate';
+            var usr = '@ViewBag.UserTypess';
+
+            var cap = '@ViewBag.caption';
+
+            var parurl = 'HTL/clnRgridHeaderTxHT';
+            var divgrid = 'gridTx';
+            var tabled = 'table_tx';
+
+            $("#" + tabled).DataTable().destroy();
+            TableDatatablesEditable1.init("#"+tabled);
+              //TableDatatablesEditable1.initPaging(tabled, currentP, totalR, totalP, nextP, prevP, parurl, divgrid, 0);
+            if (cap != "HTLLISTHT6") {
+
+                $("#table_tx_filter > label > input").before("<div style='padding-left:5px'>@Html.Raw(ViewBag.Total)</div>");
+                $("#table_tx_filter > label > input").after(
+                    "<button type='button' class='btn green btngrid LoadMenu' title='Refresh' data-value='\"Transaksi Data\",\"@Model.FilterTransaksi.ModuleName.ToString()\",\"HTL\",\"clnHeaderTxHT\"'><i class='fa fa-refresh'></i></button > " +
+                    "<button type='button' class='btn green btngrid downexel' title='Export Excel' data-value='\"AktaSelectdwn\",\"@Model.FilterTransaksi.ModuleName.ToString()\"'> <i class='fa fa-file-text-o'></i></button > " +
+                    (usr == "0" ? "<button type='button' class='btn green btngrid upgdht' title='Update HT' data-value='\"AktaSelectdwn\",\"\"'> <i class='fa fa-check'></i></button > " : "") +
+                    (tbjd == "true" || tbjd == "True" || tbjd == "1" ?
+                        "<button type='button' class='btn green btngrid cetsertiht' title='Unduh SHT & Sticker' data-value='\"AktaSelectdwn\",\"\"'> <i class='fa fa-download'></i></button > "
+                        : "")
+                );
+            } else {
+                $("#table_tx_filter > label > input").before("<div style='padding-left:5px'>@Html.Raw(ViewBag.Total)</div>");
+                $("#table_tx_filter > label > input").after(
+                    "<button type='button' class='btn green btngrid advfilerbast' title='Cari NoBAST/NoPerjanjian' data-value='\"Transaksi Data\",\"@Model.FilterTransaksi.ModuleName.ToString()\",\"HTL\",\"clnHeaderTxHT\",\"table_tx_filter\"'><i class='fa fa-filter'></i></button > " +
+                    "<button type='button' class='btn green btngrid LoadMenu' title='Refresh' data-value='\"Transaksi Data\",\"@Model.FilterTransaksi.ModuleName.ToString()\",\"HTL\",\"clnHeaderTxHT\"'><i class='fa fa-refresh'></i></button > " +
+                    (usr == "0" ? "<button type='button' class='btn green btngrid schcfrmbast' title='Reschedule Pengajuan' data-value='\"AktaSelectdwn\",\"@HashNetFramework.HasKeyProtect.Encryption(ViewBag.UserTypess)\"'> <i class='fa fa-calendar'></i></button > ":
+                    "<button type='button' class='btn green btngrid cretbast' title='Buat/Tampilkan BAST' data-value='\"AktaSelectdwn\",\"@HashNetFramework.HasKeyProtect.Encryption(ViewBag.UserTypess)\"'> <i class='fa fa-check'></i></button > ")
+                );
+            }
+            $("#table_tx_filter > label > div").css("color", "#95A5A6 !important")
+
+           /* $(".btn-group").css("position", "relative");*/
+            //$(".table-scrollable").css("overflow-x", "visible");
+            //$(".table-scrollable").css("overflow-y", "visible");
+            //$("td:last-child").css("width", "7%");
+            //$(".page-wrapper").css("table-layout", "unset");
+            vmHTL.initbuton();
+        });
+</script>

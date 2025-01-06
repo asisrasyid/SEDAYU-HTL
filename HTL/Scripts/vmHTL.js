@@ -4,8 +4,6 @@ var popupwindowwarkah = null;
 var names = [];
 
 var vmHTL = function () {
-
-
     var onResetFilter = function (parForm) {
         var frm = $(parForm);
         $('#filterdatadialog .form-control').val('');
@@ -204,7 +202,6 @@ var vmHTL = function () {
             });
     };
 
-
     var onprorolBAST = function (idnama, codeprev) {
         $("#namaidpool").val(idnama);
         $("#prevedid").val(codeprev);
@@ -252,8 +249,6 @@ var vmHTL = function () {
             });
     };
 
-
-
     var onCetakSertima = function (idnama, codeprev) {
         $("#namaidpool").val(idnama);
         $("#prevedid").val(codeprev);
@@ -275,7 +270,6 @@ var vmHTL = function () {
         if (status == true) {
             $("input:checkbox[name='" + idname + "']:unchecked").each(function (i, o) {
                 $("input:checkbox[name='" + idname + "']")[i].checked = true;
-
             });
         } else {
             $("input:checkbox[name='" + idname + "']:checked").each(function (i, o) {
@@ -334,10 +328,11 @@ var vmHTL = function () {
         var jsonreposn = "";
         var idkey = document.getElementById("aux").value;
         var idct = document.getElementById("ctex").value;
+        var grdoc = "4";
         $.ajax({
             url: "HTL/clnKoncePloddocnw",
             type: "POST",
-            data: { paridno: idkey, paridno1: idct, parkepo: opxr },
+            data: { paridno: idkey, paridno1: idct, parkepo: opxr, grdoctyp: grdoc },
             //contentType: "application/json; charset=utf-8",
             dataType: "json",
             beforeSend: function () {
@@ -368,7 +363,48 @@ var vmHTL = function () {
                 if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
             }
         });
+    };
 
+    var onOpenAddDocRoya = function (opxr) {
+        var jsoncoll = "";
+        var jsonreposn = "";
+        var idkey = document.getElementById("aux").value;
+        var idct = document.getElementById("ctex").value;
+        var grdoc = "4";
+        $.ajax({
+            url: "HTL/clnKoncePloddocnwRoya",
+            type: "POST",
+            data: { paridno: idkey, paridno1: idct, parkepo: opxr, grdoctyp: grdoc },
+            //contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            beforeSend: function () {
+                App.blockUI({});
+            },
+            success: function (data) {
+                if (data.moderror == false) {
+                    App.unblockUI();
+                    $("#uidivupdoc").html(data.view);
+                    $('#dialogupdoc').draggable({
+                        handle: ".modal-header"
+                    });
+                    $("#ctexdoc").val(data.htdoc);
+                    $(".msgupdoc").html("");
+                    $(".modal-header").unbind("click");
+                    $(".modal-header").bind("click", function () {
+                        $(".modal-bodyx").toggle();
+                    });
+                    $("#dialogupdoc").modal("show");
+                } else {
+                    window.location.href = data.url;
+                }
+            },
+            error: function (x, y, z) {
+                App.unblockUI(elemntupload);
+                jsoncoll = JSON.stringify(x);
+                jsonreposn = JSON.parse(jsoncoll);
+                if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
+            }
+        });
     };
 
     var onOpenAdd = function (modul, idkey, oprgt) {
@@ -405,7 +441,41 @@ var vmHTL = function () {
                 if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
             }
         });
+    };
+    var onOpenAddRoya = function (modul, idkey, oprgt) {
+        var jsoncoll = "";
+        var jsonreposn = "";
 
+        $.ajax({
+            url: "HTL/clnOpenAddRoyaDt",
+            type: "POST",
+            data: { paramkey: idkey, oprfun: oprgt },
+            //contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            beforeSend: function () {
+                App.blockUI({});
+            },
+            success: function (data) {
+                if (data.moderror == false) {
+                    App.unblockUI();
+                    $("#uidivadd").html(data.view);
+                    $("#keylookupdataHTX").val(data.keydata);
+                    $("#grdl").hide();
+                    $("#uidivadd").show();
+                    vmHTL.init();
+                    vmHTL.initbuton();
+                    //$("#datadialogaupdhtl").modal("show");
+                } else {
+                    window.location.href = data.url;
+                }
+            },
+            error: function (x, y, z) {
+                App.unblockUI(elemntupload);
+                jsoncoll = JSON.stringify(x);
+                jsonreposn = JSON.parse(jsoncoll);
+                if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
+            }
+        });
     };
 
     var onOpenAddIpt = function (modul, idkey, idrelate, oprgt, gd, idgd) {
@@ -461,7 +531,6 @@ var vmHTL = function () {
                 if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
             }
         });
-
     };
 
     var onOpenAddInv = function (idkey, oprgt, oprd) {
@@ -566,8 +635,7 @@ var vmHTL = function () {
         });
     };
 
-
-     var onOpen_grpIsue = function (idkey, oprgt, oprd) {
+    var onOpen_grpIsue = function (idkey, oprgt, oprd) {
         var jsoncoll = "";
         var jsonreposn = "";
 
@@ -839,7 +907,79 @@ var vmHTL = function () {
                                 if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
                             },
                         });
+                    }
+                }
+            )
+        }
+    };
 
+
+
+    var onRoyaSbmt = function (parForm, prm) {
+        var jsoncoll = "";
+        var jsonreposn = "";
+        var frm = $(parForm);
+        var valid = $(parForm).valid();
+        //valid == true
+        if (valid == true) {
+            //$("#datadialogaupdhtl").modal("hide");
+            swal({
+                title: "Konfirmasi",
+                text: "Yakin ingin menambah/mengubah data ? , Jika anda sudah yakin silahkan tekan tombol 'Ya'",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonText: 'Ya',
+                cancelButtonText: "Tidak",
+                closeOnConfirm: false,
+                closeOnCancel: true
+            },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        $("#ctex").val(prm);
+                        $.ajax({
+                            type: frm.attr('method'),
+                            url: frm.attr('action'),
+                            data: frm.serialize(),
+                            beforeSend: function () {
+                                App.blockUI();
+                            },
+                            success: function (data) {
+                                if (data.moderror == false) {
+                                    App.unblockUI();
+                                    //$("#datadialogaupdhtl").modal("hide");
+                                    swal({
+                                        title: "Informasi",
+                                        text: data.msg,
+                                        type: "info",
+                                        showConfirmButton: true,
+                                        closeOnConfirm: true,
+                                        closeOnCancel: true,
+                                        confirmButtonText: "Tutup",
+                                    }, function () {
+                                        if (data.resulted != "1") {
+                                            //$("#datadialogaupdhtl").modal("show");
+                                        } else {
+                                            if (data.mode == "submit") {
+                                                vmHomePages.LoadMenu('Data Transaksi', 'HTLLIST', 'HTL', 'clnHeaderTx');
+                                            }
+                                            if (data.mode == "simpan") {
+                                                $("#ctex").val(data.diadu);
+                                                $("#diadu").val(data.diadu);
+                                                $("#keylookupdataHTX").val(data.gtid);
+                                            }
+                                        }
+                                    });
+                                } else {
+                                    window.location.href = data.url;
+                                }
+                            },
+                            error: function (x, y, z) {
+                                App.unblockUI();
+                                jsoncoll = JSON.stringify(x);
+                                jsonreposn = JSON.parse(jsoncoll);
+                                if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
+                            },
+                        });
                     }
                 }
             )
@@ -918,7 +1058,6 @@ var vmHTL = function () {
                                 if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
                             },
                         });
-
                     } else {
                         $("#datadialogaupdhtlipt").modal("show");
                     }
@@ -963,7 +1102,6 @@ var vmHTL = function () {
                 if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
             }
         });
-
     };
 
     var onApplyViewChg = function (parm, prm1) {
@@ -1017,7 +1155,6 @@ var vmHTL = function () {
                 if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
             }
         });
-
     };
 
     //var onApplySbmt = function (parForm) {
@@ -1098,7 +1235,6 @@ var vmHTL = function () {
     //            },
     //        });
     //    } else {
-
     //        $("#MsgPanel").show();
     //        $("#Msg").html("Silahkan Lengkapi Form Pengajuan dan Pilih tindakan");
     //    }
@@ -1170,7 +1306,6 @@ var vmHTL = function () {
                 }
             },
         });
-
     };
 
     var onOpenFilter = function () {
@@ -1222,9 +1357,7 @@ var vmHTL = function () {
                 if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
             }
         });
-
     };
-
 
     var onLoadIpt = function (aped, jned, grd, idd) {
         var jsoncoll = "";
@@ -1250,7 +1383,6 @@ var vmHTL = function () {
                     //    autoclose: true
                     //});
                     //$('.select2').select2();
-
                 } else {
                     window.location.href = data.url;
                 }
@@ -1262,7 +1394,6 @@ var vmHTL = function () {
                 if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
             }
         });
-
     };
 
     var onApplyFilter = function (parForm, pardownloadexcel) {
@@ -1355,7 +1486,6 @@ var vmHTL = function () {
                         $("#tglpro").val("");
                         $("#flinfo").html("");
                     });
-
                 } else {
                     window.location.href = data.url;
                 }
@@ -1367,7 +1497,6 @@ var vmHTL = function () {
                 if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
             }
         });
-
     };
 
     var onOpenvwmitra = function (prmkey, prmkey1, prmkey2) {
@@ -1400,7 +1529,6 @@ var vmHTL = function () {
                 if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
             }
         });
-
     };
 
     var onChkwmitra = function (prmkey) {
@@ -1437,7 +1565,6 @@ var vmHTL = function () {
                 if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
             }
         });
-
     };
 
     var onvalidateMitraPop = function (prm) {
@@ -1513,7 +1640,7 @@ var vmHTL = function () {
                         if (parser == "10" || parser == "20" || parser == "30") {
                             $("#reboncat").show();
                         }
-    
+
                         if (parser == "20" || parser == "30") {
                             $("#additinfo").hide();
                         }
@@ -1530,8 +1657,6 @@ var vmHTL = function () {
                         if (lengthbrn == 1) {
                             $('#Divisi').val($('#Divisi option:eq(1)').val()).change();
                         }
-
-
                     }
 
                     $("#MsgPanel").hide();
@@ -1539,7 +1664,6 @@ var vmHTL = function () {
                     if (data.msg !== "" && prm == "1") {
                         $("#MsgPanel").show();
                     }
-
                 } else {
                     window.location.href = data.url;
                 }
@@ -1551,7 +1675,6 @@ var vmHTL = function () {
                 if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
             }
         });
-
     };
 
     var onLoadChange = function (keypop) {
@@ -1607,7 +1730,6 @@ var vmHTL = function () {
                 if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
             }
         });
-
     };
 
     var onFilterBranchByClient = function () {
@@ -1651,7 +1773,6 @@ var vmHTL = function () {
                     jsoncoll = JSON.stringify(x);
                     jsonreposn = JSON.parse(jsoncoll);
                     if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
-
                 }
             });
         }
@@ -1751,6 +1872,7 @@ var vmHTL = function () {
                 App.blockUI({ target: "#dialogmodal" });
             },
             success: function (x) {
+                alert('msuk');
                 var parfrm = "";
                 var selecttedhtml = "";
                 var linked = "";
@@ -1817,7 +1939,6 @@ var vmHTL = function () {
                             }
                         }
                     }
-
                 } else {
                     window.location.href = x.url;
                 }
@@ -1830,7 +1951,6 @@ var vmHTL = function () {
             }
         });
     };
-
 
     var onchkflevw = function (parmpat, param1, param2) {
         var jsoncoll = "";
@@ -1873,7 +1993,6 @@ var vmHTL = function () {
                         a.href = url;
                         a.download = x.filename;
                         a.click();
-
                     }
                     App.unblockUI();
                 } else {
@@ -1951,7 +2070,6 @@ var vmHTL = function () {
             success: function (data) {
                 if (data.moderror == false) {
                     App.unblockUI();
-
                 } else {
                     window.location.href = data.url;
                 }
@@ -1963,7 +2081,6 @@ var vmHTL = function () {
                 if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
             }
         });
-
     };
 
     var SetCoordinates = function (c) {
@@ -1974,11 +2091,13 @@ var vmHTL = function () {
         $('#btnCrop').show();
     };
 
-
     return {
-
         OpenAdd: function (modul, idkey, oprgt) {
             onOpenAdd(modul, idkey, oprgt);
+        },
+
+        OpenAddRoya: function (modul, idkey, oprgt) {
+            onOpenAddRoya(modul, idkey, oprgt);
         },
 
         OpenAddinv: function (modul, idkey, oprgt) {
@@ -1993,10 +2112,8 @@ var vmHTL = function () {
             onOpenAddRjt(modul, idkey, oprgt);
         },
 
-
         OpenAddIpt: function (modul, idkey, idrel, oprgt, op1, op2) {
             onOpenAddIpt(modul, idkey, idrel, oprgt, op1, op2);
-
         },
 
         LoadIpt: function (ap, jn, gd, id) {
@@ -2038,7 +2155,6 @@ var vmHTL = function () {
             onprorolBAST(idnama, codeprev);
         },
 
-
         downexcel: function (idnama, codeprev) {
             ondownexcel(idnama, codeprev);
         },
@@ -2046,7 +2162,6 @@ var vmHTL = function () {
         CetakSertima: function (idnama, codeprev) {
             onCetakSertima(idnama, codeprev);
         },
-
 
         OpenCatat: function (kt) {
             swal({
@@ -2110,7 +2225,6 @@ var vmHTL = function () {
                 $('input[name="DesaKelurahan"]').val(x.Kel);
                 App.unblockUI();
                 $("#dialogIman").modal("show");
-
             } else {
                 window.location.href = x.url;
             }
@@ -2197,9 +2311,7 @@ var vmHTL = function () {
             });
 
             $('#btnCrop').click(function () {
-
                 if (document.getElementById("FileUpload1").files.length == 0) {
-
                     $("#datadialogaupdhtlipt").modal("hide");
                     swal({
                         title: "Informasi",
@@ -2314,6 +2426,10 @@ var vmHTL = function () {
             onOpenAddDoc(opx);
         },
 
+        openAddDocRoya(opx) {
+            onOpenAddDocRoya(opx);
+        },
+
         chkfle(parsecnocon, parsecnoconmode, parcontype) {
             onchkfle(parsecnocon, parsecnoconmode, parcontype);
         },
@@ -2324,6 +2440,9 @@ var vmHTL = function () {
 
         ApplySbmt: function (frm, prm) {
             onApplySbmt(frm, prm);
+        },
+        RoyaSbmt: function (frm, prm) {
+            onRoyaSbmt(frm, prm);
         },
 
         ApplySbmtIpt: function (frm, prm, gd, idgd) {
@@ -2386,8 +2505,6 @@ var vmHTL = function () {
             $('.select2').select2({
             });
 
-
-
             $.fn.datepicker.defaults.format = "dd-MM-yyyy";
             $('.date-picker').datepicker({
                 rtl: App.isRTL(),
@@ -2438,11 +2555,9 @@ var vmHTL = function () {
             //vmHTL.rupiahbro(x10, "#idNilaiHT", "1");
             //vmHTL.rupiahbro(x11, "#idNilaiPinjamanDiterima", "1");
             //vmHTL.rupiahbro(x12, "#idLuasTanah", "0");
-
         },
 
         initbuton: function () {
-
             $(".btnshtvw").unbind("click");
             $(".btnshtvw").bind("click", function () {
                 var pop = $(this).attr("data-value");
@@ -2486,7 +2601,6 @@ var vmHTL = function () {
 
             $(".tutup,.tangguh,.terbit,.allht,.menuggu,.baruaju,.allht").unbind("click");
             $(".tutup,.tangguh,.terbit,.allht,.menuggu,.baruaju,.allht").bind("click", function () {
-
                 var ModuleName = "xx";
                 var ckk = $("#koreksi:checked").val();
                 if (ckk != "on") {
@@ -2514,10 +2628,32 @@ var vmHTL = function () {
                 var par2 = "HTL"
                 var par3 = "clnHeaderTxHT";
                 var par4 = $(".serachsht").val();
-                
+
                 vmHomePages.LoadMenu(par0, par1, par2, par3, par4);
             });
+            $(".royadone,.prosroya,.allroya").unbind("click");
+            $(".royadone,.prosroya,.allroya").bind("click", function () {
+                var ModuleName = "xx";
+                var ckk = $("#koreksi:checked").val();
+                if (ckk != "on") {
+                    ckk = "";
+                }
+                if (this.className == "royadone") {
+                    ModuleName = "ROYADONE" + ckk;
+                } else if (this.className == "prosroya") {
+                    ModuleName = "ROYAPROS" + ckk;
+                } else if (this.className == "allroya") {
+                    ModuleName = "ROYAALL" + ckk;
+                }
+                
+                var par0 = "Transaksi Data";
+                var par1 = ModuleName;
+                var par2 = "HTL"
+                var par3 = "clnHeaderTxRoyaPros";
+                var par4 = $(".serachsht").val();
 
+                vmHomePages.LoadMenu(par0, par1, par2, par3, par4);
+            });
 
             $(".cetserti").unbind("click");
             $(".cetserti").bind("click", function () {
@@ -2545,9 +2681,6 @@ var vmHTL = function () {
                 var par1 = pop[1].replace(/["]/g, "");
 
                 vmHTL.downexcel(par0, par1);
-
-
-
             });
 
             $(".cretbast").unbind("click");
@@ -2608,7 +2741,6 @@ var vmHTL = function () {
                 });
             });
 
-
             $(".slabast").unbind("click");
             $(".slabast").bind("click", function () {
                 var pop = $(this).attr("data-value");
@@ -2618,7 +2750,6 @@ var vmHTL = function () {
                 vmHTL.proslaBAST(par0, par1);
             });
 
-
             $(".rolbast").unbind("click");
             $(".rolbast").bind("click", function () {
                 var pop = $(this).attr("data-value");
@@ -2627,7 +2758,6 @@ var vmHTL = function () {
                 var par1 = pop[1].replace(/["]/g, "");
                 vmHTL.prorolBAST(par0, par1);
             });
-
 
             $(".advfilerbast").unbind("click");
             $(".advfilerbast").bind("click", function () {
@@ -2678,13 +2808,11 @@ var vmHTL = function () {
                         jsoncoll = JSON.stringify(x);
                         jsonreposn = JSON.parse(jsoncoll);
                         if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
-
                     },
                     complete: function () {
                         App.unblockUI();
                     }
                 });
-
             });
 
             $(".upgdht").unbind("click");
@@ -2761,7 +2889,6 @@ var vmHTL = function () {
                 vmHTL.OpenAdd(par0, par1);
             });
 
-
             $(".openaddipt").unbind("click");
             $(".openaddipt").bind("click", function () {
                 var pop = $(this).attr("data-value");
@@ -2783,6 +2910,16 @@ var vmHTL = function () {
                 var par1 = pop[1].replace(/["]/g, "");
                 var par2 = pop[2].replace(/["]/g, "");
                 vmHTL.OpenAdd(par0, par1, par2);
+            });
+
+            $(".openRoyaview").unbind("click");
+            $(".openRoyaview").bind("click", function () {
+                var pop = $(this).attr("data-value");
+                pop = pop.split(",");
+                var par0 = pop[0].replace(/["]/g, "");
+                var par1 = pop[1].replace(/["]/g, "");
+                var par2 = pop[2].replace(/["]/g, "");
+                vmHTL.OpenAddRoya(par0, par1, par2);
             });
 
             $(".open4edit").unbind("click");
@@ -2815,7 +2952,6 @@ var vmHTL = function () {
                 vmHTL.OpenAddExp(par0, par1, par2);
             });
 
-
             $(".open4editRjt").unbind("click");
             $(".open4editRjt").bind("click", function () {
                 var pop = $(this).attr("data-value");
@@ -2839,7 +2975,6 @@ var vmHTL = function () {
                 vmHTL.OpenAddIpt(par0, par1, par2, par3, par4, par5);
             });
 
-
             $(".open4viewtipt").unbind("click");
             $(".open4viewtipt").bind("click", function () {
                 var pop = $(this).attr("data-value");
@@ -2852,8 +2987,6 @@ var vmHTL = function () {
                 var par5 = pop[5].replace(/["]/g, "");
                 vmHTL.OpenAddIpt(par0, par1, par2, par3, par4, par5);
             });
-
-
 
             $(".open4riwayat").unbind("click");
             $(".open4riwayat").bind("click", function () {
@@ -2874,7 +3007,6 @@ var vmHTL = function () {
                 var par2 = pop[2].replace(/["]/g, "");
                 vmHTL.Open_grpIsue(par0, par1, par2);
             });
-
 
             $(".filtehtlref").unbind("click");
             $(".filtehtlref").bind("click", function () {
@@ -2911,7 +3043,6 @@ var vmHTL = function () {
                 FormFileUpload.subsveloddedttd();
             });
 
-
             $(".btn4save").unbind("click");
             $(".btn4save").bind("click", function () {
                 var pop = $(this).attr("data-value");
@@ -2919,6 +3050,16 @@ var vmHTL = function () {
                 var par0 = pop[0].replace(/["]/g, "");
                 var par1 = pop[1].replace(/["]/g, "");
                 vmHTL.ApplySbmt(par0, par1);
+            });
+
+
+            $(".btnRoyasave").unbind("click");
+            $(".btnRoyasave").bind("click", function () {
+                var pop = $(this).attr("data-value");
+                pop = pop.split(",");
+                var par0 = pop[0].replace(/["]/g, "");
+                var par1 = pop[1].replace(/["]/g, "");
+                vmHTL.RoyaSbmt(par0, par1);
             });
 
             $(".btn4saveipt").unbind("click");
@@ -2932,7 +3073,6 @@ var vmHTL = function () {
                 $("#ctexipt").val(par1);
                 vmHTL.ApplySbmtIpt(par0, par1, par2, par3);
             });
-
 
             $(".btn4saveiptpsg").unbind("click");
             $(".btn4saveiptpsg").bind("click", function () {
@@ -2978,6 +3118,14 @@ var vmHTL = function () {
                 vmHTL.openAddDoc(par0);
             });
 
+            $(".btnUpDoccedRoya").unbind("click");
+            $(".btnUpDoccedRoya").bind("click", function () {
+                var pop = $(this).attr("data-value");
+                pop = pop.split(",");
+                var par0 = pop[0].replace(/["]/g, "");
+                vmHTL.openAddDocRoya(par0);
+            });
+
             var x10 = $("#NilaiHT").val();
             var x11 = $("#NilaiPinjamanDiterima").val();
             var x12 = $("#NilaiHT").val();
@@ -2985,7 +3133,6 @@ var vmHTL = function () {
             vmHTL.rupiahbro(x10, "#idNilaiHT", "1");
             vmHTL.rupiahbro(x11, "#idNilaiPinjamanDiterima", "1");
             vmHTL.rupiahbro(x12, "#idLuasTanah", "0");
-
         },
 
         updatinitbast: function () {
@@ -3034,7 +3181,6 @@ var vmHTL = function () {
                                     });
                                 },
                                 error: function (error) {
-
                                 }
                             });
                         } else {
@@ -3085,7 +3231,6 @@ var vmHTL = function () {
                                     });
                                 },
                                 error: function (error) {
-
                                 }
                             });
                         } else {
@@ -3095,12 +3240,10 @@ var vmHTL = function () {
             });
         },
         init: function () {
-
             $('input.NonEdittable').css("border", "0px");
             $('.NonEdittableSpanTxtArea').css("border", "0px");
             $('.NonEdittableSpanTxtArea').css("height", "50px");
             $('.tgl,.dtt').css("z-index", "0");
-
 
             $('.NonEdittableSpanTxt').css("border", "0px");
 
@@ -3144,7 +3287,6 @@ var vmHTL = function () {
                 vmHTL.rupiahbro(angka, "#id" + nm, "0");
             });
 
-
             //integer value validation
             $('input.floatNumber').on('input', function () {
                 this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
@@ -3162,7 +3304,6 @@ var vmHTL = function () {
                 vmHTL.rupiahbro(angka, "#idrup", "1");
             });
 
-
             $('.select2').select2({}).on("change", function (e) {
                 $(this).valid();
                 if (this.id.toLowerCase() == "status") {
@@ -3179,7 +3320,6 @@ var vmHTL = function () {
                 $.validator.unobtrusive.parse($("#frmregit"));
             });
 
-
             $(".nkSrc").on('click', function () {
                 var nik = $(".nkSrccmb").val();
                 vmHTL.Checkdocmandornk(nik);
@@ -3190,8 +3330,6 @@ var vmHTL = function () {
                 vmHTL.Checkchangeprov(nik);
             });
 
-
-
             //$("#Tgllahir,#tglmasuk,#tglakhir").datepicker({
             //    defaultDate: null
             //});
@@ -3199,8 +3337,6 @@ var vmHTL = function () {
             $(".dtt").datepicker().on('change', function () {
                 $(this).valid();
             });
-
-
 
             //$("#Alamat,#AlamatKorespodensi").on("keypress", function (e) {
             //    var key = e.keyCode;
@@ -3211,9 +3347,6 @@ var vmHTL = function () {
             //        return true;
             //    }
             //});
-
         },
     }
 }();
-
-

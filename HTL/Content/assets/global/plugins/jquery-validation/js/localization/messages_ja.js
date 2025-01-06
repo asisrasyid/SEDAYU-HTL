@@ -5,7 +5,6 @@
 		factory( jQuery );
 	}
 }(function( $ ) {
-
 /*
  * Translated default messages for the jQuery validation plugin.
  * Locale: JA (Japanese; 日本語)
@@ -29,5 +28,4 @@ $.extend($.validator.messages, {
 	max: $.validator.format("{0} 以下の値を入力してください。"),
 	min: $.validator.format("{0} 以上の値を入力してください。")
 });
-
 }));

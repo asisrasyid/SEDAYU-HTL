@@ -1,5 +1,4 @@
 var TableDatatablesEditable = function () {
-
     var initPickers = function () {
         //init date pickers
         $('.date-picker').datepicker({
@@ -9,7 +8,6 @@ var TableDatatablesEditable = function () {
     }
 
     var handleTable = function () {
-
         function restoreRow(oTable, nRow) {
             var aData = oTable.fnGetData(nRow);
             var jqTds = $('>td', nRow);
@@ -64,10 +62,9 @@ var TableDatatablesEditable = function () {
         var table = $('#sample_editable_1');
 
         var oTable = table.dataTable({
-
             // Uncomment below line("dom" parameter) to fix the dropdown overflow issue in the datatable cells. The default datatable layout
-            // setup uses scrollable div(table-scrollable) with overflow:auto to enable vertical scroll(see: assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js). 
-            // So when dropdowns used the scrollable div should be removed. 
+            // setup uses scrollable div(table-scrollable) with overflow:auto to enable vertical scroll(see: assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js).
+            // So when dropdowns used the scrollable div should be removed.
             //"dom": "<'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
 
             "lengthMenu": [
@@ -112,7 +109,6 @@ var TableDatatablesEditable = function () {
                     $(nEditing).find("td:first").html("Untitled");
                     nEditing = null;
                     nNew = false;
-
                 } else {
                     oTable.fnDeleteRow(nEditing); // cancel
                     nEditing = null;
@@ -168,7 +164,6 @@ var TableDatatablesEditable = function () {
                 /* Editing this row and want to save it */
                 saveRow(oTable, nEditing);
                 nEditing = null;
-
             } else {
                 /* No edit in progress - let's start one */
                 editRow(oTable, nRow);
@@ -178,15 +173,11 @@ var TableDatatablesEditable = function () {
     }
 
     return {
-
         //main function to initiate the module
         init: function () {
             handleTable();
-
         }
-
     };
-
 }();
 
 jQuery(document).ready(function () {

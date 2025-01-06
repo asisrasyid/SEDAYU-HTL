@@ -1,23 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
-using System.Diagnostics;
-using System.IO;
-using System.IO.Compression;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Script.Serialization;
-using System.Web.Security;
-using HashNetFramework;
-using Ionic.Zip;
-using PdfSharp.Drawing;
-using PdfSharp.Pdf;
-using PdfSharp.Pdf.IO;
-
+﻿using System.Web.Mvc;
 
 namespace DusColl.Controllers
 {
@@ -33,11 +14,9 @@ namespace DusColl.Controllers
         //vmDashddl Dashddl = new vmDashddl();
         //vmCommonddl Commonddl = new vmCommonddl();
         //cFilterContract modFilter = new cFilterContract();
-        
 
         //public async Task<ActionResult> clnGetBranch(string clientid)
         //{
-
         //    Account = (vmAccount)Session["Account"];
         //    bool IsErrorTimeout = false;
         //    if (Account != null)
@@ -63,12 +42,10 @@ namespace DusColl.Controllers
         //    }
         //    try
         //    {
-
         //        modFilter = TempData["DashBoardFilter"] as cFilterContract;
         //        Dash = TempData["DashBoard"] as vmDash;
         //        Common = (TempData["common"] as vmCommon);
         //        Common = Common == null ? new vmCommon() : Common;
-
 
         //        IEnumerable<cListSelected> tempbrach = (TempData["tempbrach" + clientid] as IEnumerable<cListSelected>);
 
@@ -120,7 +97,6 @@ namespace DusColl.Controllers
         //            brachselect = modFilter.SelectBranch,
         //        });
 
-
         //    }
         //    catch (Exception ex)
         //    {
@@ -169,7 +145,6 @@ namespace DusColl.Controllers
 
         //    try
         //    {
-
         //        //get session filterisasi //
         //        modFilter = TempData["DashBoardFilter"] as cFilterContract;
         //        Dash = TempData["DashBoard"] as vmDash;
@@ -247,7 +222,6 @@ namespace DusColl.Controllers
         //[HttpPost]
         //public ActionResult clnDashMonitor(string menu, string caption)
         //{
-
         //    Account = (vmAccount)Session["Account"];
         //    bool IsErrorTimeout = false;
         //    if (Account != null)
@@ -274,7 +248,6 @@ namespace DusColl.Controllers
 
         //    try
         //    {
-
         //        string UserID = Account.AccountLogin.UserID;
         //        string UserName = Account.AccountLogin.UserName;
         //        string ClientID = Account.AccountLogin.ClientID;
@@ -287,7 +260,6 @@ namespace DusColl.Controllers
         //        string Mailed = Account.AccountLogin.Mailed;
         //        string GenMoon = Account.AccountLogin.GenMoon;
         //        string UserTypes = HasKeyProtect.Decryption(Account.AccountLogin.UserType);
-
 
         //        // some field must be overide first for default filter//
         //        string SelectClient = ClientID;
@@ -401,11 +373,9 @@ namespace DusColl.Controllers
         //    }
         //}
 
-
         ////[HttpGet]
         ////public ActionResult clnDashMonitorSignal(string menu, string caption)
         ////{
-
         ////    //Account = (vmAccount)Session["Account"];
         ////    //Account.AccountLogin = lgAccount.NotExistSesionID(Request.Cookies[FormsAuthentication.FormsCookieName], Account.AccountLogin);
 
@@ -419,7 +389,6 @@ namespace DusColl.Controllers
 
         ////    try
         ////    {
-
         ////        //string UserID = Account.AccountLogin.UserID;
         ////        //string UserName = Account.AccountLogin.UserName;
         ////        //string ClientID = Account.AccountLogin.ClientID;
@@ -432,7 +401,6 @@ namespace DusColl.Controllers
         ////        //string Mailed = Account.AccountLogin.Mailed;
         ////        //string GenMoon = Account.AccountLogin.GenMoon;
         ////        //string UserTypes = HasKeyProtect.Decryption(Account.AccountLogin.UserType);
-
 
         ////        //// some field must be overide first for default filter//
         ////        //string SelectClient = ClientID;
@@ -468,11 +436,9 @@ namespace DusColl.Controllers
         ////        string viewhtml = "~";
         ////        if (TipeDashboard == (int)MonitDesc.monitoutsRegis)
         ////        {
-
         ////            string connectionString = HasKeyProtect.DecryptionPass(ConfigurationManager.ConnectionStrings["ConnSignalR"].ToString());
         ////            using (SqlConnection sqlcon = new SqlConnection(connectionString))
         ////            {
-
         ////                DataSet ds = new DataSet();
         ////                using (SqlCommand sqlcom = new SqlCommand("[db_singlr].udp_dsh_monitor_regis_outstanding", sqlcon))
         ////                {
@@ -547,11 +513,9 @@ namespace DusColl.Controllers
         ////    }
         ////}
 
-
         //[HttpPost]
         //public async Task<ActionResult> DashBoardFilter(cFilterContract model)
         //{
-
         //    Account = (vmAccount)Session["Account"];
         //    bool IsErrorTimeout = false;
         //    if (Account != null)
@@ -642,12 +606,10 @@ namespace DusColl.Controllers
         //        //    Dash.ListDataMonitoring = Dashddl.dbGetMonitor_DokumenPICAHU(SelectClient, SelectBranch, UserID, GroupName);
         //        //    viewhtml = "/Views/DashBoard/_monitorDocumentPicAhu.cshtml";
         //        //}
-               
 
         //        ////set filter data in session again//
         //        modFilter.ViewHtml = viewhtml;
         //        Dash.DetailFilter = modFilter;
-
 
         //        //keep session filterisasi before//
         //        TempData["DashBoardFilter"] = modFilter;
@@ -690,7 +652,5 @@ namespace DusColl.Controllers
         //        SignalRMon.NotifyChanges();
         //    }
         //}
-
-
     }
 }

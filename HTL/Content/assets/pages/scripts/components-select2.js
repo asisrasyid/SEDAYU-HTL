@@ -1,7 +1,5 @@
 var ComponentsSelect2 = function() {
-
     var handleDemo = function() {
-
         // Set the "bootstrap" theme as the default theme for all Select2
         // widgets.
         //
@@ -117,7 +115,6 @@ var ComponentsSelect2 = function() {
             handleDemo();
         }
     };
-
 }();
 
 if (App.isAngularJsApp() === false) {

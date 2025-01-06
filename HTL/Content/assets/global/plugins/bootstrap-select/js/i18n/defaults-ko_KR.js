@@ -20,7 +20,6 @@
     factory(jQuery);
   }
 }(this, function (jQuery) {
-
 (function ($) {
   $.fn.selectpicker.defaults = {
     noneSelectedText: '항목을 선택해주세요',
@@ -39,6 +38,4 @@
     multipleSeparator: ', '
   };
 })(jQuery);
-
-
 }));

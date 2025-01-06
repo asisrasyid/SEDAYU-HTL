@@ -7,57 +7,56 @@
                 HttpMethod = "POST"
             }, new { id = "clnMaster_form", @class = "form-horizontal" }))
             {
-                @Html.AntiForgeryToken();
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h4 class="modal-title">@ViewBag.OprMenu (@ViewBag.menu)</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="form-body">
-                        @Html.HiddenFor(x => x.keylookup)
-                        <div class="form-horizontal">
-                            <div class="form-body" style="padding:20px">
-                                @if (ViewBag.oprvalue == "view")
+            @Html.AntiForgeryToken();
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">@ViewBag.OprMenu (@ViewBag.menu)</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-body">
+                    @Html.HiddenFor(x => x.keylookup)
+                    <div class="form-horizontal">
+                        <div class="form-body" style="padding:20px">
+                            @if (ViewBag.oprvalue == "view")
                                 {
 
                                 }
                                 else
                                 {
-                                    <div class="form-group">
-                                        <div class="col-md-12">
-                                            <label class="control-label">Tgl Invoice </label>
-                                            <div class="input-group date-picker input-daterange" data-date="31/01/1999" data-date-format="dd-MM-yyyy" autocomplete="off">
-                                                <input class="form-control" name="TglINV" id="TglINV" type="text">
-                                            </div>
-                                        </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label class="control-label">Tgl Invoice </label>
+                                    <div class="input-group date-picker input-daterange" data-date="31/01/1999" data-date-format="dd-MM-yyyy" autocomplete="off">
+                                        <input class="form-control" name="TglINV" id="TglINV" type="text">
                                     </div>
-                                
-                                    <div class="form-group">
-                                        <div class="col-md-12">
-                                            Nama PPAT
-                                            @Html.DropDownListFor(m => m.PPATID, (MultiSelectList)ViewData["SelectNotaris"], new { @class = "form-control select2" })
-                                        </div>
-                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    Nama PPAT
+                                    @Html.DropDownListFor(m => m.PPATID, (MultiSelectList)ViewData["SelectNotaris"], new { @class = "form-control select2" })
+                                </div>
+                            </div>
 
                                 }
-
-                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn green" data-dismiss="modal">
-                        <i class="fa fa-close"></i>
-                        <span>&nbsp;Tutup</span>
-                    </button>
-                    @if (ViewBag.oprvalue != "view")
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn green" data-dismiss="modal">
+                    <i class="fa fa-close"></i>
+                    <span>&nbsp;Tutup</span>
+                </button>
+                @if (ViewBag.oprvalue != "view")
                     {
-                        <button type="button" class="btn green masteradd">
-                            <i class="fa fa-check-square"></i>
-                            <span>&nbsp;Simpan </span>
-                        </button>
+                <button type="button" class="btn green masteradd">
+                    <i class="fa fa-check-square"></i>
+                    <span>&nbsp;Simpan </span>
+                </button>
                     }
-                </div>
+            </div>
             }
         </div>
         <!-- /.modal-content -->

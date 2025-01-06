@@ -13,38 +13,38 @@
                 HttpMethod = "POST"
             }, new { id = "clformFollowup", @class = "form-horizontal" }))
             {
-                @Html.AntiForgeryToken();
-                <div class="">
-                    <div class="form-body">
-                        @Html.Hidden("FlagOperation", "APRHDR")
-                        @Html.HiddenFor(x=>x.keylookupdataHTX)
-                        <div class="form-horizontal">
-                            <div class="form-body">
-                                <div class="form-group">
-                                    <div class="col-md-3">
-                                        Pilih Tindakan
-                                        @Html.DropDownListFor(m => m.StatusFollow, (IEnumerable<SelectListItem>
-                                            )ViewData["SelectFollow"], "Pilih..", new { @class = "form-control select2" })
-                                        @Html.ValidationMessageFor(m => m.StatusFollow, "", new { @class = "error-block" })
-                                    </div>
+            @Html.AntiForgeryToken();
+            <div class="">
+                <div class="form-body">
+                    @Html.Hidden("FlagOperation", "APRHDR")
+                    @Html.HiddenFor(x=>x.keylookupdataHTX)
+                    <div class="form-horizontal">
+                        <div class="form-body">
+                            <div class="form-group">
+                                <div class="col-md-3">
+                                    Pilih Tindakan
+                                    @Html.DropDownListFor(m => m.StatusFollow, (IEnumerable<SelectListItem>
+                                        )ViewData["SelectFollow"], "Pilih..", new { @class = "form-control select2" })
+                                    @Html.ValidationMessageFor(m => m.StatusFollow, "", new { @class = "error-block" })
                                 </div>
-                                <div class="form-group">
-                                    <div class="col-md-6">
-                                        Catatan:
-                                        @Html.TextAreaFor(m => m.NotesFollow, new { @rows = "4", @class = "form-control", @id = "notenote" })
-                                        @Html.ValidationMessageFor(m => m.NotesFollow, "", new { @class = "error-block" })
-                                    </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    Catatan:
+                                    @Html.TextAreaFor(m => m.NotesFollow, new { @rows = "4", @class = "form-control", @id = "notenote" })
+                                    @Html.ValidationMessageFor(m => m.NotesFollow, "", new { @class = "error-block" })
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="">
-                    <button type="button" class="btn green btn-outline" onclick="vmAccount.ApplySbmtWF('#clformFollowup')">
-                        <i class="fa fa-check-square"></i>
-                        <span>&nbsp;Proses </span>
-                    </button>
-                </div>
+            </div>
+            <div class="">
+                <button type="button" class="btn green btn-outline" onclick="vmAccount.ApplySbmtWF('#clformFollowup')">
+                    <i class="fa fa-check-square"></i>
+                    <span>&nbsp;Proses </span>
+                </button>
+            </div>
             }
         </div>
         <!-- /.modal-content -->

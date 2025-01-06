@@ -47,7 +47,6 @@ var backupdata = "undefined";
     // The UI version extends the file upload widget
     // and adds complete user interface interaction:
     $.widget('blueimp.fileupload', $.blueimp.fileupload, {
-
         options: {
             // By default, files added to the widget are uploaded as soon
             // as the user clicks on the start buttons. To enable automatic
@@ -72,7 +71,6 @@ var backupdata = "undefined";
                 unknownError: 'Unknown error'
             },
 
-
             // Function returning the current number of files,
             // used by the maxNumberOfFiles validation:
             getNumberOfFiles: function () {
@@ -87,7 +85,6 @@ var backupdata = "undefined";
                 }
                 return [];
             },
-
 
             // The add callback is invoked as soon as files are added to the fileupload
             // widget (via file input selection, drag & drop or add API call).
@@ -107,7 +104,6 @@ var backupdata = "undefined";
                     //$("#fileupload").val("");
                     return false;
                 } else {
-
                     var $this = $(this),
                         that = $this.data('blueimp-fileupload') ||
                             $this.data('fileupload'), options = that.options;
@@ -125,7 +121,7 @@ var backupdata = "undefined";
                     });
                 }
             },
-          
+
             // Callback for the start of each file upload request:
             send: function (e, data) {
                 //hafid//
@@ -155,11 +151,9 @@ var backupdata = "undefined";
 
                 backupdata = data;
                 return that._trigger('sent', e, data);
-
             },
             //Callback for successful uploads:
             done: function (e, data) {
-
                 if (e.isDefaultPrevented()) {
                     return false;
                 }
@@ -187,19 +181,16 @@ var backupdata = "undefined";
                                         that._trigger('finished', e, data);
                                         deferred.resolve();
 
-                                        //hafid//    
+                                        //hafid//
                                         $(".select2").val("").trigger("change");
                                         $("input:text").val("");
                                         $(".cancel,.closed").show();
-
                                     }
                                 );
                             }
                         );
                     });
-
                 } else {
-
                     template = that._renderDownload(files)[
                         that.options.prependFiles ? 'prependTo' : 'appendTo'
                     ](that.options.filesContainer);
@@ -212,18 +203,16 @@ var backupdata = "undefined";
                             that._trigger('finished', e, data);
                             deferred.resolve();
 
-                            //hafid//    
+                            //hafid//
                             $(".select2").val("").trigger("change");
                             $("input:text").val("");
                             $(".cancel,.closed").show();
-
                         }
                     );
                 }
             },
             // Callback for failed(abort or error) uploads:
             fail: function (e, data) {
-
                 if (e.isDefaultPrevented()) {
                     return false;
                 }
@@ -234,7 +223,6 @@ var backupdata = "undefined";
                 if (data.context) {
                     data.context.each(function (index) {
                         if (data.errorThrown !== 'abort') {
-
                             var file = data.files[index];
                             file.error = file.error || data.errorThrown ||
                                 data.i18n('unknownError');
@@ -256,7 +244,6 @@ var backupdata = "undefined";
                                 }
                             );
                         } else {
-
                             deferred = that._addFinishedDeferreds();
                             that._transition($(this)).done(
                                 function () {
@@ -269,7 +256,6 @@ var backupdata = "undefined";
                         }
                     });
                 } else if (data.errorThrown !== 'abort') {
-
                     data.context = that._renderUpload(data.files)[
                         that.options.prependFiles ? 'prependTo' : 'appendTo'
                     ](that.options.filesContainer)
@@ -285,7 +271,6 @@ var backupdata = "undefined";
                         }
                     );
                 } else {
-
                     that._trigger('failed', e, data);
                     that._trigger('finished', e, data);
                     that._addFinishedDeferreds().resolve();
@@ -334,7 +319,6 @@ var backupdata = "undefined";
             },
             // Callback for uploads start, equivalent to the global ajaxStart event:
             start: function (e) {
-
                 if (e.isDefaultPrevented()) {
                     return false;
                 }
@@ -393,7 +377,6 @@ var backupdata = "undefined";
                             function () {
                                 $(this).remove();
                                 that._trigger('destroyed', e, data);
-
                             }
                         );
                     };
@@ -403,8 +386,6 @@ var backupdata = "undefined";
                         that._trigger('destroyfailed', e, data);
                     });
                 } else {
-
-
                     removeNode();
                 }
             }
@@ -534,7 +515,6 @@ var backupdata = "undefined";
         },
 
         _renderUpload: function (files) {
-
             return this._renderTemplate(
                 this.options.uploadTemplate,
                 files,
@@ -555,9 +535,7 @@ var backupdata = "undefined";
                 data = template.data('data');
             button.prop('disabled', true);
             if (data && data.submit) {
-
                 data.submit();
-
             }
         },
 
@@ -574,11 +552,9 @@ var backupdata = "undefined";
                 data.errorThrown = 'abort';
                 this._trigger('fail', e, data);
             }
-
         },
 
         _cancelHandler: function (e) {
-
             var idbtn = $('.cancel').attr('type');
             e.preventDefault();
             var template = $(e.currentTarget)
@@ -604,7 +580,6 @@ var backupdata = "undefined";
                 data.errorThrown = 'abort';
                 this._trigger('fail', e, data);
             }
-
         },
 
         _deleteHandler: function (e) {
@@ -825,7 +800,5 @@ var backupdata = "undefined";
             }
             this._super();
         }
-
     });
-
 }));

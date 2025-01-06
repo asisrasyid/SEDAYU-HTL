@@ -1,22 +1,14 @@
 ﻿using HashNetFramework;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.IO;
 using System.Linq;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 
 namespace DusColl
 {
-
-
     [Serializable]
     public class vmAccount
     {
@@ -42,7 +34,6 @@ namespace DusColl
         public DataTable DTAllLog { get; set; }
         public DataTable DTLogTx { get; set; }
         public cAccountMetrik Permission { get; set; }
-
     }
 
     [Serializable]
@@ -124,9 +115,8 @@ namespace DusColl
 
                     new SqlParameter ("@nosk",SqlDbType.VarChar,50),
                     new SqlParameter ("@tglsk",SqlDbType.VarChar,50),
-                    
-                    */
 
+                    */
                 };
 
                 sqlParam[6].Direction = ParameterDirection.Output;
@@ -146,8 +136,6 @@ namespace DusColl
                 sqlParam[19].Direction = ParameterDirection.Output;
                 sqlParam[20].Direction = ParameterDirection.Output;
 
-
-
                 sqlParam[21].Direction = ParameterDirection.Output;
                 sqlParam[22].Direction = ParameterDirection.Output;
                 sqlParam[23].Direction = ParameterDirection.Output;
@@ -166,7 +154,6 @@ namespace DusColl
                 sqlParam[34].Direction = ParameterDirection.Output;
 
                 sqlParam[35].Direction = ParameterDirection.Output;
-
 
                 sqlParam[36].Direction = ParameterDirection.Output;
                 sqlParam[37].Direction = ParameterDirection.Output;
@@ -300,24 +287,19 @@ namespace DusColl
                 models.topForm = result31.ToString();
                 models.leftForm = result32.ToString();
 
-
                 models.topSK = result33.ToString();
                 models.leftSK = result34.ToString();
 
-
                 models.topAB= result35.ToString();
                 models.leftAB = result36.ToString();
-
 
                 models.docForm = result37.ToString();
                 models.docSK = result38.ToString();
                 models.docAB= result39.ToString();
 
-
                 models.NoSK= result40.ToString();
                 models.TglSK = result41.ToString();
                 */
-
             }
             catch (Exception ex)
             {
@@ -325,20 +307,16 @@ namespace DusColl
                 OwinLibrary.CreateLog(msg, "LogErrorAPI.txt");
             }
 
-
             //string modelretunr= JsonConvert.SerializeObject(models);
             return models;
         }
 
         public async Task<List<cAccountGroupUser>> dbGetAuthGroupUser(bool Exceptiongroup, string GroupName = "", string UserID = "")
         {
-
             DataTable dt = new DataTable();
             List<cAccountGroupUser> DDL = new List<cAccountGroupUser>();
             try
             {
-
-
                 dbAccessHelper dbaccess = new dbAccessHelper();
                 string strconnection = HasKeyProtect.DecryptionPass(OwinLibrary.GetDB());
 
@@ -347,7 +325,6 @@ namespace DusColl
                 new SqlParameter ("@GroupName",GroupName),
                 new SqlParameter ("@UserID",UserID),
                 new SqlParameter ("@Exceptiongroup",Exceptiongroup),
-
                  };
                 dt = await dbaccess.ExecuteDataTable(strconnection, "udp_app_account_auth_group_get", sqlParam);
 
@@ -360,7 +337,6 @@ namespace DusColl
                            UserGrup = c.Field<string>("UserID"),
                            MainGrup = c.Field<bool>("MainGrup")
                        }).ToList();
-
             }
             catch (Exception ex)
             {
@@ -370,9 +346,9 @@ namespace DusColl
 
             return DDL;
         }
+
         public async Task<List<cAccountMetrik>> dbaccountmatriklist(bool Exceptiongroup, string GroupName = "", string IdMenu = "")
         {
-
             DataTable dt = new DataTable();
             List<cAccountMetrik> DDL = new List<cAccountMetrik>();
             try
@@ -419,7 +395,6 @@ namespace DusColl
                            AllowGenerate = c.Field<bool>("AllowGenerate"),
                            IsNeedApproval = c.Field<bool>("IsNeedApproval"),
                            AllowShowInMenu = c.Field<bool>("AllowShowInMenu")
-
                        }).ToList();
             }
             catch (Exception ex)
@@ -431,10 +406,8 @@ namespace DusColl
             return DDL;
         }
 
-
         public async Task<List<string>> dbGetHeaderTxListCount(string RequestNo, string email, string divisi, string cabang, string area, string status, int PageNumber, string idcaption, string userid, string groupname)
         {
-
             DataTable dt = new DataTable();
 
             dbAccessHelper dbaccess = new dbAccessHelper();
@@ -469,19 +442,15 @@ namespace DusColl
                 dta.Add("0");
             }
 
-
             return dta;
         }
 
-
         public async Task<List<DataTable>> dbGetHeaderTxList(DataTable DTFromDB, string RequestNo, string email, string divisi, string cabang, string area, string status, int PageNumber, double pagenumberclient, double pagingsizeclient, string idcaption, string userid, string groupname)
         {
-
             DataTable dt = new DataTable();
             List<DataTable> dtlist = new List<DataTable>();
             if (DTFromDB == null || DTFromDB.Rows.Count == 0)
             {
-
                 dbAccessHelper dbaccess = new dbAccessHelper();
                 string strconnection = HasKeyProtect.DecryptionPass(OwinLibrary.GetDB());
 
@@ -499,14 +468,11 @@ namespace DusColl
                 };
 
                 dt = await dbaccess.ExecuteDataTable(strconnection, "udp_app_account_reg_list", sqlParam);
-
-
             }
             else
             {
                 dt = DTFromDB;
             }
-
 
             dtlist.Add(dt);
 
@@ -521,10 +487,8 @@ namespace DusColl
             return dtlist;
         }
 
-
         public async Task<DataTable> dbGetteamvery(string idcaption, string userid, string groupname)
         {
-
             DataTable dt = new DataTable();
 
             dbAccessHelper dbaccess = new dbAccessHelper();
@@ -548,10 +512,8 @@ namespace DusColl
             return dt;
         }
 
-
         public async Task<List<SelectListItem>> HandleMap(string mapp, string idcaption, string userid, string groupname)
         {
-
             DataTable dt = new DataTable();
 
             dbAccessHelper dbaccess = new dbAccessHelper();
@@ -561,7 +523,6 @@ namespace DusColl
 
             SqlParameter[] sqlParam =
              {
-
                     new SqlParameter("@jeni", mapp),
                     new SqlParameter ("@moduleId",idcaption),
                     new SqlParameter ("@UserIDLog",userid),
@@ -579,7 +540,6 @@ namespace DusColl
 
             return items;
         }
-
 
         public async Task<DataTable> dbSaveRegRTAccount(cAccountRegisNw models, string ModuleID, string UserID, string GroupName)
         {
@@ -613,11 +573,9 @@ namespace DusColl
                             new SqlParameter("@UserGroupLog", GroupName)
                     };
 
-
                     await Task.Delay(0);
                     dt = await dbaccess.ExecuteDataTable(strconnection, "udp_app_account_regreset_sve", sqlParam);
                 }
-
             }
             catch (Exception ex)
             {
@@ -628,14 +586,11 @@ namespace DusColl
             return dt;
         }
 
-
-
         public async Task<int> dbprofileUserSve(cAccount models)
         {
             int dt = 0;
             try
             {
-
                 dbAccessHelper dbaccess = new dbAccessHelper();
                 string strconnection = HasKeyProtect.DecryptionPass(OwinLibrary.GetDB());
 
@@ -669,13 +624,12 @@ namespace DusColl
                 //new SqlParameter ("@docab",models.docAB??""),
                 //new SqlParameter ("@nosk",models.NoSK??""),
                 //new SqlParameter ("@tglsk",models.TglSK??""),
-               
+
                  new SqlParameter ("@HandlePPAT",models.NotarisName),
 
                 new SqlParameter ("@ModuleID",""),
                 new SqlParameter ("@UserIDLog",models.UserID),
                 new SqlParameter ("@UserGroupLog",models.GroupName),
-
                  };
                 DataTable dtt = await dbaccess.ExecuteDataTable(strconnection, "udp_app_account_auth_profile_set", sqlParam);
                 dt = int.Parse(dtt.Rows[0][0].ToString());
@@ -688,7 +642,6 @@ namespace DusColl
 
             return dt;
         }
-
 
         public async Task<DataTable> dbSaveRegAccountNw(cAccountRegisNw models, string ModuleID, string UserID, string GroupName)
         {
@@ -724,7 +677,6 @@ namespace DusColl
                 }
                 else
                 {
-
                     SqlParameter[] sqlParam = {
                             new SqlParameter("@id", "0"),
                             new SqlParameter("@KodeRegis", models.KodeRegisCabang??""),
@@ -745,11 +697,9 @@ namespace DusColl
                             new SqlParameter("@UserGroupLog", GroupName)
                     };
 
-
                     await Task.Delay(0);
                     dt = await dbaccess.ExecuteDataTable(strconnection, "udp_app_account_reg_sve", sqlParam);
                 }
-
             }
             catch (Exception ex)
             {
@@ -759,7 +709,6 @@ namespace DusColl
 
             return dt;
         }
-
 
         public async Task<DataTable> dbSaveRegAccount(cAccountRegis models, string ModuleID, string UserID, string GroupName)
         {
@@ -795,7 +744,6 @@ namespace DusColl
                 }
                 else
                 {
-
                     models.RegAccountDate = models.RegAccountDate ?? DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
                     SqlParameter[] sqlParam = {
@@ -818,11 +766,9 @@ namespace DusColl
                             new SqlParameter("@UserGroupLog", GroupName)
                     };
 
-
                     await Task.Delay(0);
                     dt = await dbaccess.ExecuteDataTable(strconnection, "udp_app_account_reg_sve", sqlParam);
                 }
-
             }
             catch (Exception ex)
             {
@@ -841,7 +787,6 @@ namespace DusColl
                 dbAccessHelper dbaccess = new dbAccessHelper();
                 string strconnection = HasKeyProtect.DecryptionPass(OwinLibrary.GetDB());
 
-
                 SqlParameter[] sqlParam = {
                             new SqlParameter("@RegAccount", models.RegAccountNo),
                             new SqlParameter("@OnlyViewModule", models.IsViewModule),
@@ -857,7 +802,6 @@ namespace DusColl
 
                 await Task.Delay(0);
                 dt = await dbaccess.ExecuteDataTable(strconnection, "udp_app_account_reg_actv", sqlParam);
-
             }
             catch (Exception ex)
             {
@@ -867,7 +811,6 @@ namespace DusColl
 
             return dt;
         }
-
 
         public async Task<DataTable> dbSaveChangePass(string oldPass, string newpass, string mailed, string ModuleID, string UserID, string GroupName)
         {
@@ -889,7 +832,6 @@ namespace DusColl
 
                 await Task.Delay(0);
                 dt = await dbaccess.ExecuteDataTable(strconnection, "udp_app_account_chg_pss", sqlParam);
-
             }
             catch (Exception ex)
             {

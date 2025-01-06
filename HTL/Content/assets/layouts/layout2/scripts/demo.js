@@ -2,10 +2,8 @@
 Demo script to handle the theme demo
 **/
 var Demo = function () {
-
     // Handle Theme Settings
     var handleTheme = function () {
-
         var panel = $('.theme-panel');
 
         if ($('body').hasClass('page-boxed') === false) {
@@ -49,7 +47,6 @@ var Demo = function () {
         var lastSelectedLayout = '';
 
         var setLayout = function () {
-
             var layoutOption = $('.layout-option', panel).val();
             var sidebarOption = $('.sidebar-option', panel).val();
             var headerOption = $('.page-header-option', panel).val();
@@ -58,7 +55,6 @@ var Demo = function () {
             var sidebarStyleOption = $('.sidebar-style-option', panel).val();
             var sidebarMenuOption = $('.sidebar-menu-option', panel).val();
             var headerTopDropdownStyle = $('.page-header-top-dropdown-style-option', panel).val();
-
 
             if (sidebarOption == "fixed" && headerOption == "default") {
                 alert('Default Header with Fixed Sidebar option is not supported. Proceed with Fixed Header with Fixed Sidebar.');
@@ -89,7 +85,7 @@ var Demo = function () {
             }
 
             if (lastSelectedLayout != layoutOption) {
-                //layout changed, run responsive handler: 
+                //layout changed, run responsive handler:
                 App.runResizeHandlers();
             }
             lastSelectedLayout = layoutOption;
@@ -125,7 +121,7 @@ var Demo = function () {
                 $(".top-menu > .navbar-nav > li.dropdown").removeClass("dropdown-dark");
             }
 
-            //footer 
+            //footer
             if (footerOption === 'fixed') {
                 $("body").addClass("page-footer-fixed");
             } else {
@@ -139,14 +135,14 @@ var Demo = function () {
                 $(".page-sidebar-menu").removeClass("page-sidebar-menu-compact");
             }
 
-            //sidebar menu 
+            //sidebar menu
             if (sidebarMenuOption === 'hover') {
                 if (sidebarOption == 'fixed') {
                     $('.sidebar-menu-option', panel).val("accordion");
                     alert("Hover Sidebar Menu is not compatible with Fixed Sidebar Mode. Select Default Sidebar Mode Instead.");
                 } else {
                     $(".page-sidebar-menu").addClass("page-sidebar-menu-hover-submenu");
-                }                
+                }
             } else {
                 $(".page-sidebar-menu").removeClass("page-sidebar-menu-hover-submenu");
             }
@@ -178,7 +174,7 @@ var Demo = function () {
                 }
             }
 
-            Layout.fixContentHeight(); // fix content height            
+            Layout.fixContentHeight(); // fix content height
             Layout.initFixedSidebar(); // reinitialize fixed sidebar
         };
 
@@ -235,7 +231,7 @@ var Demo = function () {
 
         if ($(".page-sidebar-menu").hasClass("page-sidebar-menu-hover-submenu")) {
             $('.sidebar-menu-option', panel).val("hover");
-        }        
+        }
 
         var sidebarOption = $('.sidebar-option', panel).val();
             var headerOption = $('.page-header-option', panel).val();
@@ -260,11 +256,10 @@ var Demo = function () {
     };
 
     return {
-
         //main function to initiate the theme
         init: function() {
             // handles style customer tool
-            handleTheme(); 
+            handleTheme();
 
             // handle layout style change
             $('.theme-panel .layout-style-option').change(function() {
@@ -275,14 +270,13 @@ var Demo = function () {
             if (typeof Cookies !== "undefined" && Cookies.get('layout-style-option') === 'rounded') {
                 setThemeStyle(Cookies.get('layout-style-option'));
                 $('.theme-panel .layout-style-option').val(Cookies.get('layout-style-option'));
-            }            
+            }
         }
     };
-
 }();
 
 if (App.isAngularJsApp() === false) {
-    jQuery(document).ready(function() {    
+    jQuery(document).ready(function() {
        Demo.init(); // init metronic core componets
     });
 }

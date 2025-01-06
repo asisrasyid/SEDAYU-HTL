@@ -20,7 +20,6 @@
     factory(jQuery);
   }
 }(this, function (jQuery) {
-
 (function ($) {
   $.fn.selectpicker.defaults = {
     noneSelectedText: 'Ничего не выбрано',
@@ -31,6 +30,4 @@
     multipleSeparator: ', '
   };
 })(jQuery);
-
-
 }));

@@ -5,7 +5,6 @@
 		factory( jQuery );
 	}
 }(function( $ ) {
-
 /**
  * @author  @tatocaster <kutaliatato@gmail.com>
  * Translated default messages for the jQuery validation plugin.
@@ -29,5 +28,4 @@ $.extend($.validator.messages, {
 	max: $.validator.format( "გთხოვთ შეიყვანოთ მნიშვნელობა ნაკლები ან ტოლი {0} -ს." ),
 	min: $.validator.format( "გთხოვთ შეიყვანოთ მნიშვნელობა მეტი ან ტოლი {0} -ს." )
 });
-
 }));

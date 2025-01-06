@@ -3,7 +3,7 @@
  * Docs & License: http://fullcalendar.io/
  * (c) 2015 Adam Shaw
  */
- 
+
 (function(factory) {
 	if (typeof define === 'function' && define.amd) {
 		define([ 'jquery' ], factory);
@@ -15,12 +15,9 @@
 		factory(jQuery);
 	}
 })(function($) {
-
-
 var API_BASE = 'https://www.googleapis.com/calendar/v3/calendars';
 var fc = $.fullCalendar;
 var applyAll = fc.applyAll;
-
 
 fc.sourceNormalizers.push(function(sourceOptions) {
 	var googleCalendarId = sourceOptions.googleCalendarId;
@@ -29,7 +26,6 @@ fc.sourceNormalizers.push(function(sourceOptions) {
 
 	// if the Google Calendar ID hasn't been explicitly defined
 	if (!googleCalendarId && url) {
-
 		// detect if the ID was specified as a single string.
 		// will match calendars like "asdf1234@calendar.google.com" in addition to person email calendars.
 		if (/^[^\/]+@([^\/\.]+\.)*(google|googlemail|gmail)\.com$/.test(url)) {
@@ -48,9 +44,7 @@ fc.sourceNormalizers.push(function(sourceOptions) {
 		}
 	}
 
-
 	if (googleCalendarId) { // is this a Google Calendar?
-
 		// make each Google Calendar source uneditable by default
 		if (sourceOptions.editable == null) {
 			sourceOptions.editable = false;
@@ -63,13 +57,11 @@ fc.sourceNormalizers.push(function(sourceOptions) {
 	}
 });
 
-
 fc.sourceFetchers.push(function(sourceOptions, start, end, timezone) {
 	if (sourceOptions.googleCalendarId) {
 		return transformOptions(sourceOptions, start, end, timezone, this); // `this` is the calendar
 	}
 });
-
 
 function transformOptions(sourceOptions, start, end, timezone, calendar) {
 	var url = API_BASE + '/' + encodeURIComponent(sourceOptions.googleCalendarId) + '/events?callback=?'; // jsonp
@@ -167,7 +159,6 @@ function transformOptions(sourceOptions, start, end, timezone, calendar) {
 	});
 }
 
-
 // Injects a string like "arg=value" into the querystring of a URL
 function injectQsComponent(url, component) {
 	// inject it after the querystring but before the fragment
@@ -175,6 +166,4 @@ function injectQsComponent(url, component) {
 		return (qs ? qs + '&' : '?') + component + hash;
 	});
 }
-
-
 });

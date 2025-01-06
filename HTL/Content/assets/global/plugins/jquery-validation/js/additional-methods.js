@@ -13,16 +13,13 @@
         factory(jQuery);
     }
 }(function ($) {
-
     (function () {
-
         function stripHtml(value) {
             // remove html tags and space chars
             return value.replace(/<.[^<>]*?>/g, " ").replace(/&nbsp;|&#160;/gi, " ")
                 // remove punctuation
                 .replace(/[.(),;:!?%#$'\"_+=\/\-“”’]*/g, "");
         }
-
 
         $.validator.addMethod("maxWords", function (value, element, params) {
             return this.optional(element) || stripHtml(value).match(/\b\w+\b/g).length <= params;
@@ -37,11 +34,8 @@
                 regex = /\b\w+\b/g;
             return this.optional(element) || valueStripped.match(regex).length >= params[0] && valueStripped.match(regex).length <= params[1];
         }, $.validator.format("Please enter between {0} and {1} words."));
-
     }());
 
-
-    
     // Accept a value from a file input based on a required mimetype
     $.validator.addMethod("accept", function (value, element, param) {
         // Split mime on commas in case we have multiple types we can accept
@@ -75,7 +69,6 @@
         // browser does not support element.files and the FileList feature
         return true;
     }, $.validator.format("Please enter a value with a valid mimetype."));
-
 
     $.validator.addMethod("alphanumeric", function (value, element) {
         return this.optional(element) || /^\w+$/i.test(value);
@@ -189,7 +182,6 @@
         }
 
         return false;
-
     }, "Please specify a valid CIF number.");
 
     /*
@@ -247,7 +239,6 @@
             return checkResult(sum, secondCN);
         }
         return false;
-
     }, "Please specify a valid CPF number");
 
     /* NOTICE: Modified version of Castle.Components.Validator.CreditCardValidator
@@ -359,7 +350,6 @@
         regex = "^[" + symbol + "([1-9]{1}[0-9]{0,2}(\\,[0-9]{3})*(\\.[0-9]{0,2})?|[1-9]{1}[0-9]{0,}(\\.[0-9]{0,2})?|0(\\.[0-9]{0,2})?|(\\.[0-9]{1,2})?)$";
         regex = new RegExp(regex);
         return this.optional(element) || regex.test(value);
-
     }, "Please specify a valid currency");
 
     $.validator.addMethod("dateFA", function (value, element) {
@@ -550,7 +540,6 @@
         return this.optional(element) || /^-?\d+$/.test(value);
     }, "A positive or negative non-decimal number please");
 
-   
  $.validator.addMethod("money",function(value, element) {
             return this.optional(element) || /^\d{0,4}(\.\d{0,2})?$/.test(value);
     },"Insert ");
@@ -621,7 +610,6 @@
         }
 
         return false;
-
     }, "Please specify a valid NIE number.");
 
     /*
@@ -647,7 +635,6 @@
         }
 
         return false;
-
     }, "Please specify a valid NIF number.");
 
     jQuery.validator.addMethod("notEqualTo", function (value, element, param) {
@@ -1003,5 +990,4 @@
     $.validator.addMethod("ziprange", function (value, element) {
         return this.optional(element) || /^90[2-5]\d\{2\}-\d{4}$/.test(value);
     }, "Your ZIP-code must be in the range 902xx-xxxx to 905xx-xxxx");
-
 }));

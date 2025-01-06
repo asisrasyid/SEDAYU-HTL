@@ -1,38 +1,30 @@
-﻿using System;
+﻿using HashNetFramework;
+using System;
 using System.Collections.Generic;
+using System.Data;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Security;
-using System.Configuration;
-using System.Net;
-using System.Data;
-using HashNetFramework;
-using System.Text;
-using System.IO;
 using System.Web.Script.Serialization;
-using System.Net.Http;
-using Newtonsoft.Json;
+using System.Web.Security;
 
 namespace DusColl.Controllers
 {
     public class AccountController : Controller
     {
-
-        blAccount lgAccount = new blAccount();
-        vmAccount Account = new vmAccount();
-        vmAccountddl Accountddl = new vmAccountddl();
-        vmCommon Common = new vmCommon();
-        vmCommonddl Commonddl = new vmCommonddl();
-        cFilterContract modFilter = new cFilterContract();
-
-     
+        private blAccount lgAccount = new blAccount();
+        private vmAccount Account = new vmAccount();
+        private vmAccountddl Accountddl = new vmAccountddl();
+        private vmCommon Common = new vmCommon();
+        private vmCommonddl Commonddl = new vmCommonddl();
+        private cFilterContract modFilter = new cFilterContract();
 
         //// GET: /Account/
         public ActionResult LogUserIn()
         {
-
             string browser = HttpContext.Request.Browser.Browser;
             if (browser.ToLower() != "chrome" && browser.ToLower() != "firefox")
             {
@@ -53,7 +45,6 @@ namespace DusColl.Controllers
             {
                 IsErrorTimeout = true;
             }
-
 
             if (IsErrorTimeout == false)
             {
@@ -77,7 +68,6 @@ namespace DusColl.Controllers
             string HostPCName = Dns.GetHostName();
             string domainname = Request.Url.Host;
             string browser = HttpContext.Request.Browser.Browser;
-
 
             Account = (vmAccount)Session["Account"];
             if (Account != null)
@@ -126,7 +116,6 @@ namespace DusColl.Controllers
             }
             return View("");
         }
-
 
         public ActionResult clnAccountChucPropPrev(string fle)
         {
@@ -221,10 +210,7 @@ namespace DusColl.Controllers
                 mod.NoSK = HasKeyProtect.Decryption(Account.AccountLogin.NoSK);
                 mod.TglSK = Account.AccountLogin.TglSK;
 
-
-
                 mod.IDBPN = HasKeyProtect.Decryption(Account.AccountLogin.IDBPN);
-
 
                 mod.topForm = Account.AccountLogin.ttdfform;
                 mod.leftForm = Account.AccountLogin.ttdsk;
@@ -234,7 +220,6 @@ namespace DusColl.Controllers
 
                 mod.topAB = Account.AccountLogin.ttdfform;
                 mod.leftAB = Account.AccountLogin.ttdsk;
-
 
                 mod.docForm = Account.AccountLogin.ttdfform;
                 mod.docSK = Account.AccountLogin.docSK;
@@ -285,7 +270,6 @@ namespace DusColl.Controllers
                     url = Url.Action("Index", "Error", new { area = "" }),
                 });
             }
-
         }
 
         public ActionResult AccountChucgrp()
@@ -295,10 +279,8 @@ namespace DusColl.Controllers
 
             if (Account.AccountLogin.RouteName != "")
             {
-
                 return RedirectToRoute(Account.AccountLogin.RouteName);
             }
-
 
             Common.ddlGrupAkses = Commonddl.dbGetDdlgrupListByEncrypt(Account.AccountGroupUserList);
             ViewData["SelectGrupAkses"] = OwinLibrary.Get_SelectListItem(Common.ddlGrupAkses);
@@ -307,12 +289,10 @@ namespace DusColl.Controllers
             //Account.ForcePass = true;
             Session["Account"] = Account;
             return View(Account);
-
         }
 
         public ActionResult AccountChucpas()
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -328,7 +308,6 @@ namespace DusColl.Controllers
                 IsErrorTimeout = true;
             }
 
-
             if (IsErrorTimeout == true)
             {
                 return RedirectToRoute("HomePages");
@@ -341,7 +320,6 @@ namespace DusColl.Controllers
 
                 return View(Account);
             }
-
         }
 
         [HttpPost]
@@ -349,7 +327,6 @@ namespace DusColl.Controllers
         public async Task<ActionResult> clnAccountChucgongProfle(cAccount model, HttpPostedFileBase potofile, HttpPostedFileBase ttdform, HttpPostedFileBase ttdsk, HttpPostedFileBase ttdabs
             , HttpPostedFileBase docform, HttpPostedFileBase docSK, HttpPostedFileBase docAB)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -376,7 +353,6 @@ namespace DusColl.Controllers
 
             try
             {
-
                 model.ttdfform = ((model.ttdfform ?? "") == "" || (model.ttdfform ?? "") == "undefined") ? "" : "";
                 model.ttdsk = ((model.ttdsk ?? "") == "" || (model.ttdsk ?? "") == "undefined") ? "" : "";
                 model.ttdabsah = ((model.ttdabsah ?? "") == "" || (model.ttdabsah ?? "") == "undefined") ? "" : "";
@@ -596,7 +572,6 @@ namespace DusColl.Controllers
                     {
                         model.NotarisName = perihal;
                         result = await Accountddl.dbprofileUserSve(model);
-
                     }
                 }
                 else
@@ -622,7 +597,6 @@ namespace DusColl.Controllers
                     FormsAuthentication.SignOut();
                 }
 
-
                 return Json(new
                 {
                     moderror = IsErrorTimeout,
@@ -630,7 +604,6 @@ namespace DusColl.Controllers
                     msg = EnumMessage,
                     resulted = result
                 });
-
             }
             catch (Exception ex)
             {
@@ -649,24 +622,19 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> clnAccountChucgongPro(string SelectGrupAkses)
         {
-
             Account = (vmAccount)Session["Account"];
             Account.AccountLogin = lgAccount.NotExistSesionID(Request.Cookies[FormsAuthentication.FormsCookieName], Account.AccountLogin);
-
 
             if (Account.AccountLogin.RouteName != "")
             {
                 return RedirectToRoute(Account.AccountLogin.RouteName);
             }
-
 
             try
             {
@@ -693,7 +661,6 @@ namespace DusColl.Controllers
                 {
                     return RedirectToRoute("AccountChucgrp");
                 }
-
             }
             catch (Exception ex)
             {
@@ -708,7 +675,6 @@ namespace DusColl.Controllers
                 //}, JsonRequestBehavior.AllowGet);
             }
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -731,15 +697,12 @@ namespace DusColl.Controllers
 
             try
             {
-
-
                 string EnumMessage = "";
 
                 //default for message popup//
                 string titleswl = "Informasi";
                 string typeswl = "info";
                 string txtbtnswl = "Tutup";
-
 
                 //get user identity host//
                 string ipAddress = Request.ServerVariables["REMOTE_ADDR"];
@@ -761,7 +724,6 @@ namespace DusColl.Controllers
 
                 //decript user pass old by input user//
                 string pascodeencryp1 = (model.AccountLogin.UserPass);
-
 
                 //try cek additional validation password //
                 string pascodenew = model.AccountLogin.PasswordChange ?? "";
@@ -794,7 +756,6 @@ namespace DusColl.Controllers
                     valid = "no";
                 }
 
-
                 //cek user login dengan user form harus sama//
                 if (pascodenew != pascodenewretype)
                 {
@@ -815,7 +776,6 @@ namespace DusColl.Controllers
                 //jika valid//
                 if ((resulted == 1))
                 {
-
                     //cAccountRegis Account = new cAccountRegis();
                     DataTable dt = await Accountddl.dbSaveChangePass(pascodeencryp1, pascodenew, Mailed, "", UserID, "");
                     resulted = int.Parse(dt.Rows[0][0].ToString());
@@ -882,7 +842,6 @@ namespace DusColl.Controllers
                     ShowMessagex = ShowMessage,
                     resultedd = resulted,
                 });
-
             }
             catch (Exception ex)
             {
@@ -896,21 +855,18 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
-
 
         #region RegistrasiAccountNew
 
-        string tempTransksi = "Accounttlist";
-        string tempTransksifilter = "Accountlistfilter";
-        string tempcommon = "common";
-        string MainControllerNameHeaderTx = "Account";
-        string MainActionNameHeaderTx = "clnHeaderTx";
+        private string tempTransksi = "Accounttlist";
+        private string tempTransksifilter = "Accountlistfilter";
+        private string tempcommon = "common";
+        private string MainControllerNameHeaderTx = "Account";
+        private string MainActionNameHeaderTx = "clnHeaderTx";
 
         public async Task<ActionResult> AccountRegis()
         {
-
             ViewBag.caption = "ID Pengguna Baru";
             //set session filterisasi //
             modFilter = TempData["RegisAccFilter"] as cFilterContract;
@@ -931,7 +887,6 @@ namespace DusColl.Controllers
                 Common.ddlBranch = await Commonddl.dbdbGetDdlBranchListByEncrypt("", "", "", "", "usrrg", "");
             }
 
-
             Account.KodeRegisCabang = HasKeyProtect.Encryption("-1984321");
 
             ViewData["SelectDevisi"] = OwinLibrary.Get_SelectListItem(Common.ddlDevisi);
@@ -942,11 +897,10 @@ namespace DusColl.Controllers
             TempData["commonRegis"] = Common;
 
             return View(Account);
-
         }
+
         public async Task<ActionResult> AccountRegisRT()
         {
-
             ViewBag.caption = "Reset Kata Sandi";
             //set session filterisasi //
             modFilter = TempData["RegisAccFilter"] as cFilterContract;
@@ -961,28 +915,20 @@ namespace DusColl.Controllers
             TempData["commonRegis"] = Common;
 
             return View(Account);
-
         }
 
         public ActionResult AccountAktivasi()
         {
-
-
-
             cAccountRegis AccountSession = new cAccountRegis();
             AccountSession.KodeRegisCabang = HasKeyProtect.Encryption("-1984321");
             return View(AccountSession);
-
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> AccountRegisAktivasi(cAccountRegis model)
         {
-
-
             model.KodeRegisCabang = HasKeyProtect.Decryption(model.KodeRegisCabang);
-
 
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
@@ -1034,7 +980,6 @@ namespace DusColl.Controllers
                 ModelState.Clear();
                 if (ModelState.IsValid)
                 {
-
                     string UserID = "";
                     string module = "";
                     string GroupName = "";
@@ -1069,7 +1014,6 @@ namespace DusColl.Controllers
                     }
                     else
                     {
-
                         DataRow dr = Account.DTAllTx.AsEnumerable().Where(x => x.Field<string>("keylookupdata") == model.keylookupdataHTX).SingleOrDefault();
                         model.RegAccountNo = dr["RegAccountNo"].ToString();
                         model.email = dr["Email"].ToString();
@@ -1096,10 +1040,8 @@ namespace DusColl.Controllers
                             EnumMessage = "Pilih jenis proses selaian 'Waiting''";
                         }
 
-
                         if (EnumMessage == "")
                         {
-
                             if (model.DevisiSelect.Length > 0)
                             {
                                 model.Devisi = model.DevisiSelect[0].ToString();
@@ -1192,7 +1134,6 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
 
         public async Task<ActionResult> AccountRegisFU(string module, string paramkey, string oprmn)
@@ -1212,7 +1153,6 @@ namespace DusColl.Controllers
                 IsErrorTimeout = true;
             }
 
-
             if (IsErrorTimeout == true)
             {
                 string urlpath = Url.Action("AccountTimeOut", "Account", new { area = "" });
@@ -1225,8 +1165,6 @@ namespace DusColl.Controllers
 
             try
             {
-
-
                 string UserID = Account.AccountLogin.UserID;
                 string GroupName = Account.AccountLogin.GroupName;
                 string moduleid = modFilter.ModuleID;
@@ -1318,7 +1256,6 @@ namespace DusColl.Controllers
                     moderror = false,
                     view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/Account/AccountRegisAktivasi.cshtml", FollowReg),
                 });
-
             }
             catch (Exception ex)
             {
@@ -1361,13 +1298,11 @@ namespace DusColl.Controllers
 
                 if (ModelState.IsValid)
                 {
-
                     OwinLibrary.CreateLog("valid", "LogErrorFDCM.txt");
 
                     //get result verifikasi user//
                     // string UserID = model.UserID;
                     string Mailed = model.email;
-
 
                     //get user identity host//
                     string ipAddress = Request.ServerVariables["REMOTE_ADDR"];
@@ -1388,10 +1323,8 @@ namespace DusColl.Controllers
                     string pascodenew = model.PasswordChange ?? "";
                     string pascodenewretype = model.RetypePassword;
 
-
                     if (kodereg != "-1984329")
                     {
-
                         resulted = OwinLibrary.CheckValidationPassWord(pascodenew);
 
                         //cek user login dengan user form harus sama//
@@ -1407,7 +1340,6 @@ namespace DusColl.Controllers
                             model.FlagOperation = "CRETHDR";
                             //model.email = "muhammad.hafid477@gmail.com";
                             model.KodeRegisCabang = HasKeyProtect.Decryption(model.KodeRegisCabang);
-
 
                             DataTable dt = await Accountddl.dbSaveRegAccountNw(model, "WFTODOREGACT", "", "");
 
@@ -1429,20 +1361,17 @@ namespace DusColl.Controllers
                                     //    int resultsendemail = await MessageEmail.sendEmail((int)EmailType.useraktivasi, resultedmail, resultedNomor, "", "PT SMS").ConfigureAwait(false); //sendEmail()
                                     //}
                                 }
-
                             }
                             else
                             {
                                 resulted = -1;
                             }
-
                         }
                         EnumMessage = EnumsDesc.GetDescriptionEnums((ProccessOutput)resulted);
 
                         // jika email duplicate tapi belom verifikasi dianggap berhasil
                         if ((resulted == (int)ProccessOutput.RegisKeyDuplicate) || (resulted == 1))
                         {
-
                             if (resulted == (int)ProccessOutput.RegisKeyDuplicate)
                             {
                                 ShowMessage = "alert alert-danger";
@@ -1450,18 +1379,15 @@ namespace DusColl.Controllers
                             }
                             else
                             {
-
                                 ShowMessage = "alert alert-success";
                                 resulted = 1;
                                 EnumMessage = "ID Pengguna Berhasil didaftarakan, admin kami akan mengkonfirmasi dan mengaktivasi user anda. " +
                                                "Untuk dapat menggunakan ID Pengguna Cek email anda setelah aktivasi oleh admin kami";
                             }
-
                         }
                     }
                     else //reset password
                     {
-
                         model.KodeRegisCabang = kodereg;
                         DataTable dt = await Accountddl.dbSaveRegRTAccount(model, "WFTODOREGACT", "", "");
                         if (dt.Rows.Count > 0)
@@ -1481,7 +1407,6 @@ namespace DusColl.Controllers
                             }
                         }
                     }
-
                 }
                 else
                 {
@@ -1506,12 +1431,10 @@ namespace DusColl.Controllers
                     url = Url.Action("Index", "Error", new { area = "" }),
                 });
             }
-
         }
 
         public async Task<ActionResult> clnGetBranchByRegion(string clientid, string regionid = "", string reg = "")
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -1569,7 +1492,6 @@ namespace DusColl.Controllers
                     SelectBranch = modFilter.SelectBranch ?? modFilter.BranchLogin;
                 }
 
-
                 if ((SelectArea != regionid))
                 {
                     SelectRegion = regionid;
@@ -1608,7 +1530,6 @@ namespace DusColl.Controllers
                     branchjson = new JavaScriptSerializer().Serialize(tempbrach),
                     brachselect = HasKeyProtect.Decryption(SelectBranch),
                 });
-
             }
             catch (Exception ex)
             {
@@ -1627,14 +1548,12 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
-
 
         #endregion RegistrasiAccountNew
 
-
         #region Transaksi ID Pengguna
+
         [HttpPost]
         public async Task<ActionResult> clnHeaderTx(String menu, String caption)
         {
@@ -1662,10 +1581,8 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
 
-
             try
             {
-
                 string UserID = Account.AccountLogin.UserID;
                 string UserName = Account.AccountLogin.UserName;
                 string ClientID = Account.AccountLogin.ClientID;
@@ -1701,7 +1618,6 @@ namespace DusColl.Controllers
                 double totalRecordclient = 0;
                 double totalPageclient = 0;
 
-
                 // try show filter data//
                 List<String> recordPage = await Accountddl.dbGetHeaderTxListCount(NoRequest, Email, SelectDivisi, SelectBranch, SelectArea, SelectContractStatus, PageNumber, caption, UserID, GroupName);
                 TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -1711,7 +1627,6 @@ namespace DusColl.Controllers
                 List<DataTable> dtlist = await Accountddl.dbGetHeaderTxList(null, NoRequest, Email, SelectDivisi, SelectBranch, SelectArea, SelectContractStatus, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
                 totalRecordclient = dtlist[0].Rows.Count;
                 totalPageclient = int.Parse(Math.Ceiling(decimal.Parse(totalRecordclient.ToString()) / decimal.Parse(pagingsizeclient.ToString())).ToString());
-
 
                 //set in filter for paging//
                 modFilter.TotalRecord = TotalRecord;
@@ -1737,7 +1652,6 @@ namespace DusColl.Controllers
                 TempData[tempTransksifilter] = modFilter;
                 TempData[tempcommon] = new vmCommon();
 
-
                 //set caption view//
                 ViewBag.menu = menu;
                 ViewBag.caption = caption;
@@ -1745,13 +1659,11 @@ namespace DusColl.Controllers
                 ViewBag.rute = MainControllerNameHeaderTx;
                 ViewBag.action = MainActionNameHeaderTx;
 
-
                 ViewBag.menuipt = menu;
                 ViewBag.captionipt = caption.Replace("LST", "");
                 ViewBag.captiondescipt = menuitemdescription;
                 //ViewBag.ruteipt = MainControllerNameDetailTx;
                 //ViewBag.actionipt = MainActionNameDetailTx;
-
 
                 ViewBag.Total = "Total Data : " + TotalRecord.ToString();
 
@@ -1781,7 +1693,6 @@ namespace DusColl.Controllers
             }
         }
 
-
         [HttpPost]
         public async Task<ActionResult> clnTeamVery(String menu, String caption)
         {
@@ -1809,10 +1720,8 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
 
-
             try
             {
-
                 string UserID = Account.AccountLogin.UserID;
                 string UserName = Account.AccountLogin.UserName;
                 string ClientID = Account.AccountLogin.ClientID;
@@ -1848,9 +1757,7 @@ namespace DusColl.Controllers
                 double totalRecordclient = 0;
                 double totalPageclient = 0;
 
-
                 DataTable dt = await Accountddl.dbGetteamvery(caption, UserID, GroupName);
-
 
                 ////set in filter for paging//
                 //modFilter.TotalRecord = TotalRecord;
@@ -1876,7 +1783,6 @@ namespace DusColl.Controllers
                 //TempData[tempTransksifilter] = modFilter;
                 //TempData[tempcommon] = new vmCommon();
 
-
                 ////set caption view//
                 //ViewBag.menu = menu;
                 //ViewBag.caption = caption;
@@ -1884,13 +1790,11 @@ namespace DusColl.Controllers
                 //ViewBag.rute = MainControllerNameHeaderTx;
                 //ViewBag.action = MainActionNameHeaderTx;
 
-
                 //ViewBag.menuipt = menu;
                 //ViewBag.captionipt = caption.Replace("LST", "");
                 //ViewBag.captiondescipt = menuitemdescription;
                 //ViewBag.ruteipt = MainControllerNameDetailTx;
                 //ViewBag.actionipt = MainActionNameDetailTx;
-
 
                 ViewBag.Total = "Total Data : " + TotalRecord.ToString();
 
@@ -1924,7 +1828,6 @@ namespace DusColl.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> clnHeaderSve(cAccountRegis model)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -1950,7 +1853,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 Account = TempData[tempTransksi] as vmAccount;
                 modFilter = TempData[tempTransksifilter] as cFilterContract;
                 Common = (TempData[tempcommon] as vmCommon);
@@ -1971,7 +1873,6 @@ namespace DusColl.Controllers
                 string SelectArea = modFilter.SelectArea ?? "";
                 string Email = modFilter.MailerDaemoon ?? "";
                 string SelectContractStatus = modFilter.SelectContractStatus ?? "";
-
 
                 string keylookupdataDTX = model.keylookupdataDTX;
                 string keylookupdataHTX = model.keylookupdataHTX;
@@ -2064,7 +1965,6 @@ namespace DusColl.Controllers
                     vmHome Home = new vmHome();
                     Home.TodoUser = await Commonddl.dbGetApprovalTodo("1", caption, "", Account.AccountLogin.UserID, Account.AccountLogin.GroupName);
                     view1 = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/Home/_HomeTodoUser.cshtml", Home);
-
                 }
 
                 // senback to client browser//
@@ -2078,7 +1978,6 @@ namespace DusColl.Controllers
                     idhome = "",
                     modl = caption
                 });
-
             }
             catch (Exception ex)
             {
@@ -2101,7 +2000,6 @@ namespace DusColl.Controllers
 
         public async Task<ActionResult> clnRgridHeaderTx(int paged)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -2146,7 +2044,6 @@ namespace DusColl.Controllers
                 string SelectArea = modFilter.SelectArea ?? "";
                 string Email = modFilter.MailerDaemoon ?? "";
                 string SelectContractStatus = modFilter.SelectContractStatus ?? "";
-
 
                 // set & get for next paging //
                 int pagenumberclient = paged;
@@ -2201,14 +2098,12 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
-        [HttpPost]
 
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> clnHeaderTxRegisFilter(cFilterContract model, string download)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -2234,7 +2129,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 // get from session //
                 modFilter = TempData[tempTransksifilter] as cFilterContract;
                 Account = TempData[tempTransksi] as vmAccount;
@@ -2278,13 +2172,11 @@ namespace DusColl.Controllers
                 string validtxt = ""; //lgakta.CheckFilterisasiDataGen(modFilter);
                 if (validtxt == "")
                 {
-
                     //descript some value for db//
                     //SelectClient = SelectClient; //HasKeyProtect.Decryption(SelectClient);
                     //SelectBranch = SelectBranch; //HasKeyProtect.Decryption(SelectBranch);
                     //SelectDivisi = SelectDivisi; //HasKeyProtect.Decryption(SelectNotaris);
                     caption = HasKeyProtect.Decryption(caption);
-
 
                     // try show filter data//
                     List<String> recordPage = await Accountddl.dbGetHeaderTxListCount(NoRequest, Email, SelectDivisi, SelectBranch, SelectArea, SelectContractStatus, PageNumber, caption, UserID, GroupName);
@@ -2295,7 +2187,6 @@ namespace DusColl.Controllers
                     List<DataTable> dtlist = await Accountddl.dbGetHeaderTxList(null, NoRequest, Email, SelectDivisi, SelectBranch, SelectArea, SelectContractStatus, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
                     totalRecordclient = dtlist[0].Rows.Count;
                     totalPageclient = int.Parse(Math.Ceiling(decimal.Parse(totalRecordclient.ToString()) / decimal.Parse(pagingsizeclient.ToString())).ToString());
-
 
                     //set in filter for paging//
                     modFilter.TotalRecord = TotalRecord;
@@ -2325,11 +2216,9 @@ namespace DusColl.Controllers
                         download = "",
                         message = validtxt
                     });
-
                 }
                 else
                 {
-
                     TempData[tempTransksifilter] = modFilter;
                     TempData[tempTransksi] = Account;
                     TempData[tempcommon] = Common;
@@ -2452,11 +2341,9 @@ namespace DusColl.Controllers
                         branchjson = new JavaScriptSerializer().Serialize(tempbrach),
                         brachselect = SelectBranch, //HasKeyProtect.Decryption(SelectBranch),
                     });
-
                 }
                 else
                 {
-
                     // get value filter before//
                     string Keykode = modFilter.RequestNo;
                     string SelectArea = modFilter.SelectArea;
@@ -2533,9 +2420,7 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
-
 
         #endregion Transaksi ID Pengguna
 
@@ -2623,7 +2508,6 @@ namespace DusColl.Controllers
         //            ViewBag.rute = MainControllerNameHeaderTx;
         //            ViewBag.action = MainActionNameHeaderTx;
 
-
         //            List<DataTable> dtlistpop = await Accountddl.dbGetHeaderTxList(null, paramkey, "", "", "", 1, 1, 1, caption, UserID, GroupName);
         //            dr = dtlistpop[0].AsEnumerable().Where(x => x.Field<string>("RegAccountNo") == paramkey).SingleOrDefault();
 
@@ -2634,10 +2518,8 @@ namespace DusColl.Controllers
         //            Account.DTHeaderTx = dtlistpop[0];
         //        }
 
-
         //        if (dr != null)
         //        {
-
         //            RegquestNo = dr["RegAccountNo"].ToString();
         //            Account.HeaderInfo.IDHeaderTx = int.Parse(dr["Id"].ToString());
         //            Account.HeaderInfo.IDDetailTx = 0;
@@ -2655,7 +2537,6 @@ namespace DusColl.Controllers
         //            Account.HeaderInfo.StatusAktif = dr["StatusAktif"].ToString();
         //            Account.HeaderInfo.RegAccountCreateBy = dr["CreatedBy"].ToString();
         //            Account.HeaderInfo.StatusFollow = dr["RegAccountStatus"].ToString();
-
 
         //            // try show filter log approval//
         //            PageNumber = 1;
@@ -2691,7 +2572,6 @@ namespace DusColl.Controllers
 
         //            modFilter.ModuleID = caption;
         //            Account.FilterTransaksi = modFilter;
-
 
         //            //set caption view//
         //            ViewBag.menu = "";
@@ -2790,7 +2670,6 @@ namespace DusColl.Controllers
 
         ////    if (Account.UserLogin.RouteName != "")
         ////    {
-
         ////        return RedirectToRoute(Account.UserLogin.RouteName);
         ////    }
 
@@ -2808,10 +2687,8 @@ namespace DusColl.Controllers
 
         //    if (Account.AccountLogin.RouteName != "")
         //    {
-
         //        return RedirectToRoute(Account.AccountLogin.RouteName);
         //    }
-
 
         //    Common.ddlGrupAkses = Commonddl.dbGetDdlgrupListByEncrypt(Account.AccountGroupUserList);
         //    ViewData["SelectGrupAkses"] = OwinLibrary.Get_SelectListItem(Common.ddlGrupAkses);
@@ -2823,21 +2700,17 @@ namespace DusColl.Controllers
 
         //}
 
-
         //[HttpPost]
         //[ValidateAntiForgeryToken]
         //public async Task<ActionResult> clnAccountChucgongPro(string SelectGrupAkses)
         //{
-
         //    Account = (vmAccount)Session["Account"];
         //    Account.AccountLogin = lgAccount.NotExistSesionID(Request.Cookies[FormsAuthentication.FormsCookieName], Account.AccountLogin);
-
 
         //    if (Account.AccountLogin.RouteName != "")
         //    {
         //        return RedirectToRoute(Account.AccountLogin.RouteName);
         //    }
-
 
         //    try
         //    {
@@ -2880,12 +2753,10 @@ namespace DusColl.Controllers
         //    }
         //}
 
-
         ////[HttpPost]
         ////[ValidateAntiForgeryToken]
         ////public async Task<ActionResult> Index(cAccount model)
         ////{
-
         ////    string pagesource = "";
         ////    try
         ////    {
@@ -2898,8 +2769,6 @@ namespace DusColl.Controllers
 
         ////            //using (MemoryStream mem = new MemoryStream(data))
         ////            //{
-
-
         ////            //    //using (var yourImage = Image.FromStream(mem))
         ////            //    //{
         ////            //    //    // If you want it as Png
@@ -2927,7 +2796,6 @@ namespace DusColl.Controllers
         ////        //Console.WriteLine("Successfully Downloaded File \"{0}\" from \"{1}\"", fileName, myStringWebResource);
         ////        //Console.WriteLine("\nDownloaded file saved in the following file system folder:\n\t" + Application.StartupPath);
 
-
         ////        //var serializeModel = JsonConvert.SerializeObject(model);// using Newtonsoft.Json;
         ////        //var response = await client.PostJsonWithModelAsync<ResultDTO>("http://www.website.com/api/create", serializeModel);
         ////        //return response;
@@ -2948,7 +2816,6 @@ namespace DusColl.Controllers
         ////    }
         ////    catch (Exception ex)
         ////    {
-
         ////        string po = ex.Message;
         ////    }
 
@@ -2962,13 +2829,11 @@ namespace DusColl.Controllers
         ////    });
         /// <summary>
         //public ActionResult LogUserIn()
-        /// 
+        ///
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
         ////}
-
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -2981,27 +2846,24 @@ namespace DusColl.Controllers
             OwinLibrary.CreateLog("dsads", "LogErrorFDCM.txt");
             string browser = HttpContext.Request.Browser.Browser;
 
-           /* var client = new HttpClient();
-            var request = new HttpRequestMessage(HttpMethod.Post, "https://betaapi.mitsuilease.co.id:4200/oauth/v1/auth/accesstoken?GrantType=client_credentials");
-            var collection = new List<KeyValuePair<string, string>>();
-            collection.Add(new KeyValuePair<string, string>("ClientId", "W7iikLXW+sjIl9ut4Q96sjYHyYSl8viJIftUb+oc99564MDXJ2U="));
-            collection.Add(new KeyValuePair<string, string>("ClientSecret", "bpFhvs4oXH6weDhgIdMYp/1ik+pAFI2lVjrGhjyD6Jo/smfCHN4="));
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
-            var content = new FormUrlEncodedContent(collection);
-            request.Content = content;
-            var response = await client.SendAsync(request);
-            response.EnsureSuccessStatusCode();
-            Console.WriteLine(await response.Content.ReadAsStringAsync());*/
+            /* var client = new HttpClient();
+             var request = new HttpRequestMessage(HttpMethod.Post, "https://betaapi.mitsuilease.co.id:4200/oauth/v1/auth/accesstoken?GrantType=client_credentials");
+             var collection = new List<KeyValuePair<string, string>>();
+             collection.Add(new KeyValuePair<string, string>("ClientId", "W7iikLXW+sjIl9ut4Q96sjYHyYSl8viJIftUb+oc99564MDXJ2U="));
+             collection.Add(new KeyValuePair<string, string>("ClientSecret", "bpFhvs4oXH6weDhgIdMYp/1ik+pAFI2lVjrGhjyD6Jo/smfCHN4="));
+             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
+             var content = new FormUrlEncodedContent(collection);
+             request.Content = content;
+             var response = await client.SendAsync(request);
+             response.EnsureSuccessStatusCode();
+             Console.WriteLine(await response.Content.ReadAsStringAsync());*/
 
             try
             {
-
-
                 //if (browser.ToLower() != "chrome")  //&& browser.ToLower() != "firefox"
                 //{
                 //    return RedirectToRoute("UnsupportBrowser");
                 //}
-
 
                 //// incremental delay to prevent brute force attacks
                 //int incrementalDelay;
@@ -3012,10 +2874,8 @@ namespace DusColl.Controllers
                 //    await Task.Delay(incrementalDelay * 1000);
                 //}
 
-
                 if (ModelState.IsValidField("UserPass") && ModelState.IsValidField("UserID"))
                 {
-
                     OwinLibrary.CreateLog("valid", "LogErrorFDCM.txt");
 
                     model.codepass = model.UserPass;
@@ -3032,14 +2892,13 @@ namespace DusColl.Controllers
                     string Mailed = model.Mailed;
                     int PropAccess = model.PropAccess;
 
-
                     //get user identity host//
-                    string ipAddress = Request.ServerVariables["REMOTE_ADDR"];
-                    string ipAddress2 = Request.UserHostAddress;
-                    string HostPCName = Dns.GetHostName();
+                    string ipAddress = "::1";   //Request.ServerVariables["REMOTE_ADDR"];
+                    string ipAddress2 = "::1"; //Request.UserHostAddress;
+                    string HostPCName = "SDB-024";  //Dns.GetHostName();
                     string verifiedcodeinputbyuser = model.Userkodeverified ?? "";
                     string templatename = "AccountWrongLogin";
-                    string domainname = Request.Url.Host;
+                    string domainname = "localhost";   //Request.Url.Host;
 
                     //default message//
                     int resulted = -9999;
@@ -3074,7 +2933,6 @@ namespace DusColl.Controllers
                     //jika user dan kata sandi valid
                     if ((PropAccess == 1))
                     {
-
                         //get user matrik//
                         Account = await lgAccount.AuthenticateUserGroupMatrik(model);
 
@@ -3083,7 +2941,6 @@ namespace DusColl.Controllers
                         {
                             HttpContext.Application.Remove(Request.UserHostAddress);
                         }
-
 
                         var conf = System.Web.Configuration.WebConfigurationManager.OpenWebConfiguration(System.Web.Hosting.HostingEnvironment.ApplicationVirtualPath);
                         var section = (System.Web.Configuration.SessionStateSection)conf.GetSection("system.web/sessionState");
@@ -3110,7 +2967,6 @@ namespace DusColl.Controllers
                         //get todo list //
                         string msg = "Login Success " + UserID + " Warning Text: " + EnumMessage;
                         OwinLibrary.CreateLog(msg, "LogErrorFDCM.txt");
-
                     }
                     //else
                     //{
@@ -3130,7 +2986,6 @@ namespace DusColl.Controllers
                 }
                 else
                 {
-
                     ShowMessage = "alert alert-danger display-block";
                     //EnumMessage = string.Join(" , ", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage));
                     EnumMessage = "Cek ID Pengguna dan Kata Sandi";
@@ -3144,7 +2999,6 @@ namespace DusColl.Controllers
                     //    incrementalDelay = (int)HttpContext.Application[Request.UserHostAddress] * 2;
                     //}
                     //HttpContext.Application[Request.UserHostAddress] = incrementalDelay;
-
                 }
                 return Json(new
                 {
@@ -3165,9 +3019,6 @@ namespace DusColl.Controllers
                     url = Url.Action("Index", "Error", new { area = "" }),
                 });
             }
-
         }
-
-
     }
 }

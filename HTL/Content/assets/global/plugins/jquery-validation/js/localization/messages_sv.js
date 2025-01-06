@@ -5,7 +5,6 @@
 		factory( jQuery );
 	}
 }(function( $ ) {
-
 /*
  * Translated default messages for the jQuery validation plugin.
  * Locale: SV (Swedish; Svenska)
@@ -27,5 +26,4 @@ $.extend($.validator.messages, {
 	min: $.validator.format("Ange ett v&auml;rde som &auml;r st&ouml;rre eller lika med {0}."),
 	creditcard: "Ange ett korrekt kreditkortsnummer."
 });
-
 }));

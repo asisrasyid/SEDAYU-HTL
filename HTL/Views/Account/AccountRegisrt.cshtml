@@ -1,5 +1,4 @@
-﻿
-@model HashNetFramework.cAccountRegis
+﻿@model HashNetFramework.cAccountRegis
 @{
     /**/
 
@@ -34,46 +33,41 @@
                     @using (Ajax.BeginForm("clnAccountChucgongProNew", "Account", new AjaxOptions { HttpMethod = "POST", OnBegin = "vmAccount.ChacctBeginNew", OnSuccess = "vmAccount.ChacctSuccessNew", OnFailure = "vmAccount.ChacctFailureNew" }, new { id = "login_form", @class = "form-horizontal", autocomplete = "off" }))
                     {
 
-                        @Html.AntiForgeryToken();
+                    @Html.AntiForgeryToken();
 
-                        <div id="cssShowMessage" style="display:none;">
-                            <button class="close" data-close="alert"></button>
-                            <span id="idShowMessage"></span>
+                    <div id="cssShowMessage" style="display:none;">
+                        <button class="close" data-close="alert"></button>
+                        <span id="idShowMessage"></span>
+                    </div>
+
+                    @Html.HiddenFor(x => x.KodeRegisCabang)
+
+                    <div class="">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                @Html.TextBoxFor(m => m.email, new { @class = "form-control form-control-solid", autocomplete = "off", placeholder = "Isikan Email Anda" })
+                                @Html.ValidationMessageFor(m => m.email, "", new { @class = "error-block" })
+                            </div>
                         </div>
+                    </div>
 
-                        @Html.HiddenFor(x => x.KodeRegisCabang)
-
-                        <div class="">
-                            <div class="form-group">
+                    <div class="modal-footer" style="border-top:none;background:none">
+                        <div class="form-actions" style="padding:0px 0px;margin-right: -5px;">
+                            <div class="row">
                                 <div class="col-md-12">
-                                    @Html.TextBoxFor(m => m.email, new { @class = "form-control form-control-solid", autocomplete = "off", placeholder = "Isikan Email Anda" })
-                                    @Html.ValidationMessageFor(m => m.email, "", new { @class = "error-block" })
+                                    <a href="@Url.Action("LogUserIn","Account")" class="btn green">
+                                        <i class="icon-arrow-left"></i>&nbsp;<span id="capregis">Kembali</span>
+                                    </a>
+                                    <button type="submit" class="btn green">
+                                        <i class="fa fa-check-square"></i><span>&nbsp;Reset</span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
-                      
-                       
-                        <div class="modal-footer" style="border-top:none;background:none">
-                            <div class="form-actions" style="padding:0px 0px;margin-right: -5px;">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <a href="@Url.Action("LogUserIn","Account")" class="btn green">
-                                            <i class="icon-arrow-left"></i>&nbsp;<span id="capregis">Kembali</span>
-                                        </a>
-                                        <button type="submit" class="btn green">
-                                            <i class="fa fa-check-square"></i><span>&nbsp;Reset</span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    </div>
                     }
                 </p>
             </div>
         </div>
     </div>
-
-
 </body>
-
-

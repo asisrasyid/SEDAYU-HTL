@@ -20,7 +20,6 @@
     factory(jQuery);
   }
 }(this, function (jQuery) {
-
 (function ($) {
   $.fn.selectpicker.defaults = {
     noneSelectedText: 'Nic nie zaznaczono',
@@ -32,6 +31,4 @@
     multipleSeparator: ', '
   };
 })(jQuery);
-
-
 }));

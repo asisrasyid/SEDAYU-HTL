@@ -9,15 +9,15 @@
             }, new { id = "clnHTL_formipt", @class = "form-horizontal" }))
             {
 
-                @Html.AntiForgeryToken();
-                @Html.HiddenFor(x => x.keylookupdataHTXIpt)
-                @Html.Hidden("ctexipt")
-                @Html.Hidden("jntexipt", HashNetFramework.HasKeyProtect.Encryption(Model.JenisData))
-                @Html.Hidden("euxipt");
-                @Html.Hidden("auxipt", HashNetFramework.HasKeyProtect.Encryption(Model.NoApplIpt));
-                <div class="modal-header">
-                    <h4 class="modal-title"><strong>FORM PENGAJUAN </strong></h4>
-                </div>
+            @Html.AntiForgeryToken();
+            @Html.HiddenFor(x => x.keylookupdataHTXIpt)
+            @Html.Hidden("ctexipt")
+            @Html.Hidden("jntexipt", HashNetFramework.HasKeyProtect.Encryption(Model.JenisData))
+            @Html.Hidden("euxipt");
+            @Html.Hidden("auxipt", HashNetFramework.HasKeyProtect.Encryption(Model.NoApplIpt));
+            <div class="modal-header">
+                <h4 class="modal-title"><strong>FORM PENGAJUAN </strong></h4>
+            </div>
             }
         </div>
         <!-- /.modal-content -->
@@ -31,4 +31,3 @@
 <script src="~/Content/assets/pages/scripts/form-fileupload.js"></script>
 <script src="~/Scripts/vmHTL.js"></script>
 <script src="~/Scripts/jquery.Jcrop.min.js"></script>
-

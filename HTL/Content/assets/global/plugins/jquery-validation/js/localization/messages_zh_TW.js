@@ -5,7 +5,6 @@
 		factory( jQuery );
 	}
 }(function( $ ) {
-
 /*
  * Translated default messages for the jQuery validation plugin.
  * Locale: ZH (Chinese; 中文 (Zhōngwén), 汉语, 漢語)
@@ -30,5 +29,4 @@ $.extend($.validator.messages, {
 	max: $.validator.format("請輸入不大於 {0} 的數值"),
 	min: $.validator.format("請輸入不小於 {0} 的數值")
 });
-
 }));

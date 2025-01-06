@@ -1,20 +1,11 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
 
 namespace DusColl
 {
-
-
     [Serializable]
     public enum cCommandTextAuthAcct
     {
-
         [Description("api/FDCMAuth/dbAuthenticateUser")]
         cmdAuthenticateUser = 0,
 
@@ -23,8 +14,5 @@ namespace DusColl
 
         [Description("api/FDCMAuth/dbAuthenticateMetrik")]
         cmdAuthenticateMetrik = 4,
-        
     }
-
-
 }

@@ -20,7 +20,6 @@
     factory(jQuery);
   }
 }(this, function (jQuery) {
-
 (function ($) {
   'use strict';
 
@@ -234,7 +233,6 @@
     return text;
   }
 
-
   function htmlEscape(html) {
     var escapeMap = {
       '&': '&amp;',
@@ -337,7 +335,6 @@
   };
 
   Selectpicker.prototype = {
-
     constructor: Selectpicker,
 
     init: function () {
@@ -400,7 +397,7 @@
           that.$button
             .addClass('bs-invalid')
             .focus();
-          
+
           that.$element.on({
             'focus.bs.select': function () {
               that.$button.focus();
@@ -417,7 +414,6 @@
               that.$element.off('rendered.bs.select');
             }
           });
-          
         });
       }
 
@@ -1047,12 +1043,12 @@
     },
 
     tabIndex: function () {
-      if (this.$element.data('tabindex') !== this.$element.attr('tabindex') && 
+      if (this.$element.data('tabindex') !== this.$element.attr('tabindex') &&
         (this.$element.attr('tabindex') !== -98 && this.$element.attr('tabindex') !== '-98')) {
         this.$element.data('tabindex', this.$element.attr('tabindex'));
         this.$button.attr('tabindex', this.$element.data('tabindex'));
       }
-      
+
       this.$element.attr('tabindex', -98);
     },
 
@@ -1526,7 +1522,6 @@
             $this.focus();
           }
         }
-
       } else if (!$this.is('input')) {
         var keyIndex = [],
             count,
@@ -1705,6 +1700,4 @@
     })
   });
 })(jQuery);
-
-
 }));

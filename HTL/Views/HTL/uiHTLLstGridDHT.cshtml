@@ -4,7 +4,6 @@
         white-space: nowrap;
     }
 
-
     td:last-child {
         width: 30%;
     }
@@ -29,7 +28,6 @@
     }
 </style>
 
-
 <table class="table table-striped table-hover table-bordered" id="table_tx">
     <thead>
         <tr>
@@ -44,14 +42,14 @@
             {
                 if (ViewBag.caption != "HTLLISTHT6")
                 {
-                    <th data-priority="1">Kode Akta</th>
-                    <th>No Akta</th>
-                    <th>NoBerkas SHT</th>
+            <th data-priority="1">Kode Akta</th>
+            <th>No Akta</th>
+            <th>NoBerkas SHT</th>
                 }
                 else
                 {
-                    <th>NamaPPAT</th>
-                    <th>NoBAST</th>
+            <th>NamaPPAT</th>
+            <th>NoBAST</th>
                 }
             }
             <th>Status</th>
@@ -64,43 +62,42 @@
             foreach (System.Data.DataRow item in Model.DTAllTx.Rows)
             {
                 i = i + 1;
-                <tr class="DrillDownRow">
-                    <td align="center">
-                        @if (item["AllowCheckBox"].ToString() == "allow")
+        <tr class="DrillDownRow">
+            <td align="center">
+                @if (item["AllowCheckBox"].ToString() == "allow")
                         {
-                            <input type="checkbox" name="AktaSelectdwn" value="@Html.Raw(item["keylookupdata"])" />
+                <input type="checkbox" name="AktaSelectdwn" value="@Html.Raw(item["keylookupdata"])" />
                         }
-                    </td>
-                    <td>@item["NoAppl"].ToString()</td>
-                    <td>@item["NoPerjanjian"].ToString().ToUpper()</td>
-                    <td>@item["NamaCabang"].ToString().ToUpper()</td>
-                    <td>@item["Debitur"].ToString()</td>
-                    <td>@item["NoSHM"].ToString()</td>
-                    <td>@item["PemilikHak"].ToString()</td>
+            </td>
+            <td>@item["NoAppl"].ToString()</td>
+            <td>@item["NoPerjanjian"].ToString().ToUpper()</td>
+            <td>@item["NamaCabang"].ToString().ToUpper()</td>
+            <td>@item["Debitur"].ToString()</td>
+            <td>@item["NoSHM"].ToString()</td>
+            <td>@item["PemilikHak"].ToString()</td>
 
-                    @if (int.Parse(ViewBag.UserTypess) == 0)
+            @if (int.Parse(ViewBag.UserTypess) == 0)
                     {
                         if (ViewBag.caption != "HTLLISTHT6")
                         {
-                            <td>@item["KodeAkta"].ToString()</td>
-                            <td>@item["NoAkta"].ToString()</td>
-                            <td>@item["NoBerkasSHT"].ToString()</td>
+            <td>@item["KodeAkta"].ToString()</td>
+            <td>@item["NoAkta"].ToString()</td>
+            <td>@item["NoBerkasSHT"].ToString()</td>
                         }
                         else
                         {
-                            <td>@item["NamaPPAT"].ToString()</td>
-                            <td>@item["NoBAST"].ToString()</td>
+            <td>@item["NamaPPAT"].ToString()</td>
+            <td>@item["NoBAST"].ToString()</td>
                         }
 
                     }
 
-                    <td>@item["Keterangan"].ToString()</td>
-                </tr>
+            <td>@item["Keterangan"].ToString()</td>
+        </tr>
             }
         }
     </tbody>
 </table>
-
 
 <script src="~/Scripts/vmHTL.js"></script>
 <script>
@@ -157,7 +154,4 @@
             //$(".page-wrapper").css("table-layout", "unset");
             vmHTL.initbuton();
         });
-
 </script>
-
-

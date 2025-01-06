@@ -20,40 +20,40 @@
                         <div id="formandal">
                             @using (Ajax.BeginForm(control, new { Controller = "HTL" }, new AjaxOptions { HttpMethod = "POST" }, new { id = "fileuploadform", @class = "form-horizontal", enctype = "multipart/form-data" }))
                             {
-                                @Html.AntiForgeryToken();
-                                @Html.Hidden("caption");
-                                @Html.Hidden("ctexdoc");
-                                <div class="modal-body">
-                                    <div class="form-body">
-                                        <div class="form-group">
-                                            <div class="col-md-12">
-                                                <div class="note note-searchpanenls font-whitea marginnol paddingbotnol">
-                                                    <h4 class="font-whitea"><strong>Catatan:</strong></h4>
-                                                    <ol class="font-whitea">
-                                                        <li> Tipe File .jpg/.jpeg /.pdf </li>
-                                                        <li> Nama File tidak lebih dari 100 Karakter dan  Ukuran File tidak lebih dari 1 MB </li>
-                                                        <li> Yang bertanda bintang (<span><i class='fa fa-star'></i></span>) wajib diupload  </li>
-                                                    </ol>
-                                                </div>
+                            @Html.AntiForgeryToken();
+                            @Html.Hidden("caption");
+                            @Html.Hidden("ctexdoc");
+                            <div class="modal-body">
+                                <div class="form-body">
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <div class="note note-searchpanenls font-whitea marginnol paddingbotnol">
+                                                <h4 class="font-whitea"><strong>Catatan:</strong></h4>
+                                                <ol class="font-whitea">
+                                                    <li> Tipe File .jpg/.jpeg /.pdf </li>
+                                                    <li> Nama File tidak lebih dari 100 Karakter dan  Ukuran File tidak lebih dari 1 MB </li>
+                                                    <li> Yang bertanda bintang (<span><i class='fa fa-star'></i></span>) wajib diupload  </li>
+                                                </ol>
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <div class="" style="padding:0px 15px">
-                                                <!-- The table listing the files available for upload/download -->
-                                                <table class="table table-striped table-hover table-bordered" id="tblupp">
-                                                    <thead>
-                                                        <tr>
-                                                            <th align="center">No</th>
-                                                            <th>Jenis Dokumen</th>
-                                                            <th>Informasi File</th>
-                                                            @if (ViewBag.oprvalue == "edit" || ViewBag.oprvalue == "add")
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="" style="padding:0px 15px">
+                                            <!-- The table listing the files available for upload/download -->
+                                            <table class="table table-striped table-hover table-bordered" id="tblupp">
+                                                <thead>
+                                                    <tr>
+                                                        <th align="center">No</th>
+                                                        <th>Jenis Dokumen</th>
+                                                        <th>Informasi File</th>
+                                                        @if (ViewBag.oprvalue == "edit" || ViewBag.oprvalue == "add")
                                                             {
-                                                                <th>Tindakan</th>
+                                                        <th>Tindakan</th>
                                                             }
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody class="">
-                                                        @{
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="">
+                                                    @{
                                                             var i = 0;
                                                             var j = 0;
                                                             var strchk = "";
@@ -61,50 +61,50 @@
                                                             {
                                                                 i = i + 1;
                                                                 strchk = "";
-                                                                <tr>
-                                                                    <td align="center">@i</td>
-                                                                    <td>
-                                                                        <input type="checkbox" name="documen" @strchk value="@HashNetFramework.HasKeyProtect.Encryption(dr["DOCUMENT_TYPE"].ToString())" style="visibility:hidden;font-size:5px" />
-                                                                        @Html.Raw(dr["IsMandatory"].ToString() == "True" ? "<span><i class='fa fa-star'></i></span>" + dr["DOCUMENT_TYPE"].ToString() : dr["DOCUMENT_TYPE"].ToString())<br />
-                                                                        &nbsp;&nbsp;&nbsp;&nbsp;@Html.Raw(dr["DOCUMENT_DESC"].ToString())
-                                                                    </td>
-                                                                    <td>
-                                                                        <label>@Html.Raw(@dr["InfoFile"].ToString())</label>
-                                                                    </td>
-                                                                    @if (ViewBag.oprvalue == "edit" || ViewBag.oprvalue == "add")
+                                                        <tr>
+                                                            <td align="center">@i</td>
+                                                            <td>
+                                                                <input type="checkbox" name="documen" @strchk value="@HashNetFramework.HasKeyProtect.Encryption(dr["DOCUMENT_TYPE"].ToString())" style="visibility:hidden;font-size:5px" />
+                                                                @Html.Raw(dr["IsMandatory"].ToString() == "True" ? "<span><i class='fa fa-star'></i></span>" + dr["DOCUMENT_TYPE"].ToString() : dr["DOCUMENT_TYPE"].ToString())<br />
+                                                                &nbsp;&nbsp;&nbsp;&nbsp;@Html.Raw(dr["DOCUMENT_DESC"].ToString())
+                                                            </td>
+                                                            <td>
+                                                                <label>@Html.Raw(@dr["InfoFile"].ToString())</label>
+                                                            </td>
+                                                            @if (ViewBag.oprvalue == "edit" || ViewBag.oprvalue == "add")
                                                                     {
-                                                                        <td align="center">
-                                                                            @if (dr["AllowUP"].ToString() == "allow")
+                                                            <td align="center">
+                                                                @if (dr["AllowUP"].ToString() == "allow")
                                                                             {
-                                                                                <span class="btn green fileinput-button btnpro">
-                                                                                    <i class="fa fa-search-plus"></i>
-                                                                                    <span> Tambah/Edit File </span>
-                                                                                    <input type="file" name="files" class="btnflednw" id="@dr["DOCUMENT_TYPE"].ToString()" data-value="@dr["DOCUMENT_TYPE"].ToString()','@HashNetFramework.HasKeyProtect.Encryption(dr["IDDOC"].ToString())" />
-                                                                                </span>
+                                                                <span class="btn green fileinput-button btnpro">
+                                                                    <i class="fa fa-search-plus"></i>
+                                                                    <span> Tambah/Edit File </span>
+                                                                    <input type="file" name="files" class="btnflednw" id="@dr["DOCUMENT_TYPE"].ToString()" data-value="@dr["DOCUMENT_TYPE"].ToString()','@HashNetFramework.HasKeyProtect.Encryption(dr["IDDOC"].ToString())" />
+                                                                </span>
                                                                                 if (dr["IsMandatory"].ToString().ToLower() == "false")
                                                                                 {
                                                                                     //if (int.Parse(dr["IDDOC"].ToString())>0)
                                                                                     {
-                                                                                        <span class="btn green fileinput-button btnpro" id="btndel">
-                                                                                            <i class="fa fa-remove"></i>
-                                                                                            <span> Hapus </span>
-                                                                                            <input type="button" class="btn btn-sm btndelbtn" value="Lihat" data-value="@HashNetFramework.HasKeyProtect.Encryption(dr["IDDOC"].ToString()),@HashNetFramework.HasKeyProtect.Encryption(dr["IDDOC"].ToString()),this" />
-                                                                                        </span>
+                                                                <span class="btn green fileinput-button btnpro" id="btndel">
+                                                                    <i class="fa fa-remove"></i>
+                                                                    <span> Hapus </span>
+                                                                    <input type="button" class="btn btn-sm btndelbtn" value="Lihat" data-value="@HashNetFramework.HasKeyProtect.Encryption(dr["IDDOC"].ToString()),@HashNetFramework.HasKeyProtect.Encryption(dr["IDDOC"].ToString()),this" />
+                                                                </span>
                                                                                     }
                                                                                 }
                                                                             }
-                                                                        </td>
+                                                            </td>
                                                                     }
-                                                                </tr>
+                                                        </tr>
                                                                 j = j + 1;
                                                             }
-                                                        }
-                                                    </tbody>
-                                                </table>
-                                            </div>
+                                                    }
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
                             }
                         </div>
                     </div>
@@ -138,6 +138,4 @@
                 paging: false,
             });
         });
-
 </script>
-

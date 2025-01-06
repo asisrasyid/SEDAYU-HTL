@@ -4,103 +4,101 @@
         <div class="modal-content">
             @using (Ajax.BeginForm("AccountRegisAktivasi", new { Controller = "Account" }, new AjaxOptions { HttpMethod = "POST" }, new { id = "form_regisfu", @class = "form-horizontal" }))
             {
-                @Html.AntiForgeryToken();
-                @Html.HiddenFor(m => m.moduleclass);
-                @Html.HiddenFor(m => m.keylookupdataHTX);
-                @Html.HiddenFor(m => m.IDHeaderTx);
+            @Html.AntiForgeryToken();
+            @Html.HiddenFor(m => m.moduleclass);
+            @Html.HiddenFor(m => m.keylookupdataHTX);
+            @Html.HiddenFor(m => m.IDHeaderTx);
 
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h4 class="modal-title">Registrasi Pengguna</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="form-body">
-                        <div class="" style="padding:20px">
-                            <div class="form-group">
-                                <div class="col-md-6">
-                                    No Registrasi
-                                    @Html.TextBoxFor(m => m.RegAccountNo, new { @class = "form-control", @maxlength = "50", @disabled = "@disabled" })
-                                </div>
-                                <div class="col-md-6">
-                                    Tgl Registrasi:
-                                    @Html.TextBoxFor(m => m.RegAccountDate, new { @class = "form-control", @maxlength = "50", @disabled = "@disabled" })
-                                </div>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Registrasi Pengguna</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-body">
+                    <div class="" style="padding:20px">
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                No Registrasi
+                                @Html.TextBoxFor(m => m.RegAccountNo, new { @class = "form-control", @maxlength = "50", @disabled = "@disabled" })
                             </div>
+                            <div class="col-md-6">
+                                Tgl Registrasi:
+                                @Html.TextBoxFor(m => m.RegAccountDate, new { @class = "form-control", @maxlength = "50", @disabled = "@disabled" })
+                            </div>
+                        </div>
 
-
-                            <div class="form-group">
-                                <div class="col-md-6">
-                                    Email:
-                                    @Html.TextBoxFor(m => m.email, new { @class = "form-control", @maxlength = "50", @disabled = "@disabled" })
-                                </div>
-                                @if (ViewBag.viewfrm != "vw")
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                Email:
+                                @Html.TextBoxFor(m => m.email, new { @class = "form-control", @maxlength = "50", @disabled = "@disabled" })
+                            </div>
+                            @if (ViewBag.viewfrm != "vw")
                                 {
 
-                                    <div class="col-md-6">
-                                        *Jenis Proses
-                                        @Html.DropDownListFor(m => m.jenisprosesfollowup, (IEnumerable<SelectListItem>)ViewData["SelectStatus"], "Pilih..", new { @class = "form-control select2" })
-                                        @Html.ValidationMessageFor(m => m.jenisprosesfollowup, "", new { @class = "error-block" })
-                                    </div>
+                            <div class="col-md-6">
+                                *Jenis Proses
+                                @Html.DropDownListFor(m => m.jenisprosesfollowup, (IEnumerable<SelectListItem>)ViewData["SelectStatus"], "Pilih..", new { @class = "form-control select2" })
+                                @Html.ValidationMessageFor(m => m.jenisprosesfollowup, "", new { @class = "error-block" })
+                            </div>
                                 }
                                 else
                                 {
-                                    <div class="col-md-6">
-                                        Status Aktivasi
-                                        @Html.TextBoxFor(m => m.StatusAktif, new { @class = "form-control", @disabled = "@disabled" })
-                                    </div>
-                                }
+                            <div class="col-md-6">
+                                Status Aktivasi
+                                @Html.TextBoxFor(m => m.StatusAktif, new { @class = "form-control", @disabled = "@disabled" })
                             </div>
+                                }
+                        </div>
 
-                            @if (ViewBag.viewfrm != "vw")
+                        @if (ViewBag.viewfrm != "vw")
                             {
 
-                                <div class="form-group">
-                                    <div class="col-md-12">
-                                        *Tipe Pengguna
-                                        <select id="DevisiSelectDevisiSelect" name="DevisiSelect" size="3" class="form-control select2">
-                                            <option value="alfa">Admin HO</option>
-                                            <option value="beta">Cabang</option>
-                                            <option value="mega">Notaris</option>
-                                            <option value="bima">Admin</option>
-                                        </select>
-                                    </div>
-                                </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                *Tipe Pengguna
+                                <select id="DevisiSelectDevisiSelect" name="DevisiSelect" size="3" class="form-control select2">
+                                    <option value="alfa">Admin HO</option>
+                                    <option value="beta">Cabang</option>
+                                    <option value="mega">Notaris</option>
+                                    <option value="bima">Admin</option>
+                                </select>
+                            </div>
+                        </div>
 
-                                <div class="form-group">
-                                    <div class="col-md-12">
-                                        Catatan:
-                                        @Html.TextAreaFor(m => m.NotesFollow, new { @rows = "4", @class = "form-control", @id = "notenote" })
-                                        @Html.ValidationMessageFor(m => m.NotesFollow, "", new { @class = "error-block" })
-                                    </div>
-                                </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                Catatan:
+                                @Html.TextAreaFor(m => m.NotesFollow, new { @rows = "4", @class = "form-control", @id = "notenote" })
+                                @Html.ValidationMessageFor(m => m.NotesFollow, "", new { @class = "error-block" })
+                            </div>
+                        </div>
                             }
                             else
                             {
 
-
-                                <div class="form-group">
-                                    <div class="col-md-12">
-                                        *Catatan:
-                                        @Html.TextAreaFor(m => m.NotesFollow, new { @rows = "4", @class = "form-control", @id = "notenote", @disabled = "@disabled" })
-                                    </div>
-                                </div>
-                            }
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                *Catatan:
+                                @Html.TextAreaFor(m => m.NotesFollow, new { @rows = "4", @class = "form-control", @id = "notenote", @disabled = "@disabled" })
+                            </div>
                         </div>
+                            }
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn green" data-dismiss="modal">
-                        <i class="fa fa-close"></i>
-                        <span>&nbsp;Tutup</span>
-                    </button>
-                    @if (ViewBag.viewfrm != "vw")
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn green" data-dismiss="modal">
+                    <i class="fa fa-close"></i>
+                    <span>&nbsp;Tutup</span>
+                </button>
+                @if (ViewBag.viewfrm != "vw")
                     {
-                        <button type="button" class="btn green applyreg">
-                            <i class="fa fa-gear"></i>
-                            <span>&nbsp;Proses</span>
-                        </button>
+                <button type="button" class="btn green applyreg">
+                    <i class="fa fa-gear"></i>
+                    <span>&nbsp;Proses</span>
+                </button>
                     }
-                </div>
+            </div>
             }
         </div>
         <!-- /.modal-content -->
@@ -126,5 +124,4 @@
         $("#form_regisfu").removeAttr("action");
     }
     vmAccount.initbutton();
-
 </script>

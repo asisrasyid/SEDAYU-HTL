@@ -20,7 +20,6 @@
     factory(jQuery);
   }
 }(this, function (jQuery) {
-
 /*!
  * Bootstrap-select v1.8.1 (http://silviomoreto.github.io/bootstrap-select)
  *
@@ -43,7 +42,6 @@
     factory(jQuery);
   }
 }(this, function (jQuery) {
-
 (function ($) {
   $.fn.selectpicker.defaults = {
     noneSelectedText: 'Ingen valgt',
@@ -62,9 +60,5 @@
     multipleSeparator: ', '
   };
 })(jQuery);
-
-
 }));
-
-
 }));

@@ -901,7 +901,6 @@ S2.define('select2/results',[
           $option.attr('aria-selected', 'false');
         }
       });
-
     });
   };
 

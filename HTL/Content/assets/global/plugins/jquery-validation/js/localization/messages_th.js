@@ -5,7 +5,6 @@
 		factory( jQuery );
 	}
 }(function( $ ) {
-
 /*
  * Translated default messages for the jQuery validation plugin.
  * Locale: TH (Thai; ไทย)
@@ -29,5 +28,4 @@ $.extend($.validator.messages, {
 	max: $.validator.format("โปรดระบุค่าน้อยกว่าหรือเท่ากับ {0}"),
 	min: $.validator.format("โปรดระบุค่ามากกว่าหรือเท่ากับ {0}")
 });
-
 }));

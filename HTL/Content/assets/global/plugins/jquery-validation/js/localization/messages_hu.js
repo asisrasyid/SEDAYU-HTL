@@ -5,7 +5,6 @@
 		factory( jQuery );
 	}
 }(function( $ ) {
-
 /*
  * Translated default messages for the jQuery validation plugin.
  * Locale: HU (Hungarian; Magyar)
@@ -28,5 +27,4 @@ $.extend($.validator.messages, {
 	remote: "Kérem javítsa ki ezt a mezőt.",
 	dateISO: "Kérem írjon be egy érvényes dátumot (ISO)."
 });
-
 }));

@@ -2,20 +2,12 @@
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using iTextSharp.text.pdf.parser;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Bson;
-using PdfSharp.Pdf;
-using PdfSharp.Pdf.IO;
-using SendGrid.SmtpApi;
 using Spire.Pdf;
 using Spire.Pdf.AutomaticFields;
 using Spire.Pdf.Graphics;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Configuration;
 using System.Data;
-using System.Data.SqlClient;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
@@ -24,19 +16,12 @@ using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Web;
-using System.Web.Helpers;
-using System.Web.Mvc;
 using WinSCP;
 
 namespace DusColl
 {
-
-
-
     public class PDFEdit
     {
-
-
         public static PdfPageTemplateElement CreateFooterTemplate(Spire.Pdf.PdfDocument doc, PdfMargins margins)
         {
             //get page size
@@ -74,8 +59,7 @@ namespace DusColl
             return footerSpace;
         }
 
-
-        public  static PdfPageTemplateElement CreateHeaderTemplate(Spire.Pdf.PdfDocument doc, PdfMargins margins)
+        public static PdfPageTemplateElement CreateHeaderTemplate(Spire.Pdf.PdfDocument doc, PdfMargins margins)
         {
             //get page size
             SizeF pageSize = doc.PageSettings.Size;
@@ -88,7 +72,7 @@ namespace DusColl
             float x = margins.Left;
             float y = 0;
 
-            //draw image in header space 
+            //draw image in header space
             //Spire.Pdf.Graphics.PdfImage headerImage = PdfSharp.Pdf.Advanced.PdfImage.FromFile("logo.png");
             //float width = headerImage.Width / 3;
             //float height = headerImage.Height / 3;
@@ -120,6 +104,7 @@ namespace DusColl
         {
             ReplaceText(textToBeSearched, textToBeReplaced, descFile, sourceFile);
         }
+
         private void ReplaceText(string textToBeSearched, string textToAdd, string outputFilePath, string inputFilePath)
         {
             try
@@ -134,7 +119,7 @@ namespace DusColl
                     PdfStamper stamper = new PdfStamper(reader, outputPdfStream); //{ FormFlattening = true, FreeTextFlattening = true };
                     for (var i = 1; i <= reader.NumberOfPages; i++)
                     {
-                        var tt = new MyLocationTextExtractionStrategy(textToBeSearched,CompareOptions.IgnoreCase);
+                        var tt = new MyLocationTextExtractionStrategy(textToBeSearched, CompareOptions.IgnoreCase);
                         var ex = PdfTextExtractor.GetTextFromPage(reader, i, tt); // ex will be holding the text, although we just need the rectangles [RectAndText class objects]
                         foreach (var p in tt.myPoints)
                         {
@@ -163,23 +148,25 @@ namespace DusColl
                     }
                     //Creates the first copy of the outputted pdf
                     stamper.Close();
-
                 }
             }
             catch (Exception ex)
             {
             }
         }
+
         public class RectAndText
         {
             public iTextSharp.text.Rectangle Rect;
             public String Text;
+
             public RectAndText(iTextSharp.text.Rectangle rect, String text)
             {
                 this.Rect = rect;
                 this.Text = text;
             }
         }
+
         public class MyLocationTextExtractionStrategy : LocationTextExtractionStrategy
         {
             //Hold each coordinate
@@ -200,7 +187,6 @@ namespace DusColl
             //Automatically called for each chunk of text in the PDF
             public override void RenderText(TextRenderInfo renderInfo)
             {
-
                 base.RenderText(renderInfo);
                 //See if the current chunk contains the text
                 var startPosition = System.Globalization.CultureInfo.CurrentCulture.CompareInfo.IndexOf(renderInfo.GetText(), this.TextToSearchFor, this.CompareOptions);
@@ -218,7 +204,6 @@ namespace DusColl
                 var firstChar = chars.First();
                 var lastChar = chars.Last();
 
-
                 //Get the bounding box for the chunk of text
                 var bottomLeft = firstChar.GetDescentLine().GetStartPoint();
                 var topRight = lastChar.GetAscentLine().GetEndPoint();
@@ -229,11 +214,8 @@ namespace DusColl
                 //Add this to our main collection
                 this.myPoints.Add(new RectAndText(rect, this.TextToSearchFor));
             }
-
         }
     }
-
-
 
     public class coba
     {
@@ -243,15 +225,14 @@ namespace DusColl
     public static class MessageEmail
     {
         public static int Errorint { get; set; }
-        public async static Task<int> sendEmail(int EmailTyped, string toEmailAddress, string valueExtend = "", string DearEmail = "", string namaPT = "")
-        {
 
+        public static async Task<int> sendEmail(int EmailTyped, string toEmailAddress, string valueExtend = "", string DearEmail = "", string namaPT = "")
+        {
             bool needcc = false;
             var xmstpapiJson = "";
 
             try
             {
-
                 string htmlString = "";
                 string subject = "";
 
@@ -268,7 +249,6 @@ namespace DusColl
                 string authenuser = HasKeyProtect.Decryption(config[2].Code);
                 string authenpass = HasKeyProtect.Decryption(config[3].Code);
 
-
                 if (EmailTyped == (int)EmailType.ResetPassword)
                 {
                     subject = "PT SDB : Perubahan kata Sandi - verifikasi Kode";
@@ -277,7 +257,6 @@ namespace DusColl
                                  "<br /><br /><br /><br /><br />" +
                                  "Terima Kasih <br />" +
                                  "Admin SDB";
-
                 }
                 else if (EmailTyped == (int)EmailType.userwronglogin)
                 {
@@ -287,9 +266,7 @@ namespace DusColl
                                  "<br /><br /><br /><br /><br />" +
                                  "Terima Kasih <br />" +
                                  "Admin SDB";
-
                 }
-
                 else if (EmailTyped == (int)EmailType.userchangeforceglogin)
                 {
                     subject = "PT SDB : Perubahan kata Sandi - verifikasi Kode";
@@ -298,7 +275,6 @@ namespace DusColl
                                  "<br /><br /><br /><br /><br />" +
                                  "Terima Kasih <br />" +
                                  "Admin SDB";
-
                 }
                 else if (EmailTyped == (int)EmailType.OrderNotaris)
                 {
@@ -330,7 +306,6 @@ namespace DusColl
                                  "<br /><br /><br /><br /><br />" +
                                  "Terima Kasih <br />" +
                                  "Admin SDB";
-
                 }
                 else if (EmailTyped == (int)EmailType.useraktivasi)
                 {
@@ -340,11 +315,7 @@ namespace DusColl
                                  "<br /><br /><br /><br /><br />" +
                                  "Terima Kasih <br />" +
                                  namaPT;
-
                 }
-
-
-
 
                 MailMessage message = new MailMessage();
                 message.From = new MailAddress(authenuser);
@@ -362,12 +333,10 @@ namespace DusColl
                 {
                     Credentials = new NetworkCredential(authenuser, authenpass),
                     EnableSsl = true
-
                 };
                 client.Send(message);
 
                 Errorint = 1;
-
             }
             catch (Exception ex)
             {
@@ -382,17 +351,11 @@ namespace DusColl
         }
     }
 
-
-
-
     public static class DttpPdf
     {
-
-
         public static byte[] exportpdf(DataTable dtEmployee, string caption = "")
         {
-
-            // creating document object  
+            // creating document object
             System.IO.MemoryStream ms = new System.IO.MemoryStream();
             iTextSharp.text.Rectangle rec = new iTextSharp.text.Rectangle(PageSize.A4);
             rec.BackgroundColor = new BaseColor(System.Drawing.Color.Olive);
@@ -402,7 +365,7 @@ namespace DusColl
             PdfWriter writer = PdfWriter.GetInstance(doc, ms);
             doc.Open();
 
-            //Creating paragraph for header  
+            //Creating paragraph for header
             BaseFont bfntHead = BaseFont.CreateFont(BaseFont.TIMES_ROMAN, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
             iTextSharp.text.Font fntHead = new iTextSharp.text.Font(bfntHead, 12, 1, iTextSharp.text.BaseColor.BLACK);
             Paragraph prgHeading = new Paragraph();
@@ -410,23 +373,23 @@ namespace DusColl
             prgHeading.Add(new Chunk(caption.ToUpper(), fntHead));
             doc.Add(prgHeading);
 
-            //Adding paragraph for report generated by  
+            //Adding paragraph for report generated by
             Paragraph prgGeneratedBY = new Paragraph();
             BaseFont btnAuthor = BaseFont.CreateFont(BaseFont.TIMES_ROMAN, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
             iTextSharp.text.Font fntAuthor = new iTextSharp.text.Font(btnAuthor, 9, 2, iTextSharp.text.BaseColor.BLACK);
             prgGeneratedBY.Alignment = Element.ALIGN_RIGHT;
-            //prgGeneratedBY.Add(new Chunk("Report Generated by : ASPArticles", fntAuthor));  
-            //prgGeneratedBY.Add(new Chunk("\nGenerated Date : " + DateTime.Now.ToShortDateString(), fntAuthor));  
+            //prgGeneratedBY.Add(new Chunk("Report Generated by : ASPArticles", fntAuthor));
+            //prgGeneratedBY.Add(new Chunk("\nGenerated Date : " + DateTime.Now.ToShortDateString(), fntAuthor));
             doc.Add(prgGeneratedBY);
 
-            //Adding a line  
+            //Adding a line
             Paragraph p = new Paragraph(new Chunk(new iTextSharp.text.pdf.draw.LineSeparator(0.0F, 100.0F, iTextSharp.text.BaseColor.BLACK, Element.ALIGN_LEFT, 1)));
             doc.Add(p);
 
-            //Adding line break  
+            //Adding line break
             //doc.Add(new Chunk("\n", fntHead));
 
-            //Adding  PdfPTable  
+            //Adding  PdfPTable
             PdfPTable table = new PdfPTable(dtEmployee.Columns.Count) { HorizontalAlignment = Element.ALIGN_CENTER, WidthPercentage = 100 };
             table.SetWidths(new float[] { 1f, 5f, 5f, 3f, 8f, 4f, 4f, 4f, 4f });
             for (int i = 0; i < dtEmployee.Columns.Count; i++)
@@ -440,7 +403,7 @@ namespace DusColl
                 table.AddCell(cell);
             }
 
-            //writing table Data  
+            //writing table Data
             PdfPCell cellrow = new PdfPCell();
             double tot1 = 0;
             double tot2 = 0;
@@ -455,7 +418,7 @@ namespace DusColl
                         cellrow.Phrase = new Phrase(double.Parse(dtEmployee.Rows[i][j].ToString()).ToString("N0"), fntrow);
                         cellrow.HorizontalAlignment = Element.ALIGN_RIGHT;
                     }
-                    else if (dtEmployee.Columns[j].DataType.ToString().ToLower().Contains("date") && dtEmployee.Rows[i][j].ToString()!="")
+                    else if (dtEmployee.Columns[j].DataType.ToString().ToLower().Contains("date") && dtEmployee.Rows[i][j].ToString() != "")
                     {
                         cellrow.Phrase = new Phrase(DateTime.Parse(dtEmployee.Rows[i][j].ToString()).ToString("dd/MM/yyyy"), fntrow);
                     }
@@ -478,9 +441,5 @@ namespace DusColl
             byte[] result = ms.ToArray();
             return result;
         }
-
     }
-
-
 }
-

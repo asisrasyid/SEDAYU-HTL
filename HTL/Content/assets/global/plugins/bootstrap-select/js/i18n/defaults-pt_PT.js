@@ -20,7 +20,6 @@
     factory(jQuery);
   }
 }(this, function (jQuery) {
-
 (function ($) {
 $.fn.selectpicker.defaults = {
 noneSelectedText: 'Nenhum seleccionado',
@@ -30,6 +29,4 @@ maxOptionsText: ['Limite ultrapassado (máx. {n} {var})', 'Limite de seleções 
 multipleSeparator: ', '
 };
 })(jQuery);
-
-
 }));

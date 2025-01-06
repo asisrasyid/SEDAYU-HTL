@@ -1,15 +1,10 @@
 ﻿using HashNetFramework;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
-using System.Web;
 
 namespace DusColl
 {
@@ -25,12 +20,8 @@ namespace DusColl
         public DataTable DTREKAP { get; set; }
     }
 
-
-
-
     public class vmFinanceddl
     {
-
         public async Task<cFinance> dbGetPayListTxt(string ClientIDS, string ID, string idcaption, string userid, string groupname)
         {
             cFinance models = new cFinance();
@@ -42,12 +33,10 @@ namespace DusColl
 
                 SqlParameter[] sqlParam =
                 {
-
                     new SqlParameter ("@moduleid",idcaption),
                     new SqlParameter ("@UserIDLog",userid),
                     new SqlParameter ("@UserGroupLog",groupname),
                     new SqlParameter ("@ID",ID),
-
                };
 
                 dt = await dbaccess.ExecuteDataTable(strconnection, "udp_com_app_docupload_request", sqlParam);
@@ -63,7 +52,6 @@ namespace DusColl
 
             return models;
         }
-
 
         public async Task<int> dbupdatepaymentBNI(string filename, string Req_type, int recdata, string Datevalue, string reqID, int status, byte[] bytefile, string content_type, string moduleID, string userid, string groupname)
         {
@@ -102,7 +90,6 @@ namespace DusColl
 
         public async Task<DataTable> dbupdatepaymentINV(string filename, string Req_no, string Req_type, int recdata, string Datevalue, string reqID, int status, byte[] bytefile, string content_type, string moduleID, string userid, string groupname)
         {
-
             DataTable dt = new DataTable();
             try
             {
@@ -134,7 +121,6 @@ namespace DusColl
             }
 
             return dt;
-
         }
 
         public async Task<DataTable> dbupdatepaymentINVGENPPAT(string JenisINV, DataTable dtx, byte[] FileByteINV, string InvNo, string namefile, string moduleID, string userid, string groupname)
@@ -144,7 +130,6 @@ namespace DusColl
             {
                 dbAccessHelper dbaccess = new dbAccessHelper();
                 string strconnection = HasKeyProtect.DecryptionPass(OwinLibrary.GetDB());
-
 
                 SqlParameter[] sqlParam =
                   {
@@ -169,14 +154,13 @@ namespace DusColl
         }
 
         public async Task<DataTable> dbupdatepaymentINVGEN(string JenisINV, DataTable dtx, byte[] FileByteINV, string InvNo,
-            string namefile,string NamaPPAT,string NoRequest, string moduleID, string userid, string groupname)
+            string namefile, string NamaPPAT, string NoRequest, string moduleID, string userid, string groupname)
         {
             DataTable dt = new DataTable();
             try
             {
                 dbAccessHelper dbaccess = new dbAccessHelper();
                 string strconnection = HasKeyProtect.DecryptionPass(OwinLibrary.GetDB());
-
 
                 SqlParameter[] sqlParam =
                   {
@@ -202,8 +186,7 @@ namespace DusColl
             return dt;
         }
 
-
-        public async Task<int> dbupdatepaymentINVGENFlag(string jenisinv,DataTable dtx, string moduleID, string userid, string groupname)
+        public async Task<int> dbupdatepaymentINVGENFlag(string jenisinv, DataTable dtx, string moduleID, string userid, string groupname)
         {
             int result = 0;
             try
@@ -229,11 +212,8 @@ namespace DusColl
             return result;
         }
 
-
-
         public async Task<List<String>> dbGetPayListCountINV(string ClientIDS, string fromdate, string requestype, string status, int PageNumber, string idcaption, string userid, string groupname)
         {
-
             List<String> dta = new List<string>();
             try
             {
@@ -253,7 +233,6 @@ namespace DusColl
                  };
 
                 dt = await dbaccess.ExecuteDataTable(strconnection, "udp_app_finance_invoice_send_list_cnt", sqlParam);
-
 
                 if (dt.Rows.Count > 0)
                 {
@@ -279,7 +258,6 @@ namespace DusColl
 
         public async Task<List<DataTable>> dbGetPayListINV(DataTable DTFromDB, string ClientIDS, string fromdate, string requestype, string status, int PageNumber, double pagenumberclient, double pagingsizeclient, string idcaption, string userid, string groupname)
         {
-
             DataTable dt = new DataTable();
             List<DataTable> dtlist = new List<DataTable>();
             try
@@ -311,19 +289,16 @@ namespace DusColl
 
                 if (dt.Rows.Count > 0)
                 {
-
                     int starrow = (int.Parse(pagenumberclient.ToString()) - 1) * int.Parse(pagingsizeclient.ToString());
                     dt = dt.Rows.Cast<System.Data.DataRow>().Skip(starrow).Take(int.Parse(pagingsizeclient.ToString())).CopyToDataTable();
                 }
                 dtlist.Add(dt);
-
             }
             catch (Exception ex)
             {
                 var msg = ex.Message.ToString();
                 OwinLibrary.CreateLog(msg, "LogErrorAPI.txt");
             }
-
 
             return dtlist;
         }
@@ -332,8 +307,6 @@ namespace DusColl
 
         public async Task<DataTable> dbupdatepayment(string filename, string Req_type, int recdata, string Datevalue, string reqID, int status, byte[] bytefile, string content_type, string moduleID, string userid, string groupname)
         {
-
-
             DataTable dt = new DataTable();
             string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
             using (HttpClient httpClient = new HttpClient())
@@ -381,11 +354,9 @@ namespace DusColl
 
             return dt;
         }
-      
 
         public async Task<List<String>> dbGetPayListCount(string ClientIDS, string fromdate, string requestype, string status, int PageNumber, string idcaption, string userid, string groupname)
         {
-
             DataTable dt = new DataTable();
             string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
             using (HttpClient httpClient = new HttpClient())
@@ -445,13 +416,10 @@ namespace DusColl
         }
         public async Task<List<DataTable>> dbGetPayList(DataTable DTFromDB, string ClientIDS, string fromdate, string requestype, string status, int PageNumber, double pagenumberclient, double pagingsizeclient, string idcaption, string userid, string groupname)
         {
-
-
             DataTable dt = new DataTable();
             List<DataTable> dtlist = new List<DataTable>();
             if (DTFromDB == null)
             {
-
                 string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
                 using (HttpClient httpClient = new HttpClient())
                 {
@@ -500,7 +468,6 @@ namespace DusColl
 
             if (dt.Rows.Count > 0)
             {
-
                 int starrow = (int.Parse(pagenumberclient.ToString()) - 1) * int.Parse(pagingsizeclient.ToString());
                 dt = dt.Rows.Cast<System.Data.DataRow>().Skip(starrow).Take(int.Parse(pagingsizeclient.ToString())).CopyToDataTable();
             }
@@ -509,10 +476,8 @@ namespace DusColl
             return dtlist;
         }
 
-       
         public async Task<DataTable> dbGetPayListTxtINV(string ClientIDS, string ID, string idcaption, string userid, string groupname)
         {
-
             DataTable dt = new DataTable();
             string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
             using (HttpClient httpClient = new HttpClient())
@@ -552,11 +517,9 @@ namespace DusColl
             }
             return dt;
         }
-      
 
         public async Task<List<String>> dbGetPayListCountBNI(string ClientIDS, string fromdate, string requestype, string status, int PageNumber, string idcaption, string userid, string groupname)
         {
-
             DataTable dt = new DataTable();
             string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
             using (HttpClient httpClient = new HttpClient())
@@ -616,12 +579,10 @@ namespace DusColl
         }
         public async Task<List<DataTable>> dbGetPayListBNI(DataTable DTFromDB, string ClientIDS, string fromdate, string requestype, string status, int PageNumber, double pagenumberclient, double pagingsizeclient, string idcaption, string userid, string groupname)
         {
-
             DataTable dt = new DataTable();
             List<DataTable> dtlist = new List<DataTable>();
             if (DTFromDB == null)
             {
-
                 string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
                 using (HttpClient httpClient = new HttpClient())
                 {
@@ -671,7 +632,6 @@ namespace DusColl
 
             if (dt.Rows.Count > 0)
             {
-
                 int starrow = (int.Parse(pagenumberclient.ToString()) - 1) * int.Parse(pagingsizeclient.ToString());
                 dt = dt.Rows.Cast<System.Data.DataRow>().Skip(starrow).Take(int.Parse(pagingsizeclient.ToString())).CopyToDataTable();
             }
@@ -679,11 +639,9 @@ namespace DusColl
 
             return dtlist;
         }
-        
 
         public async Task<List<String>> dbGetListCountFakturRegis(string ClientIDS, string fromdate, string requestype, string nomor, string status, int PageNumber, string idcaption, string userid, string groupname)
         {
-
             DataTable dt = new DataTable();
             string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
             using (HttpClient httpClient = new HttpClient())
@@ -744,12 +702,10 @@ namespace DusColl
         }
         public async Task<List<DataTable>> dbGetListFakturRegis(DataTable DTFromDB, string ClientIDS, string fromdate, string requestype, string nomor, string status, int PageNumber, double pagenumberclient, double pagingsizeclient, string idcaption, string userid, string groupname)
         {
-
             DataTable dt = new DataTable();
             List<DataTable> dtlist = new List<DataTable>();
             if (DTFromDB == null)
             {
-
                 string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
                 using (HttpClient httpClient = new HttpClient())
                 {
@@ -800,7 +756,6 @@ namespace DusColl
 
             if (dt.Rows.Count > 0)
             {
-
                 int starrow = (int.Parse(pagenumberclient.ToString()) - 1) * int.Parse(pagingsizeclient.ToString());
                 dt = dt.Rows.Cast<System.Data.DataRow>().Skip(starrow).Take(int.Parse(pagingsizeclient.ToString())).CopyToDataTable();
             }
@@ -810,8 +765,6 @@ namespace DusColl
         }
         public async Task<DataTable> dbGetFakturRegisupd(string filename, string Req_type, int recdata, string Datevalue, string reqID, int status, byte[] bytefile, string content_type, string moduleID, string userid, string groupname)
         {
-
-
             DataTable dt = new DataTable();
             string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
             using (HttpClient httpClient = new HttpClient())
@@ -858,13 +811,10 @@ namespace DusColl
             }
 
             return dt;
-
         }
 
         public async Task<DataTable> dbupdateJurnal(string filename, string Req_type, int recdata, string Datevalue, string reqID, int status, byte[] bytefile, string content_type, string moduleID, string userid, string groupname)
         {
-
-
             DataTable dt = new DataTable();
             string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
             using (HttpClient httpClient = new HttpClient())
@@ -911,12 +861,9 @@ namespace DusColl
             }
 
             return dt;
-
         }
         public async Task<List<String>> dbGetJurnalListCount(string ClientIDS, string fromdate, string requestype, string status, int PageNumber, string idcaption, string userid, string groupname)
         {
-
-
             DataTable dt = new DataTable();
             string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
             using (HttpClient httpClient = new HttpClient())
@@ -976,12 +923,10 @@ namespace DusColl
         }
         public async Task<List<DataTable>> dbGetJurnalList(DataTable DTFromDB, string ClientIDS, string fromdate, string requestype, string status, int PageNumber, double pagenumberclient, double pagingsizeclient, string idcaption, string userid, string groupname)
         {
-
             DataTable dt = new DataTable();
             List<DataTable> dtlist = new List<DataTable>();
             if (DTFromDB == null)
             {
-
                 string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
                 using (HttpClient httpClient = new HttpClient())
                 {
@@ -1027,12 +972,10 @@ namespace DusColl
                 dt = DTFromDB;
             }
 
-
             dtlist.Add(dt);
 
             if (dt.Rows.Count > 0)
             {
-
                 int starrow = (int.Parse(pagenumberclient.ToString()) - 1) * int.Parse(pagingsizeclient.ToString());
                 dt = dt.Rows.Cast<System.Data.DataRow>().Skip(starrow).Take(int.Parse(pagingsizeclient.ToString())).CopyToDataTable();
             }
@@ -1042,7 +985,6 @@ namespace DusColl
         }
         public async Task<string> dbsveJurnal(DataTable modeled, string periode, string Source, string userid, string groupname, string moduleID)
         {
-
             string resultInt = "";
             DataTable dt = new DataTable();
             string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
@@ -1085,14 +1027,10 @@ namespace DusColl
                 }
             }
             return resultInt;
-
-
         }
-
 
         public async Task<int> dbgetcombinetxtbni(string datauplodid, bool CrunchCiber, string UserGroup, string securemoduleID, string userid)
         {
-
             int resultInt = 0;
             DataTable dt = new DataTable();
             string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
@@ -1137,9 +1075,9 @@ namespace DusColl
         }
 
         #region Report
+
         public async Task<DataTable> dbGetRptPiutangReg(string ClientIDS, string BranchIDS, string fromdate, string todate, string StatuspaidContract, string SelectJenisKontrak, string idcaption, string userid, string groupname)
         {
-
             DataTable dt = new DataTable();
             string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
             using (HttpClient httpClient = new HttpClient())
@@ -1187,7 +1125,6 @@ namespace DusColl
         }
         public async Task<DataTable> dbGetRptClaimBaseReg(string ClientIDS, string BranchIDS, string fromdate, string todate, string SelectClaimBaseStatus, string SelectjenisKontract, string idcaption, string userid, string groupname)
         {
-
             DataTable dt = new DataTable();
             string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
             using (HttpClient httpClient = new HttpClient())
@@ -1232,11 +1169,9 @@ namespace DusColl
             }
 
             return dt;
-
         }
         public async Task<DataTable> dbGetRptBillingCreateReg(string ClientIDS, string BranchIDS, string fromdate, string todate, string NoPerjanjian, string DueDate, string RequestNo, string jeniskontrak, string idcaption, string userid, string groupname)
         {
-
             string cmdtextapi = cCommandTextFinance.cmdGetRptBillingCreateReg.GetDescriptionEnums().ToString();
             bool CrunchCiber = false;
             if (BranchIDS == "00F")
@@ -1277,7 +1212,6 @@ namespace DusColl
                     model.idcaption = idcaption;
                     model.GroupName = groupname;
 
-
                     var stringPayload = JsonConvert.SerializeObject(model);
                     var content = new StringContent(stringPayload, Encoding.UTF8, "application/json");
 
@@ -1291,8 +1225,6 @@ namespace DusColl
             }
 
             return dt;
-
-
         }
         public async Task<DataTable> dbGetRptBillingCreateDetailReg(string ClientIDS, string BranchIDS, string fromdate, string todate, string NoPerjanjian, string RequestNo, string jeniskontrak, string idcaption, string userid, string groupname, bool createinvoice = false)
         {
@@ -1336,7 +1268,6 @@ namespace DusColl
                     model.idcaption = idcaption;
                     model.GroupName = groupname;
 
-
                     var stringPayload = JsonConvert.SerializeObject(model);
                     var content = new StringContent(stringPayload, Encoding.UTF8, "application/json");
 
@@ -1350,11 +1281,9 @@ namespace DusColl
             }
 
             return dt;
-
         }
         public async Task<DataTable> dbGetRptBillIDRegAHU(string ClientIDS, string BranchIDS, string fromdate, string todate, string NoPerjanjian, string jeniskontrak, string idcaption, string userid, string groupname, bool createinvoice = false)
         {
-
             DataTable dt = new DataTable();
             string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
             using (HttpClient httpClient = new HttpClient())
@@ -1425,8 +1354,6 @@ namespace DusColl
         }
         public async Task<DataTable> dbGetRptRugiLaba(string todate, bool isposting, string idcaption, string userid, string groupname)
         {
-
-
             DataTable dt = new DataTable();
             string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
             using (HttpClient httpClient = new HttpClient())
@@ -1470,7 +1397,6 @@ namespace DusColl
         }
         public async Task<DataTable> dbGetRptNeraca(string todate, bool isposting, string idcaption, string userid, string groupname)
         {
-
             DataTable dt = new DataTable();
             string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
             using (HttpClient httpClient = new HttpClient())
@@ -1510,9 +1436,10 @@ namespace DusColl
             }
 
             return dt;
-
         }
-        #endregion report
+
+        #endregion Report
+
         */
     }
 }

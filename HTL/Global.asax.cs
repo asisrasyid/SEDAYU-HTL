@@ -1,23 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data.SqlClient;
-using System.IO;
-using System.Linq;
 using System.Web;
-using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 
 namespace DusColl
 {
-    // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
+    // Note: For instructions on enabling IIS6 or IIS7 classic mode,
     // visit http://go.microsoft.com/?LinkId=9394801
 
     public class WebApiApplication : System.Web.HttpApplication
     {
-
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
@@ -50,13 +43,11 @@ namespace DusColl
 
         protected void Application_Beginrequest(object sender, EventArgs e)
         {
-
             var app = sender as HttpApplication;
             if (app != null && app.Context != null)
             {
                 app.Context.Response.Headers.Remove("Server");
             }
-
 
             try
             {
@@ -68,11 +59,7 @@ namespace DusColl
             catch
             {
                 new RedirectToRouteResult(new RouteValueDictionary { { "action", "Index" }, { "controller", "account" } });
-
             }
-
-
         }
-
     }
 }

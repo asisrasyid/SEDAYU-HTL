@@ -7,88 +7,88 @@
                 HttpMethod = "POST"
             }, new { id = "clnMaster_form", @class = "form-horizontal" }))
             {
-                @Html.AntiForgeryToken();
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h4 class="modal-title">@ViewBag.OprMenu (@ViewBag.menu)</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="form-body">
-                        @Html.HiddenFor(x => x.keylookup)
-                        <div class="form-horizontal">
-                            <div class="form-body" style="padding:20px">
-                                @if (ViewBag.oprvalue == "view")
+            @Html.AntiForgeryToken();
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">@ViewBag.OprMenu (@ViewBag.menu)</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-body">
+                    @Html.HiddenFor(x => x.keylookup)
+                    <div class="form-horizontal">
+                        <div class="form-body" style="padding:20px">
+                            @if (ViewBag.oprvalue == "view")
                                 {
-                                    <div class="form-group">
-                                        <div class="col-md-12">
-                                            Nama Area
-                                            @Html.TextBoxFor(m => m.REGION_NAME, new { @class = "form-control NonEdittable", @maxlength = "50", @disabled = "disabled" })
-                                        </div>
-                                    </div>
-                                    <div class="md-checkbox-list">
-                                        <div class="md-checkbox">
-                                            @Html.CheckBoxFor(m => m.IsPusat, new { @class = "md-check", @disabled = "disabled" })
-                                            <label for="IsPusat">
-                                                <span></span>
-                                                <span class="check"></span>
-                                                <span class="box"></span> HO-Pusat
-                                            </label>
-                                        </div>
-                                        <div class="md-checkbox">
-                                            @Html.CheckBoxFor(m => m.IsActive, new { id = "IsActive", @class = "md-check", @disabled = "disabled" })
-                                            <label for="IsActive">
-                                                <span></span>
-                                                <span class="check"></span>
-                                                <span class="box"></span> Status Aktif
-                                            </label>
-                                        </div>
-                                    </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    Nama Area
+                                    @Html.TextBoxFor(m => m.REGION_NAME, new { @class = "form-control NonEdittable", @maxlength = "50", @disabled = "disabled" })
+                                </div>
+                            </div>
+                            <div class="md-checkbox-list">
+                                <div class="md-checkbox">
+                                    @Html.CheckBoxFor(m => m.IsPusat, new { @class = "md-check", @disabled = "disabled" })
+                                    <label for="IsPusat">
+                                        <span></span>
+                                        <span class="check"></span>
+                                        <span class="box"></span> HO-Pusat
+                                    </label>
+                                </div>
+                                <div class="md-checkbox">
+                                    @Html.CheckBoxFor(m => m.IsActive, new { id = "IsActive", @class = "md-check", @disabled = "disabled" })
+                                    <label for="IsActive">
+                                        <span></span>
+                                        <span class="check"></span>
+                                        <span class="box"></span> Status Aktif
+                                    </label>
+                                </div>
+                            </div>
                                 }
                                 else
                                 {
-                                    <div class="form-group">
-                                        <div class="col-md-12">
-                                            Nama Area
-                                            @Html.TextBoxFor(m => m.REGION_NAME, new { @class = "form-control", @maxlength = "100" })
-                                            @Html.ValidationMessageFor(m => m.REGION_NAME, "", new { @class = "error-block" })
-                                        </div>
-                                    </div>
-                                    <div class="md-checkbox-list">
-                                        <div class="md-checkbox">
-                                            @Html.CheckBoxFor(m => m.IsPusat, new { @class = "md-check" })
-                                            <label for="IsPusat">
-                                                <span></span>
-                                                <span class="check"></span>
-                                                <span class="box"></span> Head Office
-                                            </label>
-                                        </div>
-                                        <div class="md-checkbox">
-                                            @Html.CheckBoxFor(m => m.IsActive, new { id = "IsActive", @class = "md-check" })
-                                            <label for="IsActive">
-                                                <span></span>
-                                                <span class="check"></span>
-                                                <span class="box"></span> Status Aktif
-                                            </label>
-                                        </div>
-                                    </div>
-                                }
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    Nama Area
+                                    @Html.TextBoxFor(m => m.REGION_NAME, new { @class = "form-control", @maxlength = "100" })
+                                    @Html.ValidationMessageFor(m => m.REGION_NAME, "", new { @class = "error-block" })
+                                </div>
                             </div>
+                            <div class="md-checkbox-list">
+                                <div class="md-checkbox">
+                                    @Html.CheckBoxFor(m => m.IsPusat, new { @class = "md-check" })
+                                    <label for="IsPusat">
+                                        <span></span>
+                                        <span class="check"></span>
+                                        <span class="box"></span> Head Office
+                                    </label>
+                                </div>
+                                <div class="md-checkbox">
+                                    @Html.CheckBoxFor(m => m.IsActive, new { id = "IsActive", @class = "md-check" })
+                                    <label for="IsActive">
+                                        <span></span>
+                                        <span class="check"></span>
+                                        <span class="box"></span> Status Aktif
+                                    </label>
+                                </div>
+                            </div>
+                                }
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn green" data-dismiss="modal">
-                        <i class="fa fa-close"></i>
-                        <span>&nbsp;Tutup</span>
-                    </button>
-                    @if (ViewBag.oprvalue != "view")
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn green" data-dismiss="modal">
+                    <i class="fa fa-close"></i>
+                    <span>&nbsp;Tutup</span>
+                </button>
+                @if (ViewBag.oprvalue != "view")
                     {
-                        <button type="button" class="btn green masteradd">
-                            <i class="fa fa-check-square"></i>
-                            <span>&nbsp;Simpan </span>
-                        </button>
+                <button type="button" class="btn green masteradd">
+                    <i class="fa fa-check-square"></i>
+                    <span>&nbsp;Simpan </span>
+                </button>
                     }
-                </div>
+            </div>
             }
         </div>
         <!-- /.modal-content -->

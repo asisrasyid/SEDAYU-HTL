@@ -5,7 +5,6 @@
 		factory( jQuery );
 	}
 }(function( $ ) {
-
 /*
  * Translated default messages for the jQuery validation plugin.
  * Locale: SR (Serbian - Latin alphabet; srpski jezik - latinica)
@@ -29,5 +28,4 @@ $.extend($.validator.messages, {
 	max: $.validator.format("Unesite vrednost manju ili jednaku {0}."),
 	min: $.validator.format("Unesite vrednost veću ili jednaku {0}.")
 });
-
 }));

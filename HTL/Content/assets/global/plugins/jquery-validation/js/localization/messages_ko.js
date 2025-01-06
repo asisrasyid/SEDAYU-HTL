@@ -5,7 +5,6 @@
 		factory( jQuery );
 	}
 }(function( $ ) {
-
 /*
  * Translated default messages for the jQuery validation plugin.
  * Locale: KO (Korean; 한국어)
@@ -29,5 +28,4 @@ $.extend($.validator.messages, {
 	max: $.validator.format("{0} 이하의 값을 입력하세요."),
 	min: $.validator.format("{0} 이상의 값을 입력하세요.")
 });
-
 }));

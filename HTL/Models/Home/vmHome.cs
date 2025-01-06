@@ -1,12 +1,10 @@
 ﻿using HashNetFramework;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 
 namespace DusColl
 {
@@ -35,7 +33,6 @@ namespace DusColl
         public DataTable activiryUser { get; set; }
         public DataTable infouser { get; set; }
 
-
         public DataTable TodoNOT { get; set; }
         public int TodoNOTCekSer { get; set; }
         public int TodoNOTSendBPN { get; set; }
@@ -48,13 +45,11 @@ namespace DusColl
         public int TotalYetFIF { get; set; }
 
         public DataTable TodoODER { get; set; }
-     
 
         public DataTable TodoNOTOD { get; set; }
         public int TodoNOTOD1 { get; set; }
         public int TodoNOTOD2 { get; set; }
         public int TodoNOTOD3 { get; set; }
-
 
         public DataTable TodoCAB { get; set; }
         public int TodoCABPerbaikan { get; set; }
@@ -67,7 +62,6 @@ namespace DusColl
 
         public DataTable TodoADM { get; set; }
 
-
         public DataTable TodoCVERFY { get; set; }
         public int TodoVERFY1 { get; set; }
         public int TodoVERFY2 { get; set; }
@@ -75,7 +69,6 @@ namespace DusColl
         public DataTable TodoCVERFYOD { get; set; }
         public int TodoCVERFYOD1 { get; set; }
         public int TodoCVERFYOD2 { get; set; }
-
 
         public DataTable TodoReadyINV { get; set; }
 
@@ -91,14 +84,11 @@ namespace DusColl
         public string group_posisi { get; set; }
     }
 
-
     [Serializable]
     public class vmHomeddl
     {
-
-        public async Task<List<String>> dbGetHomeListCount(string KeySearch, string Divisi, string Area, string Cabang, string Status, string fromdate, string todate,string ModeTodo, int PageNumber, string idcaption, string userid, string groupname)
+        public async Task<List<String>> dbGetHomeListCount(string KeySearch, string Divisi, string Area, string Cabang, string Status, string fromdate, string todate, string ModeTodo, int PageNumber, string idcaption, string userid, string groupname)
         {
-
             DataTable dt;
             dbAccessHelper dbaccess = new dbAccessHelper();
             string strconnection = HasKeyProtect.DecryptionPass(OwinLibrary.GetDB());
@@ -138,9 +128,8 @@ namespace DusColl
             return dta;
         }
 
-        public async Task<List<DataTable>> dbGetHomeList(DataTable DTFromDB, string KeySearch, string Divisi, string Area, string Cabang, string Status, string fromdate, string todate,string ModeTodo, int PageNumber, double pagenumberclient, double pagingsizeclient, string idcaption, string userid, string groupname)
+        public async Task<List<DataTable>> dbGetHomeList(DataTable DTFromDB, string KeySearch, string Divisi, string Area, string Cabang, string Status, string fromdate, string todate, string ModeTodo, int PageNumber, double pagenumberclient, double pagingsizeclient, string idcaption, string userid, string groupname)
         {
-
             DataTable dt = new DataTable();
             List<DataTable> dtlist = new List<DataTable>();
             if (DTFromDB == null)
@@ -165,14 +154,12 @@ namespace DusColl
                 };
 
                 dt = await dbaccess.ExecuteDataTable(strconnection, "udp_app_trx_wfh_list", sqlParam);
-
             }
             else
             {
                 dt = DTFromDB;
             }
             dtlist.Add(dt);
-
 
             if (dt.Rows.Count > 0)
             {
@@ -184,7 +171,7 @@ namespace DusColl
             return dtlist;
         }
 
-        public async Task<DataTable> dbLogActivityUserWF( string ModuleID, string UserID, string GroupName)
+        public async Task<DataTable> dbLogActivityUserWF(string ModuleID, string UserID, string GroupName)
         {
             DataTable dt = new DataTable();
             try
@@ -198,10 +185,8 @@ namespace DusColl
                             new SqlParameter("@UserGroupLog", GroupName)
                     };
 
-
                 await Task.Delay(0);
                 dt = await dbaccess.ExecuteDataTable(strconnection, "udp_app_trx_apprworkflow_activity", sqlParam);
-
             }
             catch (Exception ex)
             {
@@ -211,6 +196,7 @@ namespace DusColl
 
             return dt;
         }
+
         public async Task<DataTable> dbLoginformasiUserWF(string ModuleID, string UserID, string GroupName)
         {
             DataTable dt = new DataTable();
@@ -225,10 +211,8 @@ namespace DusColl
                             new SqlParameter("@UserGroupLog", GroupName)
                     };
 
-
                 await Task.Delay(0);
                 dt = await dbaccess.ExecuteDataTable(strconnection, "udp_app_trx_apprsimastra_informasi", sqlParam);
-
             }
             catch (Exception ex)
             {
@@ -238,8 +222,5 @@ namespace DusColl
 
             return dt;
         }
-
-
-
     }
 }

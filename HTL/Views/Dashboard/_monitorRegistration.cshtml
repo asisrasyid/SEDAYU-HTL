@@ -10,7 +10,6 @@
     }
 </style>
 
-
 <center>
     <h3 class="page-title" style="font-size:16px">
         <b>@ViewBag.captiondesc</b>
@@ -122,7 +121,6 @@
     </div>
 </div>
 
-
 <div class="">
     <div class="portlet light bordered">
         <div class="portlet-title tabbable-line">
@@ -149,17 +147,17 @@
                         @foreach (var x in regis)
                         {
                             Total = x.stat0 + x.stat1 + x.stat2 + x.stat3 + x.stat4;
-                            <tr style="text-align:center">
-                                <td style="text-align:left">
-                                    @Html.Raw(x.cabang + "-" + x.Namacabang)
-                                </td>
-                                <td>@Total</td>
-                                <td>@x.stat0.ToString()</td>
-                                <td>@x.stat1.ToString()</td>
-                                <td>@x.stat2.ToString()</td>
-                                <td>@x.stat3.ToString()</td>
-                                <td>@x.stat4.ToString()</td>
-                            </tr>
+                        <tr style="text-align:center">
+                            <td style="text-align:left">
+                                @Html.Raw(x.cabang + "-" + x.Namacabang)
+                            </td>
+                            <td>@Total</td>
+                            <td>@x.stat0.ToString()</td>
+                            <td>@x.stat1.ToString()</td>
+                            <td>@x.stat2.ToString()</td>
+                            <td>@x.stat3.ToString()</td>
+                            <td>@x.stat4.ToString()</td>
+                        </tr>
                         }
                     </tbody>
                 </table>
@@ -192,27 +190,27 @@
                         @foreach (var x in Roya)
                         {
                             Total = x.stat0 + x.stat1 + x.stat2;
-                            <tr>
-                                <td>
-                                    @Html.Raw(x.cabang + "-" + x.Namacabang)
-                                </td>
-                                <td>@Total</td>
-                                <td>@x.stat0.ToString()</td>
-                                <td>@x.stat1.ToString()</td>
-                            </tr>
+                        <tr>
+                            <td>
+                                @Html.Raw(x.cabang + "-" + x.Namacabang)
+                            </td>
+                            <td>@Total</td>
+                            <td>@x.stat0.ToString()</td>
+                            <td>@x.stat1.ToString()</td>
+                        </tr>
                         }
 
                         @if (Roya.Count == 0)
                         {
-                            <tr>
-                                <td>
-                                    @Html.Raw("-")
-                                </td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                            </tr>
+                        <tr>
+                            <td>
+                                @Html.Raw("-")
+                            </td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
                         }
                     </tbody>
                 </table>
@@ -245,27 +243,27 @@
                         @foreach (var x in revisi)
                         {
                             Total = x.stat0 + x.stat1 + x.stat2;
-                            <tr>
-                                <td>
-                                    @Html.Raw(x.cabang + "-" + x.Namacabang)
-                                </td>
-                                <td>@Total</td>
-                                <td>@x.stat0.ToString()</td>
-                                <td>@x.stat1.ToString()</td>
-                            </tr>
+                        <tr>
+                            <td>
+                                @Html.Raw(x.cabang + "-" + x.Namacabang)
+                            </td>
+                            <td>@Total</td>
+                            <td>@x.stat0.ToString()</td>
+                            <td>@x.stat1.ToString()</td>
+                        </tr>
                         }
 
                         @if (revisi.Count == 0)
                         {
-                            <tr>
-                                <td>
-                                    @Html.Raw("-")
-                                </td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                            </tr>
+                        <tr>
+                            <td>
+                                @Html.Raw("-")
+                            </td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
                         }
                     </tbody>
                 </table>
@@ -292,4 +290,3 @@
             }
         });
 </script>
-

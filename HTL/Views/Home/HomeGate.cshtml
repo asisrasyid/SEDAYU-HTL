@@ -5,7 +5,6 @@
     Layout = "~/Views/Shared/_Layout2.cshtml";
 }
 
-
 <div class="row">
     <div class="page-bar">
         <div class="page-toolbar">
@@ -71,11 +70,9 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
     </div>
-   
+
     <div class="col-md-4">
         <div class="portletx">
             <div class="portlet mt-element-ribbon light portlet-fit">
@@ -162,19 +159,16 @@
             </div>
         </div>
     </div>
-
 </div>
-
-
 
 <div class="panel-body">
     @using (Html.BeginForm("clnKoncePloddocResend", "Regmitra", new { @id = "frmattacmentdowmload" }))
     {
-        @Html.AntiForgeryToken();
-        @Html.Hidden("prevedid");
-        @Html.Hidden("namaidpool");
-        @Html.Hidden("reooo");
-        <button type="submit" style="display: none" id="btndownload"></button>
+    @Html.AntiForgeryToken();
+    @Html.Hidden("prevedid");
+    @Html.Hidden("namaidpool");
+    @Html.Hidden("reooo");
+    <button type="submit" style="display: none" id="btndownload"></button>
     }
 </div>
 

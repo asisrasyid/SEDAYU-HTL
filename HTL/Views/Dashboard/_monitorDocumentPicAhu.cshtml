@@ -10,8 +10,6 @@
         }
     </style>*@
 
-
-
 <center>
     <h1 class="page-title">
         @ViewBag.captiondesc
@@ -163,7 +161,6 @@
     </div>
 </div>
 
-
 <div class="">
     <div class="portlet light bordered">
         <div class="portlet-title tabbable-line">
@@ -191,36 +188,36 @@
                     <tbody>
                         @foreach (var x in Model)
                         {
-                            <tr>
-                                <td>
-                                    @Html.Raw(x.NoPerjanjian)
-                                </td>
-                                <td>
-                                    @Html.Raw(x.NamaNotaris)
-                                </td>
-                                <td>
-                                    @Html.Raw("OK")
-                                </td>
-                                <td>
-                                    @Html.Raw("OK")
-                                </td>
-                                <td>
-                                    @Html.Raw("OK")
-                                </td>
-                                <td>
-                                    @Html.Raw("Pending")
-                                </td>
-                                <td>
-                                    @Html.Raw("Pending")
-                                </td>
-                                <td>
-                                    @Html.Raw("Pending")
-                                </td>
-                                <td>
-                                    @Html.Raw("<a href='#'>Buat Ulang</a> | ")
-                                    @Html.Raw("<a href='#'>Print Ulang</a>")
-                                </td>
-                            </tr>
+                        <tr>
+                            <td>
+                                @Html.Raw(x.NoPerjanjian)
+                            </td>
+                            <td>
+                                @Html.Raw(x.NamaNotaris)
+                            </td>
+                            <td>
+                                @Html.Raw("OK")
+                            </td>
+                            <td>
+                                @Html.Raw("OK")
+                            </td>
+                            <td>
+                                @Html.Raw("OK")
+                            </td>
+                            <td>
+                                @Html.Raw("Pending")
+                            </td>
+                            <td>
+                                @Html.Raw("Pending")
+                            </td>
+                            <td>
+                                @Html.Raw("Pending")
+                            </td>
+                            <td>
+                                @Html.Raw("<a href='#'>Buat Ulang</a> | ")
+                                @Html.Raw("<a href='#'>Print Ulang</a>")
+                            </td>
+                        </tr>
                         }
                     </tbody>
                 </table>
@@ -246,4 +243,3 @@
                 }
             });
     </script>*@
-

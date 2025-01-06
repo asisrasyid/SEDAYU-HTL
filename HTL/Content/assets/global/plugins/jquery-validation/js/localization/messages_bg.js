@@ -5,7 +5,6 @@
 		factory( jQuery );
 	}
 }(function( $ ) {
-
 /*
  * Translated default messages for the jQuery validation plugin.
  * Locale: BG (Bulgarian; български език)
@@ -29,5 +28,4 @@ $.extend($.validator.messages, {
 	max: $.validator.format("Моля, въведете стойност по-малка или равна на {0}."),
 	min: $.validator.format("Моля, въведете стойност по-голяма или равна на {0}.")
 });
-
 }));

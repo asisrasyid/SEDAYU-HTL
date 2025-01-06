@@ -1,6 +1,5 @@
 ﻿@model DusColl.vmFinance
 
-
 <div class="portlet" id="grdl">
     <div class="portlet-title" style="min-height:0px;margin-bottom:0px">
         <div class="caption LoadMenu" data-value="@ViewBag.menu,@ViewBag.caption,@ViewBag.rute,@ViewBag.action" style="cursor:pointer">
@@ -23,19 +22,18 @@
         OnFailure = "vmFinance.CooBeerFailureCetakInv"
     }, new { @id = "frmattacmentdowmload" }))
     {
-        @Html.AntiForgeryToken();
-        @Html.Hidden("SelectNotaris");
-        @Html.Hidden("RequestNo");
-        @Html.Hidden("JenisTransaksi");
-        @Html.Hidden("NoPengajuanRequest");
-        @Html.Hidden("gontok");
-        <div id="gridbillingpaymentlist">
-            @{Html.RenderPartial("~/Views/Finance/_uiGridBillingPaymentUploadINV.cshtml");}
-        </div>
-        <button type="submit" style="display: none" id="btndownload"></button>
+    @Html.AntiForgeryToken();
+    @Html.Hidden("SelectNotaris");
+    @Html.Hidden("RequestNo");
+    @Html.Hidden("JenisTransaksi");
+    @Html.Hidden("NoPengajuanRequest");
+    @Html.Hidden("gontok");
+    <div id="gridbillingpaymentlist">
+        @{Html.RenderPartial("~/Views/Finance/_uiGridBillingPaymentUploadINV.cshtml");}
+    </div>
+    <button type="submit" style="display: none" id="btndownload"></button>
     }
 </div>
-
 
 <div id="uidivfilter">
 </div>
@@ -51,4 +49,3 @@
     $.getScript("Scripts/vmFinance.js", function () {
     });
 </script>
-

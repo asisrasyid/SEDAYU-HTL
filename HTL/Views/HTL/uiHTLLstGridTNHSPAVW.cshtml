@@ -4,7 +4,6 @@
         white-space: nowrap;
     }
 
-
     td:last-child {
         width: 2%;
     }
@@ -29,8 +28,6 @@
     }
 </style>
 
-
-
 <table class="table table-striped table-hover table-bordered" id="table_txttnhspavw">
     <thead>
         <tr>
@@ -50,14 +47,14 @@
             {
 
                 i = i + 1;
-                <tr class="DrillDownRow">
-                    <td>@i.ToString()</td>
-                    <td>@item["NoSertifikat"].ToString().ToUpper()</td>
-                    <td>@item["KotaTanah"].ToString() - @item["KecamatanTanah"].ToString()</td>
-                    <td>@item["NoSKMHT"].ToString() - @item["TglSKMHT"].ToString()</td>
-                    <td>@item["KodeAkta"].ToString() - @item["NoHT"].ToString()</td>
-                    <td>@item["NoBerkasSHT"].ToString() - @item["KodeSHT"].ToString() - @item["NoSHT"].ToString()</td>
-                </tr>
+        <tr class="DrillDownRow">
+            <td>@i.ToString()</td>
+            <td>@item["NoSertifikat"].ToString().ToUpper()</td>
+            <td>@item["KotaTanah"].ToString() - @item["KecamatanTanah"].ToString()</td>
+            <td>@item["NoSKMHT"].ToString() - @item["TglSKMHT"].ToString()</td>
+            <td>@item["KodeAkta"].ToString() - @item["NoHT"].ToString()</td>
+            <td>@item["NoBerkasSHT"].ToString() - @item["KodeSHT"].ToString() - @item["NoSHT"].ToString()</td>
+        </tr>
             }
         }
     </tbody>
@@ -80,7 +77,6 @@
             var divgrid = 'gdtnhspavw';
             var tabled = 'table_txttnhspavw';
 
-
             $("#" + tabled).DataTable().destroy();
             $("#" + tabled).DataTable({
                 responsive: true
@@ -96,6 +92,4 @@
             $("#table_txttnhspavw").css("background-color", "#8bb4e7 !important")
             vmHTL.initbuton();
         });
-
 </script>
-

@@ -3,32 +3,27 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Script.Serialization;
 using System.Web.Security;
 
 namespace DusColl.Controllers
 {
     public class MasterDataController : Controller
     {
-
-        vmAccount Account = new vmAccount();
-        blAccount lgAccount = new blAccount();
-        vmMasterData master = new vmMasterData();
-        cFilterMasterData modFilter = new cFilterMasterData();
-        vmMasterDataddl MasterDataddl = new vmMasterDataddl();
-        vmCommon Common = new vmCommon();
-        vmCommonddl Commonddl = new vmCommonddl();
-
+        private vmAccount Account = new vmAccount();
+        private blAccount lgAccount = new blAccount();
+        private vmMasterData master = new vmMasterData();
+        private cFilterMasterData modFilter = new cFilterMasterData();
+        private vmMasterDataddl MasterDataddl = new vmMasterDataddl();
+        private vmCommon Common = new vmCommon();
+        private vmCommonddl Commonddl = new vmCommonddl();
 
         //#region Master Provinsi
         //[HttpPost]
         //public async Task<ActionResult> clnMTDPROVIN(String menu, String caption)
         //{
-
         //    Account = (vmAccount)Session["Account"];
         //    bool IsErrorTimeout = false;
         //    if (Account != null)
@@ -99,7 +94,6 @@ namespace DusColl.Controllers
         //        modFilter.keyword = Keyword;
         //        modFilter.PageNumber = PageNumber;
 
-
         //        // try show filter data//
 
         //        List<String> recordPage = await MasterDataProvinsiddl.dbGeProvinListCount(Keyword, PageNumber, caption, UserID, GroupName);
@@ -107,7 +101,6 @@ namespace DusColl.Controllers
         //        TotalPage = Convert.ToDouble(recordPage[1]);
         //        pagingsizeclient = Convert.ToDouble(recordPage[2]);
         //        pagenumberclient = PageNumber;
-
 
         //        List<DataTable> dtlist = await MasterDataProvinsiddl.dbGetProvinList(null, Keyword, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
         //        totalRecordclient = dtlist[0].Rows.Count;
@@ -119,7 +112,6 @@ namespace DusColl.Controllers
         //        }
 
         //        ViewData["SelectProvinsi"] = OwinLibrary.Get_SelectListItem(Common.ddlProvin);
-
 
         //        //set in filter for paging//
         //        modFilter.TotalRecord = TotalRecord;
@@ -139,7 +131,6 @@ namespace DusColl.Controllers
         //        TempData["ProvinsiFilter"] = modFilter;
         //        TempData["common"] = Common;
 
-
         //        //set caption view//
         //        ViewBag.menu = menu;
         //        ViewBag.caption = caption;
@@ -147,9 +138,7 @@ namespace DusColl.Controllers
         //        ViewBag.rute = "MasterData";
         //        ViewBag.action = "clnMTDPROVIN";
 
-
         //        ViewBag.Total = "Total Data : " + TotalRecord.ToString() + " Data <br /> Data on Pages : " + totalRecordclient.ToString() + " Data";
-
 
         //        //send back to client browser//
         //        return Json(new
@@ -227,7 +216,6 @@ namespace DusColl.Controllers
         //        //descript some value for db//
         //        caption = HasKeyProtect.Decryption(caption);
 
-
         //        // try show filter data//
         //        List<DataTable> dtlist = await MasterDataProvinsiddl.dbGetProvinList(master.DTFromDB, keyword, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
         //        // update active paging back to filter //
@@ -237,7 +225,6 @@ namespace DusColl.Controllers
         //        master.DTDetailForGrid = dtlist[1];
 
         //        ViewBag.Total = "Total Data : " + TotalRecord.ToString() + " Data <br /> Data on Pages : " + totalRecordclient.ToString() + " Data";
-
 
         //        //set session filterisasi //
         //        TempData["ProvinsiList"] = master;
@@ -322,7 +309,6 @@ namespace DusColl.Controllers
         //        TempData["common"] = Common;
         //        // senback to client browser//
 
-
         //        return Json(new
         //        {
         //            moderror = IsErrorTimeout,
@@ -353,7 +339,6 @@ namespace DusColl.Controllers
         //}
         //public async Task<ActionResult> clnUpdMasterMTDPROVIN(cMasterDataProvinsi model)
         //{
-
         //    Account = (vmAccount)Session["Account"];
         //    bool IsErrorTimeout = false;
         //    if (Account != null)
@@ -379,7 +364,6 @@ namespace DusColl.Controllers
         //    }
         //    try
         //    {
-
         //        master = TempData["ProvinsiList"] as vmMasterData;
         //        modFilter = TempData["ProvinsiFilter"] as cFilterMasterData;
         //        Common = (TempData["common"] as vmCommon);
@@ -477,7 +461,6 @@ namespace DusColl.Controllers
         //        string filteron = isModeFilter == false ? "" : "<br /> Pencarian Data :  Aktif";
         //        ViewBag.Total = "Total Data : " + TotalRecord.ToString() + " Data <br /> Data on Pages : " + totalRecordclient.ToString() + " Data" + filteron;
 
-
         //        ViewData["SelectProvinsi"] = OwinLibrary.Get_SelectListItem(Common.ddlProvin);
 
         //        // senback to client browser//
@@ -536,7 +519,6 @@ namespace DusColl.Controllers
         //    }
         //    try
         //    {
-
         //        //get session filterisasi //
         //        modFilter = TempData["ProvinsiFilter"] as cFilterMasterData;
         //        master = TempData["ProvinsiList"] as vmMasterData;
@@ -544,7 +526,6 @@ namespace DusColl.Controllers
         //        Common = Common == null ? new vmCommon() : Common;
 
         //        string UserID = modFilter.UserID;
-
 
         //        // get value filter before//
         //        string Keyword = modFilter.keyword;
@@ -609,7 +590,6 @@ namespace DusColl.Controllers
         //    }
         //    try
         //    {
-
         //        // get from session //
         //        modFilter = TempData["ProvinsiFilter"] as cFilterMasterData;
         //        master = TempData["ProvinsiList"] as vmMasterData;
@@ -644,10 +624,8 @@ namespace DusColl.Controllers
         //        string validtxt = "";
         //        if (validtxt == "")
         //        {
-
         //            //descript some value for db//
         //            caption = HasKeyProtect.Decryption(caption);
-
 
         //            // try show filter data//
         //            List<String> recordPage = await MasterDataProvinsiddl.dbGeProvinListCount(Keyword, PageNumber, caption, UserID, GroupName);
@@ -658,7 +636,6 @@ namespace DusColl.Controllers
         //            List<DataTable> dtlist = await MasterDataProvinsiddl.dbGetProvinList(null, Keyword, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
         //            totalRecordclient = dtlist[0].Rows.Count;
         //            totalPageclient = int.Parse(Math.Ceiling(decimal.Parse(totalRecordclient.ToString()) / decimal.Parse(pagingsizeclient.ToString())).ToString());
-
 
         //            //set in filter for paging//
         //            modFilter.TotalRecord = TotalRecord;
@@ -692,7 +669,6 @@ namespace DusColl.Controllers
         //        }
         //        else
         //        {
-
         //            TempData["ProvinsiFilter"] = modFilter;
         //            TempData["ProvinsiList"] = master;
         //            TempData["common"] = Common;
@@ -726,12 +702,10 @@ namespace DusColl.Controllers
         //}
         //#endregion Master Provinsi
 
-
         //#region Master Provinsi AHU
         //[HttpPost]
         //public async Task<ActionResult> clnMTDPROVINAHU(String menu, String caption)
         //{
-
         //    Account = (vmAccount)Session["Account"];
         //    bool IsErrorTimeout = false;
         //    if (Account != null)
@@ -802,7 +776,6 @@ namespace DusColl.Controllers
         //        modFilter.keyword = Keyword;
         //        modFilter.PageNumber = PageNumber;
 
-
         //        // try show filter data//
         //        List<String> recordPage = await MasterDataProvinsiddl.dbGeProvinAhuListCount(Keyword, PageNumber, caption, UserID, GroupName);
         //        TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -819,7 +792,6 @@ namespace DusColl.Controllers
         //        //}
 
         //        //ViewData["SelectPROVINAHUsi"] = OwinLibrary.Get_SelectListItem(Common.ddlPROVINAHU);
-
 
         //        //set in filter for paging//
         //        modFilter.TotalRecord = TotalRecord;
@@ -839,7 +811,6 @@ namespace DusColl.Controllers
         //        TempData["PROVINAHUsiFilter"] = modFilter;
         //        TempData["common"] = Common;
 
-
         //        //set caption view//
         //        ViewBag.menu = menu;
         //        ViewBag.caption = caption;
@@ -847,9 +818,7 @@ namespace DusColl.Controllers
         //        ViewBag.rute = "MasterData";
         //        ViewBag.action = "clnMTDPROVINAHU";
 
-
         //        ViewBag.Total = "Total Data : " + TotalRecord.ToString() + " Data <br /> Data on Pages : " + totalRecordclient.ToString() + " Data";
-
 
         //        //send back to client browser//
         //        return Json(new
@@ -927,7 +896,6 @@ namespace DusColl.Controllers
         //        //descript some value for db//
         //        caption = HasKeyProtect.Decryption(caption);
 
-
         //        // try show filter data//
         //        List<DataTable> dtlist = await MasterDataProvinsiddl.dbGetProvinAhuList(master.DTFromDB, keyword, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
         //        // update active paging back to filter //
@@ -937,7 +905,6 @@ namespace DusColl.Controllers
         //        master.DTDetailForGrid = dtlist[1];
 
         //        ViewBag.Total = "Total Data : " + TotalRecord.ToString() + " Data <br /> Data on Pages : " + totalRecordclient.ToString() + " Data";
-
 
         //        //set session filterisasi //
         //        TempData["PROVINAHUsiList"] = master;
@@ -1023,7 +990,6 @@ namespace DusColl.Controllers
         //        TempData["common"] = Common;
         //        // senback to client browser//
 
-
         //        return Json(new
         //        {
         //            moderror = IsErrorTimeout,
@@ -1054,7 +1020,6 @@ namespace DusColl.Controllers
         //}
         //public async Task<ActionResult> clnUpdMasterMTDPROVINAHU(cMasterDataProvinsiAHU model)
         //{
-
         //    Account = (vmAccount)Session["Account"];
         //    bool IsErrorTimeout = false;
         //    if (Account != null)
@@ -1080,7 +1045,6 @@ namespace DusColl.Controllers
         //    }
         //    try
         //    {
-
         //        master = TempData["PROVINAHUsiList"] as vmMasterData;
         //        modFilter = TempData["PROVINAHUsiFilter"] as cFilterMasterData;
         //        Common = (TempData["common"] as vmCommon);
@@ -1130,7 +1094,6 @@ namespace DusColl.Controllers
 
         //        if (result == 1)
         //        {
-
         //            ////get total data from server//
         //            List<String> recordPage = await MasterDataProvinsiddl.dbGeProvinAhuListCount(keyword, PageNumber, caption, UserID, GroupName);
         //            TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -1162,7 +1125,6 @@ namespace DusColl.Controllers
 
         //        string filteron = isModeFilter == false ? "" : "<br /> Pencarian Data :  Aktif";
         //        ViewBag.Total = "Total Data : " + TotalRecord.ToString() + " Data <br /> Data on Pages : " + totalRecordclient.ToString() + " Data" + filteron;
-
 
         //        //ViewData["SelectPROVINAHUsi"] = OwinLibrary.Get_SelectListItem(Common.ddlPROVINAHU);
 
@@ -1222,7 +1184,6 @@ namespace DusColl.Controllers
         //    }
         //    try
         //    {
-
         //        //get session filterisasi //
         //        modFilter = TempData["PROVINAHUsiFilter"] as cFilterMasterData;
         //        master = TempData["PROVINAHUsiList"] as vmMasterData;
@@ -1230,7 +1191,6 @@ namespace DusColl.Controllers
         //        Common = Common == null ? new vmCommon() : Common;
 
         //        string UserID = modFilter.UserID;
-
 
         //        // get value filter before//
         //        string Keyword = modFilter.keyword;
@@ -1295,7 +1255,6 @@ namespace DusColl.Controllers
         //    }
         //    try
         //    {
-
         //        // get from session //
         //        modFilter = TempData["PROVINAHUsiFilter"] as cFilterMasterData;
         //        master = TempData["PROVINAHUsiList"] as vmMasterData;
@@ -1330,10 +1289,8 @@ namespace DusColl.Controllers
         //        string validtxt = "";
         //        if (validtxt == "")
         //        {
-
         //            //descript some value for db//
         //            caption = HasKeyProtect.Decryption(caption);
-
 
         //            // try show filter data//
         //            List<String> recordPage = await MasterDataProvinsiddl.dbGeProvinListCount(Keyword, PageNumber, caption, UserID, GroupName);
@@ -1344,7 +1301,6 @@ namespace DusColl.Controllers
         //            List<DataTable> dtlist = await MasterDataProvinsiddl.dbGetProvinAhuList(null, Keyword, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
         //            totalRecordclient = dtlist[0].Rows.Count;
         //            totalPageclient = int.Parse(Math.Ceiling(decimal.Parse(totalRecordclient.ToString()) / decimal.Parse(pagingsizeclient.ToString())).ToString());
-
 
         //            //set in filter for paging//
         //            modFilter.TotalRecord = TotalRecord;
@@ -1378,7 +1334,6 @@ namespace DusColl.Controllers
         //        }
         //        else
         //        {
-
         //            TempData["PROVINAHUsiFilter"] = modFilter;
         //            TempData["PROVINAHUsiList"] = master;
         //            TempData["common"] = Common;
@@ -1412,12 +1367,10 @@ namespace DusColl.Controllers
         //}
         //#endregion Master Provinsi AHU
 
-
         //#region Master Notaris
         //[HttpPost]
         //public async Task<ActionResult> clnMTDNTRY(String menu, String caption)
         //{
-
         //    Account = (vmAccount)Session["Account"];
         //    bool IsErrorTimeout = false;
         //    if (Account != null)
@@ -1488,7 +1441,6 @@ namespace DusColl.Controllers
         //        modFilter.keyword = Keyword;
         //        modFilter.PageNumber = PageNumber;
 
-
         //        // try show filter data//
         //        List<String> recordPage = await MasterDataProvinsiddl.dbGetNotarisListCount(Keyword, PageNumber, caption, UserID, GroupName);
         //        TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -1517,7 +1469,6 @@ namespace DusColl.Controllers
         //        TempData["NTRYMListFilter"] = modFilter;
         //        TempData["common"] = Common;
 
-
         //        //set caption view//
         //        ViewBag.menu = menu;
         //        ViewBag.caption = caption;
@@ -1525,9 +1476,7 @@ namespace DusColl.Controllers
         //        ViewBag.rute = "MasterData";
         //        ViewBag.action = "clnMTDNTRY";
 
-
         //        ViewBag.Total = "Total Data : " + TotalRecord.ToString() + " Data <br /> Data on Pages : " + totalRecordclient.ToString() + " Data";
-
 
         //        //send back to client browser//
         //        return Json(new
@@ -1605,7 +1554,6 @@ namespace DusColl.Controllers
         //        //descript some value for db//
         //        caption = HasKeyProtect.Decryption(caption);
 
-
         //        // try show filter data//
         //        List<DataTable> dtlist = await MasterDataProvinsiddl.dbGetNotarisList(master.DTFromDB, keyword, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
         //        // update active paging back to filter //
@@ -1615,7 +1563,6 @@ namespace DusColl.Controllers
         //        master.DTDetailForGrid = dtlist[1];
 
         //        ViewBag.Total = "Total Data : " + TotalRecord.ToString() + " Data <br /> Data on Pages : " + totalRecordclient.ToString() + " Data";
-
 
         //        //set session filterisasi //
         //        TempData["NTRYMList"] = master;
@@ -1711,7 +1658,6 @@ namespace DusColl.Controllers
         //        TempData["common"] = Common;
         //        // senback to client browser//
 
-
         //        return Json(new
         //        {
         //            moderror = IsErrorTimeout,
@@ -1742,7 +1688,6 @@ namespace DusColl.Controllers
         //}
         //public async Task<ActionResult> clnUpdMasterMTDNTRY(cMasterDataNotaris model)
         //{
-
         //    Account = (vmAccount)Session["Account"];
         //    bool IsErrorTimeout = false;
         //    if (Account != null)
@@ -1768,7 +1713,6 @@ namespace DusColl.Controllers
         //    }
         //    try
         //    {
-
         //        master = TempData["NTRYMList"] as vmMasterData;
         //        modFilter = TempData["NTRYMListFilter"] as cFilterMasterData;
         //        Common = (TempData["common"] as vmCommon);
@@ -1821,7 +1765,6 @@ namespace DusColl.Controllers
 
         //        if (result == 1)
         //        {
-
         //            ////get total data from server//
         //            List<String> recordPage = await MasterDataProvinsiddl.dbGetNotarisListCount(keyword, PageNumber, caption, UserID, GroupName);
         //            TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -1854,7 +1797,6 @@ namespace DusColl.Controllers
         //        string filteron = isModeFilter == false ? "" : "<br /> Pencarian Data :  Aktif";
         //        ViewBag.Total = "Total Data : " + TotalRecord.ToString() + " Data <br /> Data on Pages : " + totalRecordclient.ToString() + " Data" + filteron;
 
-
         //        //ViewData["SelectNTRYsi"] = OwinLibrary.Get_SelectListItem(Common.ddlNTRY);
 
         //        // senback to client browser//
@@ -1886,10 +1828,8 @@ namespace DusColl.Controllers
         //    }
         //}
 
-
         //public async Task<ActionResult> clndelAddMTDNTRY(string paramkey)
         //{
-
         //    Account = (vmAccount)Session["Account"];
         //    bool IsErrorTimeout = false;
         //    if (Account != null)
@@ -1915,7 +1855,6 @@ namespace DusColl.Controllers
         //    }
         //    try
         //    {
-
         //        master = TempData["NTRYMList"] as vmMasterData;
         //        modFilter = TempData["NTRYMListFilter"] as cFilterMasterData;
         //        Common = (TempData["common"] as vmCommon);
@@ -1964,8 +1903,6 @@ namespace DusColl.Controllers
 
         //        if (result == 1)
         //        {
-
-
         //            // try show filter data//
         //            List<String> recordPage = await MasterDataProvinsiddl.dbGetNotarisListCount(keyword, PageNumber, caption, UserID, GroupName);
         //            TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -1975,7 +1912,6 @@ namespace DusColl.Controllers
         //            List<DataTable> dtlist = await MasterDataProvinsiddl.dbGetNotarisList(null, keyword, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
         //            totalRecordclient = dtlist[0].Rows.Count;
         //            totalPageclient = int.Parse(Math.Ceiling(decimal.Parse(totalRecordclient.ToString()) / decimal.Parse(pagingsizeclient.ToString())).ToString());
-
 
         //            //back to set in filter//
         //            modFilter.TotalRecord = TotalRecord;
@@ -2053,7 +1989,6 @@ namespace DusColl.Controllers
         //    }
         //    try
         //    {
-
         //        //get session filterisasi //
         //        modFilter = TempData["NTRYMListFilter"] as cFilterMasterData;
         //        master = TempData["NTRYMList"] as vmMasterData;
@@ -2061,7 +1996,6 @@ namespace DusColl.Controllers
         //        Common = Common == null ? new vmCommon() : Common;
 
         //        string UserID = modFilter.UserID;
-
 
         //        // get value filter before//
         //        string Keyword = modFilter.keyword;
@@ -2125,7 +2059,6 @@ namespace DusColl.Controllers
         //    }
         //    try
         //    {
-
         //        // get from session //
         //        modFilter = TempData["NTRYMListFilter"] as cFilterMasterData;
         //        master = TempData["NTRYMList"] as vmMasterData;
@@ -2160,10 +2093,8 @@ namespace DusColl.Controllers
         //        string validtxt = "";
         //        if (validtxt == "")
         //        {
-
         //            //descript some value for db//
         //            caption = HasKeyProtect.Decryption(caption);
-
 
         //            // try show filter data//
         //            List<String> recordPage = await MasterDataProvinsiddl.dbGetNotarisListCount(Keyword, PageNumber, caption, UserID, GroupName);
@@ -2174,7 +2105,6 @@ namespace DusColl.Controllers
         //            List<DataTable> dtlist = await MasterDataProvinsiddl.dbGetNotarisList(null, Keyword, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
         //            totalRecordclient = dtlist[0].Rows.Count;
         //            totalPageclient = int.Parse(Math.Ceiling(decimal.Parse(totalRecordclient.ToString()) / decimal.Parse(pagingsizeclient.ToString())).ToString());
-
 
         //            //set in filter for paging//
         //            modFilter.TotalRecord = TotalRecord;
@@ -2208,7 +2138,6 @@ namespace DusColl.Controllers
         //        }
         //        else
         //        {
-
         //            TempData["NTRYsiFilter"] = modFilter;
         //            TempData["NTRYsiList"] = master;
         //            TempData["common"] = Common;
@@ -2243,12 +2172,10 @@ namespace DusColl.Controllers
 
         //#endregion Master notaris
 
-
         //#region Master Notaris Staff
         //[HttpPost]
         //public async Task<ActionResult> clnMTDNTRYSTAFF(String menu, String caption)
         //{
-
         //    Account = (vmAccount)Session["Account"];
         //    bool IsErrorTimeout = false;
         //    if (Account != null)
@@ -2319,7 +2246,6 @@ namespace DusColl.Controllers
         //        modFilter.keyword = Keyword;
         //        modFilter.PageNumber = PageNumber;
 
-
         //        // try show filter data//
         //        List<String> recordPage = await MasterDataProvinsiddl.dbGetNotarisStaffListCount(Keyword, PageNumber, caption, UserID, GroupName);
         //        TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -2350,12 +2276,10 @@ namespace DusColl.Controllers
 
         //        ViewData["SelectNamaNotaris"] = OwinLibrary.Get_SelectListItem(Common.ddlNotaris);
 
-
         //        //set session filterisasi //
         //        TempData["NTRYSTAFFMList"] = master;
         //        TempData["NTRYSTAFFMListFilter"] = modFilter;
         //        TempData["common"] = Common;
-
 
         //        //set caption view//
         //        ViewBag.menu = menu;
@@ -2364,9 +2288,7 @@ namespace DusColl.Controllers
         //        ViewBag.rute = "MasterData";
         //        ViewBag.action = "clnMTDNTRYSTAFF";
 
-
         //        ViewBag.Total = "Total Data : " + TotalRecord.ToString() + " Data <br /> Data on Pages : " + totalRecordclient.ToString() + " Data";
-
 
         //        //send back to client browser//
         //        return Json(new
@@ -2444,7 +2366,6 @@ namespace DusColl.Controllers
         //        //descript some value for db//
         //        caption = HasKeyProtect.Decryption(caption);
 
-
         //        // try show filter data//
         //        List<DataTable> dtlist = await MasterDataProvinsiddl.dbGetNotarisStaffList(master.DTFromDB, keyword, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
         //        // update active paging back to filter //
@@ -2454,7 +2375,6 @@ namespace DusColl.Controllers
         //        master.DTDetailForGrid = dtlist[1];
 
         //        ViewBag.Total = "Total Data : " + TotalRecord.ToString() + " Data <br /> Data on Pages : " + totalRecordclient.ToString() + " Data";
-
 
         //        //set session filterisasi //
         //        TempData["NTRYSTAFFMList"] = master;
@@ -2525,7 +2445,6 @@ namespace DusColl.Controllers
         //        DataRow dr = master.DTDetailForGrid.AsEnumerable().Where(x => x.Field<string>("keylookupdata") == paramkey).SingleOrDefault();
         //        if (dr != null)
         //        {
-
         //            modeldata.NotarisID = HasKeyProtect.Encryption(dr["idnotaris"].ToString());
         //            modeldata.StaffName = dr["StaffName"].ToString();
         //            modeldata.BirthPlace = dr["BirthPlace"].ToString();
@@ -2549,7 +2468,6 @@ namespace DusColl.Controllers
         //        TempData["NTRYSTAFFMListFilter"] = modFilter;
         //        TempData["common"] = Common;
         //        // senback to client browser//
-
 
         //        return Json(new
         //        {
@@ -2581,7 +2499,6 @@ namespace DusColl.Controllers
         //}
         //public async Task<ActionResult> clnUpdMasterMTDNTRYSTAFF(cMasterDataNotarisstaff model)
         //{
-
         //    Account = (vmAccount)Session["Account"];
         //    bool IsErrorTimeout = false;
         //    if (Account != null)
@@ -2607,7 +2524,6 @@ namespace DusColl.Controllers
         //    }
         //    try
         //    {
-
         //        master = TempData["NTRYSTAFFMList"] as vmMasterData;
         //        modFilter = TempData["NTRYSTAFFMListFilter"] as cFilterMasterData;
         //        Common = (TempData["common"] as vmCommon);
@@ -2660,7 +2576,6 @@ namespace DusColl.Controllers
 
         //        if (result == 1)
         //        {
-
         //            ////get total data from server//
         //            List<String> recordPage = await MasterDataProvinsiddl.dbGetNotarisStaffListCount(keyword, PageNumber, caption, UserID, GroupName);
         //            TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -2692,7 +2607,6 @@ namespace DusColl.Controllers
 
         //        string filteron = isModeFilter == false ? "" : "<br /> Pencarian Data :  Aktif";
         //        ViewBag.Total = "Total Data : " + TotalRecord.ToString() + " Data <br /> Data on Pages : " + totalRecordclient.ToString() + " Data" + filteron;
-
 
         //        ViewData["SelectNamaNotaris"] = OwinLibrary.Get_SelectListItem(Common.ddlNotaris);
 
@@ -2726,7 +2640,6 @@ namespace DusColl.Controllers
         //}
         //public async Task<ActionResult> clndelAddMTDNTRYSTAFF(string paramkey)
         //{
-
         //    Account = (vmAccount)Session["Account"];
         //    bool IsErrorTimeout = false;
         //    if (Account != null)
@@ -2752,7 +2665,6 @@ namespace DusColl.Controllers
         //    }
         //    try
         //    {
-
         //        master = TempData["NTRYSTAFFMList"] as vmMasterData;
         //        modFilter = TempData["NTRYSTAFFMListFilter"] as cFilterMasterData;
         //        Common = (TempData["common"] as vmCommon);
@@ -2801,7 +2713,6 @@ namespace DusColl.Controllers
 
         //        if (result == 1)
         //        {
-
         //            // try show filter data//
         //            List<String> recordPage = await MasterDataProvinsiddl.dbGetNotarisStaffListCount(keyword, PageNumber, caption, UserID, GroupName);
         //            TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -2888,7 +2799,6 @@ namespace DusColl.Controllers
         //    }
         //    try
         //    {
-
         //        //get session filterisasi //
         //        modFilter = TempData["NTRYSTAFFMListFilter"] as cFilterMasterData;
         //        master = TempData["NTRYSTAFFMList"] as vmMasterData;
@@ -2896,7 +2806,6 @@ namespace DusColl.Controllers
         //        Common = Common == null ? new vmCommon() : Common;
 
         //        string UserID = modFilter.UserID;
-
 
         //        // get value filter before//
         //        string Keyword = modFilter.keyword;
@@ -2960,7 +2869,6 @@ namespace DusColl.Controllers
         //    }
         //    try
         //    {
-
         //        // get from session //
         //        modFilter = TempData["NTRYSTAFFMListFilter"] as cFilterMasterData;
         //        master = TempData["NTRYSTAFFMList"] as vmMasterData;
@@ -2995,10 +2903,8 @@ namespace DusColl.Controllers
         //        string validtxt = "";
         //        if (validtxt == "")
         //        {
-
         //            //descript some value for db//
         //            caption = HasKeyProtect.Decryption(caption);
-
 
         //            // try show filter data//
         //            List<String> recordPage = await MasterDataProvinsiddl.dbGetNotarisStaffListCount(Keyword, PageNumber, caption, UserID, GroupName);
@@ -3009,7 +2915,6 @@ namespace DusColl.Controllers
         //            List<DataTable> dtlist = await MasterDataProvinsiddl.dbGetNotarisStaffList(null, Keyword, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
         //            totalRecordclient = dtlist[0].Rows.Count;
         //            totalPageclient = int.Parse(Math.Ceiling(decimal.Parse(totalRecordclient.ToString()) / decimal.Parse(pagingsizeclient.ToString())).ToString());
-
 
         //            //set in filter for paging//
         //            modFilter.TotalRecord = TotalRecord;
@@ -3043,7 +2948,6 @@ namespace DusColl.Controllers
         //        }
         //        else
         //        {
-
         //            TempData["NTRYSTAFFsiFilter"] = modFilter;
         //            TempData["NTRYSTAFFsiList"] = master;
         //            TempData["common"] = Common;
@@ -3077,14 +2981,11 @@ namespace DusColl.Controllers
         //}
         //#endregion Master notaris staff
 
-
-
-
         #region Master DIVISI
+
         [HttpPost]
         public async Task<ActionResult> clnMTDDVISI(String menu, String caption)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -3155,7 +3056,6 @@ namespace DusColl.Controllers
                 modFilter.keyword = Keyword;
                 modFilter.PageNumber = PageNumber;
 
-
                 // try show filter data//
                 List<String> recordPage = await MasterDataddl.dbGetDivisiListCount(Keyword, PageNumber, caption, UserID, GroupName);
                 TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -3179,8 +3079,6 @@ namespace DusColl.Controllers
                 master.DTDetailForGrid = dtlist[1];
                 master.MasterFilter = modFilter;
 
-
-
                 if (Common.ddlPic == null)
                 {
                     Common.ddlPic = await Commonddl.dbdbGetDdlPICListByEncrypt("1", "", caption, UserID, GroupName);
@@ -3200,13 +3098,10 @@ namespace DusColl.Controllers
                 ViewData["SelectPIC"] = OwinLibrary.Get_SelectListItem(Common.ddlPic);
                 ViewData["SelectPeriode"] = OwinLibrary.Get_SelectListItem(Common.ddlPeriode);
 
-
-
                 //set session filterisasi //
                 TempData["DVISIMList"] = master;
                 TempData["DVISIMListFilter"] = modFilter;
                 TempData["common"] = Common;
-
 
                 //set caption view//
                 ViewBag.menu = menu;
@@ -3215,9 +3110,7 @@ namespace DusColl.Controllers
                 ViewBag.rute = "MasterData";
                 ViewBag.action = "clnMTDDVISI";
 
-
                 ViewBag.Total = "Total Data : " + TotalRecord.ToString();
-
 
                 //send back to client browser//
                 return Json(new
@@ -3243,8 +3136,8 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
+
         public async Task<ActionResult> clnRgridListMTDDVISI(int paged)
         {
             Account = (vmAccount)Session["Account"];
@@ -3295,7 +3188,6 @@ namespace DusColl.Controllers
                 //descript some value for db//
                 caption = HasKeyProtect.Decryption(caption);
 
-
                 // try show filter data//
                 List<DataTable> dtlist = await MasterDataddl.dbGetDivisiList(master.DTFromDB, keyword, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
                 // update active paging back to filter //
@@ -3307,7 +3199,6 @@ namespace DusColl.Controllers
 
                 string filteron = isModeFilter == false ? "" : ", Pencarian Data : Aktif";
                 ViewBag.Total = "Total Data : " + TotalRecord.ToString() + filteron;
-
 
                 //set session filterisasi //
                 TempData["DVISIMList"] = master;
@@ -3337,8 +3228,8 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
+
         public async Task<ActionResult> clnOpenAddMTDDVISI(string paramkey, string oprfun)
         {
             Account = (vmAccount)Session["Account"];
@@ -3381,7 +3272,6 @@ namespace DusColl.Controllers
                 DataRow dr = master.DTDetailForGrid.AsEnumerable().Where(x => x.Field<string>("keylookupdata") == paramkey).SingleOrDefault();
                 if (dr != null)
                 {
-
                     Opr4view = "edit";
                     if (oprfun == "x4vw")
                     {
@@ -3433,7 +3323,6 @@ namespace DusColl.Controllers
                 TempData["common"] = Common;
                 // senback to client browser//
 
-
                 return Json(new
                 {
                     moderror = IsErrorTimeout,
@@ -3441,7 +3330,6 @@ namespace DusColl.Controllers
                     keydata = paramkey,
                     view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/Master/Divisi/_uiUpdateMasterData.cshtml", modeldata),
                 });
-
             }
             catch (Exception ex)
             {
@@ -3460,11 +3348,10 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
+
         public async Task<ActionResult> clnUpdMasterMTDDVISI(cMasterDataDivisi model)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -3490,7 +3377,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 master = TempData["DVISIMList"] as vmMasterData;
                 modFilter = TempData["DVISIMListFilter"] as cFilterMasterData;
                 Common = (TempData["common"] as vmCommon);
@@ -3542,7 +3428,6 @@ namespace DusColl.Controllers
 
                 if (result == 1)
                 {
-
                     ////get total data from server//
                     List<String> recordPage = await MasterDataddl.dbGetDivisiListCount(keyword, PageNumber, caption, UserID, GroupName);
                     TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -3575,7 +3460,6 @@ namespace DusColl.Controllers
                 string filteron = isModeFilter == false ? "" : ", Pencarian Data : Aktif";
                 ViewBag.Total = "Total Data : " + TotalRecord.ToString() + filteron;
 
-
                 //ViewData["SelectNamaNotaris"] = OwinLibrary.Get_SelectListItem(Common.ddlNotaris);
 
                 // senback to client browser//
@@ -3586,7 +3470,6 @@ namespace DusColl.Controllers
                     msg = EnumMessage,
                     resulted = result
                 });
-
             }
             catch (Exception ex)
             {
@@ -3606,9 +3489,9 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         public async Task<ActionResult> clndelAddMTDDVISI(string paramkey)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -3634,7 +3517,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 master = TempData["DVISIMList"] as vmMasterData;
                 modFilter = TempData["DVISIMListFilter"] as cFilterMasterData;
                 Common = (TempData["common"] as vmCommon);
@@ -3683,7 +3565,6 @@ namespace DusColl.Controllers
 
                 if (result == 1)
                 {
-
                     ////get total data from server//
                     List<String> recordPage = await MasterDataddl.dbGetDivisiListCount(keyword, PageNumber, caption, UserID, GroupName);
                     TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -3695,7 +3576,6 @@ namespace DusColl.Controllers
                     List<DataTable> dtlist = await MasterDataddl.dbGetDivisiList(null, keyword, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
                     totalRecordclient = dtlist[0].Rows.Count;
                     totalPageclient = int.Parse(Math.Ceiling(decimal.Parse(totalRecordclient.ToString()) / decimal.Parse(pagingsizeclient.ToString())).ToString());
-
 
                     //back to set in filter//
                     modFilter.TotalRecord = TotalRecord;
@@ -3725,7 +3605,6 @@ namespace DusColl.Controllers
                     msg = EnumMessage,
                     resulted = result
                 });
-
             }
             catch (Exception ex)
             {
@@ -3744,8 +3623,8 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
+
         public async Task<ActionResult> clnOpenFilterMTDDVISI()
         {
             Account = (vmAccount)Session["Account"];
@@ -3773,7 +3652,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 //get session filterisasi //
                 modFilter = TempData["DVISIMListFilter"] as cFilterMasterData;
                 master = TempData["DVISIMList"] as vmMasterData;
@@ -3781,7 +3659,6 @@ namespace DusColl.Controllers
                 Common = Common == null ? new vmCommon() : Common;
 
                 string UserID = modFilter.UserID;
-
 
                 // get value filter before//
                 string Keyword = modFilter.keyword ?? "";
@@ -3797,7 +3674,6 @@ namespace DusColl.Controllers
                     opsi1 = Keyword,
                     view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/Master/Divisi/_uiFilterData.cshtml", master.MasterFilter),
                 });
-
             }
             catch (Exception ex)
             {
@@ -3817,6 +3693,7 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> clnListFilterMTDDVISI(cFilterMasterData model)
@@ -3846,7 +3723,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 // get from session //
                 modFilter = TempData["DVISIMListFilter"] as cFilterMasterData;
                 master = TempData["DVISIMList"] as vmMasterData;
@@ -3881,10 +3757,8 @@ namespace DusColl.Controllers
                 string validtxt = "";
                 if (validtxt == "")
                 {
-
                     //descript some value for db//
                     caption = HasKeyProtect.Decryption(caption);
-
 
                     // try show filter data//
                     List<String> recordPage = await MasterDataddl.dbGetDivisiListCount(Keyword, PageNumber, caption, UserID, GroupName);
@@ -3895,7 +3769,6 @@ namespace DusColl.Controllers
                     List<DataTable> dtlist = await MasterDataddl.dbGetDivisiList(null, Keyword, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
                     totalRecordclient = dtlist[0].Rows.Count;
                     totalPageclient = int.Parse(Math.Ceiling(decimal.Parse(totalRecordclient.ToString()) / decimal.Parse(pagingsizeclient.ToString())).ToString());
-
 
                     //set in filter for paging//
                     modFilter.TotalRecord = TotalRecord;
@@ -3925,11 +3798,9 @@ namespace DusColl.Controllers
                         download = "",
                         message = validtxt,
                     });
-
                 }
                 else
                 {
-
                     TempData["DVISIMListFilter"] = modFilter;
                     TempData["DVISIMList"] = master;
                     TempData["common"] = Common;
@@ -3961,14 +3832,14 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-        #endregion Master Divisi
 
+        #endregion Master DIVISI
 
         #region Master DIVISI GROUP
+
         [HttpPost]
         public async Task<ActionResult> clnMTDDVISIGRP(String menu, String caption)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -4039,7 +3910,6 @@ namespace DusColl.Controllers
                 modFilter.keyword = Keyword;
                 modFilter.PageNumber = PageNumber;
 
-
                 // try show filter data//
                 List<String> recordPage = await MasterDataddl.dbGetDivisiGrpListCount(Keyword, PageNumber, caption, UserID, GroupName);
                 TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -4068,14 +3938,12 @@ namespace DusColl.Controllers
                     Common.ddlPic = await Commonddl.dbdbGetDdlPICListByEncrypt("", "1", caption, UserID, GroupName);
                 }
 
-
                 ViewData["SelectPic"] = OwinLibrary.Get_SelectListItem(Common.ddlPic);
 
                 //set session filterisasi //
                 TempData["DVISIMGRPList"] = master;
                 TempData["DVISIMGRPListFilter"] = modFilter;
                 TempData["common"] = Common;
-
 
                 //set caption view//
                 ViewBag.menu = menu;
@@ -4084,9 +3952,7 @@ namespace DusColl.Controllers
                 ViewBag.rute = "MasterData";
                 ViewBag.action = "clnMTDDVISIGRP";
 
-
                 ViewBag.Total = "Total Data : " + TotalRecord.ToString();
-
 
                 //send back to client browser//
                 return Json(new
@@ -4112,8 +3978,8 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
+
         public async Task<ActionResult> clnRgridListMTDDVISIGRP(int paged)
         {
             Account = (vmAccount)Session["Account"];
@@ -4164,7 +4030,6 @@ namespace DusColl.Controllers
                 //descript some value for db//
                 caption = HasKeyProtect.Decryption(caption);
 
-
                 // try show filter data//
                 List<DataTable> dtlist = await MasterDataddl.dbGetDivisiGrpList(master.DTFromDB, keyword, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
                 // update active paging back to filter //
@@ -4176,7 +4041,6 @@ namespace DusColl.Controllers
 
                 string filteron = isModeFilter == false ? "" : ", Pencarian Data : Aktif";
                 ViewBag.Total = "Total Data : " + TotalRecord.ToString() + filteron;
-
 
                 //set session filterisasi //
                 TempData["DVISIMGRPList"] = master;
@@ -4206,8 +4070,8 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
+
         public async Task<ActionResult> clnOpenAddMTDDVISIGRP(string paramkey, string oprfun)
         {
             Account = (vmAccount)Session["Account"];
@@ -4248,7 +4112,6 @@ namespace DusColl.Controllers
                 DataRow dr = master.DTDetailForGrid.AsEnumerable().Where(x => x.Field<string>("keylookupdata") == paramkey).SingleOrDefault();
                 if (dr != null)
                 {
-
                     Opr4view = "edit";
                     if (oprfun == "x4vw")
                     {
@@ -4275,7 +4138,6 @@ namespace DusColl.Controllers
                 TempData["common"] = Common;
                 // senback to client browser//
 
-
                 return Json(new
                 {
                     moderror = IsErrorTimeout,
@@ -4283,7 +4145,6 @@ namespace DusColl.Controllers
                     keydata = paramkey,
                     view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/Master/DivisiGroup/_uiUpdateMasterData.cshtml", modeldata),
                 });
-
             }
             catch (Exception ex)
             {
@@ -4302,11 +4163,10 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
+
         public async Task<ActionResult> clnUpdMasterMTDDVISIGRP(cMasterDataDivisi model)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -4332,7 +4192,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 master = TempData["DVISIMGRPList"] as vmMasterData;
                 modFilter = TempData["DVISIMGRPListFilter"] as cFilterMasterData;
                 Common = (TempData["common"] as vmCommon);
@@ -4384,7 +4243,6 @@ namespace DusColl.Controllers
 
                 if (result == 1)
                 {
-
                     ////get total data from server//
                     List<String> recordPage = await MasterDataddl.dbGetDivisiGrpListCount(keyword, PageNumber, caption, UserID, GroupName);
                     TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -4417,7 +4275,6 @@ namespace DusColl.Controllers
                 string filteron = isModeFilter == false ? "" : ", Pencarian Data : Aktif";
                 ViewBag.Total = "Total Data : " + TotalRecord.ToString() + filteron;
 
-
                 //ViewData["SelectNamaNotaris"] = OwinLibrary.Get_SelectListItem(Common.ddlNotaris);
 
                 // senback to client browser//
@@ -4428,7 +4285,6 @@ namespace DusColl.Controllers
                     msg = EnumMessage,
                     resulted = result
                 });
-
             }
             catch (Exception ex)
             {
@@ -4448,9 +4304,9 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         public async Task<ActionResult> clndelAddMTDDVISIGRP(string paramkey)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -4476,7 +4332,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 master = TempData["DVISIMGRPList"] as vmMasterData;
                 modFilter = TempData["DVISIMGRPListFilter"] as cFilterMasterData;
                 Common = (TempData["common"] as vmCommon);
@@ -4525,7 +4380,6 @@ namespace DusColl.Controllers
 
                 if (result == 1)
                 {
-
                     ////get total data from server//
                     List<String> recordPage = await MasterDataddl.dbGetDivisiGrpListCount(keyword, PageNumber, caption, UserID, GroupName);
                     TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -4537,7 +4391,6 @@ namespace DusColl.Controllers
                     List<DataTable> dtlist = await MasterDataddl.dbGetDivisiGrpList(null, keyword, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
                     totalRecordclient = dtlist[0].Rows.Count;
                     totalPageclient = int.Parse(Math.Ceiling(decimal.Parse(totalRecordclient.ToString()) / decimal.Parse(pagingsizeclient.ToString())).ToString());
-
 
                     //back to set in filter//
                     modFilter.TotalRecord = TotalRecord;
@@ -4567,7 +4420,6 @@ namespace DusColl.Controllers
                     msg = EnumMessage,
                     resulted = result
                 });
-
             }
             catch (Exception ex)
             {
@@ -4586,8 +4438,8 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
+
         public async Task<ActionResult> clnOpenFilterMTDDVISIGRP()
         {
             Account = (vmAccount)Session["Account"];
@@ -4615,7 +4467,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 //get session filterisasi //
                 modFilter = TempData["DVISIMGRPListFilter"] as cFilterMasterData;
                 master = TempData["DVISIMGRPList"] as vmMasterData;
@@ -4623,7 +4474,6 @@ namespace DusColl.Controllers
                 Common = Common == null ? new vmCommon() : Common;
 
                 string UserID = modFilter.UserID;
-
 
                 // get value filter before//
                 string Keyword = modFilter.keyword ?? "";
@@ -4639,7 +4489,6 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout,
                     view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/Master/DivisiGroup/_uiFilterData.cshtml", master.MasterFilter),
                 });
-
             }
             catch (Exception ex)
             {
@@ -4659,6 +4508,7 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> clnListFilterMTDDVISIGRP(cFilterMasterData model)
@@ -4688,7 +4538,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 // get from session //
                 modFilter = TempData["DVISIMGRPListFilter"] as cFilterMasterData;
                 master = TempData["DVISIMGRPList"] as vmMasterData;
@@ -4723,10 +4572,8 @@ namespace DusColl.Controllers
                 string validtxt = "";
                 if (validtxt == "")
                 {
-
                     //descript some value for db//
                     caption = HasKeyProtect.Decryption(caption);
-
 
                     // try show filter data//
                     List<String> recordPage = await MasterDataddl.dbGetDivisiGrpListCount(Keyword, PageNumber, caption, UserID, GroupName);
@@ -4737,7 +4584,6 @@ namespace DusColl.Controllers
                     List<DataTable> dtlist = await MasterDataddl.dbGetDivisiGrpList(null, Keyword, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
                     totalRecordclient = dtlist[0].Rows.Count;
                     totalPageclient = int.Parse(Math.Ceiling(decimal.Parse(totalRecordclient.ToString()) / decimal.Parse(pagingsizeclient.ToString())).ToString());
-
 
                     //set in filter for paging//
                     modFilter.TotalRecord = TotalRecord;
@@ -4767,11 +4613,9 @@ namespace DusColl.Controllers
                         download = "",
                         message = validtxt,
                     });
-
                 }
                 else
                 {
-
                     TempData["DVISIMGRPListFilter"] = modFilter;
                     TempData["DVISIMGRPList"] = master;
                     TempData["common"] = Common;
@@ -4803,14 +4647,14 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         #endregion Master DIVISI GROUP
 
-
         #region Master Handle Jobs
+
         [HttpPost]
         public async Task<ActionResult> clnMTDJOBDESC(String menu, String caption)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -4885,7 +4729,6 @@ namespace DusColl.Controllers
                 modFilter.IsActiveData = IsActive;
                 modFilter.PageNumber = PageNumber;
 
-
                 // try show filter data//
                 List<String> recordPage = await MasterDataddl.dbGethandlejobsListCount(Keyword, SelectDivisi, IsActive, PageNumber, caption, UserID, GroupName);
                 TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -4921,7 +4764,6 @@ namespace DusColl.Controllers
                 TempData["JOBDESCMListFilter"] = modFilter;
                 TempData["common"] = Common;
 
-
                 //set caption view//
                 ViewBag.menu = menu;
                 ViewBag.caption = caption;
@@ -4929,9 +4771,7 @@ namespace DusColl.Controllers
                 ViewBag.rute = "MasterData";
                 ViewBag.action = "clnMTDJOBDESC";
 
-
                 ViewBag.Total = "Total Data : " + TotalRecord.ToString();
-
 
                 //send back to client browser//
                 return Json(new
@@ -4957,8 +4797,8 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
+
         public async Task<ActionResult> clnRgridListMTDJOBDESC(int paged)
         {
             Account = (vmAccount)Session["Account"];
@@ -5001,7 +4841,6 @@ namespace DusColl.Controllers
                 string SelectDivisi = modFilter.SelectDivisi ?? "";
                 bool IsActive = modFilter.IsActiveData;
 
-
                 // set & get for next paging //
                 int pagenumberclient = paged;
                 int PageNumber = modFilter.PageNumber;
@@ -5011,7 +4850,6 @@ namespace DusColl.Controllers
 
                 //descript some value for db//
                 caption = HasKeyProtect.Decryption(caption);
-
 
                 // try show filter data//
                 List<DataTable> dtlist = await MasterDataddl.dbGethandlejobsList(null, keyword, SelectDivisi, IsActive, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
@@ -5024,7 +4862,6 @@ namespace DusColl.Controllers
 
                 string filteron = isModeFilter == false ? "" : ", Pencarian Data : Aktif";
                 ViewBag.Total = "Total Data : " + TotalRecord.ToString() + filteron;
-
 
                 //set session filterisasi //
                 TempData["JOBDESCMList"] = master;
@@ -5054,8 +4891,8 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
+
         public async Task<ActionResult> clnOpenAddMTDJOBDESC(string paramkey, string oprfun)
         {
             Account = (vmAccount)Session["Account"];
@@ -5095,7 +4932,6 @@ namespace DusColl.Controllers
                 DataRow dr = master.DTDetailForGrid.AsEnumerable().Where(x => x.Field<string>("keylookupdata") == paramkey).SingleOrDefault();
                 if (dr != null)
                 {
-
                     Opr4view = "edit";
                     if (oprfun == "x4vw")
                     {
@@ -5126,7 +4962,6 @@ namespace DusColl.Controllers
                 TempData["common"] = Common;
                 // senback to client browser//
 
-
                 return Json(new
                 {
                     moderror = IsErrorTimeout,
@@ -5134,7 +4969,6 @@ namespace DusColl.Controllers
                     keydata = paramkey,
                     view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/Master/HandleJob/_uiUpdateMasterData.cshtml", modeldata),
                 });
-
             }
             catch (Exception ex)
             {
@@ -5153,11 +4987,10 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
+
         public async Task<ActionResult> clnUpdMasterMTDJOBDESC(cMasterDataHandleJobs model)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -5183,7 +5016,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 master = TempData["JOBDESCMList"] as vmMasterData;
                 modFilter = TempData["JOBDESCMListFilter"] as cFilterMasterData;
                 Common = (TempData["common"] as vmCommon);
@@ -5242,7 +5074,6 @@ namespace DusColl.Controllers
 
                 if (result == 1)
                 {
-
                     ////get total data from server//
                     List<String> recordPage = await MasterDataddl.dbGethandlejobsListCount(keyword, SelectDivisi, IsActive, PageNumber, caption, UserID, GroupName);
                     TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -5275,7 +5106,6 @@ namespace DusColl.Controllers
                 string filteron = isModeFilter == false ? "" : ", Pencarian Data : Aktif";
                 ViewBag.Total = "Total Data : " + TotalRecord.ToString() + filteron;
 
-
                 //ViewData["SelectNamaNotaris"] = OwinLibrary.Get_SelectListItem(Common.ddlNotaris);
 
                 // senback to client browser//
@@ -5286,7 +5116,6 @@ namespace DusColl.Controllers
                     msg = EnumMessage,
                     resulted = result
                 });
-
             }
             catch (Exception ex)
             {
@@ -5306,9 +5135,9 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         public async Task<ActionResult> clndelAddMTDJOBDESC(string paramkey)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -5334,7 +5163,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 master = TempData["JOBDESCMList"] as vmMasterData;
                 modFilter = TempData["JOBDESCMListFilter"] as cFilterMasterData;
                 Common = (TempData["common"] as vmCommon);
@@ -5390,7 +5218,6 @@ namespace DusColl.Controllers
 
                 if (result == 1)
                 {
-
                     ////get total data from server//
                     List<String> recordPage = await MasterDataddl.dbGethandlejobsListCount(keyword, SelectDivisi, IsActive, PageNumber, caption, UserID, GroupName);
                     TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -5402,7 +5229,6 @@ namespace DusColl.Controllers
                     List<DataTable> dtlist = await MasterDataddl.dbGethandlejobsList(null, keyword, SelectDivisi, IsActive, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
                     totalRecordclient = dtlist[0].Rows.Count;
                     totalPageclient = int.Parse(Math.Ceiling(decimal.Parse(totalRecordclient.ToString()) / decimal.Parse(pagingsizeclient.ToString())).ToString());
-
 
                     //back to set in filter//
                     modFilter.TotalRecord = TotalRecord;
@@ -5432,7 +5258,6 @@ namespace DusColl.Controllers
                     msg = EnumMessage,
                     resulted = result
                 });
-
             }
             catch (Exception ex)
             {
@@ -5451,8 +5276,8 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
+
         public async Task<ActionResult> clnOpenFilterMTDJOBDESC()
         {
             Account = (vmAccount)Session["Account"];
@@ -5480,7 +5305,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 //get session filterisasi //
                 modFilter = TempData["JOBDESCMListFilter"] as cFilterMasterData;
                 master = TempData["JOBDESCMList"] as vmMasterData;
@@ -5488,7 +5312,6 @@ namespace DusColl.Controllers
                 Common = Common == null ? new vmCommon() : Common;
 
                 string UserID = Account.AccountLogin.UserID;
-
 
                 ViewData["SelectDivisi"] = new MultiSelectList(Common.ddlDevisi, "Value", "Text");
 
@@ -5510,7 +5333,6 @@ namespace DusColl.Controllers
                     opsi13 = IsActive,
                     view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/Master/HandleJob/_uiFilterData.cshtml", master.MasterFilter),
                 });
-
             }
             catch (Exception ex)
             {
@@ -5530,6 +5352,7 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> clnListFilterMTDJOBDESC(cFilterMasterData model)
@@ -5559,7 +5382,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 // get from session //
                 modFilter = TempData["JOBDESCMListFilter"] as cFilterMasterData;
                 master = TempData["JOBDESCMList"] as vmMasterData;
@@ -5597,10 +5419,8 @@ namespace DusColl.Controllers
                 string validtxt = "";
                 if (validtxt == "")
                 {
-
                     //descript some value for db//
                     caption = HasKeyProtect.Decryption(caption);
-
 
                     // try show filter data//
                     List<String> recordPage = await MasterDataddl.dbGethandlejobsListCount(Keyword, SelectDivisi, IsActive, PageNumber, caption, UserID, GroupName);
@@ -5627,7 +5447,6 @@ namespace DusColl.Controllers
                     master.DTDetailForGrid = dtlist[1];
                     master.MasterFilter = modFilter;
 
-
                     //keep session filterisasi before//
                     TempData["JOBDESCMListFilter"] = modFilter;
                     TempData["JOBDESCMList"] = master;
@@ -5643,11 +5462,9 @@ namespace DusColl.Controllers
                         download = "",
                         message = validtxt,
                     });
-
                 }
                 else
                 {
-
                     TempData["JOBDESCMListFilter"] = modFilter;
                     TempData["JOBDESCMList"] = master;
                     TempData["common"] = Common;
@@ -5679,14 +5496,14 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         #endregion Master Handle Jobs
 
-
         #region Master DocType
+
         [HttpPost]
         public async Task<ActionResult> clnMTDDOCTPE(String menu, String caption)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -5763,7 +5580,6 @@ namespace DusColl.Controllers
                 modFilter.IsActiveData = IsActive;
                 modFilter.PageNumber = PageNumber;
 
-
                 // try show filter data//
                 List<String> recordPage = await MasterDataddl.dbGetDocTypeListCount(Keyword, SelectDivivi, SelectPengajuan, IsActive, PageNumber, caption, UserID, GroupName);
                 TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -5804,12 +5620,10 @@ namespace DusColl.Controllers
                 ViewData["SelectDivisi"] = OwinLibrary.Get_SelectListItem(Common.ddlRegmitraType);
                 ViewData["SelectDokumen"] = OwinLibrary.Get_SelectListItem(Common.ddlJenisDokumen);
 
-
                 //set session filterisasi //
                 TempData["DOCTPEMList"] = master;
                 TempData["DOCTPEMListFilter"] = modFilter;
                 TempData["common"] = Common;
-
 
                 //set caption view//
                 ViewBag.menu = menu;
@@ -5818,9 +5632,7 @@ namespace DusColl.Controllers
                 ViewBag.rute = "MasterData";
                 ViewBag.action = "clnMTDDOCTPE";
 
-
                 ViewBag.Total = "Total Data : " + TotalRecord.ToString();
-
 
                 //send back to client browser//
                 return Json(new
@@ -5846,8 +5658,8 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
+
         public async Task<ActionResult> clnRgridListMTDDOCTPE(int paged)
         {
             Account = (vmAccount)Session["Account"];
@@ -5891,7 +5703,6 @@ namespace DusColl.Controllers
                 string SelectPengajuan = modFilter.SelectPengajuan ?? "";
                 bool IsActive = modFilter.IsActiveData;
 
-
                 // set & get for next paging //
                 int pagenumberclient = paged;
                 int PageNumber = modFilter.PageNumber;
@@ -5901,7 +5712,6 @@ namespace DusColl.Controllers
 
                 //descript some value for db//
                 caption = HasKeyProtect.Decryption(caption);
-
 
                 // try show filter data//
                 List<DataTable> dtlist = await MasterDataddl.dbGetDocTypeList(null, keyword, SelectDivisi, SelectPengajuan, IsActive, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
@@ -5914,7 +5724,6 @@ namespace DusColl.Controllers
 
                 string filteron = isModeFilter == false ? "" : ", Pencarian Data : Aktif";
                 ViewBag.Total = "Total Data : " + TotalRecord.ToString() + filteron;
-
 
                 //set session filterisasi //
                 TempData["DOCTPEMList"] = master;
@@ -5944,8 +5753,8 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
+
         public async Task<ActionResult> clnOpenAddMTDDOCTPE(string paramkey, string oprfun)
         {
             Account = (vmAccount)Session["Account"];
@@ -5988,7 +5797,6 @@ namespace DusColl.Controllers
                 DataRow dr = master.DTDetailForGrid.AsEnumerable().Where(x => x.Field<string>("keylookupdata") == paramkey).SingleOrDefault();
                 if (dr != null)
                 {
-
                     Opr4view = "edit";
                     if (oprfun == "x4vw")
                     {
@@ -6025,7 +5833,6 @@ namespace DusColl.Controllers
                 TempData["common"] = Common;
                 // senback to client browser//
 
-
                 return Json(new
                 {
                     moderror = IsErrorTimeout,
@@ -6033,7 +5840,6 @@ namespace DusColl.Controllers
                     keydata = paramkey,
                     view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/Master/DocType/_uiUpdateMasterData.cshtml", modeldata),
                 });
-
             }
             catch (Exception ex)
             {
@@ -6052,13 +5858,10 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
-
 
         public async Task<ActionResult> clnUpdMasterMTDDOCTPE(cMasterDataDocType model, HttpPostedFileBase files)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -6084,7 +5887,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 master = TempData["DOCTPEMList"] as vmMasterData;
                 modFilter = TempData["DOCTPEMListFilter"] as cFilterMasterData;
                 Common = (TempData["common"] as vmCommon);
@@ -6136,7 +5938,6 @@ namespace DusColl.Controllers
                     IDDET = (dr != null) ? int.Parse(dr["IdDet"].ToString()) : IDDET;
                 }
 
-
                 string divisiselect = String.Join(", ", model.DIVISI.ToArray()); //(model.hdDivisiSelect ?? "").Replace(",", "|");
                 int result = await MasterDataddl.dbupdateDocType(ID, IDDET, model.DOCUMENT_TYPE, model.DOCUMENT_ALIAS ?? "", model.REGTYPE, model.IsMandatory, model.IsActive, divisiselect, model.DivisiSelectOne ?? "", model.IsNeedTemplate, caption, UserID, GroupName);
 
@@ -6145,7 +5946,6 @@ namespace DusColl.Controllers
 
                 if (result == 1)
                 {
-
                     ////get total data from server//
                     List<String> recordPage = await MasterDataddl.dbGetDocTypeListCount(keyword, SelectDivisi, SelectPengajuan, IsActive, PageNumber, caption, UserID, GroupName);
                     TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -6178,7 +5978,6 @@ namespace DusColl.Controllers
                 string filteron = isModeFilter == false ? "" : ", Pencarian Data : Aktif";
                 ViewBag.Total = "Total Data : " + TotalRecord.ToString() + filteron;
 
-
                 //ViewData["SelectNamaNotaris"] = OwinLibrary.Get_SelectListItem(Common.ddlNotaris);
 
                 // senback to client browser//
@@ -6189,7 +5988,6 @@ namespace DusColl.Controllers
                     msg = EnumMessage,
                     resulted = result
                 });
-
             }
             catch (Exception ex)
             {
@@ -6209,9 +6007,9 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         public async Task<ActionResult> clndelAddMTDDOCTPE(string paramkey)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -6237,7 +6035,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 master = TempData["DOCTPEMList"] as vmMasterData;
                 modFilter = TempData["DOCTPEMListFilter"] as cFilterMasterData;
                 Common = (TempData["common"] as vmCommon);
@@ -6256,7 +6053,6 @@ namespace DusColl.Controllers
                 string SelectDivisi = modFilter.SelectDivisi ?? "";
                 string SelectPengajuan = modFilter.SelectPengajuan ?? "";
                 bool IsActive = modFilter.IsActiveData;
-
 
                 string keylookupdata = paramkey;
 
@@ -6296,7 +6092,6 @@ namespace DusColl.Controllers
 
                 if (result == 1)
                 {
-
                     ////get total data from server//
                     List<String> recordPage = await MasterDataddl.dbGetDocTypeListCount(keyword, SelectDivisi, SelectPengajuan, IsActive, PageNumber, caption, UserID, GroupName);
                     TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -6308,7 +6103,6 @@ namespace DusColl.Controllers
                     List<DataTable> dtlist = await MasterDataddl.dbGetDocTypeList(null, keyword, SelectDivisi, SelectPengajuan, IsActive, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
                     totalRecordclient = dtlist[0].Rows.Count;
                     totalPageclient = int.Parse(Math.Ceiling(decimal.Parse(totalRecordclient.ToString()) / decimal.Parse(pagingsizeclient.ToString())).ToString());
-
 
                     //back to set in filter//
                     modFilter.TotalRecord = TotalRecord;
@@ -6338,7 +6132,6 @@ namespace DusColl.Controllers
                     msg = EnumMessage,
                     resulted = result
                 });
-
             }
             catch (Exception ex)
             {
@@ -6357,8 +6150,8 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
+
         public async Task<ActionResult> clnOpenFilterMTDDOCTPE()
         {
             Account = (vmAccount)Session["Account"];
@@ -6386,7 +6179,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 //get session filterisasi //
                 modFilter = TempData["DOCTPEMListFilter"] as cFilterMasterData;
                 master = TempData["DOCTPEMList"] as vmMasterData;
@@ -6394,7 +6186,6 @@ namespace DusColl.Controllers
                 Common = Common == null ? new vmCommon() : Common;
 
                 string UserID = Account.AccountLogin.UserID;
-
 
                 ViewData["SelectDivisi"] = new MultiSelectList(Common.ddlDevisi, "Value", "Text");
                 ViewData["SelectRegType"] = new MultiSelectList(Common.ddlRegmitraType, "Value", "Text");
@@ -6404,7 +6195,6 @@ namespace DusColl.Controllers
                 string SelectDevisi = modFilter.SelectDivisi ?? "";
                 string SelectPengajuan = modFilter.SelectPengajuan ?? "";
                 bool IsActive = modFilter.IsActiveData;
-
 
                 TempData["DOCTPEMList"] = master;
                 TempData["DOCTPEMListFilter"] = modFilter;
@@ -6420,7 +6210,6 @@ namespace DusColl.Controllers
                     opsi13 = IsActive,
                     view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/Master/DocType/_uiFilterData.cshtml", master.MasterFilter),
                 });
-
             }
             catch (Exception ex)
             {
@@ -6440,6 +6229,7 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> clnListFilterMTDDOCTPE(cFilterMasterData model)
@@ -6469,7 +6259,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 // get from session //
                 modFilter = TempData["DOCTPEMListFilter"] as cFilterMasterData;
                 master = TempData["DOCTPEMList"] as vmMasterData;
@@ -6509,10 +6298,8 @@ namespace DusColl.Controllers
                 string validtxt = "";
                 if (validtxt == "")
                 {
-
                     //descript some value for db//
                     caption = HasKeyProtect.Decryption(caption);
-
 
                     // try show filter data//
                     List<String> recordPage = await MasterDataddl.dbGetDocTypeListCount(Keyword, SelectDivisi, SelectPengajuan, IsActive, PageNumber, caption, UserID, GroupName);
@@ -6523,7 +6310,6 @@ namespace DusColl.Controllers
                     List<DataTable> dtlist = await MasterDataddl.dbGetDocTypeList(null, Keyword, SelectDivisi, SelectPengajuan, IsActive, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
                     totalRecordclient = dtlist[0].Rows.Count;
                     totalPageclient = int.Parse(Math.Ceiling(decimal.Parse(totalRecordclient.ToString()) / decimal.Parse(pagingsizeclient.ToString())).ToString());
-
 
                     //set in filter for paging//
                     modFilter.TotalRecord = TotalRecord;
@@ -6553,11 +6339,9 @@ namespace DusColl.Controllers
                         download = "",
                         message = validtxt,
                     });
-
                 }
                 else
                 {
-
                     TempData["DOCTPEMListFilter"] = modFilter;
                     TempData["DOCTPEMList"] = master;
                     TempData["common"] = Common;
@@ -6589,14 +6373,14 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         #endregion Master DocType
 
-
         #region Master Branch
+
         [HttpPost]
         public async Task<ActionResult> clnMTDBRCH(String menu, String caption)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -6671,7 +6455,6 @@ namespace DusColl.Controllers
                 modFilter.IsPusatData = IsPusat;
                 modFilter.PageNumber = PageNumber;
 
-
                 // try show filter data//
                 List<String> recordPage = await MasterDataddl.dbGetCabangListCount(Keyword, IsActive, IsPusat, PageNumber, caption, UserID, GroupName);
                 TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -6708,12 +6491,10 @@ namespace DusColl.Controllers
                 ViewData["SelectPic"] = OwinLibrary.Get_SelectListItem(Common.ddlPic);
                 ViewData["SelectArea"] = OwinLibrary.Get_SelectListItem(Common.ddlRegion);
 
-
                 //set session filterisasi //
                 TempData["BRCHMList"] = master;
                 TempData["BRCHMListFilter"] = modFilter;
                 TempData["common"] = Common;
-
 
                 //set caption view//
                 ViewBag.menu = menu;
@@ -6722,9 +6503,7 @@ namespace DusColl.Controllers
                 ViewBag.rute = "MasterData";
                 ViewBag.action = "clnMTDBRCH";
 
-
                 ViewBag.Total = "Total Data : " + TotalRecord.ToString();
-
 
                 //send back to client browser//
                 return Json(new
@@ -6750,8 +6529,8 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
+
         public async Task<ActionResult> clnRgridListMTDBRCH(int paged)
         {
             Account = (vmAccount)Session["Account"];
@@ -6804,7 +6583,6 @@ namespace DusColl.Controllers
                 //descript some value for db//
                 caption = HasKeyProtect.Decryption(caption);
 
-
                 // try show filter data//
                 List<DataTable> dtlist = await MasterDataddl.dbGetCabangList(master.DTFromDB, keyword, IsActive, IsPusat, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
                 // update active paging back to filter //
@@ -6816,7 +6594,6 @@ namespace DusColl.Controllers
                 bool isModeFilter = modFilter.isModeFilter;
                 string filteron = isModeFilter == false ? "" : ", Pencarian :  Aktif";
                 ViewBag.Total = "Total Data : " + TotalRecord.ToString() + filteron;
-
 
                 //set session filterisasi //
                 TempData["BRCHMList"] = master;
@@ -6847,6 +6624,7 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         public async Task<ActionResult> clnOpenAddMTDBRCH(string paramkey, string oprfun)
         {
             Account = (vmAccount)Session["Account"];
@@ -6888,7 +6666,6 @@ namespace DusColl.Controllers
                 DataRow dr = master.DTDetailForGrid.AsEnumerable().Where(x => x.Field<string>("keylookupdata") == paramkey).SingleOrDefault();
                 if (dr != null)
                 {
-
                     Opr4view = "edit";
                     if (oprfun == "x4vw")
                     {
@@ -6920,7 +6697,6 @@ namespace DusColl.Controllers
                 TempData["common"] = Common;
                 // senback to client browser//
 
-
                 return Json(new
                 {
                     moderror = IsErrorTimeout,
@@ -6928,7 +6704,6 @@ namespace DusColl.Controllers
                     keydata = paramkey,
                     view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/Master/Cabang/_uiUpdateMasterData.cshtml", modeldata),
                 });
-
             }
             catch (Exception ex)
             {
@@ -6951,7 +6726,6 @@ namespace DusColl.Controllers
 
         public async Task<ActionResult> clnUpdMasterMTDBRCH(cMasterDataBranch model)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -6977,7 +6751,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 master = TempData["BRCHMList"] as vmMasterData;
                 modFilter = TempData["BRCHMListFilter"] as cFilterMasterData;
                 Common = (TempData["common"] as vmCommon);
@@ -7025,7 +6798,6 @@ namespace DusColl.Controllers
                     ID = (dr != null) ? int.Parse(dr["Id"].ToString()) : ID;
                 }
 
-
                 string EnumMessage = "";
                 int result = -1;
                 //if ((model.REGION ?? "") != "" && (model.REGION.Substring(0, 3) != "REG"))
@@ -7034,7 +6806,6 @@ namespace DusColl.Controllers
                 //}
                 //else
                 //{
-
                 //if ((model.BRCH_ID).All(char.IsNumber))
                 //{
                 string picselect = (model.hdPicSelect ?? "").Replace(",", "|");
@@ -7054,7 +6825,6 @@ namespace DusColl.Controllers
 
                 if (result == 1)
                 {
-
                     ////get total data from server//
                     List<String> recordPage = await MasterDataddl.dbGetCabangListCount(keyword, IsActive, IsPusat, PageNumber, caption, UserID, GroupName);
                     TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -7087,7 +6857,6 @@ namespace DusColl.Controllers
                 string filteron = isModeFilter == false ? "" : ", Pencarian : Aktif";
                 ViewBag.Total = "Total Data : " + TotalRecord.ToString() + filteron;
 
-
                 ViewData["SelectArea"] = OwinLibrary.Get_SelectListItem(Common.ddlRegion);
 
                 // senback to client browser//
@@ -7098,7 +6867,6 @@ namespace DusColl.Controllers
                     msg = EnumMessage,
                     resulted = result
                 });
-
             }
             catch (Exception ex)
             {
@@ -7118,9 +6886,9 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         public async Task<ActionResult> clndelAddMTDBRCH(string paramkey)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -7146,7 +6914,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 master = TempData["BRCHMList"] as vmMasterData;
                 modFilter = TempData["BRCHMListFilter"] as cFilterMasterData;
                 Common = (TempData["common"] as vmCommon);
@@ -7200,7 +6967,6 @@ namespace DusColl.Controllers
 
                 if (result == 1)
                 {
-
                     // try show filter data//
                     List<String> recordPage = await MasterDataddl.dbGetCabangListCount(keyword, IsActive, IsPusat, PageNumber, caption, UserID, GroupName);
                     TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -7239,7 +7005,6 @@ namespace DusColl.Controllers
                     msg = EnumMessage,
                     resulted = result
                 });
-
             }
             catch (Exception ex)
             {
@@ -7287,7 +7052,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 //get session filterisasi //
                 modFilter = TempData["BRCHMListFilter"] as cFilterMasterData;
                 master = TempData["BRCHMList"] as vmMasterData;
@@ -7295,7 +7059,6 @@ namespace DusColl.Controllers
                 Common = Common == null ? new vmCommon() : Common;
 
                 string UserID = modFilter.UserID;
-
 
                 // get value filter before//
                 string Keyword = modFilter.keyword ?? "";
@@ -7312,7 +7075,6 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout,
                     view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/Master/Cabang/_uiFilterData.cshtml", master.MasterFilter),
                 });
-
             }
             catch (Exception ex)
             {
@@ -7332,6 +7094,7 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> clnListFilterMTDBRCH(cFilterMasterData model)
@@ -7361,7 +7124,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 // get from session //
                 modFilter = TempData["BRCHMListFilter"] as cFilterMasterData;
                 master = TempData["BRCHMList"] as vmMasterData;
@@ -7400,10 +7162,8 @@ namespace DusColl.Controllers
                 string validtxt = "";
                 if (validtxt == "")
                 {
-
                     //descript some value for db//
                     caption = HasKeyProtect.Decryption(caption);
-
 
                     // try show filter data//
                     List<String> recordPage = await MasterDataddl.dbGetCabangListCount(Keyword, IsActive, IsPusat, PageNumber, caption, UserID, GroupName);
@@ -7414,7 +7174,6 @@ namespace DusColl.Controllers
                     List<DataTable> dtlist = await MasterDataddl.dbGetCabangList(null, Keyword, IsActive, IsPusat, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
                     totalRecordclient = dtlist[0].Rows.Count;
                     totalPageclient = int.Parse(Math.Ceiling(decimal.Parse(totalRecordclient.ToString()) / decimal.Parse(pagingsizeclient.ToString())).ToString());
-
 
                     //set in filter for paging//
                     modFilter.TotalRecord = TotalRecord;
@@ -7444,11 +7203,9 @@ namespace DusColl.Controllers
                         download = "",
                         message = validtxt,
                     });
-
                 }
                 else
                 {
-
                     TempData["BRCHMListFilter"] = modFilter;
                     TempData["BRCHMList"] = master;
                     TempData["common"] = Common;
@@ -7480,14 +7237,14 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         #endregion Master Branch
 
-
         #region Master Region/Area
+
         [HttpPost]
         public async Task<ActionResult> clnMTDRGN(String menu, String caption)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -7562,7 +7319,6 @@ namespace DusColl.Controllers
                 modFilter.IsPusatData = IsPusat;
                 modFilter.PageNumber = PageNumber;
 
-
                 // try show filter data//
                 List<String> recordPage = await MasterDataddl.dbGetRegionListCount(Keyword, IsActive, IsPusat, PageNumber, caption, UserID, GroupName);
                 TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -7592,12 +7348,10 @@ namespace DusColl.Controllers
                 //}
                 //ViewData["SelectKlien"] = OwinLibrary.Get_SelectListItem(Common.ddlRegion);
 
-
                 //set session filterisasi //
                 TempData["RGNMList"] = master;
                 TempData["RGNMListFilter"] = modFilter;
                 TempData["common"] = Common;
-
 
                 //set caption view//
                 ViewBag.menu = menu;
@@ -7606,9 +7360,7 @@ namespace DusColl.Controllers
                 ViewBag.rute = "MasterData";
                 ViewBag.action = "clnMTDRGN";
 
-
                 ViewBag.Total = "Total Data : " + TotalRecord.ToString();
-
 
                 //send back to client browser//
                 return Json(new
@@ -7634,8 +7386,8 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
+
         public async Task<ActionResult> clnRgridListMTDRGN(int paged)
         {
             Account = (vmAccount)Session["Account"];
@@ -7678,7 +7430,6 @@ namespace DusColl.Controllers
                 bool IsActive = modFilter.IsActiveData;
                 bool IsPusat = modFilter.IsPusatData;
 
-
                 // set & get for next paging //
                 int pagenumberclient = paged;
                 int PageNumber = modFilter.PageNumber;
@@ -7688,7 +7439,6 @@ namespace DusColl.Controllers
 
                 //descript some value for db//
                 caption = HasKeyProtect.Decryption(caption);
-
 
                 // try show filter data//
                 List<DataTable> dtlist = await MasterDataddl.dbGetRegionList(master.DTFromDB, keyword, IsActive, IsPusat, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
@@ -7701,7 +7451,6 @@ namespace DusColl.Controllers
                 bool isModeFilter = modFilter.isModeFilter;
                 string filteron = isModeFilter == false ? "" : ", Pencarian :  Aktif";
                 ViewBag.Total = "Total Data : " + TotalRecord.ToString() + filteron;
-
 
                 //set session filterisasi //
                 TempData["RGNMList"] = master;
@@ -7732,6 +7481,7 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         public async Task<ActionResult> clnOpenAddMTDRGN(string paramkey, string oprfun)
         {
             Account = (vmAccount)Session["Account"];
@@ -7792,7 +7542,6 @@ namespace DusColl.Controllers
                 TempData["common"] = Common;
                 // senback to client browser//
 
-
                 return Json(new
                 {
                     moderror = IsErrorTimeout,
@@ -7800,7 +7549,6 @@ namespace DusColl.Controllers
                     keydata = paramkey,
                     view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/Master/Region/_uiUpdateMasterData.cshtml", modeldata),
                 });
-
             }
             catch (Exception ex)
             {
@@ -7823,7 +7571,6 @@ namespace DusColl.Controllers
 
         public async Task<ActionResult> clnUpdMasterMTDRGN(cMasterDataArea model)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -7849,7 +7596,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 master = TempData["RGNMList"] as vmMasterData;
                 modFilter = TempData["RGNMListFilter"] as cFilterMasterData;
                 Common = (TempData["common"] as vmCommon);
@@ -7899,7 +7645,6 @@ namespace DusColl.Controllers
                     ID = (dr != null) ? int.Parse(dr["Id"].ToString()) : ID;
                 }
 
-
                 string EnumMessage = "";
                 int result = -1;
                 //if ((model.REGION ?? "") != "" && (model.REGION.Substring(0, 3) != "REG"))
@@ -7908,10 +7653,8 @@ namespace DusColl.Controllers
                 //}
                 //else
                 //{
-
                 //if ((model.REGION).All(char.IsNumber))
                 //{
-
                 result = await MasterDataddl.dbupdateRegion(ID, ID.ToString(), model.REGION_NAME, model.IsPusat, model.IsActive, caption, UserID, GroupName);
                 // }
                 //else
@@ -7928,7 +7671,6 @@ namespace DusColl.Controllers
 
                 if (result == 1)
                 {
-
                     ////get total data from server//
                     List<String> recordPage = await MasterDataddl.dbGetRegionListCount(keyword, IsActive, IsPusat, PageNumber, caption, UserID, GroupName);
                     TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -7961,7 +7703,6 @@ namespace DusColl.Controllers
                 string filteron = isModeFilter == false ? "" : ", Pencarian : Aktif";
                 ViewBag.Total = "Total Data : " + TotalRecord.ToString() + filteron;
 
-
                 //ViewData["SelectArea"] = OwinLibrary.Get_SelectListItem(Common.ddlRegion);
 
                 // senback to client browser//
@@ -7972,7 +7713,6 @@ namespace DusColl.Controllers
                     msg = EnumMessage,
                     resulted = result
                 });
-
             }
             catch (Exception ex)
             {
@@ -7992,9 +7732,9 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         public async Task<ActionResult> clndelAddMTDRGN(string paramkey)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -8020,7 +7760,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 master = TempData["RGNMList"] as vmMasterData;
                 modFilter = TempData["RGNMListFilter"] as cFilterMasterData;
                 Common = (TempData["common"] as vmCommon);
@@ -8074,7 +7813,6 @@ namespace DusColl.Controllers
 
                 if (result == 1)
                 {
-
                     // try show filter data//
                     List<String> recordPage = await MasterDataddl.dbGetRegionListCount(keyword, IsActive, IsPusat, PageNumber, caption, UserID, GroupName);
                     TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -8113,7 +7851,6 @@ namespace DusColl.Controllers
                     msg = EnumMessage,
                     resulted = result
                 });
-
             }
             catch (Exception ex)
             {
@@ -8161,7 +7898,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 //get session filterisasi //
                 modFilter = TempData["RGNMListFilter"] as cFilterMasterData;
                 master = TempData["RGNMList"] as vmMasterData;
@@ -8170,12 +7906,10 @@ namespace DusColl.Controllers
 
                 string UserID = modFilter.UserID;
 
-
                 // get value filter before//
                 string Keyword = modFilter.keyword ?? "";
                 bool IsActive = modFilter.IsActiveData;
                 bool IsPusat = modFilter.IsPusatData;
-
 
                 TempData["RGNMList"] = master;
                 TempData["RGNMListFilter"] = modFilter;
@@ -8190,7 +7924,6 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout,
                     view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/Master/Region/_uiFilterData.cshtml", master.MasterFilter),
                 });
-
             }
             catch (Exception ex)
             {
@@ -8210,6 +7943,7 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> clnListFilterMTDRGN(cFilterMasterData model)
@@ -8239,7 +7973,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 // get from session //
                 modFilter = TempData["RGNMListFilter"] as cFilterMasterData;
                 master = TempData["RGNMList"] as vmMasterData;
@@ -8278,10 +8011,8 @@ namespace DusColl.Controllers
                 string validtxt = "";
                 if (validtxt == "")
                 {
-
                     //descript some value for db//
                     caption = HasKeyProtect.Decryption(caption);
-
 
                     // try show filter data//
                     List<String> recordPage = await MasterDataddl.dbGetRegionListCount(Keyword, IsActive, IsPusat, PageNumber, caption, UserID, GroupName);
@@ -8292,7 +8023,6 @@ namespace DusColl.Controllers
                     List<DataTable> dtlist = await MasterDataddl.dbGetRegionList(null, Keyword, IsActive, IsPusat, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
                     totalRecordclient = dtlist[0].Rows.Count;
                     totalPageclient = int.Parse(Math.Ceiling(decimal.Parse(totalRecordclient.ToString()) / decimal.Parse(pagingsizeclient.ToString())).ToString());
-
 
                     //set in filter for paging//
                     modFilter.TotalRecord = TotalRecord;
@@ -8322,11 +8052,9 @@ namespace DusColl.Controllers
                         download = "",
                         message = validtxt,
                     });
-
                 }
                 else
                 {
-
                     TempData["RGNMListFilter"] = modFilter;
                     TempData["RGNMList"] = master;
                     TempData["common"] = Common;
@@ -8358,14 +8086,14 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         #endregion Master Region/Area
 
-
         #region Master Bank PPAT
+
         [HttpPost]
         public async Task<ActionResult> clnMTDBANKNOT(String menu, String caption)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -8438,7 +8166,6 @@ namespace DusColl.Controllers
                 modFilter.IsActiveData = IsActive;
                 modFilter.PageNumber = PageNumber;
 
-
                 // try show filter data//
                 List<String> recordPage = await MasterDataddl.dbGetBankNotListCount(Keyword, PageNumber, caption, UserID, GroupName);
                 TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -8462,21 +8189,17 @@ namespace DusColl.Controllers
                 master.DTDetailForGrid = dtlist[1];
                 master.MasterFilter = modFilter;
 
-
                 if (Common.ddlnotaris == null)
                 {
                     Common.ddlnotaris = await Commonddl.dbdbGetDdlEnumListByEncrypt("", "NOTARIS", caption, UserID, GroupName);
                 }
 
-
                 ViewData["SelectNotaris"] = OwinLibrary.Get_SelectListItem(Common.ddlnotaris);
-
 
                 //set session filterisasi //
                 TempData["BANKMNOTList"] = master;
                 TempData["BANKMNOTListFilter"] = modFilter;
                 TempData["common"] = Common;
-
 
                 //set caption view//
                 ViewBag.menu = menu;
@@ -8485,9 +8208,7 @@ namespace DusColl.Controllers
                 ViewBag.rute = "MasterData";
                 ViewBag.action = "clnMTDBANKNOT";
 
-
                 ViewBag.Total = "Total Data : " + TotalRecord.ToString();
-
 
                 //send back to client browser//
                 return Json(new
@@ -8513,8 +8234,8 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
+
         public async Task<ActionResult> clnRgridListMTDBANKNOT(int paged)
         {
             Account = (vmAccount)Session["Account"];
@@ -8566,7 +8287,6 @@ namespace DusColl.Controllers
                 //descript some value for db//
                 caption = HasKeyProtect.Decryption(caption);
 
-
                 // try show filter data//
                 List<DataTable> dtlist = await MasterDataddl.dbGetBankNotList(master.DTFromDB, keyword, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
                 // update active paging back to filter //
@@ -8578,7 +8298,6 @@ namespace DusColl.Controllers
                 bool isModeFilter = modFilter.isModeFilter;
                 string filteron = isModeFilter == false ? "" : ", Pencarian :  Aktif";
                 ViewBag.Total = "Total Data : " + TotalRecord.ToString() + filteron;
-
 
                 //set session filterisasi //
                 TempData["BANKMNOTList"] = master;
@@ -8609,6 +8328,7 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         public async Task<ActionResult> clnOpenAddMTDBANKNOT(string paramkey, string oprfun)
         {
             Account = (vmAccount)Session["Account"];
@@ -8649,7 +8369,6 @@ namespace DusColl.Controllers
                 DataRow dr = master.DTDetailForGrid.AsEnumerable().Where(x => x.Field<string>("keylookupdata") == paramkey).SingleOrDefault();
                 if (dr != null)
                 {
-
                     Opr4view = "edit";
                     if (oprfun == "x4vw")
                     {
@@ -8679,7 +8398,6 @@ namespace DusColl.Controllers
                 TempData["common"] = Common;
                 // senback to client browser//
 
-
                 return Json(new
                 {
                     moderror = IsErrorTimeout,
@@ -8687,7 +8405,6 @@ namespace DusColl.Controllers
                     keydata = paramkey,
                     view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/Master/BankNot/_uiUpdateMasterData.cshtml", modeldata),
                 });
-
             }
             catch (Exception ex)
             {
@@ -8710,7 +8427,6 @@ namespace DusColl.Controllers
 
         public async Task<ActionResult> clnUpdMasterMTDBANKNOT(cMasterDataBank model)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -8736,7 +8452,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 master = TempData["BANKMNOTList"] as vmMasterData;
                 modFilter = TempData["BANKMNOTListFilter"] as cFilterMasterData;
                 Common = (TempData["common"] as vmCommon);
@@ -8781,7 +8496,6 @@ namespace DusColl.Controllers
                     ID = (dr != null) ? int.Parse(dr["Id"].ToString()) : ID;
                 }
 
-
                 string EnumMessage = "";
                 int result = -1;
                 //if ((model.REGION ?? "") != "" && (model.REGION.Substring(0, 3) != "REG"))
@@ -8790,7 +8504,6 @@ namespace DusColl.Controllers
                 //}
                 //else
                 //{
-
                 //if ((model.BANK_ID).All(char.IsNumber))
                 //{
                 result = await MasterDataddl.dbupdateBankNOT(ID, model.SelectNotaris, model.PemilikRekening, model.NoRekening, model.NamaBank, model.CabangBank, model.KodeInvoice, model.PRC_CHECK, model.PRC_SKMHT,
@@ -8810,7 +8523,6 @@ namespace DusColl.Controllers
 
                 if (result == 1)
                 {
-
                     ////get total data from server//
                     List<String> recordPage = await MasterDataddl.dbGetBankNotListCount(keyword, PageNumber, caption, UserID, GroupName);
                     TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -8843,7 +8555,6 @@ namespace DusColl.Controllers
                 string filteron = isModeFilter == false ? "" : ", Pencarian : Aktif";
                 ViewBag.Total = "Total Data : " + TotalRecord.ToString() + filteron;
 
-
                 ViewData["SelectNotaris"] = OwinLibrary.Get_SelectListItem(Common.ddlnotaris);
 
                 // senback to client browser//
@@ -8854,7 +8565,6 @@ namespace DusColl.Controllers
                     msg = EnumMessage,
                     resulted = result
                 });
-
             }
             catch (Exception ex)
             {
@@ -8874,9 +8584,9 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         public async Task<ActionResult> clndelAddMTDBANKNOT(string paramkey)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -8902,7 +8612,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 master = TempData["BANKMNOTList"] as vmMasterData;
                 modFilter = TempData["BANKMNOTListFilter"] as cFilterMasterData;
                 Common = (TempData["common"] as vmCommon);
@@ -8954,7 +8663,6 @@ namespace DusColl.Controllers
 
                 if (result == 1)
                 {
-
                     // try show filter data//
                     List<String> recordPage = await MasterDataddl.dbGetBankNotListCount(keyword, PageNumber, caption, UserID, GroupName);
                     TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -8993,7 +8701,6 @@ namespace DusColl.Controllers
                     msg = EnumMessage,
                     resulted = result
                 });
-
             }
             catch (Exception ex)
             {
@@ -9041,7 +8748,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 //get session filterisasi //
                 modFilter = TempData["BANKMNOTListFilter"] as cFilterMasterData;
                 master = TempData["BANKMNOTList"] as vmMasterData;
@@ -9049,7 +8755,6 @@ namespace DusColl.Controllers
                 Common = Common == null ? new vmCommon() : Common;
 
                 string UserID = modFilter.UserID;
-
 
                 // get value filter before//
                 string Keyword = modFilter.keyword ?? "";
@@ -9066,7 +8771,6 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout,
                     view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/Master/BankNot/_uiFilterData.cshtml", master.MasterFilter),
                 });
-
             }
             catch (Exception ex)
             {
@@ -9086,6 +8790,7 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> clnListFilterMTDBANKNOT(cFilterMasterData model)
@@ -9115,7 +8820,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 // get from session //
                 modFilter = TempData["BANKMNOTListFilter"] as cFilterMasterData;
                 master = TempData["BANKMNOTList"] as vmMasterData;
@@ -9152,10 +8856,8 @@ namespace DusColl.Controllers
                 string validtxt = "";
                 if (validtxt == "")
                 {
-
                     //descript some value for db//
                     caption = HasKeyProtect.Decryption(caption);
-
 
                     // try show filter data//
                     List<String> recordPage = await MasterDataddl.dbGetBankNotListCount(Keyword, PageNumber, caption, UserID, GroupName);
@@ -9166,7 +8868,6 @@ namespace DusColl.Controllers
                     List<DataTable> dtlist = await MasterDataddl.dbGetBankNotList(null, Keyword, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
                     totalRecordclient = dtlist[0].Rows.Count;
                     totalPageclient = int.Parse(Math.Ceiling(decimal.Parse(totalRecordclient.ToString()) / decimal.Parse(pagingsizeclient.ToString())).ToString());
-
 
                     //set in filter for paging//
                     modFilter.TotalRecord = TotalRecord;
@@ -9196,11 +8897,9 @@ namespace DusColl.Controllers
                         download = "",
                         message = validtxt,
                     });
-
                 }
                 else
                 {
-
                     TempData["BANKMNOTListFilter"] = modFilter;
                     TempData["BANKMNOTList"] = master;
                     TempData["common"] = Common;
@@ -9232,14 +8931,14 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         #endregion Master Bank PPAT
 
-
         #region Master Jadwal INV PPAT
+
         [HttpPost]
         public async Task<ActionResult> clnMTDSCHINV(String menu, String caption)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -9312,7 +9011,6 @@ namespace DusColl.Controllers
                 modFilter.IsActiveData = IsActive;
                 modFilter.PageNumber = PageNumber;
 
-
                 // try show filter data//
                 List<String> recordPage = await MasterDataddl.dbGetSchInvNotListCount(Keyword, PageNumber, caption, UserID, GroupName);
                 TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -9336,21 +9034,17 @@ namespace DusColl.Controllers
                 master.DTDetailForGrid = dtlist[1];
                 master.MasterFilter = modFilter;
 
-
                 if (Common.ddlnotaris == null)
                 {
                     Common.ddlnotaris = await Commonddl.dbdbGetDdlEnumListByEncrypt("", "NOTARIS", caption, UserID, GroupName);
                 }
 
-
                 ViewData["SelectNotaris"] = OwinLibrary.Get_SelectListItem(Common.ddlnotaris);
-
 
                 //set session filterisasi //
                 TempData["MTDSCHINVList"] = master;
                 TempData["MTDSCHINVListFilter"] = modFilter;
                 TempData["common"] = Common;
-
 
                 //set caption view//
                 ViewBag.menu = menu;
@@ -9359,9 +9053,7 @@ namespace DusColl.Controllers
                 ViewBag.rute = "MasterData";
                 ViewBag.action = "clnMTDSchInvNot";
 
-
                 ViewBag.Total = "Total Data : " + TotalRecord.ToString();
-
 
                 //send back to client browser//
                 return Json(new
@@ -9387,8 +9079,8 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
+
         public async Task<ActionResult> clnRgridListMTDSCHINV(int paged)
         {
             Account = (vmAccount)Session["Account"];
@@ -9440,7 +9132,6 @@ namespace DusColl.Controllers
                 //descript some value for db//
                 caption = HasKeyProtect.Decryption(caption);
 
-
                 // try show filter data//
                 List<DataTable> dtlist = await MasterDataddl.dbGetSchInvNotList(master.DTFromDB, keyword, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
                 // update active paging back to filter //
@@ -9452,7 +9143,6 @@ namespace DusColl.Controllers
                 bool isModeFilter = modFilter.isModeFilter;
                 string filteron = isModeFilter == false ? "" : ", Pencarian :  Aktif";
                 ViewBag.Total = "Total Data : " + TotalRecord.ToString() + filteron;
-
 
                 //set session filterisasi //
                 TempData["MTDSCHINVList"] = master;
@@ -9483,6 +9173,7 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         public async Task<ActionResult> clnOpenAddMTDSCHINV(string paramkey, string oprfun)
         {
             Account = (vmAccount)Session["Account"];
@@ -9523,7 +9214,6 @@ namespace DusColl.Controllers
                 DataRow dr = master.DTDetailForGrid.AsEnumerable().Where(x => x.Field<string>("keylookupdata") == paramkey).SingleOrDefault();
                 if (dr != null)
                 {
-
                     Opr4view = "edit";
                     if (oprfun == "x4vw")
                     {
@@ -9545,7 +9235,6 @@ namespace DusColl.Controllers
                 TempData["common"] = Common;
                 // senback to client browser//
 
-
                 return Json(new
                 {
                     moderror = IsErrorTimeout,
@@ -9553,7 +9242,6 @@ namespace DusColl.Controllers
                     keydata = paramkey,
                     view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/Master/SchInvNot/_uiUpdateMasterData.cshtml", modeldata),
                 });
-
             }
             catch (Exception ex)
             {
@@ -9576,7 +9264,6 @@ namespace DusColl.Controllers
 
         public async Task<ActionResult> clnUpdMasterMTDSCHINV(cMasterSchINVPPAT model)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -9602,7 +9289,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 master = TempData["MTDSCHINVList"] as vmMasterData;
                 modFilter = TempData["MTDSCHINVListFilter"] as cFilterMasterData;
                 Common = (TempData["common"] as vmCommon);
@@ -9647,7 +9333,6 @@ namespace DusColl.Controllers
                     ID = (dr != null) ? int.Parse(dr["Id"].ToString()) : ID;
                 }
 
-
                 string EnumMessage = "";
                 int result = -1;
                 //if ((model.REGION ?? "") != "" && (model.REGION.Substring(0, 3) != "REG"))
@@ -9656,7 +9341,6 @@ namespace DusColl.Controllers
                 //}
                 //else
                 //{
-
                 //if ((model.BANK_ID).All(char.IsNumber))
                 //{
                 result = await MasterDataddl.dbupdateSchInvNot(ID, model.PPATID, model.TglINV, caption, UserID, GroupName);
@@ -9675,7 +9359,6 @@ namespace DusColl.Controllers
 
                 if (result == 1)
                 {
-
                     ////get total data from server//
                     List<String> recordPage = await MasterDataddl.dbGetSchInvNotListCount(keyword, PageNumber, caption, UserID, GroupName);
                     TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -9708,7 +9391,6 @@ namespace DusColl.Controllers
                 string filteron = isModeFilter == false ? "" : ", Pencarian : Aktif";
                 ViewBag.Total = "Total Data : " + TotalRecord.ToString() + filteron;
 
-
                 ViewData["SelectNotaris"] = OwinLibrary.Get_SelectListItem(Common.ddlnotaris);
 
                 // senback to client browser//
@@ -9719,7 +9401,6 @@ namespace DusColl.Controllers
                     msg = EnumMessage,
                     resulted = result
                 });
-
             }
             catch (Exception ex)
             {
@@ -9739,9 +9420,9 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         public async Task<ActionResult> clndelAddMTDSCHINV(string paramkey)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -9767,7 +9448,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 master = TempData["MTDSCHINVList"] as vmMasterData;
                 modFilter = TempData["MTDSCHINVListFilter"] as cFilterMasterData;
                 Common = (TempData["common"] as vmCommon);
@@ -9819,7 +9499,6 @@ namespace DusColl.Controllers
 
                 if (result == 1)
                 {
-
                     // try show filter data//
                     List<String> recordPage = await MasterDataddl.dbGetSchInvNotListCount(keyword, PageNumber, caption, UserID, GroupName);
                     TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -9858,7 +9537,6 @@ namespace DusColl.Controllers
                     msg = EnumMessage,
                     resulted = result
                 });
-
             }
             catch (Exception ex)
             {
@@ -9906,7 +9584,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 //get session filterisasi //
                 modFilter = TempData["MTDSCHINVListFilter"] as cFilterMasterData;
                 master = TempData["MTDSCHINVList"] as vmMasterData;
@@ -9914,7 +9591,6 @@ namespace DusColl.Controllers
                 Common = Common == null ? new vmCommon() : Common;
 
                 string UserID = modFilter.UserID;
-
 
                 // get value filter before//
                 string Keyword = modFilter.keyword ?? "";
@@ -9931,7 +9607,6 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout,
                     view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/Master/SchInvNot/_uiFilterData.cshtml", master.MasterFilter),
                 });
-
             }
             catch (Exception ex)
             {
@@ -9951,6 +9626,7 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> clnListFilterMTDSCHINV(cFilterMasterData model)
@@ -9980,7 +9656,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 // get from session //
                 modFilter = TempData["MTDSCHINVListFilter"] as cFilterMasterData;
                 master = TempData["MTDSCHINVList"] as vmMasterData;
@@ -10017,10 +9692,8 @@ namespace DusColl.Controllers
                 string validtxt = "";
                 if (validtxt == "")
                 {
-
                     //descript some value for db//
                     caption = HasKeyProtect.Decryption(caption);
-
 
                     // try show filter data//
                     List<String> recordPage = await MasterDataddl.dbGetSchInvNotListCount(Keyword, PageNumber, caption, UserID, GroupName);
@@ -10031,7 +9704,6 @@ namespace DusColl.Controllers
                     List<DataTable> dtlist = await MasterDataddl.dbGetSchInvNotList(null, Keyword, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
                     totalRecordclient = dtlist[0].Rows.Count;
                     totalPageclient = int.Parse(Math.Ceiling(decimal.Parse(totalRecordclient.ToString()) / decimal.Parse(pagingsizeclient.ToString())).ToString());
-
 
                     //set in filter for paging//
                     modFilter.TotalRecord = TotalRecord;
@@ -10061,11 +9733,9 @@ namespace DusColl.Controllers
                         download = "",
                         message = validtxt,
                     });
-
                 }
                 else
                 {
-
                     TempData["MTDSCHINVListFilter"] = modFilter;
                     TempData["MTDSCHINVList"] = master;
                     TempData["common"] = Common;
@@ -10097,15 +9767,14 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         #endregion Master Jadwal INV PPAT
 
-
-
         #region Master Wilayah PPAT
+
         [HttpPost]
         public async Task<ActionResult> clnMTDRGNNOT(String menu, String caption)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -10178,7 +9847,6 @@ namespace DusColl.Controllers
                 modFilter.IsActiveData = IsActive;
                 modFilter.PageNumber = PageNumber;
 
-
                 // try show filter data//
                 List<String> recordPage = await MasterDataddl.dbGetNotRgnListCount(Keyword, PageNumber, caption, UserID, GroupName);
                 TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -10202,7 +9870,6 @@ namespace DusColl.Controllers
                 master.DTDetailForGrid = dtlist[1];
                 master.MasterFilter = modFilter;
 
-
                 if (Common.ddlnotaris == null)
                 {
                     Common.ddlnotaris = await Commonddl.dbdbGetDdlEnumListByEncrypt("", "NOTARIS", caption, UserID, GroupName);
@@ -10221,7 +9888,6 @@ namespace DusColl.Controllers
                 TempData["NOTRGNListFilter"] = modFilter;
                 TempData["common"] = Common;
 
-
                 //set caption view//
                 ViewBag.menu = menu;
                 ViewBag.caption = caption;
@@ -10229,9 +9895,7 @@ namespace DusColl.Controllers
                 ViewBag.rute = "MasterData";
                 ViewBag.action = "clnMTDNOTRGN";
 
-
                 ViewBag.Total = "Total Data : " + TotalRecord.ToString();
-
 
                 //send back to client browser//
                 return Json(new
@@ -10257,8 +9921,8 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
+
         public async Task<ActionResult> clnRgridListMTDRGNNOT(int paged)
         {
             Account = (vmAccount)Session["Account"];
@@ -10310,7 +9974,6 @@ namespace DusColl.Controllers
                 //descript some value for db//
                 caption = HasKeyProtect.Decryption(caption);
 
-
                 // try show filter data//
                 List<DataTable> dtlist = await MasterDataddl.dbGetNotRgnList(master.DTFromDB, keyword, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
                 // update active paging back to filter //
@@ -10322,7 +9985,6 @@ namespace DusColl.Controllers
                 bool isModeFilter = modFilter.isModeFilter;
                 string filteron = isModeFilter == false ? "" : ", Pencarian :  Aktif";
                 ViewBag.Total = "Total Data : " + TotalRecord.ToString() + filteron;
-
 
                 //set session filterisasi //
                 TempData["NOTRGNList"] = master;
@@ -10353,6 +10015,7 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         public async Task<ActionResult> clnOpenAddMTDRGNNOT(string paramkey, string oprfun)
         {
             Account = (vmAccount)Session["Account"];
@@ -10394,7 +10057,6 @@ namespace DusColl.Controllers
                 DataRow dr = master.DTDetailForGrid.AsEnumerable().Where(x => x.Field<string>("keylookupdata") == paramkey).SingleOrDefault();
                 if (dr != null)
                 {
-
                     Opr4view = "edit";
                     if (oprfun == "x4vw")
                     {
@@ -10405,7 +10067,7 @@ namespace DusColl.Controllers
                     modeldata.SelectNotaris = dr["UserID"].ToString();
                     modeldata.UserName = dr["UserName"].ToString();
                     modeldata.Wilayah = dr["wilayah"].ToString();
-                    modeldata.IsActiveData= bool.Parse(dr["IsActiveData"].ToString());
+                    modeldata.IsActiveData = bool.Parse(dr["IsActiveData"].ToString());
                     modFilter.keylookupdata = paramkey;
                 }
 
@@ -10417,7 +10079,6 @@ namespace DusColl.Controllers
                 TempData["common"] = Common;
                 // senback to client browser//
 
-
                 return Json(new
                 {
                     moderror = IsErrorTimeout,
@@ -10425,7 +10086,6 @@ namespace DusColl.Controllers
                     keydata = paramkey,
                     view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/Master/NotRegion/_uiUpdateMasterData.cshtml", modeldata),
                 });
-
             }
             catch (Exception ex)
             {
@@ -10448,7 +10108,6 @@ namespace DusColl.Controllers
 
         public async Task<ActionResult> clnUpdMasterMTDRGNNOT(cMasterDataWilayahPPAT model)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -10474,7 +10133,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 master = TempData["NOTRGNList"] as vmMasterData;
                 modFilter = TempData["NOTRGNListFilter"] as cFilterMasterData;
                 Common = (TempData["common"] as vmCommon);
@@ -10519,7 +10177,6 @@ namespace DusColl.Controllers
                     ID = (dr != null) ? int.Parse(dr["Id"].ToString()) : ID;
                 }
 
-
                 string EnumMessage = "";
                 int result = -1;
                 //if ((model.REGION ?? "") != "" && (model.REGION.Substring(0, 3) != "REG"))
@@ -10528,7 +10185,6 @@ namespace DusColl.Controllers
                 //}
                 //else
                 //{
-
                 //if ((model.BANK_ID).All(char.IsNumber))
                 //{
                 result = await MasterDataddl.dbupdateNOTRgn(ID, model.SelectNotaris, model.SelectNotarisRgn, model.IsActiveData, caption, UserID, GroupName);
@@ -10547,7 +10203,6 @@ namespace DusColl.Controllers
 
                 if (result == 1)
                 {
-
                     ////get total data from server//
                     List<String> recordPage = await MasterDataddl.dbGetNotRgnListCount(keyword, PageNumber, caption, UserID, GroupName);
                     TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -10580,7 +10235,6 @@ namespace DusColl.Controllers
                 string filteron = isModeFilter == false ? "" : ", Pencarian : Aktif";
                 ViewBag.Total = "Total Data : " + TotalRecord.ToString() + filteron;
 
-
                 ViewData["SelectNotaris"] = OwinLibrary.Get_SelectListItem(Common.ddlnotaris);
                 ViewData["SelectNotarisRgn"] = OwinLibrary.Get_SelectListItem(Common.ddlnotarisRgn);
 
@@ -10592,7 +10246,6 @@ namespace DusColl.Controllers
                     msg = EnumMessage,
                     resulted = result
                 });
-
             }
             catch (Exception ex)
             {
@@ -10612,9 +10265,9 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         public async Task<ActionResult> clndelAddMTDRGNNOT(string paramkey)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -10640,7 +10293,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 master = TempData["NOTRGNList"] as vmMasterData;
                 modFilter = TempData["NOTRGNListFilter"] as cFilterMasterData;
                 Common = (TempData["common"] as vmCommon);
@@ -10692,7 +10344,6 @@ namespace DusColl.Controllers
 
                 if (result == 1)
                 {
-
                     // try show filter data//
                     List<String> recordPage = await MasterDataddl.dbGetNotRgnListCount(keyword, PageNumber, caption, UserID, GroupName);
                     TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -10731,7 +10382,6 @@ namespace DusColl.Controllers
                     msg = EnumMessage,
                     resulted = result
                 });
-
             }
             catch (Exception ex)
             {
@@ -10779,7 +10429,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 //get session filterisasi //
                 modFilter = TempData["NOTRGNListFilter"] as cFilterMasterData;
                 master = TempData["NOTRGNList"] as vmMasterData;
@@ -10787,7 +10436,6 @@ namespace DusColl.Controllers
                 Common = Common == null ? new vmCommon() : Common;
 
                 string UserID = modFilter.UserID;
-
 
                 // get value filter before//
                 string Keyword = modFilter.keyword ?? "";
@@ -10804,7 +10452,6 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout,
                     view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/Master/NotRegion/_uiFilterData.cshtml", master.MasterFilter),
                 });
-
             }
             catch (Exception ex)
             {
@@ -10824,6 +10471,7 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> clnListFilterMTDRGNNOT(cFilterMasterData model)
@@ -10853,7 +10501,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 // get from session //
                 modFilter = TempData["NOTRGNListFilter"] as cFilterMasterData;
                 master = TempData["NOTRGNList"] as vmMasterData;
@@ -10890,10 +10537,8 @@ namespace DusColl.Controllers
                 string validtxt = "";
                 if (validtxt == "")
                 {
-
                     //descript some value for db//
                     caption = HasKeyProtect.Decryption(caption);
-
 
                     // try show filter data//
                     List<String> recordPage = await MasterDataddl.dbGetNotRgnListCount(Keyword, PageNumber, caption, UserID, GroupName);
@@ -10904,7 +10549,6 @@ namespace DusColl.Controllers
                     List<DataTable> dtlist = await MasterDataddl.dbGetNotRgnList(null, Keyword, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
                     totalRecordclient = dtlist[0].Rows.Count;
                     totalPageclient = int.Parse(Math.Ceiling(decimal.Parse(totalRecordclient.ToString()) / decimal.Parse(pagingsizeclient.ToString())).ToString());
-
 
                     //set in filter for paging//
                     modFilter.TotalRecord = TotalRecord;
@@ -10934,11 +10578,9 @@ namespace DusColl.Controllers
                         download = "",
                         message = validtxt,
                     });
-
                 }
                 else
                 {
-
                     TempData["NOTRGNListFilter"] = modFilter;
                     TempData["NOTRGNList"] = master;
                     TempData["common"] = Common;
@@ -10970,15 +10612,14 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         #endregion Master Wilayah PPAT
 
-
-
         #region Master Comment History
+
         [HttpPost]
         public async Task<ActionResult> clnMTDLOGCOMMENT(String menu, String caption)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -11051,7 +10692,6 @@ namespace DusColl.Controllers
                 modFilter.IsActiveData = IsActive;
                 modFilter.PageNumber = PageNumber;
 
-
                 // try show filter data//
                 List<String> recordPage = await MasterDataddl.dbGetLogCommentListCount(Keyword, PageNumber, caption, UserID, GroupName);
                 TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -11075,14 +10715,10 @@ namespace DusColl.Controllers
                 master.DTDetailForGrid = dtlist[1];
                 master.MasterFilter = modFilter;
 
-
-
-
                 //set session filterisasi //
                 TempData["LOGCOMMENTList"] = master;
                 TempData["LOGCOMMENTListFilter"] = modFilter;
                 TempData["common"] = Common;
-
 
                 //set caption view//
                 ViewBag.menu = menu;
@@ -11091,9 +10727,7 @@ namespace DusColl.Controllers
                 ViewBag.rute = "MasterData";
                 ViewBag.action = "clnMTDLOGCOMMENT";
 
-
                 ViewBag.Total = "Total Data : " + TotalRecord.ToString();
-
 
                 //send back to client browser//
                 return Json(new
@@ -11119,8 +10753,8 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
+
         public async Task<ActionResult> clnRgridListMTDLOGCOMMENT(int paged)
         {
             Account = (vmAccount)Session["Account"];
@@ -11172,7 +10806,6 @@ namespace DusColl.Controllers
                 //descript some value for db//
                 caption = HasKeyProtect.Decryption(caption);
 
-
                 // try show filter data//
                 List<DataTable> dtlist = await MasterDataddl.dbGetLogCommentList(master.DTFromDB, keyword, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
                 // update active paging back to filter //
@@ -11184,7 +10817,6 @@ namespace DusColl.Controllers
                 bool isModeFilter = modFilter.isModeFilter;
                 string filteron = isModeFilter == false ? "" : ", Pencarian :  Aktif";
                 ViewBag.Total = "Total Data : " + TotalRecord.ToString() + filteron;
-
 
                 //set session filterisasi //
                 TempData["LOGCOMMENTList"] = master;
@@ -11215,6 +10847,7 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         public async Task<ActionResult> clnOpenAddMTDLOGCOMMENT(string paramkey, string oprfun)
         {
             Account = (vmAccount)Session["Account"];
@@ -11252,14 +10885,11 @@ namespace DusColl.Controllers
                 string UserID = Account.AccountLogin.UserID;
                 string GroupName = Account.AccountLogin.GroupName;
 
-
-
                 string Opr4view = "add";
                 cMasterLogHIstory modeldata = new cMasterLogHIstory();
                 DataRow dr = master.DTDetailForGrid.AsEnumerable().Where(x => x.Field<string>("keylookupdata") == paramkey).SingleOrDefault();
                 if (dr != null)
                 {
-
                     Opr4view = "edit";
                     if (oprfun == "x4vw")
                     {
@@ -11280,7 +10910,6 @@ namespace DusColl.Controllers
                 TempData["common"] = Common;
                 // senback to client browser//
 
-
                 return Json(new
                 {
                     moderror = IsErrorTimeout,
@@ -11288,7 +10917,6 @@ namespace DusColl.Controllers
                     keydata = paramkey,
                     view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/Master/History/_uiUpdateMasterData.cshtml", modeldata),
                 });
-
             }
             catch (Exception ex)
             {
@@ -11311,7 +10939,6 @@ namespace DusColl.Controllers
 
         public async Task<ActionResult> clnUpdMasterMTDLOGCOMMENT(cMasterLogHIstory model)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -11337,7 +10964,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 master = TempData["LOGCOMMENTList"] as vmMasterData;
                 modFilter = TempData["LOGCOMMENTListFilter"] as cFilterMasterData;
                 Common = (TempData["common"] as vmCommon);
@@ -11382,7 +11008,6 @@ namespace DusColl.Controllers
                     ID = (dr != null) ? int.Parse(dr["Id"].ToString()) : ID;
                 }
 
-
                 string EnumMessage = "";
                 int result = -1;
                 //if ((model.REGION ?? "") != "" && (model.REGION.Substring(0, 3) != "REG"))
@@ -11391,7 +11016,6 @@ namespace DusColl.Controllers
                 //}
                 //else
                 //{
-
                 //if ((model.BANK_ID).All(char.IsNumber))
                 //{
                 string statused = HasKeyProtect.Decryption(model.SelectDivisi);
@@ -11411,7 +11035,6 @@ namespace DusColl.Controllers
 
                 if (result == 1)
                 {
-
                     ////get total data from server//
                     List<String> recordPage = await MasterDataddl.dbGetLogCommentListCount(keyword, PageNumber, caption, UserID, GroupName);
                     TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -11444,7 +11067,6 @@ namespace DusColl.Controllers
                 string filteron = isModeFilter == false ? "" : ", Pencarian : Aktif";
                 ViewBag.Total = "Total Data : " + TotalRecord.ToString() + filteron;
 
-
                 ViewData["SelectNotaris"] = OwinLibrary.Get_SelectListItem(Common.ddlnotaris);
                 ViewData["SelectNotarisRgn"] = OwinLibrary.Get_SelectListItem(Common.ddlnotarisRgn);
 
@@ -11456,7 +11078,6 @@ namespace DusColl.Controllers
                     msg = EnumMessage,
                     resulted = result
                 });
-
             }
             catch (Exception ex)
             {
@@ -11476,9 +11097,9 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         public async Task<ActionResult> clndelAddMTDLOGCOMMENT(string paramkey)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -11504,7 +11125,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 master = TempData["LOGCOMMENTList"] as vmMasterData;
                 modFilter = TempData["LOGCOMMENTListFilter"] as cFilterMasterData;
                 Common = (TempData["common"] as vmCommon);
@@ -11556,7 +11176,6 @@ namespace DusColl.Controllers
 
                 if (result == 1)
                 {
-
                     // try show filter data//
                     List<String> recordPage = await MasterDataddl.dbGetLogCommentListCount(keyword, PageNumber, caption, UserID, GroupName);
                     TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -11595,7 +11214,6 @@ namespace DusColl.Controllers
                     msg = EnumMessage,
                     resulted = result
                 });
-
             }
             catch (Exception ex)
             {
@@ -11643,7 +11261,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 //get session filterisasi //
                 modFilter = TempData["LOGCOMMENTListFilter"] as cFilterMasterData;
                 master = TempData["LOGCOMMENTList"] as vmMasterData;
@@ -11651,7 +11268,6 @@ namespace DusColl.Controllers
                 Common = Common == null ? new vmCommon() : Common;
 
                 string UserID = modFilter.UserID;
-
 
                 // get value filter before//
                 string Keyword = modFilter.keyword ?? "";
@@ -11668,7 +11284,6 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout,
                     view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/Master/History/_uiFilterData.cshtml", master.MasterFilter),
                 });
-
             }
             catch (Exception ex)
             {
@@ -11688,6 +11303,7 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> clnListFilterMTDLOGCOMMENT(cFilterMasterData model)
@@ -11717,7 +11333,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 // get from session //
                 modFilter = TempData["LOGCOMMENTListFilter"] as cFilterMasterData;
                 master = TempData["LOGCOMMENTList"] as vmMasterData;
@@ -11754,10 +11369,8 @@ namespace DusColl.Controllers
                 string validtxt = "";
                 if (validtxt == "")
                 {
-
                     //descript some value for db//
                     caption = HasKeyProtect.Decryption(caption);
-
 
                     // try show filter data//
                     List<String> recordPage = await MasterDataddl.dbGetLogCommentListCount(Keyword, PageNumber, caption, UserID, GroupName);
@@ -11768,7 +11381,6 @@ namespace DusColl.Controllers
                     List<DataTable> dtlist = await MasterDataddl.dbGetLogCommentList(null, Keyword, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
                     totalRecordclient = dtlist[0].Rows.Count;
                     totalPageclient = int.Parse(Math.Ceiling(decimal.Parse(totalRecordclient.ToString()) / decimal.Parse(pagingsizeclient.ToString())).ToString());
-
 
                     //set in filter for paging//
                     modFilter.TotalRecord = TotalRecord;
@@ -11798,11 +11410,9 @@ namespace DusColl.Controllers
                         download = "",
                         message = validtxt,
                     });
-
                 }
                 else
                 {
-
                     TempData["LOGCOMMENTListFilter"] = modFilter;
                     TempData["LOGCOMMENTList"] = master;
                     TempData["common"] = Common;
@@ -11837,12 +11447,11 @@ namespace DusColl.Controllers
 
         #endregion Master Comment History
 
-
         #region Master Account grouop
+
         [HttpPost]
         public async Task<ActionResult> clnMTDACCTGRP(String menu, String caption)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -11915,7 +11524,6 @@ namespace DusColl.Controllers
                 modFilter.IsActiveData = IsActive;
                 modFilter.PageNumber = PageNumber;
 
-
                 // try show filter data//
                 List<String> recordPage = await MasterDataddl.dbGetAcctGrpListCount(Keyword, PageNumber, caption, UserID, GroupName);
                 TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -11939,7 +11547,6 @@ namespace DusColl.Controllers
                 master.DTDetailForGrid = dtlist[1];
                 master.MasterFilter = modFilter;
 
-
                 if (Common.ddlUserID == null)
                 {
                     Common.ddlUserID = await Commonddl.dbdbGetDdlEnumListByEncrypt("", "USR", caption, UserID, GroupName);
@@ -11958,7 +11565,6 @@ namespace DusColl.Controllers
                 TempData["ACCTGRPListFilter"] = modFilter;
                 TempData["common"] = Common;
 
-
                 //set caption view//
                 ViewBag.menu = menu;
                 ViewBag.caption = caption;
@@ -11966,9 +11572,7 @@ namespace DusColl.Controllers
                 ViewBag.rute = "MasterData";
                 ViewBag.action = "clnMTDACCTGRP";
 
-
                 ViewBag.Total = "Total Data : " + TotalRecord.ToString();
-
 
                 //send back to client browser//
                 return Json(new
@@ -11994,8 +11598,8 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
+
         public async Task<ActionResult> clnRgridListMTDACCTGRP(int paged)
         {
             Account = (vmAccount)Session["Account"];
@@ -12047,7 +11651,6 @@ namespace DusColl.Controllers
                 //descript some value for db//
                 caption = HasKeyProtect.Decryption(caption);
 
-
                 // try show filter data//
                 List<DataTable> dtlist = await MasterDataddl.dbGetAcctGrpList(master.DTFromDB, keyword, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
                 // update active paging back to filter //
@@ -12059,7 +11662,6 @@ namespace DusColl.Controllers
                 bool isModeFilter = modFilter.isModeFilter;
                 string filteron = isModeFilter == false ? "" : ", Pencarian :  Aktif";
                 ViewBag.Total = "Total Data : " + TotalRecord.ToString() + filteron;
-
 
                 //set session filterisasi //
                 TempData["ACCTGRPList"] = master;
@@ -12090,6 +11692,7 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         public async Task<ActionResult> clnOpenAddMTDACCTGRP(string paramkey, string oprfun)
         {
             Account = (vmAccount)Session["Account"];
@@ -12131,7 +11734,6 @@ namespace DusColl.Controllers
                 DataRow dr = master.DTDetailForGrid.AsEnumerable().Where(x => x.Field<string>("keylookupdata") == paramkey).SingleOrDefault();
                 if (dr != null)
                 {
-
                     Opr4view = "edit";
                     if (oprfun == "x4vw")
                     {
@@ -12153,7 +11755,6 @@ namespace DusColl.Controllers
                 TempData["common"] = Common;
                 // senback to client browser//
 
-
                 return Json(new
                 {
                     moderror = IsErrorTimeout,
@@ -12161,7 +11762,6 @@ namespace DusColl.Controllers
                     keydata = paramkey,
                     view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/Master/AcctGrp/_uiUpdateMasterData.cshtml", modeldata),
                 });
-
             }
             catch (Exception ex)
             {
@@ -12184,7 +11784,6 @@ namespace DusColl.Controllers
 
         public async Task<ActionResult> clnUpdMasterMTDACCTGRP(cMasterDataAcctGroup model)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -12210,7 +11809,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 master = TempData["ACCTGRPList"] as vmMasterData;
                 modFilter = TempData["ACCTGRPListFilter"] as cFilterMasterData;
                 Common = (TempData["common"] as vmCommon);
@@ -12255,7 +11853,6 @@ namespace DusColl.Controllers
                     ID = (dr != null) ? int.Parse(dr["Id"].ToString()) : ID;
                 }
 
-
                 string EnumMessage = "";
                 int result = -1;
                 //if ((model.REGION ?? "") != "" && (model.REGION.Substring(0, 3) != "REG"))
@@ -12264,7 +11861,6 @@ namespace DusColl.Controllers
                 //}
                 //else
                 //{
-
                 //if ((model.BANK_ID).All(char.IsNumber))
                 //{
                 result = await MasterDataddl.dbupdateAcctGrp(ID, model.UserGroup, model.NamaGroup, caption, UserID, GroupName);
@@ -12283,7 +11879,6 @@ namespace DusColl.Controllers
 
                 if (result == 1)
                 {
-
                     ////get total data from server//
                     List<String> recordPage = await MasterDataddl.dbGetAcctGrpListCount(keyword, PageNumber, caption, UserID, GroupName);
                     TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -12316,7 +11911,6 @@ namespace DusColl.Controllers
                 string filteron = isModeFilter == false ? "" : ", Pencarian : Aktif";
                 ViewBag.Total = "Total Data : " + TotalRecord.ToString() + filteron;
 
-
                 ViewData["SelectUsr"] = OwinLibrary.Get_SelectListItem(Common.ddlUserID);
                 ViewData["SelectGrp"] = OwinLibrary.Get_SelectListItem(Common.ddlGrupUser);
 
@@ -12328,7 +11922,6 @@ namespace DusColl.Controllers
                     msg = EnumMessage,
                     resulted = result
                 });
-
             }
             catch (Exception ex)
             {
@@ -12348,9 +11941,9 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         public async Task<ActionResult> clndelAddMTDACCTGRP(string paramkey)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -12376,7 +11969,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 master = TempData["ACCTGRPList"] as vmMasterData;
                 modFilter = TempData["ACCTGRPListFilter"] as cFilterMasterData;
                 Common = (TempData["common"] as vmCommon);
@@ -12428,7 +12020,6 @@ namespace DusColl.Controllers
 
                 if (result == 1)
                 {
-
                     // try show filter data//
                     List<String> recordPage = await MasterDataddl.dbGetAcctGrpListCount(keyword, PageNumber, caption, UserID, GroupName);
                     TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -12467,7 +12058,6 @@ namespace DusColl.Controllers
                     msg = EnumMessage,
                     resulted = result
                 });
-
             }
             catch (Exception ex)
             {
@@ -12515,7 +12105,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 //get session filterisasi //
                 modFilter = TempData["ACCTGRPListFilter"] as cFilterMasterData;
                 master = TempData["ACCTGRPList"] as vmMasterData;
@@ -12523,7 +12112,6 @@ namespace DusColl.Controllers
                 Common = Common == null ? new vmCommon() : Common;
 
                 string UserID = modFilter.UserID;
-
 
                 // get value filter before//
                 string Keyword = modFilter.keyword ?? "";
@@ -12540,7 +12128,6 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout,
                     view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/Master/AcctGrp/_uiFilterData.cshtml", master.MasterFilter),
                 });
-
             }
             catch (Exception ex)
             {
@@ -12560,6 +12147,7 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> clnListFilterMTDACCTGRP(cFilterMasterData model)
@@ -12589,7 +12177,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 // get from session //
                 modFilter = TempData["ACCTGRPListFilter"] as cFilterMasterData;
                 master = TempData["ACCTGRPList"] as vmMasterData;
@@ -12626,10 +12213,8 @@ namespace DusColl.Controllers
                 string validtxt = "";
                 if (validtxt == "")
                 {
-
                     //descript some value for db//
                     caption = HasKeyProtect.Decryption(caption);
-
 
                     // try show filter data//
                     List<String> recordPage = await MasterDataddl.dbGetAcctGrpListCount(Keyword, PageNumber, caption, UserID, GroupName);
@@ -12640,7 +12225,6 @@ namespace DusColl.Controllers
                     List<DataTable> dtlist = await MasterDataddl.dbGetAcctGrpList(null, Keyword, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
                     totalRecordclient = dtlist[0].Rows.Count;
                     totalPageclient = int.Parse(Math.Ceiling(decimal.Parse(totalRecordclient.ToString()) / decimal.Parse(pagingsizeclient.ToString())).ToString());
-
 
                     //set in filter for paging//
                     modFilter.TotalRecord = TotalRecord;
@@ -12670,11 +12254,9 @@ namespace DusColl.Controllers
                         download = "",
                         message = validtxt,
                     });
-
                 }
                 else
                 {
-
                     TempData["ACCTGRPListFilter"] = modFilter;
                     TempData["ACCTGRPList"] = master;
                     TempData["common"] = Common;
@@ -12706,15 +12288,14 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         #endregion Master Account grouop
 
+        #region Master user cabang
 
-
-        #region Master user cabang 
         [HttpPost]
         public async Task<ActionResult> clnMTDCABGRP(String menu, String caption)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -12787,7 +12368,6 @@ namespace DusColl.Controllers
                 modFilter.IsActiveData = IsActive;
                 modFilter.PageNumber = PageNumber;
 
-
                 // try show filter data//
                 List<String> recordPage = await MasterDataddl.dbGetAccCabangListCount(Keyword, PageNumber, caption, UserID, GroupName);
                 TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -12811,7 +12391,6 @@ namespace DusColl.Controllers
                 master.DTDetailForGrid = dtlist[1];
                 master.MasterFilter = modFilter;
 
-
                 if (Common.ddlUserID == null)
                 {
                     Common.ddlUserID = await Commonddl.dbdbGetDdlEnumListByEncrypt("", "USRCAB", caption, UserID, GroupName);
@@ -12830,7 +12409,6 @@ namespace DusColl.Controllers
                 TempData["CABGRPListFilter"] = modFilter;
                 TempData["common"] = Common;
 
-
                 //set caption view//
                 ViewBag.menu = menu;
                 ViewBag.caption = caption;
@@ -12838,9 +12416,7 @@ namespace DusColl.Controllers
                 ViewBag.rute = "MasterData";
                 ViewBag.action = "clnMTDCABGRP";
 
-
                 ViewBag.Total = "Total Data : " + TotalRecord.ToString();
-
 
                 //send back to client browser//
                 return Json(new
@@ -12866,8 +12442,8 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
+
         public async Task<ActionResult> clnRgridListMTDCABGRP(int paged)
         {
             Account = (vmAccount)Session["Account"];
@@ -12919,7 +12495,6 @@ namespace DusColl.Controllers
                 //descript some value for db//
                 caption = HasKeyProtect.Decryption(caption);
 
-
                 // try show filter data//
                 List<DataTable> dtlist = await MasterDataddl.dbGetAcctGrpList(master.DTFromDB, keyword, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
                 // update active paging back to filter //
@@ -12931,7 +12506,6 @@ namespace DusColl.Controllers
                 bool isModeFilter = modFilter.isModeFilter;
                 string filteron = isModeFilter == false ? "" : ", Pencarian :  Aktif";
                 ViewBag.Total = "Total Data : " + TotalRecord.ToString() + filteron;
-
 
                 //set session filterisasi //
                 TempData["CABGRPList"] = master;
@@ -12962,6 +12536,7 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         public async Task<ActionResult> clnOpenAddMTDCABGRP(string paramkey, string oprfun)
         {
             Account = (vmAccount)Session["Account"];
@@ -13003,7 +12578,6 @@ namespace DusColl.Controllers
                 DataRow dr = master.DTDetailForGrid.AsEnumerable().Where(x => x.Field<string>("keylookupdata") == paramkey).SingleOrDefault();
                 if (dr != null)
                 {
-
                     Opr4view = "edit";
                     if (oprfun == "x4vw")
                     {
@@ -13013,9 +12587,8 @@ namespace DusColl.Controllers
                     modeldata.ID = dr["id"].ToString();
                     modeldata.mainUserid = dr["MainUserID"].ToString();
                     modeldata.branchid = dr["Brch_ID"].ToString();
-                    modeldata.SelectBranch= dr["Wilayah"].ToString();
+                    modeldata.SelectBranch = dr["Wilayah"].ToString();
                     modeldata.IsActiveData = bool.Parse(dr["IsActiveData"].ToString());
-                    
 
                     modFilter.keylookupdata = paramkey;
                 }
@@ -13028,7 +12601,6 @@ namespace DusColl.Controllers
                 TempData["common"] = Common;
                 // senback to client browser//
 
-
                 return Json(new
                 {
                     moderror = IsErrorTimeout,
@@ -13036,7 +12608,6 @@ namespace DusColl.Controllers
                     keydata = paramkey,
                     view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/Master/CabangUser/_uiUpdateMasterData.cshtml", modeldata),
                 });
-
             }
             catch (Exception ex)
             {
@@ -13059,7 +12630,6 @@ namespace DusColl.Controllers
 
         public async Task<ActionResult> clnUpdMasterMTDCABGRP(cMasterCabangUser model)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -13085,7 +12655,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 master = TempData["CABGRPList"] as vmMasterData;
                 modFilter = TempData["CABGRPListFilter"] as cFilterMasterData;
                 Common = (TempData["common"] as vmCommon);
@@ -13130,7 +12699,6 @@ namespace DusColl.Controllers
                     ID = (dr != null) ? int.Parse(dr["Id"].ToString()) : ID;
                 }
 
-
                 string EnumMessage = "";
                 int result = -1;
                 //if ((model.REGION ?? "") != "" && (model.REGION.Substring(0, 3) != "REG"))
@@ -13139,10 +12707,9 @@ namespace DusColl.Controllers
                 //}
                 //else
                 //{
-
                 //if ((model.BANK_ID).All(char.IsNumber))
                 //{
-                result = await MasterDataddl.dbupdateAccCabang(ID, model.mainUserid, model.branchid,model.IsActiveData,caption, UserID, GroupName);
+                result = await MasterDataddl.dbupdateAccCabang(ID, model.mainUserid, model.branchid, model.IsActiveData, caption, UserID, GroupName);
                 //}
                 //else
                 //{
@@ -13158,7 +12725,6 @@ namespace DusColl.Controllers
 
                 if (result == 1)
                 {
-
                     ////get total data from server//
                     List<String> recordPage = await MasterDataddl.dbGetAccCabangListCount(keyword, PageNumber, caption, UserID, GroupName);
                     TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -13191,7 +12757,6 @@ namespace DusColl.Controllers
                 string filteron = isModeFilter == false ? "" : ", Pencarian : Aktif";
                 ViewBag.Total = "Total Data : " + TotalRecord.ToString() + filteron;
 
-
                 ViewData["SelectUsr"] = OwinLibrary.Get_SelectListItem(Common.ddlUserID);
                 ViewData["SelectGrp"] = OwinLibrary.Get_SelectListItem(Common.ddlGrupUser);
 
@@ -13203,7 +12768,6 @@ namespace DusColl.Controllers
                     msg = EnumMessage,
                     resulted = result
                 });
-
             }
             catch (Exception ex)
             {
@@ -13223,9 +12787,9 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         public async Task<ActionResult> clndelAddMTDCABGRP(string paramkey)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -13251,7 +12815,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 master = TempData["CABGRPList"] as vmMasterData;
                 modFilter = TempData["CABGRPListFilter"] as cFilterMasterData;
                 Common = (TempData["common"] as vmCommon);
@@ -13303,7 +12866,6 @@ namespace DusColl.Controllers
 
                 if (result == 1)
                 {
-
                     // try show filter data//
                     List<String> recordPage = await MasterDataddl.dbGetAccCabangListCount(keyword, PageNumber, caption, UserID, GroupName);
                     TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -13342,7 +12904,6 @@ namespace DusColl.Controllers
                     msg = EnumMessage,
                     resulted = result
                 });
-
             }
             catch (Exception ex)
             {
@@ -13390,7 +12951,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 //get session filterisasi //
                 modFilter = TempData["CABGRPListFilter"] as cFilterMasterData;
                 master = TempData["CABGRPList"] as vmMasterData;
@@ -13398,7 +12958,6 @@ namespace DusColl.Controllers
                 Common = Common == null ? new vmCommon() : Common;
 
                 string UserID = modFilter.UserID;
-
 
                 // get value filter before//
                 string Keyword = modFilter.keyword ?? "";
@@ -13415,7 +12974,6 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout,
                     view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/Master/CabangUser/_uiFilterData.cshtml", master.MasterFilter),
                 });
-
             }
             catch (Exception ex)
             {
@@ -13435,6 +12993,7 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> clnListFilterMTDCABGRP(cFilterMasterData model)
@@ -13464,7 +13023,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 // get from session //
                 modFilter = TempData["CABGRPListFilter"] as cFilterMasterData;
                 master = TempData["CABGRPList"] as vmMasterData;
@@ -13501,10 +13059,8 @@ namespace DusColl.Controllers
                 string validtxt = "";
                 if (validtxt == "")
                 {
-
                     //descript some value for db//
                     caption = HasKeyProtect.Decryption(caption);
-
 
                     // try show filter data//
                     List<String> recordPage = await MasterDataddl.dbGetAccCabangListCount(Keyword, PageNumber, caption, UserID, GroupName);
@@ -13515,7 +13071,6 @@ namespace DusColl.Controllers
                     List<DataTable> dtlist = await MasterDataddl.dbGetAccCabangList(null, Keyword, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
                     totalRecordclient = dtlist[0].Rows.Count;
                     totalPageclient = int.Parse(Math.Ceiling(decimal.Parse(totalRecordclient.ToString()) / decimal.Parse(pagingsizeclient.ToString())).ToString());
-
 
                     //set in filter for paging//
                     modFilter.TotalRecord = TotalRecord;
@@ -13545,11 +13100,9 @@ namespace DusColl.Controllers
                         download = "",
                         message = validtxt,
                     });
-
                 }
                 else
                 {
-
                     TempData["CABGRPListFilter"] = modFilter;
                     TempData["CABGRPList"] = master;
                     TempData["common"] = Common;
@@ -13581,14 +13134,14 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-        #endregion Master user cabang 
 
+        #endregion Master user cabang
 
         //#region Master Bank
+
         //[HttpPost]
         //public async Task<ActionResult> clnMTDBANK(String menu, String caption)
         //{
-
         //    Account = (vmAccount)Session["Account"];
         //    bool IsErrorTimeout = false;
         //    if (Account != null)
@@ -13661,7 +13214,6 @@ namespace DusColl.Controllers
         //        modFilter.IsActiveData = IsActive;
         //        modFilter.PageNumber = PageNumber;
 
-
         //        // try show filter data//
         //        List<String> recordPage = await MasterDataddl.dbGetBankListCount(Keyword, IsActive, PageNumber, caption, UserID, GroupName);
         //        TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -13690,7 +13242,6 @@ namespace DusColl.Controllers
         //        TempData["BANKMListFilter"] = modFilter;
         //        TempData["common"] = Common;
 
-
         //        //set caption view//
         //        ViewBag.menu = menu;
         //        ViewBag.caption = caption;
@@ -13698,9 +13249,7 @@ namespace DusColl.Controllers
         //        ViewBag.rute = "MasterData";
         //        ViewBag.action = "clnMTDBANK";
 
-
         //        ViewBag.Total = "Total Data : " + TotalRecord.ToString();
-
 
         //        //send back to client browser//
         //        return Json(new
@@ -13779,7 +13328,6 @@ namespace DusColl.Controllers
         //        //descript some value for db//
         //        caption = HasKeyProtect.Decryption(caption);
 
-
         //        // try show filter data//
         //        List<DataTable> dtlist = await MasterDataddl.dbGetBankList(master.DTFromDB, keyword, IsActive, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
         //        // update active paging back to filter //
@@ -13791,7 +13339,6 @@ namespace DusColl.Controllers
         //        bool isModeFilter = modFilter.isModeFilter;
         //        string filteron = isModeFilter == false ? "" : ", Pencarian :  Aktif";
         //        ViewBag.Total = "Total Data : " + TotalRecord.ToString() + filteron;
-
 
         //        //set session filterisasi //
         //        TempData["BANKMList"] = master;
@@ -13860,7 +13407,6 @@ namespace DusColl.Controllers
         //        DataRow dr = master.DTDetailForGrid.AsEnumerable().Where(x => x.Field<string>("keylookupdata") == paramkey).SingleOrDefault();
         //        if (dr != null)
         //        {
-
         //            Opr4view = "edit";
         //            if (oprfun == "x4vw")
         //            {
@@ -13881,7 +13427,6 @@ namespace DusColl.Controllers
         //        TempData["BANKMListFilter"] = modFilter;
         //        TempData["common"] = Common;
         //        // senback to client browser//
-
 
         //        return Json(new
         //        {
@@ -13913,7 +13458,6 @@ namespace DusColl.Controllers
 
         //public async Task<ActionResult> clnUpdMasterMTDBANK(cMasterDataBank model)
         //{
-
         //    Account = (vmAccount)Session["Account"];
         //    bool IsErrorTimeout = false;
         //    if (Account != null)
@@ -13939,7 +13483,6 @@ namespace DusColl.Controllers
         //    }
         //    try
         //    {
-
         //        master = TempData["BANKMList"] as vmMasterData;
         //        modFilter = TempData["BANKMListFilter"] as cFilterMasterData;
         //        Common = (TempData["common"] as vmCommon);
@@ -13984,7 +13527,6 @@ namespace DusColl.Controllers
         //            ID = (dr != null) ? int.Parse(dr["Id"].ToString()) : ID;
         //        }
 
-
         //        string EnumMessage = "";
         //        int result = -1;
         //        //if ((model.REGION ?? "") != "" && (model.REGION.Substring(0, 3) != "REG"))
@@ -13993,7 +13535,6 @@ namespace DusColl.Controllers
         //        //}
         //        //else
         //        //{
-
         //        //if ((model.BANK_ID).All(char.IsNumber))
         //        //{
         //        result = await MasterDataddl.dbupdateBank(ID, model.BANK_ID, model.BANK_NAME, model.BI_CODE, model.IsActive, caption, UserID, GroupName);
@@ -14012,7 +13553,6 @@ namespace DusColl.Controllers
 
         //        if (result == 1)
         //        {
-
         //            ////get total data from server//
         //            List<String> recordPage = await MasterDataddl.dbGetBankListCount(keyword, IsActive, PageNumber, caption, UserID, GroupName);
         //            TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -14044,7 +13584,6 @@ namespace DusColl.Controllers
 
         //        string filteron = isModeFilter == false ? "" : ", Pencarian : Aktif";
         //        ViewBag.Total = "Total Data : " + TotalRecord.ToString() + filteron;
-
 
         //        ViewData["SelectArea"] = OwinLibrary.Get_SelectListItem(Common.ddlRegion);
 
@@ -14078,7 +13617,6 @@ namespace DusColl.Controllers
         //}
         //public async Task<ActionResult> clndelAddMTDBANK(string paramkey)
         //{
-
         //    Account = (vmAccount)Session["Account"];
         //    bool IsErrorTimeout = false;
         //    if (Account != null)
@@ -14104,7 +13642,6 @@ namespace DusColl.Controllers
         //    }
         //    try
         //    {
-
         //        master = TempData["BANKMList"] as vmMasterData;
         //        modFilter = TempData["BANKMListFilter"] as cFilterMasterData;
         //        Common = (TempData["common"] as vmCommon);
@@ -14156,7 +13693,6 @@ namespace DusColl.Controllers
 
         //        if (result == 1)
         //        {
-
         //            // try show filter data//
         //            List<String> recordPage = await MasterDataddl.dbGetBankListCount(keyword, IsActive, PageNumber, caption, UserID, GroupName);
         //            TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -14243,7 +13779,6 @@ namespace DusColl.Controllers
         //    }
         //    try
         //    {
-
         //        //get session filterisasi //
         //        modFilter = TempData["BANKMListFilter"] as cFilterMasterData;
         //        master = TempData["BANKMList"] as vmMasterData;
@@ -14251,7 +13786,6 @@ namespace DusColl.Controllers
         //        Common = Common == null ? new vmCommon() : Common;
 
         //        string UserID = modFilter.UserID;
-
 
         //        // get value filter before//
         //        string Keyword = modFilter.keyword ?? "";
@@ -14317,7 +13851,6 @@ namespace DusColl.Controllers
         //    }
         //    try
         //    {
-
         //        // get from session //
         //        modFilter = TempData["BANKMListFilter"] as cFilterMasterData;
         //        master = TempData["BANKMList"] as vmMasterData;
@@ -14354,10 +13887,8 @@ namespace DusColl.Controllers
         //        string validtxt = "";
         //        if (validtxt == "")
         //        {
-
         //            //descript some value for db//
         //            caption = HasKeyProtect.Decryption(caption);
-
 
         //            // try show filter data//
         //            List<String> recordPage = await MasterDataddl.dbGetBankListCount(Keyword, IsActive, PageNumber, caption, UserID, GroupName);
@@ -14368,7 +13899,6 @@ namespace DusColl.Controllers
         //            List<DataTable> dtlist = await MasterDataddl.dbGetBankList(null, Keyword, IsActive, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
         //            totalRecordclient = dtlist[0].Rows.Count;
         //            totalPageclient = int.Parse(Math.Ceiling(decimal.Parse(totalRecordclient.ToString()) / decimal.Parse(pagingsizeclient.ToString())).ToString());
-
 
         //            //set in filter for paging//
         //            modFilter.TotalRecord = TotalRecord;
@@ -14402,7 +13932,6 @@ namespace DusColl.Controllers
         //        }
         //        else
         //        {
-
         //            TempData["BANKMListFilter"] = modFilter;
         //            TempData["BANKMList"] = master;
         //            TempData["common"] = Common;
@@ -14437,10 +13966,10 @@ namespace DusColl.Controllers
         //#endregion Master bank
 
         #region Master Pendidikan
+
         [HttpPost]
         public async Task<ActionResult> clnMTDEDUC(String menu, String caption)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -14513,7 +14042,6 @@ namespace DusColl.Controllers
                 modFilter.IsActiveData = IsActive;
                 modFilter.PageNumber = PageNumber;
 
-
                 // try show filter data//
                 List<String> recordPage = await MasterDataddl.dbGeteducListCount(Keyword, IsActive, PageNumber, caption, UserID, GroupName);
                 TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -14542,7 +14070,6 @@ namespace DusColl.Controllers
                 TempData["EDUCMListFilter"] = modFilter;
                 TempData["common"] = Common;
 
-
                 //set caption view//
                 ViewBag.menu = menu;
                 ViewBag.caption = caption;
@@ -14550,9 +14077,7 @@ namespace DusColl.Controllers
                 ViewBag.rute = "MasterData";
                 ViewBag.action = "clnMTDEDUC";
 
-
                 ViewBag.Total = "Total Data : " + TotalRecord.ToString();
-
 
                 //send back to client browser//
                 return Json(new
@@ -14578,8 +14103,8 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
+
         public async Task<ActionResult> clnRgridListMTDEDUC(int paged)
         {
             Account = (vmAccount)Session["Account"];
@@ -14631,7 +14156,6 @@ namespace DusColl.Controllers
                 //descript some value for db//
                 caption = HasKeyProtect.Decryption(caption);
 
-
                 // try show filter data//
                 List<DataTable> dtlist = await MasterDataddl.dbGeteducList(master.DTFromDB, keyword, IsActive, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
                 // update active paging back to filter //
@@ -14643,7 +14167,6 @@ namespace DusColl.Controllers
                 bool isModeFilter = modFilter.isModeFilter;
                 string filteron = isModeFilter == false ? "" : ", Pencarian :  Aktif";
                 ViewBag.Total = "Total Data : " + TotalRecord.ToString() + filteron;
-
 
                 //set session filterisasi //
                 TempData["EDUCMList"] = master;
@@ -14674,6 +14197,7 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         public async Task<ActionResult> clnOpenAddMTDEDUC(string paramkey, string oprfun)
         {
             Account = (vmAccount)Session["Account"];
@@ -14712,7 +14236,6 @@ namespace DusColl.Controllers
                 DataRow dr = master.DTDetailForGrid.AsEnumerable().Where(x => x.Field<string>("keylookupdata") == paramkey).SingleOrDefault();
                 if (dr != null)
                 {
-
                     Opr4view = "edit";
                     if (oprfun == "x4vw")
                     {
@@ -14733,7 +14256,6 @@ namespace DusColl.Controllers
                 TempData["common"] = Common;
                 // senback to client browser//
 
-
                 return Json(new
                 {
                     moderror = IsErrorTimeout,
@@ -14741,7 +14263,6 @@ namespace DusColl.Controllers
                     keydata = paramkey,
                     view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/Master/Pendidikan/_uiUpdateMasterData.cshtml", modeldata),
                 });
-
             }
             catch (Exception ex)
             {
@@ -14764,7 +14285,6 @@ namespace DusColl.Controllers
 
         public async Task<ActionResult> clnUpdMasterMTDEDUC(cMasterDataPendidikan model)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -14790,7 +14310,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 master = TempData["EDUCMList"] as vmMasterData;
                 modFilter = TempData["EDUCMListFilter"] as cFilterMasterData;
                 Common = (TempData["common"] as vmCommon);
@@ -14835,7 +14354,6 @@ namespace DusColl.Controllers
                     ID = (dr != null) ? int.Parse(dr["Id"].ToString()) : ID;
                 }
 
-
                 string EnumMessage = "";
                 int result = -1;
                 //if ((model.REGION ?? "") != "" && (model.REGION.Substring(0, 3) != "REG"))
@@ -14844,7 +14362,6 @@ namespace DusColl.Controllers
                 //}
                 //else
                 //{
-
                 //if ((model.BANK_ID).All(char.IsNumber))
                 //{
                 result = await MasterDataddl.dbupdateeduc(ID, model.educ_name, model.IsActive, caption, UserID, GroupName);
@@ -14863,7 +14380,6 @@ namespace DusColl.Controllers
 
                 if (result == 1)
                 {
-
                     ////get total data from server//
                     List<String> recordPage = await MasterDataddl.dbGeteducListCount(keyword, IsActive, PageNumber, caption, UserID, GroupName);
                     TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -14896,7 +14412,6 @@ namespace DusColl.Controllers
                 string filteron = isModeFilter == false ? "" : ", Pencarian : Aktif";
                 ViewBag.Total = "Total Data : " + TotalRecord.ToString() + filteron;
 
-
                 ViewData["SelectArea"] = OwinLibrary.Get_SelectListItem(Common.ddlRegion);
 
                 // senback to client browser//
@@ -14907,7 +14422,6 @@ namespace DusColl.Controllers
                     msg = EnumMessage,
                     resulted = result
                 });
-
             }
             catch (Exception ex)
             {
@@ -14927,9 +14441,9 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         public async Task<ActionResult> clndelAddMTDEDUC(string paramkey)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -14955,7 +14469,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 master = TempData["EDUCMList"] as vmMasterData;
                 modFilter = TempData["EDUCMListFilter"] as cFilterMasterData;
                 Common = (TempData["common"] as vmCommon);
@@ -15007,7 +14520,6 @@ namespace DusColl.Controllers
 
                 if (result == 1)
                 {
-
                     // try show filter data//
                     List<String> recordPage = await MasterDataddl.dbGeteducListCount(keyword, IsActive, PageNumber, caption, UserID, GroupName);
                     TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -15046,7 +14558,6 @@ namespace DusColl.Controllers
                     msg = EnumMessage,
                     resulted = result
                 });
-
             }
             catch (Exception ex)
             {
@@ -15094,7 +14605,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 //get session filterisasi //
                 modFilter = TempData["EDUCMListFilter"] as cFilterMasterData;
                 master = TempData["EDUCMList"] as vmMasterData;
@@ -15102,7 +14612,6 @@ namespace DusColl.Controllers
                 Common = Common == null ? new vmCommon() : Common;
 
                 string UserID = modFilter.UserID;
-
 
                 // get value filter before//
                 string Keyword = modFilter.keyword ?? "";
@@ -15119,7 +14628,6 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout,
                     view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/Master/Pendidikan/_uiFilterData.cshtml", master.MasterFilter),
                 });
-
             }
             catch (Exception ex)
             {
@@ -15139,6 +14647,7 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> clnListFilterMTDEDUC(cFilterMasterData model)
@@ -15168,7 +14677,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 // get from session //
                 modFilter = TempData["EDUCMListFilter"] as cFilterMasterData;
                 master = TempData["EDUCMList"] as vmMasterData;
@@ -15205,10 +14713,8 @@ namespace DusColl.Controllers
                 string validtxt = "";
                 if (validtxt == "")
                 {
-
                     //descript some value for db//
                     caption = HasKeyProtect.Decryption(caption);
-
 
                     // try show filter data//
                     List<String> recordPage = await MasterDataddl.dbGeteducListCount(Keyword, IsActive, PageNumber, caption, UserID, GroupName);
@@ -15219,7 +14725,6 @@ namespace DusColl.Controllers
                     List<DataTable> dtlist = await MasterDataddl.dbGeteducList(null, Keyword, IsActive, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
                     totalRecordclient = dtlist[0].Rows.Count;
                     totalPageclient = int.Parse(Math.Ceiling(decimal.Parse(totalRecordclient.ToString()) / decimal.Parse(pagingsizeclient.ToString())).ToString());
-
 
                     //set in filter for paging//
                     modFilter.TotalRecord = TotalRecord;
@@ -15249,11 +14754,9 @@ namespace DusColl.Controllers
                         download = "",
                         message = validtxt,
                     });
-
                 }
                 else
                 {
-
                     TempData["EDUCMListFilter"] = modFilter;
                     TempData["EDUCMList"] = master;
                     TempData["common"] = Common;
@@ -15285,14 +14788,14 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         #endregion Master Pendidikan
 
-
         #region InfoText
+
         [HttpPost]
         public async Task<ActionResult> clnMTDINFO(String menu, String caption)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -15367,7 +14870,6 @@ namespace DusColl.Controllers
                 modFilter.IsPusatData = IsPusat;
                 modFilter.PageNumber = PageNumber;
 
-
                 // try show filter data//
                 List<String> recordPage = await MasterDataddl.dbGetInfoTextListCount(Keyword, PageNumber, caption, UserID, GroupName);
                 TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -15397,12 +14899,10 @@ namespace DusColl.Controllers
                 //}
                 //ViewData["SelectKlien"] = OwinLibrary.Get_SelectListItem(Common.ddlRegion);
 
-
                 //set session filterisasi //
                 TempData["INNMList"] = master;
                 TempData["INNMListFilter"] = modFilter;
                 TempData["common"] = Common;
-
 
                 //set caption view//
                 ViewBag.menu = menu;
@@ -15411,9 +14911,7 @@ namespace DusColl.Controllers
                 ViewBag.rute = "MasterData";
                 ViewBag.action = "clnMTDINFO";
 
-
                 ViewBag.Total = "Total Data : " + TotalRecord.ToString();
-
 
                 //send back to client browser//
                 return Json(new
@@ -15439,8 +14937,8 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
+
         public async Task<ActionResult> clnRgridListMTDINFO(int paged)
         {
             Account = (vmAccount)Session["Account"];
@@ -15483,7 +14981,6 @@ namespace DusColl.Controllers
                 bool IsActive = modFilter.IsActiveData;
                 bool IsPusat = modFilter.IsPusatData;
 
-
                 // set & get for next paging //
                 int pagenumberclient = paged;
                 int PageNumber = modFilter.PageNumber;
@@ -15493,7 +14990,6 @@ namespace DusColl.Controllers
 
                 //descript some value for db//
                 caption = HasKeyProtect.Decryption(caption);
-
 
                 // try show filter data//
                 List<DataTable> dtlist = await MasterDataddl.dbGetInfoTextList(master.DTFromDB, keyword, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
@@ -15506,7 +15002,6 @@ namespace DusColl.Controllers
                 bool isModeFilter = modFilter.isModeFilter;
                 string filteron = isModeFilter == false ? "" : ", Pencarian :  Aktif";
                 ViewBag.Total = "Total Data : " + TotalRecord.ToString() + filteron;
-
 
                 //set session filterisasi //
                 TempData["INNMList"] = master;
@@ -15537,6 +15032,7 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         public async Task<ActionResult> clnOpenAddMTDINFO(string paramkey, string oprfun)
         {
             Account = (vmAccount)Session["Account"];
@@ -15596,7 +15092,6 @@ namespace DusColl.Controllers
                 TempData["common"] = Common;
                 // senback to client browser//
 
-
                 return Json(new
                 {
                     moderror = IsErrorTimeout,
@@ -15604,7 +15099,6 @@ namespace DusColl.Controllers
                     keydata = paramkey,
                     view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/Master/InfoText/_uiUpdateMasterData.cshtml", modeldata),
                 });
-
             }
             catch (Exception ex)
             {
@@ -15627,7 +15121,6 @@ namespace DusColl.Controllers
 
         public async Task<ActionResult> clnUpdMasterMTDINFO(cMasterDataInfoText model)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -15653,7 +15146,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 master = TempData["INNMList"] as vmMasterData;
                 modFilter = TempData["INNMListFilter"] as cFilterMasterData;
                 Common = (TempData["common"] as vmCommon);
@@ -15703,7 +15195,6 @@ namespace DusColl.Controllers
                     ID = (dr != null) ? int.Parse(dr["Id"].ToString()) : ID;
                 }
 
-
                 string EnumMessage = "";
                 int result = -1;
                 //if ((model.REGION ?? "") != "" && (model.REGION.Substring(0, 3) != "REG"))
@@ -15712,10 +15203,8 @@ namespace DusColl.Controllers
                 //}
                 //else
                 //{
-
                 //if ((model.REGION).All(char.IsNumber))
                 //{
-
                 result = await MasterDataddl.dbupdateInfoText(ID, model.InfoText, model.EndDate, caption, UserID, GroupName);
                 // }
                 //else
@@ -15732,7 +15221,6 @@ namespace DusColl.Controllers
 
                 if (result == 1)
                 {
-
                     ////get total data from server//
                     List<String> recordPage = await MasterDataddl.dbGetInfoTextListCount(keyword, PageNumber, caption, UserID, GroupName);
                     TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -15765,7 +15253,6 @@ namespace DusColl.Controllers
                 string filteron = isModeFilter == false ? "" : ", Pencarian : Aktif";
                 ViewBag.Total = "Total Data : " + TotalRecord.ToString() + filteron;
 
-
                 //ViewData["SelectArea"] = OwinLibrary.Get_SelectListItem(Common.ddlRegion);
 
                 // senback to client browser//
@@ -15776,7 +15263,6 @@ namespace DusColl.Controllers
                     msg = EnumMessage,
                     resulted = result
                 });
-
             }
             catch (Exception ex)
             {
@@ -15796,9 +15282,9 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         public async Task<ActionResult> clndelAddMTDINFO(string paramkey)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -15824,7 +15310,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 master = TempData["INNMList"] as vmMasterData;
                 modFilter = TempData["INNMListFilter"] as cFilterMasterData;
                 Common = (TempData["common"] as vmCommon);
@@ -15878,7 +15363,6 @@ namespace DusColl.Controllers
 
                 if (result == 1)
                 {
-
                     // try show filter data//
                     List<String> recordPage = await MasterDataddl.dbGetInfoTextListCount(keyword, PageNumber, caption, UserID, GroupName);
                     TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -15917,7 +15401,6 @@ namespace DusColl.Controllers
                     msg = EnumMessage,
                     resulted = result
                 });
-
             }
             catch (Exception ex)
             {
@@ -15965,7 +15448,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 //get session filterisasi //
                 modFilter = TempData["INNMListFilter"] as cFilterMasterData;
                 master = TempData["INNMList"] as vmMasterData;
@@ -15974,12 +15456,10 @@ namespace DusColl.Controllers
 
                 string UserID = modFilter.UserID;
 
-
                 // get value filter before//
                 string Keyword = modFilter.keyword ?? "";
                 bool IsActive = modFilter.IsActiveData;
                 bool IsPusat = modFilter.IsPusatData;
-
 
                 TempData["INNMList"] = master;
                 TempData["INNMListFilter"] = modFilter;
@@ -15994,7 +15474,6 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout,
                     view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/Master/InfoText/_uiFilterData.cshtml", master.MasterFilter),
                 });
-
             }
             catch (Exception ex)
             {
@@ -16014,6 +15493,7 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> clnListFilterMTDINFO(cFilterMasterData model)
@@ -16043,7 +15523,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 // get from session //
                 modFilter = TempData["INNMListFilter"] as cFilterMasterData;
                 master = TempData["INNMList"] as vmMasterData;
@@ -16082,10 +15561,8 @@ namespace DusColl.Controllers
                 string validtxt = "";
                 if (validtxt == "")
                 {
-
                     //descript some value for db//
                     caption = HasKeyProtect.Decryption(caption);
-
 
                     // try show filter data//
                     List<String> recordPage = await MasterDataddl.dbGetInfoTextListCount(Keyword, PageNumber, caption, UserID, GroupName);
@@ -16096,7 +15573,6 @@ namespace DusColl.Controllers
                     List<DataTable> dtlist = await MasterDataddl.dbGetInfoTextList(null, Keyword, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
                     totalRecordclient = dtlist[0].Rows.Count;
                     totalPageclient = int.Parse(Math.Ceiling(decimal.Parse(totalRecordclient.ToString()) / decimal.Parse(pagingsizeclient.ToString())).ToString());
-
 
                     //set in filter for paging//
                     modFilter.TotalRecord = TotalRecord;
@@ -16126,11 +15602,9 @@ namespace DusColl.Controllers
                         download = "",
                         message = validtxt,
                     });
-
                 }
                 else
                 {
-
                     TempData["INNMListFilter"] = modFilter;
                     TempData["INNMList"] = master;
                     TempData["common"] = Common;
@@ -16162,14 +15636,13 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-        #endregion Master InfoText
 
+        #endregion InfoText
 
         //#region Master Klien
         //[HttpPost]
         //public async Task<ActionResult> clnMTDCLNT(String menu, String caption)
         //{
-
         //    Account = (vmAccount)Session["Account"];
         //    bool IsErrorTimeout = false;
         //    if (Account != null)
@@ -16240,7 +15713,6 @@ namespace DusColl.Controllers
         //        modFilter.keyword = Keyword;
         //        modFilter.PageNumber = PageNumber;
 
-
         //        // try show filter data//
         //        List<String> recordPage = await MasterDataProvinsiddl.dbGetKlienListCount(Keyword, PageNumber, caption, UserID, GroupName);
         //        TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -16271,12 +15743,10 @@ namespace DusColl.Controllers
 
         //        ViewData["SelectTipeKlien"] = OwinLibrary.Get_SelectListItem(Common.ddlJenisPelanggan);
 
-
         //        //set session filterisasi //
         //        TempData["CLNTMList"] = master;
         //        TempData["CLNTMListFilter"] = modFilter;
         //        TempData["common"] = Common;
-
 
         //        //set caption view//
         //        ViewBag.menu = menu;
@@ -16285,9 +15755,7 @@ namespace DusColl.Controllers
         //        ViewBag.rute = "MasterData";
         //        ViewBag.action = "clnMTDCLNT";
 
-
         //        ViewBag.Total = "Total Data : " + TotalRecord.ToString() + " Data <br /> Data on Pages : " + totalRecordclient.ToString() + " Data";
-
 
         //        //send back to client browser//
         //        return Json(new
@@ -16365,7 +15833,6 @@ namespace DusColl.Controllers
         //        //descript some value for db//
         //        caption = HasKeyProtect.Decryption(caption);
 
-
         //        // try show filter data//
         //        List<DataTable> dtlist = await MasterDataProvinsiddl.dbGetKlienList(master.DTFromDB, keyword, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
         //        // update active paging back to filter //
@@ -16375,7 +15842,6 @@ namespace DusColl.Controllers
         //        master.DTDetailForGrid = dtlist[1];
 
         //        ViewBag.Total = "Total Data : " + TotalRecord.ToString() + " Data <br /> Data on Pages : " + totalRecordclient.ToString() + " Data";
-
 
         //        //set session filterisasi //
         //        TempData["CLNTMList"] = master;
@@ -16446,7 +15912,6 @@ namespace DusColl.Controllers
         //        DataRow dr = master.DTDetailForGrid.AsEnumerable().Where(x => x.Field<string>("keylookupdata") == paramkey).SingleOrDefault();
         //        if (dr != null)
         //        {
-
         //            modeldata.CLNT_ID = (dr["CLNT_ID"].ToString());
         //            modeldata.CLNT_NAME = dr["CLNT_NAME"].ToString();
         //            modeldata.CLNT_ADDRESS = dr["CLNT_ADDRESS"].ToString();
@@ -16476,7 +15941,6 @@ namespace DusColl.Controllers
         //        TempData["CLNTMListFilter"] = modFilter;
         //        TempData["common"] = Common;
         //        // senback to client browser//
-
 
         //        return Json(new
         //        {
@@ -16508,7 +15972,6 @@ namespace DusColl.Controllers
         //}
         //public async Task<ActionResult> clnUpdMasterMTDCLNT(cMasterDataKlien model)
         //{
-
         //    Account = (vmAccount)Session["Account"];
         //    bool IsErrorTimeout = false;
         //    if (Account != null)
@@ -16535,7 +15998,6 @@ namespace DusColl.Controllers
 
         //    try
         //    {
-
         //        master = TempData["CLNTMList"] as vmMasterData;
         //        modFilter = TempData["CLNTMListFilter"] as cFilterMasterData;
         //        Common = (TempData["common"] as vmCommon);
@@ -16589,7 +16051,6 @@ namespace DusColl.Controllers
 
         //        if (result == 1)
         //        {
-
         //            ////get total data from server//
         //            List<String> recordPage = await MasterDataProvinsiddl.dbGetKlienListCount(keyword, PageNumber, caption, UserID, GroupName);
         //            TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -16621,7 +16082,6 @@ namespace DusColl.Controllers
 
         //        string filteron = isModeFilter == false ? "" : "<br /> Pencarian Data :  Aktif";
         //        ViewBag.Total = "Total Data : " + TotalRecord.ToString() + " Data <br /> Data on Pages : " + totalRecordclient.ToString() + " Data" + filteron;
-
 
         //        ViewData["SelectTipeKlien"] = OwinLibrary.Get_SelectListItem(Common.ddlJenisPelanggan);
 
@@ -16655,7 +16115,6 @@ namespace DusColl.Controllers
         //}
         //public async Task<ActionResult> clndelAddMTDCLNT(string paramkey)
         //{
-
         //    Account = (vmAccount)Session["Account"];
         //    bool IsErrorTimeout = false;
         //    if (Account != null)
@@ -16681,7 +16140,6 @@ namespace DusColl.Controllers
         //    }
         //    try
         //    {
-
         //        master = TempData["CLNTMList"] as vmMasterData;
         //        modFilter = TempData["CLNTMListFilter"] as cFilterMasterData;
         //        Common = (TempData["common"] as vmCommon);
@@ -16730,7 +16188,6 @@ namespace DusColl.Controllers
 
         //        if (result == 1)
         //        {
-
         //            // try show filter data//
         //            List<String> recordPage = await MasterDataProvinsiddl.dbGetKlienListCount(keyword, PageNumber, caption, UserID, GroupName);
         //            TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -16817,7 +16274,6 @@ namespace DusColl.Controllers
         //    }
         //    try
         //    {
-
         //        //get session filterisasi //
         //        modFilter = TempData["CLNTMListFilter"] as cFilterMasterData;
         //        master = TempData["CLNTMList"] as vmMasterData;
@@ -16825,7 +16281,6 @@ namespace DusColl.Controllers
         //        Common = Common == null ? new vmCommon() : Common;
 
         //        string UserID = modFilter.UserID;
-
 
         //        // get value filter before//
         //        string Keyword = modFilter.keyword;
@@ -16889,7 +16344,6 @@ namespace DusColl.Controllers
         //    }
         //    try
         //    {
-
         //        // get from session //
         //        modFilter = TempData["CLNTMListFilter"] as cFilterMasterData;
         //        master = TempData["CLNTMList"] as vmMasterData;
@@ -16924,10 +16378,8 @@ namespace DusColl.Controllers
         //        string validtxt = "";
         //        if (validtxt == "")
         //        {
-
         //            //descript some value for db//
         //            caption = HasKeyProtect.Decryption(caption);
-
 
         //            // try show filter data//
         //            List<String> recordPage = await MasterDataProvinsiddl.dbGetKlienListCount(Keyword, PageNumber, caption, UserID, GroupName);
@@ -16938,7 +16390,6 @@ namespace DusColl.Controllers
         //            List<DataTable> dtlist = await MasterDataProvinsiddl.dbGetKlienList(null, Keyword, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
         //            totalRecordclient = dtlist[0].Rows.Count;
         //            totalPageclient = int.Parse(Math.Ceiling(decimal.Parse(totalRecordclient.ToString()) / decimal.Parse(pagingsizeclient.ToString())).ToString());
-
 
         //            //set in filter for paging//
         //            modFilter.TotalRecord = TotalRecord;
@@ -16972,7 +16423,6 @@ namespace DusColl.Controllers
         //        }
         //        else
         //        {
-
         //            TempData["CLNTsiFilter"] = modFilter;
         //            TempData["CLNTsiList"] = master;
         //            TempData["common"] = Common;
@@ -17010,7 +16460,6 @@ namespace DusColl.Controllers
         //[HttpPost]
         //public async Task<ActionResult> clnMTDCOA(String menu, String caption)
         //{
-
         //    Account = (vmAccount)Session["Account"];
         //    bool IsErrorTimeout = false;
         //    if (Account != null)
@@ -17081,7 +16530,6 @@ namespace DusColl.Controllers
         //        modFilter.keyword = Keyword;
         //        modFilter.PageNumber = PageNumber;
 
-
         //        // try show filter data//
         //        List<String> recordPage = await MasterDataProvinsiddl.dbGetCoaListCount(Keyword, PageNumber, caption, UserID, GroupName);
         //        TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -17127,7 +16575,6 @@ namespace DusColl.Controllers
         //        TempData["COAMListFilter"] = modFilter;
         //        TempData["common"] = Common;
 
-
         //        //set caption view//
         //        ViewBag.menu = menu;
         //        ViewBag.caption = caption;
@@ -17135,9 +16582,7 @@ namespace DusColl.Controllers
         //        ViewBag.rute = "MasterData";
         //        ViewBag.action = "clnMTDCOA";
 
-
         //        ViewBag.Total = "Total Data : " + TotalRecord.ToString() + " Data <br /> Data on Pages : " + totalRecordclient.ToString() + " Data";
-
 
         //        //send back to client browser//
         //        return Json(new
@@ -17215,7 +16660,6 @@ namespace DusColl.Controllers
         //        //descript some value for db//
         //        caption = HasKeyProtect.Decryption(caption);
 
-
         //        // try show filter data//
         //        List<DataTable> dtlist = await MasterDataProvinsiddl.dbGetCoaList(master.DTFromDB, keyword, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
         //        // update active paging back to filter //
@@ -17225,7 +16669,6 @@ namespace DusColl.Controllers
         //        master.DTDetailForGrid = dtlist[1];
 
         //        ViewBag.Total = "Total Data : " + TotalRecord.ToString() + " Data <br /> Data on Pages : " + totalRecordclient.ToString() + " Data";
-
 
         //        //set session filterisasi //
         //        TempData["COAMList"] = master;
@@ -17294,12 +16737,10 @@ namespace DusColl.Controllers
         //        ViewData["SelecNatureCoa"] = OwinLibrary.Get_SelectListItem(Common.ddlNatureCoa);
         //        ViewData["SelectGrupNeraca"] = OwinLibrary.Get_SelectListItem(Common.ddlGrupNeraca);
 
-
         //        cMasterDataCoa modeldata = new cMasterDataCoa();
         //        DataRow dr = master.DTDetailForGrid.AsEnumerable().Where(x => x.Field<string>("keylookupdata") == paramkey).SingleOrDefault();
         //        if (dr != null)
         //        {
-
         //            modeldata.CoaCode = dr["CoaCode"].ToString();
         //            modeldata.Description = dr["Description"].ToString();
         //            modeldata.TipeCoa = bool.Parse(dr["TipeCoa"].ToString());
@@ -17320,7 +16761,6 @@ namespace DusColl.Controllers
         //        TempData["COAMListFilter"] = modFilter;
         //        TempData["common"] = Common;
         //        // senback to client browser//
-
 
         //        return Json(new
         //        {
@@ -17352,7 +16792,6 @@ namespace DusColl.Controllers
         //}
         //public async Task<ActionResult> clnUpdMasterMTDCOA(cMasterDataCoa model)
         //{
-
         //    Account = (vmAccount)Session["Account"];
         //    bool IsErrorTimeout = false;
         //    if (Account != null)
@@ -17378,7 +16817,6 @@ namespace DusColl.Controllers
         //    }
         //    try
         //    {
-
         //        master = TempData["COAMList"] as vmMasterData;
         //        modFilter = TempData["COAMListFilter"] as cFilterMasterData;
         //        Common = (TempData["common"] as vmCommon);
@@ -17431,7 +16869,6 @@ namespace DusColl.Controllers
 
         //        if (result == 1)
         //        {
-
         //            ////get total data from server//
         //            List<String> recordPage = await MasterDataProvinsiddl.dbGetCoaListCount(keyword, PageNumber, caption, UserID, GroupName);
         //            TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -17463,8 +16900,6 @@ namespace DusColl.Controllers
 
         //        string filteron = isModeFilter == false ? "" : "<br /> Pencarian Data :  Aktif";
         //        ViewBag.Total = "Total Data : " + TotalRecord.ToString() + " Data <br /> Data on Pages : " + totalRecordclient.ToString() + " Data" + filteron;
-
-
 
         //        ViewData["SelectGrupCoa"] = OwinLibrary.Get_SelectListItem(Common.ddlGrupCoa);
         //        ViewData["SelecNatureCoa"] = OwinLibrary.Get_SelectListItem(Common.ddlNatureCoa);
@@ -17500,7 +16935,6 @@ namespace DusColl.Controllers
         //}
         //public async Task<ActionResult> clndelAddMTDCOA(string paramkey)
         //{
-
         //    Account = (vmAccount)Session["Account"];
         //    bool IsErrorTimeout = false;
         //    if (Account != null)
@@ -17526,7 +16960,6 @@ namespace DusColl.Controllers
         //    }
         //    try
         //    {
-
         //        master = TempData["COAMList"] as vmMasterData;
         //        modFilter = TempData["COAMListFilter"] as cFilterMasterData;
         //        Common = (TempData["common"] as vmCommon);
@@ -17575,7 +17008,6 @@ namespace DusColl.Controllers
 
         //        if (result == 1)
         //        {
-
         //            // try show filter data//
         //            List<String> recordPage = await MasterDataProvinsiddl.dbGetCoaListCount(keyword, PageNumber, caption, UserID, GroupName);
         //            TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -17662,7 +17094,6 @@ namespace DusColl.Controllers
         //    }
         //    try
         //    {
-
         //        //get session filterisasi //
         //        modFilter = TempData["COAMListFilter"] as cFilterMasterData;
         //        master = TempData["COAMList"] as vmMasterData;
@@ -17670,7 +17101,6 @@ namespace DusColl.Controllers
         //        Common = Common == null ? new vmCommon() : Common;
 
         //        string UserID = modFilter.UserID;
-
 
         //        // get value filter before//
         //        string Keyword = modFilter.keyword;
@@ -17734,7 +17164,6 @@ namespace DusColl.Controllers
         //    }
         //    try
         //    {
-
         //        // get from session //
         //        modFilter = TempData["COAMListFilter"] as cFilterMasterData;
         //        master = TempData["COAMList"] as vmMasterData;
@@ -17769,10 +17198,8 @@ namespace DusColl.Controllers
         //        string validtxt = "";
         //        if (validtxt == "")
         //        {
-
         //            //descript some value for db//
         //            caption = HasKeyProtect.Decryption(caption);
-
 
         //            // try show filter data//
         //            List<String> recordPage = await MasterDataProvinsiddl.dbGetCoaListCount(Keyword, PageNumber, caption, UserID, GroupName);
@@ -17783,7 +17210,6 @@ namespace DusColl.Controllers
         //            List<DataTable> dtlist = await MasterDataProvinsiddl.dbGetCoaList(null, Keyword, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
         //            totalRecordclient = dtlist[0].Rows.Count;
         //            totalPageclient = int.Parse(Math.Ceiling(decimal.Parse(totalRecordclient.ToString()) / decimal.Parse(pagingsizeclient.ToString())).ToString());
-
 
         //            //set in filter for paging//
         //            modFilter.TotalRecord = TotalRecord;
@@ -17817,7 +17243,6 @@ namespace DusColl.Controllers
         //        }
         //        else
         //        {
-
         //            TempData["COAsiFilter"] = modFilter;
         //            TempData["COAsiList"] = master;
         //            TempData["common"] = Common;
@@ -17851,12 +17276,10 @@ namespace DusColl.Controllers
         //}
         //#endregion Master COA
 
-
         //#region Master COA MAP
         //[HttpPost]
         //public async Task<ActionResult> clnMTDCOAMAP(String menu, String caption)
         //{
-
         //    Account = (vmAccount)Session["Account"];
         //    bool IsErrorTimeout = false;
         //    if (Account != null)
@@ -17927,7 +17350,6 @@ namespace DusColl.Controllers
         //        modFilter.keyword = Keyword;
         //        modFilter.PageNumber = PageNumber;
 
-
         //        // try show filter data//
         //        List<String> recordPage = await MasterDataProvinsiddl.dbGetCoaMAPListCount(Keyword, PageNumber, caption, UserID, GroupName);
         //        TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -17961,7 +17383,6 @@ namespace DusColl.Controllers
         //            Common.ddlCoaPost = await Commonddl.dbddlgetparamenumsList("COGPOST");
         //        }
 
-
         //        ViewData["SelectCoa"] = OwinLibrary.Get_SelectListItem(Common.ddlCoa);
         //        ViewData["SelectCoaPost"] = OwinLibrary.Get_SelectListItem(Common.ddlCoaPost);
 
@@ -17970,7 +17391,6 @@ namespace DusColl.Controllers
         //        TempData["COAMAPMListFilter"] = modFilter;
         //        TempData["common"] = Common;
 
-
         //        //set caption view//
         //        ViewBag.menu = menu;
         //        ViewBag.caption = caption;
@@ -17978,9 +17398,7 @@ namespace DusColl.Controllers
         //        ViewBag.rute = "MasterData";
         //        ViewBag.action = "clnMTDCOAMAP";
 
-
         //        ViewBag.Total = "Total Data : " + TotalRecord.ToString() + " Data <br /> Data on Pages : " + totalRecordclient.ToString() + " Data";
-
 
         //        //send back to client browser//
         //        return Json(new
@@ -18058,7 +17476,6 @@ namespace DusColl.Controllers
         //        //descript some value for db//
         //        caption = HasKeyProtect.Decryption(caption);
 
-
         //        // try show filter data//
         //        List<DataTable> dtlist = await MasterDataProvinsiddl.dbGetCoaMAPList(master.DTFromDB, keyword, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
         //        // update active paging back to filter //
@@ -18068,7 +17485,6 @@ namespace DusColl.Controllers
         //        master.DTDetailForGrid = dtlist[1];
 
         //        ViewBag.Total = "Total Data : " + TotalRecord.ToString() + " Data <br /> Data on Pages : " + totalRecordclient.ToString() + " Data";
-
 
         //        //set session filterisasi //
         //        TempData["COAMAPMList"] = master;
@@ -18140,7 +17556,6 @@ namespace DusColl.Controllers
         //        DataRow dr = master.DTDetailForGrid.AsEnumerable().Where(x => x.Field<string>("keylookupdata") == paramkey).SingleOrDefault();
         //        if (dr != null)
         //        {
-
         //            modeldata.KodeGroup = dr["KodeGroup"].ToString();
         //            modeldata.Transaksi = dr["Transaksi"].ToString();
         //            modeldata.LawanTransaksi = (dr["LawanTransaksi"].ToString());
@@ -18157,7 +17572,6 @@ namespace DusColl.Controllers
         //        TempData["COAMAPMListFilter"] = modFilter;
         //        TempData["common"] = Common;
         //        // senback to client browser//
-
 
         //        return Json(new
         //        {
@@ -18189,7 +17603,6 @@ namespace DusColl.Controllers
         //}
         //public async Task<ActionResult> clnUpdMasterMTDCOAMAP(cMasterDataCoaMap model)
         //{
-
         //    Account = (vmAccount)Session["Account"];
         //    bool IsErrorTimeout = false;
         //    if (Account != null)
@@ -18215,7 +17628,6 @@ namespace DusColl.Controllers
         //    }
         //    try
         //    {
-
         //        master = TempData["COAMAPMList"] as vmMasterData;
         //        modFilter = TempData["COAMAPMListFilter"] as cFilterMasterData;
         //        Common = (TempData["common"] as vmCommon);
@@ -18267,7 +17679,6 @@ namespace DusColl.Controllers
 
         //        if (result == 1)
         //        {
-
         //            ////get total data from server//
         //            List<String> recordPage = await MasterDataProvinsiddl.dbGetCoaMAPListCount(keyword, PageNumber, caption, UserID, GroupName);
         //            TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -18299,7 +17710,6 @@ namespace DusColl.Controllers
 
         //        string filteron = isModeFilter == false ? "" : "<br /> Pencarian Data :  Aktif";
         //        ViewBag.Total = "Total Data : " + TotalRecord.ToString() + " Data <br /> Data on Pages : " + totalRecordclient.ToString() + " Data" + filteron;
-
 
         //        ViewData["SelectCoa"] = OwinLibrary.Get_SelectListItem(Common.ddlCoa);
         //        ViewData["SelectCoaPost"] = OwinLibrary.Get_SelectListItem(Common.ddlCoaPost);
@@ -18334,7 +17744,6 @@ namespace DusColl.Controllers
         //}
         //public async Task<ActionResult> clndelAddMTDCOAMAP(string paramkey)
         //{
-
         //    Account = (vmAccount)Session["Account"];
         //    bool IsErrorTimeout = false;
         //    if (Account != null)
@@ -18360,7 +17769,6 @@ namespace DusColl.Controllers
         //    }
         //    try
         //    {
-
         //        master = TempData["COAMAPMList"] as vmMasterData;
         //        modFilter = TempData["COAMAPMListFilter"] as cFilterMasterData;
         //        Common = (TempData["common"] as vmCommon);
@@ -18409,7 +17817,6 @@ namespace DusColl.Controllers
 
         //        if (result == 1)
         //        {
-
         //            // try show filter data//
         //            List<String> recordPage = await MasterDataProvinsiddl.dbGetCoaMAPListCount(keyword, PageNumber, caption, UserID, GroupName);
         //            TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -18496,7 +17903,6 @@ namespace DusColl.Controllers
         //    }
         //    try
         //    {
-
         //        //get session filterisasi //
         //        modFilter = TempData["COAMAPMListFilter"] as cFilterMasterData;
         //        master = TempData["COAMAPMList"] as vmMasterData;
@@ -18504,7 +17910,6 @@ namespace DusColl.Controllers
         //        Common = Common == null ? new vmCommon() : Common;
 
         //        string UserID = modFilter.UserID;
-
 
         //        // get value filter before//
         //        string Keyword = modFilter.keyword;
@@ -18568,7 +17973,6 @@ namespace DusColl.Controllers
         //    }
         //    try
         //    {
-
         //        // get from session //
         //        modFilter = TempData["COAMAPMListFilter"] as cFilterMasterData;
         //        master = TempData["COAMAPMList"] as vmMasterData;
@@ -18603,10 +18007,8 @@ namespace DusColl.Controllers
         //        string validtxt = "";
         //        if (validtxt == "")
         //        {
-
         //            //descript some value for db//
         //            caption = HasKeyProtect.Decryption(caption);
-
 
         //            // try show filter data//
         //            List<String> recordPage = await MasterDataProvinsiddl.dbGetCoaMAPListCount(Keyword, PageNumber, caption, UserID, GroupName);
@@ -18617,7 +18019,6 @@ namespace DusColl.Controllers
         //            List<DataTable> dtlist = await MasterDataProvinsiddl.dbGetCoaMAPList(null, Keyword, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
         //            totalRecordclient = dtlist[0].Rows.Count;
         //            totalPageclient = int.Parse(Math.Ceiling(decimal.Parse(totalRecordclient.ToString()) / decimal.Parse(pagingsizeclient.ToString())).ToString());
-
 
         //            //set in filter for paging//
         //            modFilter.TotalRecord = TotalRecord;
@@ -18651,7 +18052,6 @@ namespace DusColl.Controllers
         //        }
         //        else
         //        {
-
         //            TempData["COAMAPsiFilter"] = modFilter;
         //            TempData["COAMAPsiList"] = master;
         //            TempData["common"] = Common;
@@ -18685,12 +18085,10 @@ namespace DusColl.Controllers
         //}
         //#endregion Master COA MAP
 
-
         //#region Master Pembagian Order PIC Persentage
         //[HttpPost]
         //public async Task<ActionResult> clnMTDSHRPIC(String menu, String caption)
         //{
-
         //    Account = (vmAccount)Session["Account"];
         //    bool IsErrorTimeout = false;
         //    if (Account != null)
@@ -18741,7 +18139,6 @@ namespace DusColl.Controllers
         //        string SelectRegion = HasKeyProtect.Encryption("");
         //        string SelectJenisKontrak = null;
 
-
         //        // set default for paging//
         //        int PageNumber = 1;
         //        double TotalRecord = 0;
@@ -18762,13 +18159,11 @@ namespace DusColl.Controllers
         //        modFilter.Menu = menuitemdescription;
         //        modFilter.ModuleName = HasKeyProtect.Decryption(idcaption);
 
-
         //        modFilter.SelectUserID = SelectUserID;
         //        modFilter.SelectRegion = SelectRegion;
         //        modFilter.SelectJenisKontrak = SelectJenisKontrak;
 
         //        modFilter.PageNumber = PageNumber;
-
 
         //        //descript some value for db//
         //        SelectUserID = HasKeyProtect.Decryption(SelectUserID);
@@ -18817,7 +18212,6 @@ namespace DusColl.Controllers
         //        TempData["ShareOrderPICFilter"] = modFilter;
         //        TempData["common"] = Common;
 
-
         //        //set caption view//
         //        ViewBag.menu = menu;
         //        ViewBag.caption = caption;
@@ -18825,9 +18219,7 @@ namespace DusColl.Controllers
         //        ViewBag.rute = "MasterData";
         //        ViewBag.action = "clnMTDSHRPIC";
 
-
         //        ViewBag.Total = "Total Data : " + TotalRecord.ToString() + " Data <br /> Data on Pages : " + totalRecordclient.ToString() + " Data";
-
 
         //        //send back to client browser//
         //        return Json(new
@@ -18919,7 +18311,6 @@ namespace DusColl.Controllers
 
         //        ViewBag.Total = "Total Data : " + TotalRecord.ToString() + " Data <br /> Data on Pages : " + totalRecordclient.ToString() + " Data";
 
-
         //        //set session filterisasi //
         //        TempData["ShareOrderPICList"] = master;
         //        TempData["ShareOrderPICFilter"] = modFilter;
@@ -18983,12 +18374,10 @@ namespace DusColl.Controllers
         //        Common = (TempData["common"] as vmCommon);
         //        Common = Common == null ? new vmCommon() : Common;
 
-
         //        ViewData["SelectUserID"] = OwinLibrary.Get_SelectListItem(Common.ddlUser);
         //        ViewData["SelectRegion"] = OwinLibrary.Get_SelectListItem(Common.ddlRegion);
         //        ViewData["SelectjenisKontrak"] = OwinLibrary.Get_SelectListItem(Common.ddlJenisKontrak);
         //        ViewData["SelectCabang"] = OwinLibrary.Get_SelectListItem(Common.ddlCabang);
-
 
         //        cMasterDataSharePIC modeldata = new cMasterDataSharePIC();
         //        modeldata.oprkey = "add";
@@ -19044,7 +18433,6 @@ namespace DusColl.Controllers
         //}
         //public async Task<ActionResult> clndelAddMTDSHRPIC(string paramkey)
         //{
-
         //    Account = (vmAccount)Session["Account"];
         //    bool IsErrorTimeout = false;
         //    if (Account != null)
@@ -19070,7 +18458,6 @@ namespace DusColl.Controllers
         //    }
         //    try
         //    {
-
         //        master = TempData["ShareOrderPICList"] as vmMasterData;
         //        modFilter = TempData["ShareOrderPICFilter"] as cFilterMasterData;
         //        Common = (TempData["common"] as vmCommon);
@@ -19105,7 +18492,6 @@ namespace DusColl.Controllers
         //        modFilter.SelectRegion = SelectRegion;
         //        modFilter.SelectJenisKontrak = SelectJenisKontrak;
 
-
         //        //decript some model apply for DB//
         //        caption = HasKeyProtect.Decryption(caption);
         //        SelectUserID = HasKeyProtect.Decryption(SelectUserID);
@@ -19126,7 +18512,6 @@ namespace DusColl.Controllers
 
         //        if (result == 1)
         //        {
-
         //            //set paging in grid client//
         //            List<DataTable> dtlist = await MasterDataProvinsiddl.dbGetGeSharePICList(null, SelectUserID, SelectRegion, SelectJenisKontrak, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
         //            totalRecordclient = dtlist[0].Rows.Count;
@@ -19188,7 +18573,6 @@ namespace DusColl.Controllers
 
         //public async Task<ActionResult> clnUpdMasterMTDSHRPIC(cMasterDataSharePIC model)
         //{
-
         //    Account = (vmAccount)Session["Account"];
         //    bool IsErrorTimeout = false;
         //    if (Account != null)
@@ -19214,7 +18598,6 @@ namespace DusColl.Controllers
         //    }
         //    try
         //    {
-
         //        master = TempData["ShareOrderPICList"] as vmMasterData;
         //        modFilter = TempData["ShareOrderPICFilter"] as cFilterMasterData;
         //        Common = (TempData["common"] as vmCommon);
@@ -19275,7 +18658,6 @@ namespace DusColl.Controllers
 
         //        if (result == 1)
         //        {
-
         //            //set paging in grid client//
         //            List<DataTable> dtlist = await MasterDataProvinsiddl.dbGetGeSharePICList(null, "", SelectRegion, SelectJenisKontrak, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
         //            totalRecordclient = dtlist[0].Rows.Count;
@@ -19361,7 +18743,6 @@ namespace DusColl.Controllers
         //    }
         //    try
         //    {
-
         //        //get session filterisasi //
         //        modFilter = TempData["ShareOrderPICFilter"] as cFilterMasterData;
         //        master = TempData["ShareOrderPICList"] as vmMasterData;
@@ -19369,7 +18750,6 @@ namespace DusColl.Controllers
         //        Common = Common == null ? new vmCommon() : Common;
 
         //        string UserID = modFilter.UserID;
-
 
         //        // get value filter before//
         //        string SelectUserID = modFilter.SelectUserID;
@@ -19379,8 +18759,6 @@ namespace DusColl.Controllers
         //        ViewData["SelectUserID"] = OwinLibrary.Get_SelectListItem(Common.ddlUser);
         //        ViewData["SelectRegion"] = OwinLibrary.Get_SelectListItem(Common.ddlRegion);
         //        ViewData["SelectjenisKontrak"] = OwinLibrary.Get_SelectListItem(Common.ddlJenisKontrak);
-
-
 
         //        TempData["ShareOrderPICList"] = master;
         //        TempData["ShareOrderPICFilter"] = modFilter;
@@ -19442,7 +18820,6 @@ namespace DusColl.Controllers
         //    }
         //    try
         //    {
-
         //        // get from session //
         //        modFilter = TempData["ShareOrderPICFilter"] as cFilterMasterData;
         //        master = TempData["ShareOrderPICList"] as vmMasterData;
@@ -19454,14 +18831,12 @@ namespace DusColl.Controllers
         //        string GroupName = modFilter.GroupName;
         //        string caption = modFilter.idcaption;
 
-
         //        //get value from aply filter //
         //        string SelectUserID = (model.SelectUserID ?? "");
         //        SelectUserID = SelectUserID == "" ? HasKeyProtect.Encryption(SelectUserID) : SelectUserID;
         //        string SelectRegion = (model.SelectRegion ?? "");
         //        SelectRegion = SelectRegion == "" ? HasKeyProtect.Encryption(SelectRegion) : SelectRegion;
         //        string SelectJenisKontrak = model.SelectJenisKontrak ?? null;
-
 
         //        //set default for paging//
         //        int PageNumber = 1;
@@ -19485,7 +18860,6 @@ namespace DusColl.Controllers
         //        string validtxt = "";
         //        if (validtxt == "")
         //        {
-
         //            //descript some value for db//
         //            caption = HasKeyProtect.Decryption(caption);
         //            SelectUserID = HasKeyProtect.Decryption(SelectUserID);
@@ -19500,7 +18874,6 @@ namespace DusColl.Controllers
         //            List<DataTable> dtlist = await MasterDataProvinsiddl.dbGetGeSharePICList(null, SelectUserID, SelectRegion, SelectJenisKontrak, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
         //            totalRecordclient = dtlist[0].Rows.Count;
         //            totalPageclient = int.Parse(Math.Ceiling(decimal.Parse(totalRecordclient.ToString()) / decimal.Parse(pagingsizeclient.ToString())).ToString());
-
 
         //            //set in filter for paging//
         //            modFilter.TotalRecord = TotalRecord;
@@ -19534,7 +18907,6 @@ namespace DusColl.Controllers
         //        }
         //        else
         //        {
-
         //            TempData["ShareOrderPICFilter"] = modFilter;
         //            TempData["ShareOrderPICList"] = master;
         //            TempData["common"] = Common;
@@ -19593,7 +18965,6 @@ namespace DusColl.Controllers
         //    }
         //    try
         //    {
-
         //        //set session filterisasi //
         //        modFilter = TempData["ShareOrderPICFilter"] as cFilterMasterData;
         //        master = TempData["ShareOrderPICList"] as vmMasterData;
@@ -19634,7 +19005,6 @@ namespace DusColl.Controllers
 
         //            if (loaddata == true)
         //            {
-
         //                //decript for db//
         //                string decSelectClient = "";
         //                string decSelectBranch = (SelectBranch ?? "") == "" ? "" : HasKeyProtect.Decryption(SelectBranch);
@@ -19677,7 +19047,6 @@ namespace DusColl.Controllers
         //}
         //public ActionResult clnListExcelMTDSHRPIC(string tipemodule = "")
         //{
-
         //    Account = (vmAccount)Session["Account"];
         //    Account.AccountLogin = lgAccount.NotExistSesionID(Request.Cookies[FormsAuthentication.FormsCookieName], Account.AccountLogin);
 
@@ -19697,13 +19066,11 @@ namespace DusColl.Controllers
 
         //    try
         //    {
-
         //        //get session filterisasi //
         //        modFilter = TempData["ShareOrderPICFilter"] as cFilterMasterData;
         //        master = TempData["ShareOrderPICList"] as vmMasterData;
         //        Common = (TempData["common"] as vmCommon);
         //        Common = Common == null ? new vmCommon() : Common;
-
 
         //        TempData["ShareOrderPICFilter"] = modFilter;
         //        TempData["ShareOrderPICList"] = master;
@@ -19761,13 +19128,10 @@ namespace DusColl.Controllers
         //}
         //#endregion Master Pembagian Order PIC Persentage
 
-
-
         //#region Master Pembagian Order Notaris Persentage
         //[HttpPost]
         //public async Task<ActionResult> clnMTDSHRNTRS(String menu, String caption)
         //{
-
         //    Account = (vmAccount)Session["Account"];
         //    bool IsErrorTimeout = false;
         //    if (Account != null)
@@ -19818,7 +19182,6 @@ namespace DusColl.Controllers
         //        string SelectRegion = HasKeyProtect.Encryption("");
         //        string SelectJenisKontrak = null;
 
-
         //        // set default for paging//
         //        int PageNumber = 1;
         //        double TotalRecord = 0;
@@ -19839,13 +19202,11 @@ namespace DusColl.Controllers
         //        modFilter.Menu = menuitemdescription;
         //        modFilter.ModuleName = HasKeyProtect.Decryption(idcaption);
 
-
         //        modFilter.SelectNotaris = SelectNotaris;
         //        modFilter.SelectRegion = SelectRegion;
         //        modFilter.SelectJenisKontrak = SelectJenisKontrak;
 
         //        modFilter.PageNumber = PageNumber;
-
 
         //        //descript some value for db//
         //        SelectNotaris = HasKeyProtect.Decryption(SelectNotaris);
@@ -19894,7 +19255,6 @@ namespace DusColl.Controllers
         //        TempData["ShareOrderNotarisFilter"] = modFilter;
         //        TempData["common"] = Common;
 
-
         //        //set caption view//
         //        ViewBag.menu = menu;
         //        ViewBag.caption = caption;
@@ -19902,9 +19262,7 @@ namespace DusColl.Controllers
         //        ViewBag.rute = "MasterData";
         //        ViewBag.action = "clnMTDSHRNTRS";
 
-
         //        ViewBag.Total = "Total Data : " + TotalRecord.ToString() + " Data <br /> Data on Pages : " + totalRecordclient.ToString() + " Data";
-
 
         //        //send back to client browser//
         //        return Json(new
@@ -19996,7 +19354,6 @@ namespace DusColl.Controllers
 
         //        ViewBag.Total = "Total Data : " + TotalRecord.ToString() + " Data <br /> Data on Pages : " + totalRecordclient.ToString() + " Data";
 
-
         //        //set session filterisasi //
         //        TempData["ShareOrderNotarisList"] = master;
         //        TempData["ShareOrderNotarisFilter"] = modFilter;
@@ -20060,13 +19417,10 @@ namespace DusColl.Controllers
         //        Common = (TempData["common"] as vmCommon);
         //        Common = Common == null ? new vmCommon() : Common;
 
-
-
         //        ViewData["SelectNotaris"] = OwinLibrary.Get_SelectListItem(Common.ddlNotaris);
         //        ViewData["SelectRegion"] = OwinLibrary.Get_SelectListItem(Common.ddlRegion);
         //        ViewData["SelectjenisKontrak"] = OwinLibrary.Get_SelectListItem(Common.ddlJenisKontrak);
         //        ViewData["SelectCabang"] = OwinLibrary.Get_SelectListItem(Common.ddlCabang);
-
 
         //        cMasterDataShareNotaris modeldata = new cMasterDataShareNotaris();
         //        modeldata.oprkey = "add";
@@ -20123,7 +19477,6 @@ namespace DusColl.Controllers
         //}
         //public async Task<ActionResult> clndelAddMTDSHRNTRS(string paramkey)
         //{
-
         //    Account = (vmAccount)Session["Account"];
         //    bool IsErrorTimeout = false;
         //    if (Account != null)
@@ -20150,7 +19503,6 @@ namespace DusColl.Controllers
 
         //    try
         //    {
-
         //        master = TempData["ShareOrderNotarisList"] as vmMasterData;
         //        modFilter = TempData["ShareOrderNotarisFilter"] as cFilterMasterData;
         //        Common = (TempData["common"] as vmCommon);
@@ -20185,7 +19537,6 @@ namespace DusColl.Controllers
         //        modFilter.SelectRegion = SelectRegion;
         //        modFilter.SelectJenisKontrak = SelectJenisKontrak;
 
-
         //        //decript some model apply for DB//
         //        caption = HasKeyProtect.Decryption(caption);
         //        SelectNotaris = HasKeyProtect.Decryption(SelectNotaris);
@@ -20206,7 +19557,6 @@ namespace DusColl.Controllers
 
         //        if (result == 1)
         //        {
-
         //            //set paging in grid client//
         //            List<DataTable> dtlist = await MasterDataProvinsiddl.dbGetGeShareNotarisList(null, SelectNotaris, SelectRegion, SelectJenisKontrak, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
         //            totalRecordclient = dtlist[0].Rows.Count;
@@ -20268,7 +19618,6 @@ namespace DusColl.Controllers
 
         //public async Task<ActionResult> clnUpdMasterMTDSHRNTRS(cMasterDataShareNotaris model)
         //{
-
         //    Account = (vmAccount)Session["Account"];
         //    bool IsErrorTimeout = false;
         //    if (Account != null)
@@ -20294,7 +19643,6 @@ namespace DusColl.Controllers
         //    }
         //    try
         //    {
-
         //        master = TempData["ShareOrderNotarisList"] as vmMasterData;
         //        modFilter = TempData["ShareOrderNotarisFilter"] as cFilterMasterData;
         //        Common = (TempData["common"] as vmCommon);
@@ -20355,7 +19703,6 @@ namespace DusColl.Controllers
 
         //        if (result == 1)
         //        {
-
         //            //set paging in grid client//
         //            List<DataTable> dtlist = await MasterDataProvinsiddl.dbGetGeShareNotarisList(null, SelectNotaris, SelectRegion, SelectJenisKontrak, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
         //            totalRecordclient = dtlist[0].Rows.Count;
@@ -20441,7 +19788,6 @@ namespace DusColl.Controllers
         //    }
         //    try
         //    {
-
         //        //get session filterisasi //
         //        modFilter = TempData["ShareOrderNotarisFilter"] as cFilterMasterData;
         //        master = TempData["ShareOrderNotarisList"] as vmMasterData;
@@ -20449,7 +19795,6 @@ namespace DusColl.Controllers
         //        Common = Common == null ? new vmCommon() : Common;
 
         //        string UserID = modFilter.UserID;
-
 
         //        // get value filter before//
         //        string SelectNotaris = modFilter.SelectNotaris;
@@ -20459,8 +19804,6 @@ namespace DusColl.Controllers
         //        ViewData["SelectNotaris"] = OwinLibrary.Get_SelectListItem(Common.ddlNotaris);
         //        ViewData["SelectRegion"] = OwinLibrary.Get_SelectListItem(Common.ddlRegion);
         //        ViewData["SelectjenisKontrak"] = OwinLibrary.Get_SelectListItem(Common.ddlJenisKontrak);
-
-
 
         //        TempData["ShareOrderNotarisList"] = master;
         //        TempData["ShareOrderNotarisFilter"] = modFilter;
@@ -20522,7 +19865,6 @@ namespace DusColl.Controllers
         //    }
         //    try
         //    {
-
         //        // get from session //
         //        modFilter = TempData["ShareOrderNotarisFilter"] as cFilterMasterData;
         //        master = TempData["ShareOrderNotarisList"] as vmMasterData;
@@ -20534,14 +19876,12 @@ namespace DusColl.Controllers
         //        string GroupName = modFilter.GroupName;
         //        string caption = modFilter.idcaption;
 
-
         //        //get value from aply filter //
         //        string SelectNotaris = (model.SelectNotaris ?? "");
         //        SelectNotaris = SelectNotaris == "" ? HasKeyProtect.Encryption(SelectNotaris) : SelectNotaris;
         //        string SelectRegion = (model.SelectRegion ?? "");
         //        SelectRegion = SelectRegion == "" ? HasKeyProtect.Encryption(SelectRegion) : SelectRegion;
         //        string SelectJenisKontrak = model.SelectJenisKontrak ?? null;
-
 
         //        //set default for paging//
         //        int PageNumber = 1;
@@ -20565,7 +19905,6 @@ namespace DusColl.Controllers
         //        string validtxt = "";
         //        if (validtxt == "")
         //        {
-
         //            //descript some value for db//
         //            caption = HasKeyProtect.Decryption(caption);
         //            SelectNotaris = HasKeyProtect.Decryption(SelectNotaris);
@@ -20580,7 +19919,6 @@ namespace DusColl.Controllers
         //            List<DataTable> dtlist = await MasterDataProvinsiddl.dbGetGeShareNotarisList(null, SelectNotaris, SelectRegion, SelectJenisKontrak, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
         //            totalRecordclient = dtlist[0].Rows.Count;
         //            totalPageclient = int.Parse(Math.Ceiling(decimal.Parse(totalRecordclient.ToString()) / decimal.Parse(pagingsizeclient.ToString())).ToString());
-
 
         //            //set in filter for paging//
         //            modFilter.TotalRecord = TotalRecord;
@@ -20614,7 +19952,6 @@ namespace DusColl.Controllers
         //        }
         //        else
         //        {
-
         //            TempData["ShareOrderNotarisFilter"] = modFilter;
         //            TempData["ShareOrderNotarisList"] = master;
         //            TempData["common"] = Common;
@@ -20673,7 +20010,6 @@ namespace DusColl.Controllers
         //    }
         //    try
         //    {
-
         //        //set session filterisasi //
         //        bool actPIC = false;
         //        modFilter = TempData["ShareOrderNotarisFilter"] as cFilterMasterData;
@@ -20723,7 +20059,6 @@ namespace DusColl.Controllers
 
         //            if (loaddata == true)
         //            {
-
         //                //decript for db//
         //                string decSelectClient = "";
         //                string decSelectBranch = (SelectBranch ?? "") == "" ? "" : HasKeyProtect.Decryption(SelectBranch);
@@ -20774,7 +20109,6 @@ namespace DusColl.Controllers
         //}
         //public ActionResult clnListExcelMTDSHRNTRS(string tipemodule = "")
         //{
-
         //    Account = (vmAccount)Session["Account"];
         //    Account.AccountLogin = lgAccount.NotExistSesionID(Request.Cookies[FormsAuthentication.FormsCookieName], Account.AccountLogin);
 
@@ -20794,13 +20128,11 @@ namespace DusColl.Controllers
 
         //    try
         //    {
-
         //        //get session filterisasi //
         //        modFilter = TempData["ShareOrderNotarisFilter"] as cFilterMasterData;
         //        master = TempData["ShareOrderNotarisList"] as vmMasterData;
         //        Common = (TempData["common"] as vmCommon);
         //        Common = Common == null ? new vmCommon() : Common;
-
 
         //        TempData["ShareOrderNotarisFilter"] = modFilter;
         //        TempData["ShareOrderNotarisList"] = master;

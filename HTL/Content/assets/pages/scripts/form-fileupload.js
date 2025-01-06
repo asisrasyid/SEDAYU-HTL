@@ -1,5 +1,4 @@
 var FormFileUpload = function () {
-
     var _formatFileSize = function (bytes) {
         if (typeof bytes !== 'number') {
             return '';
@@ -144,7 +143,6 @@ var FormFileUpload = function () {
                                 $("#dialogwarkah").modal("show");
                                 $("div").removeClass("modal-backdrop");
                             }
-
                         }
                     }
                     App.unblockUI();
@@ -160,7 +158,6 @@ var FormFileUpload = function () {
             }
         });
     };
-
 
     return {
         //main function to initiate the module
@@ -296,7 +293,6 @@ var FormFileUpload = function () {
             }
         },
 
-
         Gtflienw: function (obj, cntproo, paramt, kyp) {
             var datafile = $(obj).get(0).files;
             var htmled = datafile[0].name;
@@ -391,6 +387,103 @@ var FormFileUpload = function () {
                 });
             }
         },
+
+        GtRyfli: function (obj, cntproo, paramt, kyp) {
+            var datafile = $(obj).get(0).files;
+            var htmled = datafile[0].name;
+            var txt = "";
+
+            var noappl = $("#ctexdoc").val();
+
+            if (htmled.length > 100) {
+                txt = "Nama file maximal 100 karakter";
+            }
+            else if ((datafile[0].size / 1000).toFixed(2) > 1000) {
+                txt = "Ukuran file maximal 1 MB";
+            }
+            else if ((datafile[0].size / 1000).toFixed(2) > 5000 ) {
+                txt = "Ukuran file maximal 5 MB";
+            }
+            else if (datafile[0].type != "image/jpg" && datafile[0].type != "image/jpeg" && datafile[0].type != "application/pdf") {
+                txt = "Tipe file yang boleh diupload .jpg/.jpeg/.pdf";
+            }
+
+            if (txt != "") {
+                $("#dialogupdoc").modal("hide");
+                $(obj).val("");
+                swal({
+                    title: "Informasi",
+                    text: txt,
+                    type: "info",
+                    showConfirmButton: true,
+                    closeOnConfirm: true,
+                    closeOnCancel: true,
+                    confirmButtonText: "Tutup",
+                }, function () {
+                    $("#dialogupdoc").modal("show");
+                });
+            } else {
+                
+                //var doc = $(obj).closest('tr').find("td input").val();
+                //var token = $('input[name="__RequestVerificationToken"]').val();
+                //var formdata = new FormData();
+                //formdata.append("files", datafile[0]);
+                //formdata.append("cntproo", cntproo);
+                //formdata.append("__RequestVerificationToken", token);
+                //formdata.append("documen", doc);
+                //formdata.append("noappl", noappl);
+                //formdata.append("keypro", paramt);
+
+                //$.ajax({
+                //    url: "HTL/clnKoncePloddoconesvenw",
+                //    type: "POST",
+                //    processData: false,
+                //    contentType: false,
+                //    data: formdata,
+                //    dataType: "json",
+                //    beforeSend: function () {
+                //        App.blockUI
+                //            ({ target: '.modal-content' });
+                //    },
+                //    success: function (data) {
+                //        if (data.moderror == false) {
+                //            App.unblockUI('.modal-content');
+                //            $("#dialogupdoc").modal("hide");
+                //            swal({
+                //                title: "Informasi",
+                //                text: data.msg,
+                //                type: "info",
+                //                showConfirmButton: true,
+                //                closeOnConfirm: true,
+                //                closeOnCancel: true,
+                //                confirmButtonText: "Tutup",
+                //            }, function () {
+                //                if (data.resulted == "1") {
+                //                    var sz = _formatFileSize(datafile[0].size);
+                //                    $(obj).closest('tr').find('td label').html("File : " + htmled + " <br /> Size : " + sz);
+                //                    $(obj).closest('tr').find('td .btndelbtn').unbind("click");
+                //                    $(obj).closest('tr').find('td .btndelbtn').bind("click", function () {
+                //                        FormFileUpload.chkfledl(data.golpod, data.golpod, this, paramt);
+                //                    });
+                //                } else {
+                //                    $(obj).val("");
+                //                }
+                //                $("#dialogupdoc").modal("show");
+                //            });
+                //        } else {
+                //            window.location.href = data.url;
+                //        }
+                //    },
+                //    error: function (x, y, z) {
+                //        App.unblockUI(elemntupload);
+                //        jsoncoll = JSON.stringify(x);
+                //        jsonreposn = JSON.parse(jsoncoll);
+                //        if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
+                //    }
+                //});
+            }
+        },
+
 
         chkfle(parsecnocon, parsecnoconmode, parcontype) {
             onchkfle(parsecnocon, parsecnoconmode, parcontype);
@@ -563,7 +656,6 @@ var FormFileUpload = function () {
         },
 
         subsvelod: function (mode) {
-
             var frm = $("#fileuploadform");
             var formdata = new FormData();
             var datax = frm.serializeArray();
@@ -710,7 +802,6 @@ var FormFileUpload = function () {
                                     FormFileUpload.Cekfileup('rf');
                                 }
                             });
-
                         } else {
                             window.location.href = data.url;
                         }
@@ -724,7 +815,6 @@ var FormFileUpload = function () {
                 });
             }
         },
-
 
         init: function () {
             //hafid
@@ -765,7 +855,6 @@ var FormFileUpload = function () {
                         if (this.id == "infonamettd") {
                             $("#infonamettd").html("<br />" + this.files[i].name);
                         }
-
                     } else {
                         $("#fileupload").val("").change();
                         swal({
@@ -807,7 +896,6 @@ var FormFileUpload = function () {
             });
         },
     };
-
 }();
 
 jQuery(document).ready(function () {
@@ -848,7 +936,17 @@ jQuery(document).ready(function () {
         var par0 = pop[0].replace(/[']/g, "");
         var par1 = pop[1].replace(/[']/g, "");
         FormFileUpload.Gtflienw(this, par0, par1);
-    });
+    });//btnflednw
+
+    $(".btnRoyUpldt").unbind("change");
+    $(".btnRoyUpldt").bind("change", function () {
+        var pop = $(this).attr("data-value");
+        console.log(pop)
+        pop = pop.split(",");
+        var par0 = pop[0].replace(/[']/g, "");
+        var par1 = pop[1].replace(/[']/g, "");
+        FormFileUpload.GtRyfli(this, par0, par1);
+    });//btnflednw
 
     $("#btnviewbtn").unbind("click");
     $("#btnviewbtn").bind("click", function () {
@@ -868,5 +966,4 @@ jQuery(document).ready(function () {
         var par2 = pop[2].replace(/[']/g, "");
         FormFileUpload.chkfledl(par0, par1, this, par2);
     });
-
 });

@@ -6,60 +6,60 @@
             <a id='link' download='ReportPermohonanSertifikat.xlsx'></a>
             @using (Ajax.BeginForm("clnListFilterMTDJOBDESC", new { Controller = "MasterData" }, new AjaxOptions { HttpMethod = "POST" }, new { id = "MasterFilterForm_form", @class = "form-horizontal" }))
             {
-                @Html.AntiForgeryToken();
-                @Html.HiddenFor(m => m.idcaption)
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h4 class="modal-title">Pencarian Data</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="form-body">
+            @Html.AntiForgeryToken();
+            @Html.HiddenFor(m => m.idcaption)
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Pencarian Data</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-body">
 
+                    <div class="form-group" style="margin-bottom: 10px">
+                        <label class="control-label col-md-3">Kata Kunci</label>
+                        <div class="col-md-7">
+                            <input class="form-control form-control-inline" name="keyword" id="keyword" type="text" placeholder="Deskripsi Job ">
+                        </div>
+                    </div>
+
+                    <div class="">
                         <div class="form-group" style="margin-bottom: 10px">
-                            <label class="control-label col-md-3">Kata Kunci</label>
+                            <label class="control-label col-md-3">Divisi</label>
                             <div class="col-md-7">
-                                <input class="form-control form-control-inline" name="keyword" id="keyword" type="text" placeholder="Deskripsi Job ">
+                                @Html.DropDownListFor(m => m.SelectDivisi, (IEnumerable<SelectListItem>)ViewData["SelectDivisi"], "Pilih..", new { @class = "form-control select2" })
                             </div>
                         </div>
+                    </div>
 
-                        <div class="">
-                            <div class="form-group" style="margin-bottom: 10px">
-                                <label class="control-label col-md-3">Divisi</label>
-                                <div class="col-md-7">
-                                    @Html.DropDownListFor(m => m.SelectDivisi, (IEnumerable<SelectListItem>)ViewData["SelectDivisi"], "Pilih..", new { @class = "form-control select2" })
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="">
-                            <div class="form-group" style="margin-bottom: 10px">
-                                <label class="control-label col-md-3"></label>
-                                <div class="col-md-7">
-                                    <div class="md-checkbox-list">
-                                        <div class="md-checkbox">
-                                            @Html.CheckBoxFor(m => m.IsActiveData, new { id = "IsActiveData", @class = "md-check" })
-                                            <label for="IsActiveData">
-                                                <span></span>
-                                                <span class="check"></span>
-                                                <span class="box"></span> Status Aktif
-                                            </label>
-                                        </div>
+                    <div class="">
+                        <div class="form-group" style="margin-bottom: 10px">
+                            <label class="control-label col-md-3"></label>
+                            <div class="col-md-7">
+                                <div class="md-checkbox-list">
+                                    <div class="md-checkbox">
+                                        @Html.CheckBoxFor(m => m.IsActiveData, new { id = "IsActiveData", @class = "md-check" })
+                                        <label for="IsActiveData">
+                                            <span></span>
+                                            <span class="check"></span>
+                                            <span class="box"></span> Status Aktif
+                                        </label>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn green masterfilterref">
-                        <i class="fa fa-circle-o"></i>
-                        <span>&nbsp;Ulangi</span>
-                    </button>
-                    <button type="button" class="btn green masterfilter">
-                        <i class="fa fa-search"></i>
-                        <span>&nbsp;Cari</span>
-                    </button>
-                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn green masterfilterref">
+                    <i class="fa fa-circle-o"></i>
+                    <span>&nbsp;Ulangi</span>
+                </button>
+                <button type="button" class="btn green masterfilter">
+                    <i class="fa fa-search"></i>
+                    <span>&nbsp;Cari</span>
+                </button>
+            </div>
             }
         </div>
         <!-- /.modal-content -->

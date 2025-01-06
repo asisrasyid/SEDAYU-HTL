@@ -7,67 +7,66 @@
                 HttpMethod = "POST"
             }, new { id = "clnMaster_form", @class = "form-horizontal" }))
             {
-                @Html.AntiForgeryToken();
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h4 class="modal-title">@ViewBag.OprMenu (@ViewBag.menu)</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="form-body">
-                        @Html.HiddenFor(x => x.keylookup)
-                        @Html.HiddenFor(x => x.hdPicSelect)
-                        <div class="form-horizontal">
-                            <div class="form-body" style="padding:20px">
-                                @if (ViewBag.oprvalue == "view")
+            @Html.AntiForgeryToken();
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">@ViewBag.OprMenu (@ViewBag.menu)</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-body">
+                    @Html.HiddenFor(x => x.keylookup)
+                    @Html.HiddenFor(x => x.hdPicSelect)
+                    <div class="form-horizontal">
+                        <div class="form-body" style="padding:20px">
+                            @if (ViewBag.oprvalue == "view")
                                 {
-                                    <div class="form-group">
-                                        <div class="col-md-12">
-                                            Nama Group
-                                            @Html.TextBoxFor(m => m.GROUP_NAME, new { @class = "form-control NonEdittable", @maxlength = "50", @readonly = "" })
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-md-9">
-                                            Daftar PIC
-                                            @Html.DropDownListFor(m => m.PIC, (MultiSelectList)ViewData["SelectPic"], new { @class = "form-control multi-select NonEdittable", multiple = "multiple", @readonly = "", @style = "height:200px;position: absolute; left: -9999px;" })
-                                        </div>
-                                    </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    Nama Group
+                                    @Html.TextBoxFor(m => m.GROUP_NAME, new { @class = "form-control NonEdittable", @maxlength = "50", @readonly = "" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-9">
+                                    Daftar PIC
+                                    @Html.DropDownListFor(m => m.PIC, (MultiSelectList)ViewData["SelectPic"], new { @class = "form-control multi-select NonEdittable", multiple = "multiple", @readonly = "", @style = "height:200px;position: absolute; left: -9999px;" })
+                                </div>
+                            </div>
                                 }
                                 else
                                 {
 
-                                    <div class="form-group">
-                                        <div class="col-md-12">
-                                            Nama Group
-                                            @Html.TextBoxFor(m => m.GROUP_NAME, new { @class = "form-control", @maxlength = "50" })
-                                            @Html.ValidationMessageFor(m => m.GROUP_NAME, "", new { @class = "error-block" })
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-md-5">Pilih PIC</div><div class="col-md-3">Daftar PIC</div>
-                                        <div class="col-md-9">
-                                            @Html.DropDownListFor(m => m.PIC, (MultiSelectList)ViewData["SelectPic"], new { @class = "form-control multi-select", multiple = "multiple", @style = "height:200px;position: absolute; left: -9999px;" })
-                                        </div>
-                                    </div>
-                                }
-
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    Nama Group
+                                    @Html.TextBoxFor(m => m.GROUP_NAME, new { @class = "form-control", @maxlength = "50" })
+                                    @Html.ValidationMessageFor(m => m.GROUP_NAME, "", new { @class = "error-block" })
+                                </div>
                             </div>
+                            <div class="form-group">
+                                <div class="col-md-5">Pilih PIC</div><div class="col-md-3">Daftar PIC</div>
+                                <div class="col-md-9">
+                                    @Html.DropDownListFor(m => m.PIC, (MultiSelectList)ViewData["SelectPic"], new { @class = "form-control multi-select", multiple = "multiple", @style = "height:200px;position: absolute; left: -9999px;" })
+                                </div>
+                            </div>
+                                }
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn green" data-dismiss="modal">
-                        <i class="fa fa-close"></i>
-                        <span>&nbsp;Tutup</span>
-                    </button>
-                    @if (ViewBag.oprvalue != "view")
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn green" data-dismiss="modal">
+                    <i class="fa fa-close"></i>
+                    <span>&nbsp;Tutup</span>
+                </button>
+                @if (ViewBag.oprvalue != "view")
                     {
-                        <button type="button" class="btn green" onclick="vmMasterData.ApplySbmt('#clnMaster_form')">
-                            <i class="fa fa-check-square"></i>
-                            <span>&nbsp;Simpan </span>
-                        </button>
+                <button type="button" class="btn green" onclick="vmMasterData.ApplySbmt('#clnMaster_form')">
+                    <i class="fa fa-check-square"></i>
+                    <span>&nbsp;Simpan </span>
+                </button>
                     }
-                </div>
+            </div>
             }
         </div>
         <!-- /.modal-content -->

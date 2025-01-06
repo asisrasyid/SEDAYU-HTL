@@ -3,15 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Globalization;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 
 namespace DusColl
 {
-
     [Serializable]
     public class vmRegmitra
     {
@@ -30,12 +27,9 @@ namespace DusColl
         public string CheckWithKey { get; set; }
     }
 
-
-
     [Serializable]
     public class blRegmitraddl
     {
-
         public async Task<string> dbgetvalidate(cRegmitra model, cRegmitra modelold, HttpPostedFileBase[] files, string[] documen, DataTable dokumenlistrequired, string FlagOPR, string TglAkhirKontrak, string module, string UserID, string GroupName)
         {
             string valid = "";
@@ -61,7 +55,6 @@ namespace DusColl
                     return valid;
                 }
             }
-
 
             if ((model.NoKTP ?? "") != "" && (model.NoKTP ?? "").Length != 16)
             {
@@ -112,7 +105,6 @@ namespace DusColl
                         return valid;
                     }
                 }
-
             }
 
             if ((model.NoHP ?? "") != "" && (model.NoHP ?? "").Length != 13)
@@ -157,7 +149,6 @@ namespace DusColl
                 return valid;
             }
 
-
             //cek jika bukan save draf
             if ((FlagOPR == "CRETHDR" || FlagOPR == "REVHDR" || FlagOPR == "REVHDRDRAFT") && model.StatusFollow != "5")
             {
@@ -174,7 +165,6 @@ namespace DusColl
                         return valid;
                     }
                 }
-
 
                 if ((int.Parse(model.RegmitraType.ToString()) == (int)HashNetFramework.RequetsTransMitra.ROTASI))
                 {
@@ -205,7 +195,6 @@ namespace DusColl
                 if ((int.Parse(model.RegmitraType.ToString()) == (int)HashNetFramework.RequetsTransMitra.BARU
                 || int.Parse(model.RegmitraType.ToString()) == (int)HashNetFramework.RequetsTransMitra.PANJANG) && model.StatusFollow != "5")
                 {
-
                     if (FlagOPR != "APRHDR")
                     {
                         string date1 = (int.Parse(model.RegmitraType.ToString()) == (int)HashNetFramework.RequetsTransMitra.PANJANG) ? TglAkhirKontrak : model.tglmasuk;
@@ -246,7 +235,6 @@ namespace DusColl
                             minday = -1;
                             date2 = dt2.AddDays(minday).ToString("dd-MMMM-yyyy");
                             msgcap = periode + " bulan";
-
                         }
 
                         if (model.tglakhir != date2)
@@ -258,7 +246,7 @@ namespace DusColl
                         {
                             return valid = "Tgl Akhir untuk masa kontrak mitra harus lebih besar dari tanggal hari ini ";
                         }
-                        //cek tgl akhir harus lebih besar dari tgl hari ini 
+                        //cek tgl akhir harus lebih besar dari tgl hari ini
                     }
                 }
                 */
@@ -281,7 +269,6 @@ namespace DusColl
                     || int.Parse(model.RegmitraType.ToString()) == (int)HashNetFramework.RequetsTransMitra.PANJANG)
                     || int.Parse(model.RegmitraType.ToString()) == (int)HashNetFramework.RequetsTransMitra.BARU) && model.StatusFollow != "5")
                 {
-
                     model.AlamatKorespodensi = (model.AlamatKorespodensi ?? "");
                     model.NoSPPI = model.NoSPPI ?? "";
                     model.NoHP = model.NoHP ?? "";
@@ -428,7 +415,6 @@ namespace DusColl
             {
                 if (files != null)
                 {
-
                     foreach (HttpPostedFileBase file in files)
                     {
                         if (file.FileName.Length > 50)
@@ -501,7 +487,6 @@ namespace DusColl
 
             //if (FlagOPR == "CRETHDR" || FlagOPR == "REVHDR")
             //{
-
             //}
 
             return valid;
@@ -511,12 +496,10 @@ namespace DusColl
     [Serializable]
     public class vmRegmitraddl
     {
-
         #region Application
 
         public async Task<List<string>> dbGetDetailTxListCount(string ItemCode, string RegmitraNo, int PageNumber, string idcaption, string userid, string groupname)
         {
-
             DataTable dt = new DataTable();
 
             dbAccessHelper dbaccess = new dbAccessHelper();
@@ -548,17 +531,15 @@ namespace DusColl
                 dta.Add("0");
             }
 
-
             return dta;
         }
+
         public async Task<List<DataTable>> dbGetDetailTxList(DataTable DTFromDB, string ItemCode, string RegmitraNo, int PageNumber, double pagenumberclient, double pagingsizeclient, string idcaption, string userid, string groupname)
         {
-
             DataTable dt = new DataTable();
             List<DataTable> dtlist = new List<DataTable>();
             if (DTFromDB == null || DTFromDB.Rows.Count == 0)
             {
-
                 dbAccessHelper dbaccess = new dbAccessHelper();
                 string strconnection = HasKeyProtect.DecryptionPass(OwinLibrary.GetDB());
 
@@ -573,14 +554,11 @@ namespace DusColl
                 };
 
                 dt = await dbaccess.ExecuteDataTable(strconnection, "udp_app_trxdt_forcast_list", sqlParam);
-
-
             }
             else
             {
                 dt = DTFromDB;
             }
-
 
             dtlist.Add(dt);
 
@@ -597,7 +575,6 @@ namespace DusColl
 
         public async Task<List<string>> dbGetHeaderTxListCount(string RequestNo, string Divisi, string Cabang, string NamaMitra, string fromdate, string todate, int PageNumber, string idcaption, string userid, string groupname)
         {
-
             DataTable dt = new DataTable();
 
             dbAccessHelper dbaccess = new dbAccessHelper();
@@ -633,17 +610,15 @@ namespace DusColl
                 dta.Add("0");
             }
 
-
             return dta;
         }
+
         public async Task<List<DataTable>> dbGetHeaderTxList(DataTable DTFromDB, string RequestNo, string Divisi, string Cabang, string NamaMitra, string fromdate, string todate, int PageNumber, double pagenumberclient, double pagingsizeclient, string idcaption, string userid, string groupname)
         {
-
             DataTable dt = new DataTable();
             List<DataTable> dtlist = new List<DataTable>();
             if (DTFromDB == null || DTFromDB.Rows.Count == 0)
             {
-
                 dbAccessHelper dbaccess = new dbAccessHelper();
                 string strconnection = HasKeyProtect.DecryptionPass(OwinLibrary.GetDB());
 
@@ -662,14 +637,11 @@ namespace DusColl
                 };
 
                 dt = await dbaccess.ExecuteDataTable(strconnection, "udp_app_trx_regismitra_list", sqlParam);
-
-
             }
             else
             {
                 dt = DTFromDB;
             }
-
 
             dtlist.Add(dt);
 
@@ -744,7 +716,6 @@ namespace DusColl
                 }
                 else
                 {
-
                     SqlParameter[] sqlParam = {
                             new SqlParameter("@id", models.IDHeaderTx),
                             new SqlParameter("@RefID", models.keylookupdataDTX),
@@ -792,12 +763,9 @@ namespace DusColl
                             new SqlParameter("@UserGroupLog", GroupName)
                     };
 
-
                     await Task.Delay(0);
                     dt = await dbaccess.ExecuteDataTable(strconnection, "udp_app_trx_regismitra_sve", sqlParam);
                 }
-
-
             }
             catch (Exception ex)
             {
@@ -824,10 +792,8 @@ namespace DusColl
                             new SqlParameter("@UserGroupLog", GroupName)
                     };
 
-
                 await Task.Delay(0);
                 dt = await dbaccess.ExecuteDataTable(strconnection, "udp_app_trx_regismitra_sharepk", sqlParam);
-
             }
             catch (Exception ex)
             {
@@ -868,7 +834,6 @@ namespace DusColl
                 }
                 else
                 {
-
                     SqlParameter[] sqlParam = {
                            new SqlParameter("@id", id),
                             new SqlParameter("@RegNo", RegNo),
@@ -888,7 +853,6 @@ namespace DusColl
                     await Task.Delay(0);
                     dt = await dbaccess.ExecuteDataTable(strconnection, "udp_app_trx_regismitra_docsve", sqlParam);
                 }
-
             }
             catch (Exception ex)
             {
@@ -898,7 +862,6 @@ namespace DusColl
 
             return dt;
         }
-
 
         public async Task<DataTable> dbSaveDocTemp(string id, string FlagOperation, string documenttype, string filename, string contenttype, string contentlength, string filebyte, string ModuleID, string UserID, string GroupName)
         {
@@ -962,9 +925,9 @@ namespace DusColl
 
             return dt;
         }
+
         public async Task<List<string>> dbGetHeaderTxListdonCount(string KeySearch, string Divisi, string Cabang, string Area, string fromdate, string todate, int status, int PageNumber, string idcaption, string userid, string groupname)
         {
-
             DataTable dt = new DataTable();
 
             dbAccessHelper dbaccess = new dbAccessHelper();
@@ -1001,17 +964,15 @@ namespace DusColl
                 dta.Add("0");
             }
 
-
             return dta;
         }
+
         public async Task<List<DataTable>> dbGetHeaderTxdonList(DataTable DTFromDB, string KeySearch, string Divisi, string Cabang, string Area, string fromdate, string todate, int status, int PageNumber, double pagenumberclient, double pagingsizeclient, string idcaption, string userid, string groupname)
         {
-
             DataTable dt = new DataTable();
             List<DataTable> dtlist = new List<DataTable>();
             if (DTFromDB == null || DTFromDB.Rows.Count == 0)
             {
-
                 dbAccessHelper dbaccess = new dbAccessHelper();
                 string strconnection = HasKeyProtect.DecryptionPass(OwinLibrary.GetDB());
 
@@ -1031,14 +992,11 @@ namespace DusColl
                 };
 
                 dt = await dbaccess.ExecuteDataTable(strconnection, "udp_app_trx_regismitra_don_list", sqlParam);
-
-
             }
             else
             {
                 dt = DTFromDB;
             }
-
 
             dtlist.Add(dt);
 
@@ -1053,10 +1011,8 @@ namespace DusColl
             return dtlist;
         }
 
-
         public async Task<DataTable> dbGetTxdata4andal(string type, string tglpro, string idcaption, string userid, string groupname)
         {
-
             DataTable dt = new DataTable();
 
             dbAccessHelper dbaccess = new dbAccessHelper();
@@ -1078,7 +1034,6 @@ namespace DusColl
 
         public async Task<DataTable> dbGetTxdata4andalRute(DataTable @tble, string idcaption, string userid, string groupname)
         {
-
             DataTable dt = new DataTable();
 
             dbAccessHelper dbaccess = new dbAccessHelper();
@@ -1097,9 +1052,8 @@ namespace DusColl
             return dt;
         }
 
-        public async Task<DataTable> dbGetRptTxdonList(string tipe,  string KeySearch, string Divisi, string Cabang, string Area, string fromdate, string todate, int status, int PageNumber, string idcaption, string userid, string groupname)
+        public async Task<DataTable> dbGetRptTxdonList(string tipe, string KeySearch, string Divisi, string Cabang, string Area, string fromdate, string todate, int status, int PageNumber, string idcaption, string userid, string groupname)
         {
-
             DataTable dt = new DataTable();
 
             dbAccessHelper dbaccess = new dbAccessHelper();
@@ -1122,7 +1076,6 @@ namespace DusColl
             return dt;
         }
 
-
         //public async Task<int> dbDelDetailTx(DataTable dtemp, string ModuleID, string UserID, string GroupName)
         //{
         //    int result = 0;
@@ -1132,14 +1085,12 @@ namespace DusColl
         //        dbAccessHelper dbaccess = new dbAccessHelper();
         //        string strconnection = HasKeyProtect.DecryptionPass(OwinLibrary.GetDB());
 
-
         //        SqlParameter[] sqlParam = {
         //                    new SqlParameter("@tableuplod", dtemp),
         //                    new SqlParameter("@moduleid", ModuleID),
         //                    new SqlParameter("@UserIDLog", UserID),
         //                    new SqlParameter("@UserGroupLog", GroupName)
         //         };
-
 
         //        dt = await dbaccess.ExecuteDataTable(strconnection, "udp_app_trxdt_Regmitra_del", sqlParam);
 
@@ -1153,8 +1104,6 @@ namespace DusColl
 
         //    return result;
         //}
-
-
 
         //public async Task<DataTable> CreateTableAkta()
         //{
@@ -1207,7 +1156,6 @@ namespace DusColl
         //}
         //public async Task<int> dbSaveAkta(DataTable TableOrderAkta, string UserID, string GroupName)
         //{
-
         //    int resultInt = 0;
         //    DataTable dt = new DataTable();
         //    string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
@@ -1237,7 +1185,6 @@ namespace DusColl
         //                   {"GroupName", GroupName},
         //                };
 
-
         //            var stringPayload = JsonConvert.SerializeObject(model);
         //            var content = new StringContent(stringPayload, Encoding.UTF8, "application/json");
 
@@ -1255,7 +1202,6 @@ namespace DusColl
         //}
         //public async Task<string> dbSaveAktaValid(DataTable TableOrderAkta, bool IsFleet)
         //{
-
         //    string resultInt = "";
         //    DataTable dt = new DataTable();
         //    string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
@@ -1284,7 +1230,6 @@ namespace DusColl
         //                   {"IsFleet", IsFleet.ToString()},
         //                };
 
-
         //            var stringPayload = JsonConvert.SerializeObject(model);
         //            var content = new StringContent(stringPayload, Encoding.UTF8, "application/json");
 
@@ -1301,6 +1246,5 @@ namespace DusColl
         //}
 
         #endregion Application
-
     }
 }

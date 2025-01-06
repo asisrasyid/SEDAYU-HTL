@@ -49,40 +49,40 @@ $.fn.dataTable.ext.renderer.pageButton.bootstrap = function (settings, host, idx
                 btnClass = '';
 
                 switch (button) {
-                case 'ellipsis':
-                    btnDisplay = '&hellip;';
-                    btnClass = 'disabled';
-                    break;
+                    case 'ellipsis':
+                        btnDisplay = '&hellip;';
+                        btnClass = 'disabled';
+                        break;
 
-                case 'first':
-                    btnDisplay = lang.sFirst;
-                    btnClass = button + (page > 0 ?
-                        '' : ' disabled');
-                    break;
+                    case 'first':
+                        btnDisplay = lang.sFirst;
+                        btnClass = button + (page > 0 ?
+                            '' : ' disabled');
+                        break;
 
-                case 'previous':
-                    btnDisplay = lang.sPrevious;
-                    btnClass = button + (page > 0 ?
-                        '' : ' disabled');
-                    break;
+                    case 'previous':
+                        btnDisplay = lang.sPrevious;
+                        btnClass = button + (page > 0 ?
+                            '' : ' disabled');
+                        break;
 
-                case 'next':
-                    btnDisplay = lang.sNext;
-                    btnClass = button + (page < pages - 1 ?
-                        '' : ' disabled');
-                    break;
+                    case 'next':
+                        btnDisplay = lang.sNext;
+                        btnClass = button + (page < pages - 1 ?
+                            '' : ' disabled');
+                        break;
 
-                case 'last':
-                    btnDisplay = lang.sLast;
-                    btnClass = button + (page < pages - 1 ?
-                        '' : ' disabled');
-                    break;
+                    case 'last':
+                        btnDisplay = lang.sLast;
+                        btnClass = button + (page < pages - 1 ?
+                            '' : ' disabled');
+                        break;
 
-                default:
-                    btnDisplay = button + 1;
-                    btnClass = page === button ?
-                        'active' : '';
-                    break;
+                    default:
+                        btnDisplay = button + 1;
+                        btnClass = page === button ?
+                            'active' : '';
+                        break;
                 }
 
                 if (btnDisplay) {
@@ -94,16 +94,16 @@ $.fn.dataTable.ext.renderer.pageButton.bootstrap = function (settings, host, idx
                             settings.sTableId + '_' + button : null
                     })
                         .append($('<a>', {
-                                'href': '#'
-                            })
+                            'href': '#'
+                        })
                             .html(btnDisplay)
-                    )
+                        )
                         .appendTo(container);
 
                     settings.oApi._fnBindAction(
                         node, {
-                            action: button
-                        }, clickHandler
+                        action: button
+                    }, clickHandler
                     );
                 }
             }
@@ -189,8 +189,6 @@ $.extend($.fn.dataTableExt.oPagination, {
                 iStart = oPaging.iPage - iHalf + 1;
                 iEnd = iStart + iListLength - 1;
             }
-
-
 
             for (i = 0, iLen = an.length; i < iLen; i++) {
                 if (oPaging.iTotalPages <= 0) {
@@ -316,7 +314,6 @@ $.extend($.fn.dataTableExt.oPagination, {
     }
 });
 
-
 /* Bootstrap style full number pagination control */
 $.extend($.fn.dataTableExt.oPagination, {
     "bootstrap_extended": {
@@ -336,7 +333,7 @@ $.extend($.fn.dataTableExt.oPagination, {
                 '<a href="#" class="btn btn-sm default prev disabled"><i class="fa fa-angle-left"></i></a>' +
                 '<input type="text" class="pagination-panel-input form-control input-sm input-inline input-mini" maxlenght="5" style="text-align:center; margin: 0 5px;">' +
                 '<a href="#" class="btn btn-sm default next disabled"><i class="fa fa-angle-right"></i></a> ' +
-                (oLang.pageOf ? oLang.pageOf + ' <span class="pagination-panel-total"></span>': '') + 
+                (oLang.pageOf ? oLang.pageOf + ' <span class="pagination-panel-total"></span>' : '') +
                 '</div>'
             );
 

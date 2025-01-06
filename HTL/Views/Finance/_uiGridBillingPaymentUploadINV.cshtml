@@ -40,152 +40,151 @@
 @if (ViewBag.JenisTransaksi == "Pengcekan")
 {
     JenisCek = "PENGECEKAN SERTIPIKAT (No." + ViewBag.NoPengajuanRequest + ")";
-    <table class="table table-striped table-hover table-bordered" id="table_List_billing_payment_upload">
-        <thead>
-            <tr>
-                <th>No.</th>
-                <th>No<br />Perjanjian</th>
-                <th>Tgl<br />Perjanjian</th>
-                <th>Nama <br />Debitur</th>
-                <th>No<br />Sertifikat </th>
-                <th>Nama<br />PPAT</th>
-                <th>Hak Tanggungan </th>
-                <th>Pinjaman  Konsumen </th>
-                <th>No APHT </th>
-                <th>Kode AKta</th>
-                <th>
-                    @if ((ViewBag.NoPengajuanRequest ?? "") == "")
+<table class="table table-striped table-hover table-bordered" id="table_List_billing_payment_upload">
+    <thead>
+        <tr>
+            <th>No.</th>
+            <th>No<br />Perjanjian</th>
+            <th>Tgl<br />Perjanjian</th>
+            <th>Nama <br />Debitur</th>
+            <th>No<br />Sertifikat </th>
+            <th>Nama<br />PPAT</th>
+            <th>Hak Tanggungan </th>
+            <th>Pinjaman  Konsumen </th>
+            <th>No APHT </th>
+            <th>Kode AKta</th>
+            <th>
+                @if ((ViewBag.NoPengajuanRequest ?? "") == "")
                     {
-                        <input type="checkbox" onclick="vmFinance.Checklist(this.checked, 'AktaSelectdwn')" />
+                <input type="checkbox" onclick="vmFinance.Checklist(this.checked, 'AktaSelectdwn')" />
                     }
-                </th>
-            </tr>
-        </thead>
-        <tbody>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
 
-            @{
+        @{
                 foreach (System.Data.DataRow item in Model.DTDetailForGrid.Rows)
                 {
-                    <tr class="DrillDownRow">
-                        <td>
-                            @Html.Raw(item["No"])
-                        </td>
-                        <td>
-                            @Html.Raw(item["No Perjanjian"])
-                        </td>
-                        <td>
-                            @Html.Raw(item["Tgl Perjanjian"])
-                        </td>
-                        <td>
-                            @Html.Raw(item["Nama Debitur"])
-                        </td>
-                        <td>
-                            @Html.Raw(item["NoSertifikat"])
-                        </td>
-                        <td>
-                            @Html.Raw(item["NamaPPAT"])
-                        </td>
-                        <td align="right">
-                            @Html.Raw(double.Parse(item["Nilai HT"].ToString()).ToString("N0"))
-                        </td>
-                        <td align="right">
-                            @Html.Raw(double.Parse(item["Pinjaman_Konsumen"].ToString()).ToString("N0"))
-                        </td>
-                        <td>
-                            @Html.Raw(item["No HT"])
-                        </td>
-                        <td>
-                            @Html.Raw(item["Kode Akta"])
-                        </td>
-                        <td align="center">
-                            @if (item["NoInv"].ToString() == "")
+            <tr class="DrillDownRow">
+                <td>
+                    @Html.Raw(item["No"])
+                </td>
+                <td>
+                    @Html.Raw(item["No Perjanjian"])
+                </td>
+                <td>
+                    @Html.Raw(item["Tgl Perjanjian"])
+                </td>
+                <td>
+                    @Html.Raw(item["Nama Debitur"])
+                </td>
+                <td>
+                    @Html.Raw(item["NoSertifikat"])
+                </td>
+                <td>
+                    @Html.Raw(item["NamaPPAT"])
+                </td>
+                <td align="right">
+                    @Html.Raw(double.Parse(item["Nilai HT"].ToString()).ToString("N0"))
+                </td>
+                <td align="right">
+                    @Html.Raw(double.Parse(item["Pinjaman_Konsumen"].ToString()).ToString("N0"))
+                </td>
+                <td>
+                    @Html.Raw(item["No HT"])
+                </td>
+                <td>
+                    @Html.Raw(item["Kode Akta"])
+                </td>
+                <td align="center">
+                    @if (item["NoInv"].ToString() == "")
                             {
-                                <input type="checkbox" name="AktaSelectdwn" value="@Html.Raw(item["keylookupdata"])" />
+                    <input type="checkbox" name="AktaSelectdwn" value="@Html.Raw(item["keylookupdata"])" />
                             }
-                        </td>
-                    </tr>
+                </td>
+            </tr>
                 }
-            }
-        </tbody>
-    </table>
+        }
+    </tbody>
+</table>
 
 }
 else if (ViewBag.JenisTransaksi == "SKMHT/APHT")
 {
     JenisCek = "SKMHT/APHT (No." + ViewBag.NoPengajuanRequest + ")";
-    <table class="table table-striped table-hover table-bordered" id="table_List_billing_payment_upload">
-        <thead>
-            <tr>
-                <th>No.</th>
-                <th>No<br />Aplikasi</th>
-                <th>No<br />Perjanjian</th>
-                <th>Tgl<br />Perjanjian</th>
-                <th>Nama <br />Debitur</th>
-                <th>No<br />Sertifikat </th>
-                <th>Hak Tanggungan </th>
-                <th>Pinjaman  Konsumen </th>
-                <th>No APHT </th>
-                <th>Kode AKta</th>
-                <th>Status <br /> Pengajuan</th>
-                <th>
-                    @if ((ViewBag.NoPengajuanRequest ?? "") == "")
+<table class="table table-striped table-hover table-bordered" id="table_List_billing_payment_upload">
+    <thead>
+        <tr>
+            <th>No.</th>
+            <th>No<br />Aplikasi</th>
+            <th>No<br />Perjanjian</th>
+            <th>Tgl<br />Perjanjian</th>
+            <th>Nama <br />Debitur</th>
+            <th>No<br />Sertifikat </th>
+            <th>Hak Tanggungan </th>
+            <th>Pinjaman  Konsumen </th>
+            <th>No APHT </th>
+            <th>Kode AKta</th>
+            <th>Status <br /> Pengajuan</th>
+            <th>
+                @if ((ViewBag.NoPengajuanRequest ?? "") == "")
                     {
-                        <input type="checkbox" onclick="vmFinance.Checklist(this.checked, 'AktaSelectdwn')" />
+                <input type="checkbox" onclick="vmFinance.Checklist(this.checked, 'AktaSelectdwn')" />
                     }
-                </th>
-            </tr>
-        </thead>
-        <tbody>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
 
-            @{
+        @{
                 foreach (System.Data.DataRow item in Model.DTDetailForGrid.Rows)
                 {
-                    <tr class="DrillDownRow">
-                        <td>
-                            @Html.Raw(item["No"])
-                        </td>
-                        <td>
-                            @Html.Raw(item["No Aplikasi"])
-                        </td>
-                        <td>
-                            @Html.Raw(item["No Perjanjian"])
-                        </td>
-                        <td>
-                            @Html.Raw(item["Tgl Perjanjian"])
-                        </td>
-                        <td>
-                            @Html.Raw(item["Nama Debitur"])
-                        </td>
-                        <td>
-                            @Html.Raw(item["NoSertifikat"])
-                        </td>
-                        <td align="right">
-                            @Html.Raw(double.Parse(item["Nilai HT"].ToString()).ToString("N0"))
-                        </td>
-                        <td align="right">
-                            @Html.Raw(double.Parse(item["Pinjaman_Konsumen"].ToString()).ToString("N0"))
-                        </td>
-                        <td>
-                            @Html.Raw(item["No HT"])
-                        </td>
-                        <td>
-                            @Html.Raw(item["Kode Akta"])
-                        </td>
-                        <td>
-                            @Html.Raw(item["StatusKontrack"])
-                        </td>
-                        <td align="center">
-                            @if (item["NoInv"].ToString() == "")
+            <tr class="DrillDownRow">
+                <td>
+                    @Html.Raw(item["No"])
+                </td>
+                <td>
+                    @Html.Raw(item["No Aplikasi"])
+                </td>
+                <td>
+                    @Html.Raw(item["No Perjanjian"])
+                </td>
+                <td>
+                    @Html.Raw(item["Tgl Perjanjian"])
+                </td>
+                <td>
+                    @Html.Raw(item["Nama Debitur"])
+                </td>
+                <td>
+                    @Html.Raw(item["NoSertifikat"])
+                </td>
+                <td align="right">
+                    @Html.Raw(double.Parse(item["Nilai HT"].ToString()).ToString("N0"))
+                </td>
+                <td align="right">
+                    @Html.Raw(double.Parse(item["Pinjaman_Konsumen"].ToString()).ToString("N0"))
+                </td>
+                <td>
+                    @Html.Raw(item["No HT"])
+                </td>
+                <td>
+                    @Html.Raw(item["Kode Akta"])
+                </td>
+                <td>
+                    @Html.Raw(item["StatusKontrack"])
+                </td>
+                <td align="center">
+                    @if (item["NoInv"].ToString() == "")
                             {
-                                <input type="checkbox" name="AktaSelectdwn" value="@Html.Raw(item["keylookupdata"])" />
+                    <input type="checkbox" name="AktaSelectdwn" value="@Html.Raw(item["keylookupdata"])" />
                             }
-                        </td>
-                    </tr>
+                </td>
+            </tr>
                 }
-            }
-        </tbody>
-    </table>
-
+        }
+    </tbody>
+</table>
 
 }
 <script src="~/Scripts/vmFinance.js"></script>
@@ -230,5 +229,4 @@ else if (ViewBag.JenisTransaksi == "SKMHT/APHT")
             $(".jenser").html('@JenisCek');
             vmFinance.initbutton();
         });
-
 </script>

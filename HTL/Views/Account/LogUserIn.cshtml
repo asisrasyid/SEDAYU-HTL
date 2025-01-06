@@ -3,7 +3,6 @@
 <!--<![endif]-->
 <!-- BEGIN HEAD -->
 
-
 @model HashNetFramework.cAccount
 <!-- BEGIN HEAD -->
 <head>
@@ -47,48 +46,46 @@
         <h4 style="padding:15px;padding-left:0px">Login Pengguna</h4>
         @using (Ajax.BeginForm("LogUserIn", "Account", new AjaxOptions { HttpMethod = "POST", OnBegin = "vmAccount.BeginSubmit", OnSuccess = "vmAccount.SuccessSubmit", OnFailure = "vmAccount.FailureSubmit" }, new { id = "login_form", @class = "login-form" }))
         {
-            @Html.AntiForgeryToken();
+        @Html.AntiForgeryToken();
 
-            <div id="cssShowMessage" style="display:none;">
-                <button class="close" data-close="alert"></button>
-                <span id="idShowMessage"></span>
+        <div id="cssShowMessage" style="display:none;">
+            <button class="close" data-close="alert"></button>
+            <span id="idShowMessage"></span>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                @Html.TextBoxFor(m => m.UserID, new { @class = "form-control form-control-solid placeholder-no-fix form-group", autocomplete = "off", placeholder = "ID Pengguna" })
+                @Html.ValidationMessageFor(m => m.UserID, "", new { @class = "error-block" })
             </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                @Html.PasswordFor(m => m.UserPass, new { @class = "form-control form-control-solid placeholder-no-fix form-group powderhide", autocomplete = "off", placeholder = "Kata Sandi" })
+                @Html.ValidationMessageFor(m => m.UserPass, "", new { @class = "error-block" })
+            </div>
+        </div>
 
-            <div class="row">
+        <div class="row">
+            <div class="form-group hideblock" id="powderkep">
+                <label class="control-label visible-ie8 visible-ie9">Kode Verifikasi</label>
                 <div class="col-xs-12">
-                    @Html.TextBoxFor(m => m.UserID, new { @class = "form-control form-control-solid placeholder-no-fix form-group", autocomplete = "off", placeholder = "ID Pengguna" })
-                    @Html.ValidationMessageFor(m => m.UserID, "", new { @class = "error-block" })
-                </div>
-
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    @Html.PasswordFor(m => m.UserPass, new { @class = "form-control form-control-solid placeholder-no-fix form-group powderhide", autocomplete = "off", placeholder = "Kata Sandi" })
-                    @Html.ValidationMessageFor(m => m.UserPass, "", new { @class = "error-block" })
-
+                    @Html.TextBoxFor(m => m.Userkodeverified, new { @class = "form-control form-control-solid placeholder-no-fix form-group ", autocomplete = "off", placeholder = "Inputkan Kode Verifikasi disini" })
+                    @Html.ValidationMessageFor(m => m.Userkodeverified, "", new { @class = "error-block" })
                 </div>
             </div>
-
-            <div class="row">
-                <div class="form-group hideblock" id="powderkep">
-                    <label class="control-label visible-ie8 visible-ie9">Kode Verifikasi</label>
-                    <div class="col-xs-12">
-                        @Html.TextBoxFor(m => m.Userkodeverified, new { @class = "form-control form-control-solid placeholder-no-fix form-group ", autocomplete = "off", placeholder = "Inputkan Kode Verifikasi disini" })
-                        @Html.ValidationMessageFor(m => m.Userkodeverified, "", new { @class = "error-block" })
-                    </div>
+        </div>
+        <div class="row" style="padding-bottom:20px">
+            <div class="col-sm-12">
+                <div class="rem-password">
+                    <label class="rememberme mt-checkbox mt-checkbox-outline">
+                        Tampilkan Kata sandi
+                        <span style="align-items:center">  <i class="fa fa-eye"></i></span>
+                    </label>
                 </div>
             </div>
-            <div class="row" style="padding-bottom:20px">
-                <div class="col-sm-12">
-                    <div class="rem-password">
-                        <label class="rememberme mt-checkbox mt-checkbox-outline">
-                            Tampilkan Kata sandi
-                            <span style="align-items:center">  <i class="fa fa-eye"></i></span>
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <button class="btn green" type="submit">Sign In</button>
+        </div>
+        <button class="btn green" type="submit">Sign In</button>
 
         }
         <div class="row">
@@ -133,6 +130,3 @@
     <script src="~/Scripts/vmAccount.js"></script>
     <script src="~/Scripts/jquery-ai.js"></script>
 </body>
-
-
-

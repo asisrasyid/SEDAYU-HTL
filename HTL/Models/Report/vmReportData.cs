@@ -1,36 +1,19 @@
-﻿using PdfSharp;
-using PdfSharp.Drawing;
-using PdfSharp.Drawing.Layout;
-using PdfSharp.Pdf;
+﻿using HashNetFramework;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Configuration;
 using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
-using System.IO;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web;
-using TheArtOfDev.HtmlRenderer.PdfSharp;
-using Microsoft.Office.Interop;
-using HashNetFramework;
 using System.Xml;
 
 namespace DusColl
 {
-
     [Serializable]
     public class vmReportData
     {
-
         public cFilterContract DetailFilter { get; set; }
 
         public async Task<Byte[]> dbDownloadLamporanDataHT(string template, string usertipe, string TitileReport, string SelectBranchDesc, string SelectRegion, string SelectDivisiDesc, string fromdate, string todate, string SelectStatusDesc, DataTable dt, String RequestAppPath = "")
         {
-
             await Task.Delay(0);
             XmlDocument xml = new XmlDocument();
             string xmlString = RequestAppPath + "External\\TemplateReport\\ReportDataHTL.xml";
@@ -48,7 +31,6 @@ namespace DusColl
             nsmgr.AddNamespace("ss", "urn:schemas-microsoft-com:office:spreadsheet");
             XmlElement root = xml.DocumentElement;
 
-
             DataTable dtlist = dt;
             XmlNode nodesing = root.SelectSingleNode("/*//ss:Table", nsmgr);
 
@@ -75,13 +57,10 @@ namespace DusColl
 
             byte[] bindata = Encoding.ASCII.GetBytes(xml.OuterXml);
             return bindata;
-
         }
-
 
         public async Task<Byte[]> dbDownloadLampiranINV(DataTable dt, String RequestAppPath = "")
         {
-
             await Task.Delay(0);
             XmlDocument xml = new XmlDocument();
             string xmlString = RequestAppPath + "External\\TemplateReport\\ReportDataHTLINV.xml";
@@ -92,7 +71,6 @@ namespace DusColl
             nsmgr.AddNamespace("ss", "urn:schemas-microsoft-com:office:spreadsheet");
             XmlElement root = xml.DocumentElement;
 
-
             DataTable dtlist = dt;
             XmlNode nodesing = root.SelectSingleNode("/*//ss:Table", nsmgr);
 
@@ -119,8 +97,6 @@ namespace DusColl
 
             byte[] bindata = Encoding.ASCII.GetBytes(xml.OuterXml);
             return bindata;
-
         }
-
     }
 }

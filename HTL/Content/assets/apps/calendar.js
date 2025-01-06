@@ -1,6 +1,4 @@
-
 var AppCalendar = function () {
-
     return {
         getdatarecord: function (modul) {
             App.blockUI();
@@ -12,11 +10,9 @@ var AppCalendar = function () {
                     var data = response.view;
                     $("#pagecontent").html(data);
                     App.unblockUI();
-
                 } else {
                     window.location.href = response.url;
                 }
-
             }).fail(function (x) {
                 App.unblockUI(elemntupload);
                 App.unblockUI();
@@ -25,12 +21,9 @@ var AppCalendar = function () {
                 if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
             });
         }
-
     };
-
 }();
 
 $(document).ready(function () {
     //AppCalendar.getdatarecord("WFTODONEWREG");
 });
-

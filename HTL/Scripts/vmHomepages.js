@@ -1,9 +1,7 @@
 ﻿var elemtid = "body";
 var elemntupload = ".modal-body";
 
-
 var vmHomePages = function () {
-
     var onInit = function () {
         $('.date-picker').datepicker({
             rtl: App.isRTL(),
@@ -107,7 +105,6 @@ var vmHomePages = function () {
                         $('#SelectDivisi').select2("val", $('#SelectDivisi option:eq(1)').val());
                     }
 
-
                     $("#filterdatadialog").modal("show");
                 } else {
                     window.location.href = data.url;
@@ -120,7 +117,6 @@ var vmHomePages = function () {
                 if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
             }
         });
-
     };
 
     var onFilterBranchByClient = function () {
@@ -151,7 +147,6 @@ var vmHomePages = function () {
                         });
                         $("#SelectBranch").val(data.brachselect).trigger("change");
 
-
                         lengthbrn = ($('#SelectBranch > option').length) - 1;
                         if (lengthbrn == 1) {
                             $('#SelectBranch').select2("val", $('#SelectBranch option:eq(1)').val());
@@ -167,7 +162,6 @@ var vmHomePages = function () {
                     jsoncoll = JSON.stringify(x);
                     jsonreposn = JSON.parse(jsoncoll);
                     if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
-
                 }
             });
         }
@@ -201,7 +195,6 @@ var vmHomePages = function () {
             }
         });
     };
-
 
     var onChToDo = function (aped, jned) {
         var jsoncoll = "";
@@ -263,7 +256,6 @@ var vmHomePages = function () {
                     $("#pagecontent").html(data.view);
                     // onHideSidebar();
                     App.unblockUI();
-
                 } else {
                     window.location.href = data.url;
                 }
@@ -273,7 +265,6 @@ var vmHomePages = function () {
                 jsoncoll = JSON.stringify(x);
                 jsonreposn = JSON.parse(jsoncoll);
                 if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
-
             },
             complete: function () {
                 App.unblockUI();
@@ -289,7 +280,6 @@ var vmHomePages = function () {
     };
 
     var onOpenView = function (moduled, modulecur, modul, idkey) {
-
         var jsoncoll = "";
         var jsonreposn = "";
         $.ajax({
@@ -317,7 +307,6 @@ var vmHomePages = function () {
                 if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
             }
         });
-
     };
 
     var onOpenhst = function (idkey, oprgt, oprd) {
@@ -352,13 +341,10 @@ var vmHomePages = function () {
                 if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
             }
         });
-
     };
 
     //open menu transaksi //
     return {
-
-
         initbackground: function () {
             $.backstretch([
                 "../Content/assets/pages/media/bg/1.jpg",
@@ -373,7 +359,6 @@ var vmHomePages = function () {
         Openhst: function (idkey, oprgt, opr) {
             onOpenhst(idkey, oprgt, opr);
         },
-
 
         OpenView: function (moduled, curmodule, modul, idkey) {
             onOpenView(moduled, curmodule, modul, idkey);
@@ -501,7 +486,6 @@ $(document).keydown(function (e) {
 });
 
 $(document).ready(function () {
-
     vmHomePages.initbuton();
     vmHomePages.initbackground();
 
@@ -549,7 +533,6 @@ $(document).ready(function () {
                 if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
             }
         });
-
     });
 
     $(".shtstatuscl").unbind("mouseout");
@@ -563,7 +546,6 @@ $(document).ready(function () {
         $(".note-success").css("background-color", "#d9ffbd");
         $(".note-success").css("cursor", "pointer");
     });
-
 
     tabled = 'table_txppat';
     if ($("#" + tabled).length > 0) {
@@ -582,7 +564,6 @@ $(document).ready(function () {
         $("#" + tabled).DataTable().destroy();
         TableDatatablesEditable1.init("#" + tabled);
     }
-
 
     var tabled = 'table_txodcab';
     if ($("#" + tabled).length > 0) {
@@ -615,7 +596,6 @@ $(document).ready(function () {
         vmHomePages.ChToDo("20", "month");
     });
 
-
     $(".alldtnotod").unbind("click");
     $(".alldtnotod").bind("click", function () {
         vmHomePages.ChToDo("20", "allod");
@@ -628,7 +608,6 @@ $(document).ready(function () {
     $(".mondtnotod").bind("click", function () {
         vmHomePages.ChToDo("20", "monthod");
     });
-
 
     $(".alldtcab").unbind("click");
     $(".alldtcab").bind("click", function () {
@@ -656,7 +635,6 @@ $(document).ready(function () {
         vmHomePages.ChToDo("60", "month");
     });
 
-
     $(".alldtverfyod").unbind("click");
     $(".alldtverfyod").bind("click", function () {
         vmHomePages.ChToDo("60", "allod");
@@ -669,7 +647,6 @@ $(document).ready(function () {
     $(".mondtverfyod").bind("click", function () {
         vmHomePages.ChToDo("60", "monthod");
     });
-
 
     $(".alldtaju").unbind("click");
     $(".alldtaju").bind("click", function () {
@@ -684,12 +661,10 @@ $(document).ready(function () {
         vmHomePages.ChToDo("70", "month");
     });
 
-
     $(".profus").unbind("click");
     $(".profus").bind("click", function () {
         vmHomePages.ChcoChucprop()
     });
-
 
     $(".homerefresh").unbind("click");
     $(".homerefresh").bind("click", function () {
@@ -707,7 +682,6 @@ $(document).ready(function () {
         var par2 = pop[2].replace(/[']/g, "");
         var par3 = pop[3].replace(/[']/g, "");
         vmHomePages.LoadMenu(par0, par1, par2, par3);
-
     });
 
     $(".searchtxt").unbind("change");
@@ -728,12 +702,9 @@ $(document).ready(function () {
         if (text == "") {
             $("#" + divdta).html($("#" + divbckp).html());
         }
-
     });
 
-
     try {
-
         if ($("#todonot").length > 0) {
             var copyhtml = document.getElementById("todonot").innerHTML;
             document.getElementById("todonotbckp").innerHTML = copyhtml;
@@ -747,6 +718,4 @@ $(document).ready(function () {
     } catch (error) {
         console.log(error);
     }
-
 })
-

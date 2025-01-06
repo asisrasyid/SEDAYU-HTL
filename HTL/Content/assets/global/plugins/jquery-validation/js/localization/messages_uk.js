@@ -5,7 +5,6 @@
 		factory( jQuery );
 	}
 }(function( $ ) {
-
 /*
  * Translated default messages for the jQuery validation plugin.
  * Locale: UK (Ukrainian; українська мова)
@@ -29,5 +28,4 @@ $.extend($.validator.messages, {
 	max: $.validator.format("Будь ласка, введіть число, менше або рівно {0}."),
 	min: $.validator.format("Будь ласка, введіть число, більше або рівно {0}.")
 });
-
 }));

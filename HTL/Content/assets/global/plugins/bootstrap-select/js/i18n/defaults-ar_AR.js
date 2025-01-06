@@ -20,7 +20,6 @@
     factory(jQuery);
   }
 }(this, function (jQuery) {
-
 /*!
  * Translated default messages for bootstrap-select.
  * Locale: AR (Arabic)
@@ -44,6 +43,4 @@
     multipleSeparator: '، '
   };
 })(jQuery);
-
-
 }));

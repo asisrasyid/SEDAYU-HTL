@@ -20,7 +20,6 @@
     factory(jQuery);
   }
 }(this, function (jQuery) {
-
 (function ($) {
   $.fn.selectpicker.defaults = {
     noneSelectedText: '没有选中任何项',
@@ -30,6 +29,4 @@
     multipleSeparator: ', '
   };
 })(jQuery);
-
-
 }));

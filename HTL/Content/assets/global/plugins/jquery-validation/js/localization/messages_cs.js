@@ -5,7 +5,6 @@
 		factory( jQuery );
 	}
 }(function( $ ) {
-
 /*
  * Translated default messages for the jQuery validation plugin.
  * Locale: CS (Czech; čeština, český jazyk)
@@ -29,5 +28,4 @@ $.extend($.validator.messages, {
 	max: $.validator.format("Prosím, zadejte hodnotu menší nebo rovnu {0}."),
 	min: $.validator.format("Prosím, zadejte hodnotu větší nebo rovnu {0}.")
 });
-
 }));

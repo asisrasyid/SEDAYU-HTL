@@ -4,68 +4,68 @@
         <div class="modal-content">
             @using (Ajax.BeginForm("HomeFilter", new { Controller = "Home" }, new AjaxOptions { HttpMethod = "POST" }, new { id = "DashboardFilter_form", @class = "form-horizontal" }))
             {
-                @Html.AntiForgeryToken();
-                @Html.HiddenFor(m => m.idcaption)
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h4 class="modal-title">Pencarian Data</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="form-body">
-                        <div class="">
-                            <div class="form-group" style="margin-bottom: 10px">
-                                <label class="control-label col-md-3">Kata Kunci</label>
-                                <div class="col-md-7">
-                                    @Html.TextBoxFor(m => m.RequestNo, new { @class = "form-control",@placeholder="No KTP / No MOU" })
-                                </div>
+            @Html.AntiForgeryToken();
+            @Html.HiddenFor(m => m.idcaption)
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Pencarian Data</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-body">
+                    <div class="">
+                        <div class="form-group" style="margin-bottom: 10px">
+                            <label class="control-label col-md-3">Kata Kunci</label>
+                            <div class="col-md-7">
+                                @Html.TextBoxFor(m => m.RequestNo, new { @class = "form-control",@placeholder="No KTP / No MOU" })
                             </div>
                         </div>
-                        <div class="">
-                            <div class="form-group" style="margin-bottom: 10px">
-                                <label class="control-label col-md-3">Divisi</label>
-                                <div class="col-md-7">
-                                    @Html.DropDownListFor(m => m.SelectDivisi, (IEnumerable<SelectListItem>)ViewData["SelectDivisi"], "Pilih..", new { @class = "form-control select2" })
-                                </div>
+                    </div>
+                    <div class="">
+                        <div class="form-group" style="margin-bottom: 10px">
+                            <label class="control-label col-md-3">Divisi</label>
+                            <div class="col-md-7">
+                                @Html.DropDownListFor(m => m.SelectDivisi, (IEnumerable<SelectListItem>)ViewData["SelectDivisi"], "Pilih..", new { @class = "form-control select2" })
                             </div>
                         </div>
-                        <div class="">
-                            <div class="form-group" style="margin-bottom: 10px">
-                                <label class="control-label col-md-3">Area</label>
-                                <div class="col-md-7">
-                                    @Html.DropDownListFor(m => m.SelectArea, (IEnumerable<SelectListItem>)ViewData["SelectArea"], "Pilih..", new { @class = "form-control select2", @onchange = "vmHomePages.FilterBranchByClient()" })
-                                </div>
+                    </div>
+                    <div class="">
+                        <div class="form-group" style="margin-bottom: 10px">
+                            <label class="control-label col-md-3">Area</label>
+                            <div class="col-md-7">
+                                @Html.DropDownListFor(m => m.SelectArea, (IEnumerable<SelectListItem>)ViewData["SelectArea"], "Pilih..", new { @class = "form-control select2", @onchange = "vmHomePages.FilterBranchByClient()" })
                             </div>
                         </div>
-                        <div class="">
-                            <div class="form-group" style="margin-bottom: 10px">
-                                <label class="control-label col-md-3">Cabang</label>
-                                <div class="col-md-7">
-                                    @Html.DropDownListFor(m => m.SelectBranch, (IEnumerable<SelectListItem>)ViewData["SelectCabang"], "Pilih..", new { @class = "form-control select2" })
-                                </div>
+                    </div>
+                    <div class="">
+                        <div class="form-group" style="margin-bottom: 10px">
+                            <label class="control-label col-md-3">Cabang</label>
+                            <div class="col-md-7">
+                                @Html.DropDownListFor(m => m.SelectBranch, (IEnumerable<SelectListItem>)ViewData["SelectCabang"], "Pilih..", new { @class = "form-control select2" })
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3">Tgl Pengajuan</label>
-                            <div class="col-md-8">
-                                <div class="input-group input-large date-picker input-daterange" data-date="31/01/1999" data-date-format="dd-MM-yyyy">
-                                    <input class="form-control" name="fromdate" id="fromdate" type="text">
-                                    <span class="input-group-addon">Sampai </span>
-                                    <input class="form-control" name="todate" id="todate" type="text">
-                                </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Tgl Pengajuan</label>
+                        <div class="col-md-8">
+                            <div class="input-group input-large date-picker input-daterange" data-date="31/01/1999" data-date-format="dd-MM-yyyy">
+                                <input class="form-control" name="fromdate" id="fromdate" type="text">
+                                <span class="input-group-addon">Sampai </span>
+                                <input class="form-control" name="todate" id="todate" type="text">
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn green" onclick="vmHomePages.ResetFilter('#DashboardFilter_form')">
-                        <i class="fa fa-circle-o"></i>
-                        <span>&nbsp;Ulangi</span>
-                    </button>
-                    <button type="button" class="btn green" onclick="vmHomePages.ApplyFilter('#DashboardFilter_form','')">
-                        <i class="fa fa-search"></i>
-                        <span>&nbsp;Cari</span>
-                    </button>
-                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn green" onclick="vmHomePages.ResetFilter('#DashboardFilter_form')">
+                    <i class="fa fa-circle-o"></i>
+                    <span>&nbsp;Ulangi</span>
+                </button>
+                <button type="button" class="btn green" onclick="vmHomePages.ApplyFilter('#DashboardFilter_form','')">
+                    <i class="fa fa-search"></i>
+                    <span>&nbsp;Cari</span>
+                </button>
+            </div>
             }
         </div>
         <!-- /.modal-content -->

@@ -27,32 +27,32 @@
         {
             foreach (System.Data.DataRow item in Model.DTLogTx.Rows)
             {
-                <tr class="DrillDownRow">
-                    <td align="center">
-                        @Html.Raw(item["DateOut"].ToString() != "" ? "<i class='fa fa-check'></i>" : "" )
-                    </td>
-                    <td>
-                        @Html.Raw(item["ApprovalName"])
-                    </td>
-                    <td>
-                        @Html.Raw(item["PICApproval"])
-                    </td>
-                    <td>
-                        @Html.Raw(item["Action"])
-                    </td>
-                    <td>
-                        @Html.Raw(item["ApprovalTypeDesc"])
-                    </td>
-                    <td>
-                        @Html.Raw(item["DateIN"])
-                    </td>
-                    <td>
-                        @Html.Raw(item["DateOut"])
-                    </td>
-                    <td>
-                        @Html.Raw(item["Comment"])
-                    </td>
-                </tr>
+        <tr class="DrillDownRow">
+            <td align="center">
+                @Html.Raw(item["DateOut"].ToString() != "" ? "<i class='fa fa-check'></i>" : "" )
+            </td>
+            <td>
+                @Html.Raw(item["ApprovalName"])
+            </td>
+            <td>
+                @Html.Raw(item["PICApproval"])
+            </td>
+            <td>
+                @Html.Raw(item["Action"])
+            </td>
+            <td>
+                @Html.Raw(item["ApprovalTypeDesc"])
+            </td>
+            <td>
+                @Html.Raw(item["DateIN"])
+            </td>
+            <td>
+                @Html.Raw(item["DateOut"])
+            </td>
+            <td>
+                @Html.Raw(item["Comment"])
+            </td>
+        </tr>
 
             }
         }
@@ -80,4 +80,3 @@
 
         });
 </script>
-

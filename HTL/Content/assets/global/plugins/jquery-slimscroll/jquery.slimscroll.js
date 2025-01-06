@@ -7,12 +7,9 @@
  *
  */
 (function($) {
-
     jQuery.fn.extend({
         slimScroll: function(options) {
-
             var defaults = {
-
                 // width in pixels of the visible scroll area
                 width: 'auto',
 
@@ -87,7 +84,6 @@
 
             // do it for every element that matches selector
             this.each(function() {
-
                 var isOverPanel, isOverBar, isDragg, queueHide, touchDif,
                     barHeight, percentScroll, lastScroll,
                     divS = '<div></div>',
@@ -414,7 +410,6 @@
 
                     // trigger hide when scroll is stopped
                     hideBar();
-
                 }
 
                 function attachWheel() {
@@ -483,7 +478,6 @@
                         }, 1000);
                     }
                 }
-
             });
 
             // maintain chainability
@@ -494,5 +488,4 @@
     jQuery.fn.extend({
         slimscroll: jQuery.fn.slimScroll
     });
-
 })(jQuery);

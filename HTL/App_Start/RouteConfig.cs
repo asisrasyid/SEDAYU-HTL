@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace DusColl
@@ -61,7 +57,6 @@ namespace DusColl
             defaults: new { controller = "Error", action = "UnsupportBrowser" }
         );
 
-
             routes.MapRoute(
             name: "ErroPage",
             url: "Error",
@@ -79,7 +74,6 @@ namespace DusColl
                 url: "{controller}/{action}",
                 defaults: new { controller = "Account", action = "AccountAktivasi" }
             );
-
         }
     }
 }

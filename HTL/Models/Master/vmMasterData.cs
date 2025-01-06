@@ -2,14 +2,12 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web;
 
 namespace DusColl
 {
@@ -24,11 +22,8 @@ namespace DusColl
     [Serializable]
     public class vmMasterDataddl
     {
-
-
         //public async Task<List<string>> dbGeProvinListCount(string keyword, int PageNumber, string moduleID, string userid, string groupname)
         //{
-
         //    DataTable dt = new DataTable();
         //    string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
         //    using (HttpClient httpClient = new HttpClient())
@@ -88,12 +83,10 @@ namespace DusColl
         //}
         //public async Task<List<DataTable>> dbGetProvinList(DataTable DTFromDB, string keyword, int PageNumber, double pagenumberclient, double pagingsizeclient, string moduleID, string userid, string groupname)
         //{
-
         //    DataTable dt = new DataTable();
         //    List<DataTable> dtlist = new List<DataTable>();
         //    if (DTFromDB == null || DTFromDB.Rows.Count == 0)
         //    {
-
         //        string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
         //        using (HttpClient httpClient = new HttpClient())
         //        {
@@ -140,7 +133,6 @@ namespace DusColl
         //        dt = DTFromDB;
         //    }
 
-
         //    dtlist.Add(dt);
         //    int starrow = (int.Parse(pagenumberclient.ToString()) - 1) * int.Parse(pagingsizeclient.ToString());
 
@@ -156,7 +148,6 @@ namespace DusColl
         //}
         //public async Task<int> dbupdateProvin(int ID, string Provinsi, string Kota, string kecamatan, string kelurahan, string zipcode, string moduleID, string userid, string groupname)
         //{
-
         //    int resultInt = 0;
         //    DataTable dt = new DataTable();
         //    string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
@@ -205,11 +196,8 @@ namespace DusColl
         //    return resultInt;
         //}
 
-
         //public async Task<List<string>> dbGeProvinAhuListCount(string keyword, int PageNumber, string moduleID, string userid, string groupname)
         //{
-
-
         //    DataTable dt = new DataTable();
         //    string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
         //    using (HttpClient httpClient = new HttpClient())
@@ -270,13 +258,10 @@ namespace DusColl
         //}
         //public async Task<List<DataTable>> dbGetProvinAhuList(DataTable DTFromDB, string keyword, int PageNumber, double pagenumberclient, double pagingsizeclient, string moduleID, string userid, string groupname)
         //{
-
-
         //    DataTable dt = new DataTable();
         //    List<DataTable> dtlist = new List<DataTable>();
         //    if (DTFromDB == null || DTFromDB.Rows.Count == 0)
         //    {
-
         //        string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
         //        using (HttpClient httpClient = new HttpClient())
         //        {
@@ -338,8 +323,6 @@ namespace DusColl
         //}
         //public async Task<int> dbupdateProvinAhu(int ID, string Provinsi, string Kota, string AliasKota, string kecamatan, string Aliaskecamatan, string PengadilanNegeri, string moduleID, string userid, string groupname)
         //{
-
-
         //    int resultInt = 0;
         //    DataTable dt = new DataTable();
         //    string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
@@ -374,7 +357,6 @@ namespace DusColl
         //                   {"GroupName", groupname},
         //                };
 
-
         //            var stringPayload = JsonConvert.SerializeObject(model);
         //            var content = new StringContent(stringPayload, Encoding.UTF8, "application/json");
 
@@ -391,10 +373,8 @@ namespace DusColl
 
         //}
 
-
         //public async Task<List<string>> dbGeGeSharePICListCount(string SelectUserID, string regionid, string conttype, int PageNumber, string moduleID, string userid, string groupname)
         //{
-
         //    DataTable dt = new DataTable();
         //    string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
         //    using (HttpClient httpClient = new HttpClient())
@@ -458,12 +438,10 @@ namespace DusColl
         //}
         //public async Task<List<DataTable>> dbGetGeSharePICList(DataTable DTFromDB, string SelectUserID, string regionid, string conttype, int PageNumber, double pagenumberclient, double pagingsizeclient, string moduleID, string userid, string groupname)
         //{
-
         //    DataTable dt = new DataTable();
         //    List<DataTable> dtlist = new List<DataTable>();
         //    if (DTFromDB == null || DTFromDB.Rows.Count == 0)
         //    {
-
         //        string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
         //        using (HttpClient httpClient = new HttpClient())
         //        {
@@ -576,7 +554,6 @@ namespace DusColl
         //}
         //public async Task<int> dbupdateSharePIC(int ID, string SelectUserID, string regionid, string branch, string conttype, string persentase, bool active, string moduleID, string userid, string groupname)
         //{
-
         //    int resultInt = 0;
         //    DataTable dt = new DataTable();
         //    string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
@@ -628,7 +605,6 @@ namespace DusColl
         //}
         //public async Task<int> dbdeleteSharePIC(int ID, string moduleID, string userid, string groupname)
         //{
-
         //    int resultInt = 0;
         //    DataTable dt = new DataTable();
         //    string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
@@ -657,7 +633,6 @@ namespace DusColl
         //                   {"GroupName", groupname},
         //                };
 
-
         //            var stringPayload = JsonConvert.SerializeObject(model);
         //            var content = new StringContent(stringPayload, Encoding.UTF8, "application/json");
 
@@ -674,11 +649,8 @@ namespace DusColl
 
         //}
 
-
-
         //public async Task<List<string>> dbGeGeShareNotarisListCount(string ntryid, string regionid, string conttype, int PageNumber, string moduleID, string userid, string groupname)
         //{
-
         //    DataTable dt = new DataTable();
         //    string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
         //    using (HttpClient httpClient = new HttpClient())
@@ -742,12 +714,10 @@ namespace DusColl
         //}
         //public async Task<List<DataTable>> dbGetGeShareNotarisList(DataTable DTFromDB, string ntryid, string regionid, string conttype, int PageNumber, double pagenumberclient, double pagingsizeclient, string moduleID, string userid, string groupname)
         //{
-
         //    DataTable dt = new DataTable();
         //    List<DataTable> dtlist = new List<DataTable>();
         //    if (DTFromDB == null || DTFromDB.Rows.Count == 0)
         //    {
-
         //        string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
         //        using (HttpClient httpClient = new HttpClient())
         //        {
@@ -860,7 +830,6 @@ namespace DusColl
         //}
         //public async Task<int> dbupdateShareNotaris(int ID, string ntryid, string ntryidbckp, string regionid, string branch, string conttype, string persentase, bool active, string moduleID, string userid, string groupname)
         //{
-
         //    int resultInt = 0;
         //    DataTable dt = new DataTable();
         //    string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
@@ -913,7 +882,6 @@ namespace DusColl
         //}
         //public async Task<int> dbdeleteShareNotaris(int ID, string moduleID, string userid, string groupname)
         //{
-
         //    int resultInt = 0;
         //    DataTable dt = new DataTable();
         //    string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
@@ -942,7 +910,6 @@ namespace DusColl
         //                   {"GroupName", groupname},
         //                };
 
-
         //            var stringPayload = JsonConvert.SerializeObject(model);
         //            var content = new StringContent(stringPayload, Encoding.UTF8, "application/json");
 
@@ -959,11 +926,8 @@ namespace DusColl
 
         //}
 
-
         //public async Task<List<string>> dbGetNotarisListCount(string ntryid, int PageNumber, string moduleID, string userid, string groupname)
         //{
-
-
         //    DataTable dt = new DataTable();
         //    string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
         //    using (HttpClient httpClient = new HttpClient())
@@ -1024,13 +988,10 @@ namespace DusColl
         //}
         //public async Task<List<DataTable>> dbGetNotarisList(DataTable DTFromDB, string ntryid, int PageNumber, double pagenumberclient, double pagingsizeclient, string moduleID, string userid, string groupname)
         //{
-
-
         //    DataTable dt = new DataTable();
         //    List<DataTable> dtlist = new List<DataTable>();
         //    if (DTFromDB == null || DTFromDB.Rows.Count == 0)
         //    {
-
         //        string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
         //        using (HttpClient httpClient = new HttpClient())
         //        {
@@ -1138,7 +1099,6 @@ namespace DusColl
         //                   {"GroupName", groupname},
         //                };
 
-
         //            var stringPayload = JsonConvert.SerializeObject(model);
         //            var content = new StringContent(stringPayload, Encoding.UTF8, "application/json");
 
@@ -1157,7 +1117,6 @@ namespace DusColl
 
         //public async Task<int> dbdeleteNotaris(int ID, string moduleID, string userid, string groupname)
         //{
-
         //    int resultInt = 0;
         //    DataTable dt = new DataTable();
         //    string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
@@ -1186,7 +1145,6 @@ namespace DusColl
         //                   {"GroupName", groupname},
         //                };
 
-
         //            var stringPayload = JsonConvert.SerializeObject(model);
         //            var content = new StringContent(stringPayload, Encoding.UTF8, "application/json");
 
@@ -1203,11 +1161,8 @@ namespace DusColl
 
         //}
 
-
-
         //public async Task<List<string>> dbGetNotarisStaffListCount(string ntryid, int PageNumber, string moduleID, string userid, string groupname)
         //{
-
         //    DataTable dt = new DataTable();
         //    string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
         //    using (HttpClient httpClient = new HttpClient())
@@ -1268,12 +1223,10 @@ namespace DusColl
         //}
         //public async Task<List<DataTable>> dbGetNotarisStaffList(DataTable DTFromDB, string ntryid, int PageNumber, double pagenumberclient, double pagingsizeclient, string moduleID, string userid, string groupname)
         //{
-
         //    DataTable dt = new DataTable();
         //    List<DataTable> dtlist = new List<DataTable>();
         //    if (DTFromDB == null || DTFromDB.Rows.Count == 0)
         //    {
-
         //        string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
         //        using (HttpClient httpClient = new HttpClient())
         //        {
@@ -1338,7 +1291,6 @@ namespace DusColl
         //                                        string Identity_No, string StartDate, string EndDate, string moduleID, string userid, string groupname
         //                                        )
         //{
-
         //    int resultInt = 0;
         //    DataTable dt = new DataTable();
         //    string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
@@ -1396,10 +1348,8 @@ namespace DusColl
 
         //}
 
-
         //public async Task<int> dbdeleteNotarisStaff(int ID, string moduleID, string userid, string groupname)
         //{
-
         //    int resultInt = 0;
         //    DataTable dt = new DataTable();
         //    string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
@@ -1428,7 +1378,6 @@ namespace DusColl
         //                   {"GroupName", groupname},
         //                };
 
-
         //            var stringPayload = JsonConvert.SerializeObject(model);
         //            var content = new StringContent(stringPayload, Encoding.UTF8, "application/json");
 
@@ -1444,12 +1393,8 @@ namespace DusColl
         //    return resultInt;
         //}
 
-
-
-
         //public async Task<List<string>> dbGetPenghadapPTListCount(string ntryid, int PageNumber, string moduleID, string userid, string groupname)
         //{
-
         //    DataTable dt = new DataTable();
         //    string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
         //    using (HttpClient httpClient = new HttpClient())
@@ -1510,12 +1455,10 @@ namespace DusColl
         //}
         //public async Task<List<DataTable>> dbGetPenghadapPTList(DataTable DTFromDB, string ntryid, int PageNumber, double pagenumberclient, double pagingsizeclient, string moduleID, string userid, string groupname)
         //{
-
         //    DataTable dt = new DataTable();
         //    List<DataTable> dtlist = new List<DataTable>();
         //    if (DTFromDB == null || DTFromDB.Rows.Count == 0)
         //    {
-
         //        string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
         //        using (HttpClient httpClient = new HttpClient())
         //        {
@@ -1581,7 +1524,6 @@ namespace DusColl
         //                                        string provinsi, string tglsk, string nosk, string jeniskelamin, string moduleID, string userid, string groupname
         //                                        )
         //{
-
         //    int resultInt = 0;
         //    DataTable dt = new DataTable();
         //    string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
@@ -1632,7 +1574,6 @@ namespace DusColl
         //                   {"GroupName", groupname},
         //                };
 
-
         //            var stringPayload = JsonConvert.SerializeObject(model);
         //            var content = new StringContent(stringPayload, Encoding.UTF8, "application/json");
 
@@ -1650,7 +1591,6 @@ namespace DusColl
         //}
         //public async Task<int> dbdeletePenghadapPT(int ID, string moduleID, string userid, string groupname)
         //{
-
         //    int resultInt = 0;
         //    DataTable dt = new DataTable();
         //    string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
@@ -1679,7 +1619,6 @@ namespace DusColl
         //                   {"GroupName", groupname},
         //                };
 
-
         //            var stringPayload = JsonConvert.SerializeObject(model);
         //            var content = new StringContent(stringPayload, Encoding.UTF8, "application/json");
 
@@ -1694,14 +1633,10 @@ namespace DusColl
         //    }
         //    return resultInt;
 
-
         //}
-
-
 
         //public async Task<List<string>> dbGetKlienListCount(string ntryid, int PageNumber, string moduleID, string userid, string groupname)
         //{
-
         //    DataTable dt = new DataTable();
         //    string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
         //    using (HttpClient httpClient = new HttpClient())
@@ -1762,12 +1697,10 @@ namespace DusColl
         //}
         //public async Task<List<DataTable>> dbGetKlienList(DataTable DTFromDB, string ntryid, int PageNumber, double pagenumberclient, double pagingsizeclient, string moduleID, string userid, string groupname)
         //{
-
         //    DataTable dt = new DataTable();
         //    List<DataTable> dtlist = new List<DataTable>();
         //    if (DTFromDB == null || DTFromDB.Rows.Count == 0)
         //    {
-
         //        string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
         //        using (HttpClient httpClient = new HttpClient())
         //        {
@@ -1877,7 +1810,6 @@ namespace DusColl
         //                   {"GroupName", groupname},
         //                };
 
-
         //            var stringPayload = JsonConvert.SerializeObject(model);
         //            var content = new StringContent(stringPayload, Encoding.UTF8, "application/json");
 
@@ -1895,7 +1827,6 @@ namespace DusColl
 
         //public async Task<int> dbdeleteKlien(int ID, string moduleID, string userid, string groupname)
         //{
-
         //    int resultInt = 0;
         //    DataTable dt = new DataTable();
         //    string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
@@ -1924,7 +1855,6 @@ namespace DusColl
         //                   {"GroupName", groupname},
         //                };
 
-
         //            var stringPayload = JsonConvert.SerializeObject(model);
         //            var content = new StringContent(stringPayload, Encoding.UTF8, "application/json");
 
@@ -1941,11 +1871,8 @@ namespace DusColl
 
         //}
 
-
         public async Task<List<string>> dbGetCabangListCount(string keyword, bool IsActive, bool IsPusat, int PageNumber, string moduleID, string userid, string groupname)
         {
-
-
             DataTable dt = new DataTable();
 
             dbAccessHelper dbaccess = new dbAccessHelper();
@@ -1979,20 +1906,16 @@ namespace DusColl
                 dta.Add("0");
             }
             return dta;
-
         }
+
         public async Task<List<DataTable>> dbGetCabangList(DataTable DTFromDB, string keyword, bool IsActive, bool IsPusat, int PageNumber, double pagenumberclient, double pagingsizeclient, string moduleID, string userid, string groupname)
         {
-
-
             DataTable dt = new DataTable();
             List<DataTable> dtlist = new List<DataTable>();
             if (DTFromDB == null || DTFromDB.Rows.Count == 0)
             {
-
                 dbAccessHelper dbaccess = new dbAccessHelper();
                 string strconnection = HasKeyProtect.DecryptionPass(OwinLibrary.GetDB());
-
 
                 SqlParameter[] sqlParam =
                  {
@@ -2006,13 +1929,11 @@ namespace DusColl
                 };
 
                 dt = await dbaccess.ExecuteDataTable(strconnection, "udp_mdt_app_branch_list", sqlParam);
-
             }
             else
             {
                 dt = DTFromDB;
             }
-
 
             dtlist.Add(dt);
             int starrow = (int.Parse(pagenumberclient.ToString()) - 1) * int.Parse(pagingsizeclient.ToString());
@@ -2020,16 +1941,14 @@ namespace DusColl
             if (dt.Rows.Count > 0)
             {
                 dt = dt.Rows.Cast<System.Data.DataRow>().Skip(starrow).Take(int.Parse(pagingsizeclient.ToString())).CopyToDataTable();
-
             }
             dtlist.Add(dt);
 
             return dtlist;
-
         }
+
         public async Task<int> dbupdateCabang(int ID, string REGION, string BRCH_ID, string BRCH_CODE, string BRCH_NAME, string PIC, bool IsPusat, bool IsActive, string moduleID, string userid, string groupname)
         {
-
             int result = 0;
             try
             {
@@ -2049,7 +1968,6 @@ namespace DusColl
                             new SqlParameter("@UserGroupLog", groupname)
                  };
 
-
                 await Task.Delay(0);
                 DataTable dt = await dbaccess.ExecuteDataTable(strconnection, "udp_mdt_app_branch_sve", sqlParam);
 
@@ -2063,6 +1981,7 @@ namespace DusColl
 
             return result;
         }
+
         public async Task<int> dbdeleteCabang(int ID, string moduleID, string UserID, string GroupName)
         {
             int result = 0;
@@ -2090,14 +2009,10 @@ namespace DusColl
             }
 
             return result;
-
         }
-
 
         public async Task<List<string>> dbGetBankNotListCount(string keyword, int PageNumber, string moduleID, string userid, string groupname)
         {
-
-
             DataTable dt = new DataTable();
 
             dbAccessHelper dbaccess = new dbAccessHelper();
@@ -2129,20 +2044,16 @@ namespace DusColl
                 dta.Add("0");
             }
             return dta;
-
         }
+
         public async Task<List<DataTable>> dbGetBankNotList(DataTable DTFromDB, string keyword, int PageNumber, double pagenumberclient, double pagingsizeclient, string moduleID, string userid, string groupname)
         {
-
-
             DataTable dt = new DataTable();
             List<DataTable> dtlist = new List<DataTable>();
             if (DTFromDB == null || DTFromDB.Rows.Count == 0)
             {
-
                 dbAccessHelper dbaccess = new dbAccessHelper();
                 string strconnection = HasKeyProtect.DecryptionPass(OwinLibrary.GetDB());
-
 
                 SqlParameter[] sqlParam =
                  {
@@ -2154,13 +2065,11 @@ namespace DusColl
                 };
 
                 dt = await dbaccess.ExecuteDataTable(strconnection, "udp_mdt_app_banknot_list", sqlParam);
-
             }
             else
             {
                 dt = DTFromDB;
             }
-
 
             dtlist.Add(dt);
             int starrow = (int.Parse(pagenumberclient.ToString()) - 1) * int.Parse(pagingsizeclient.ToString());
@@ -2168,18 +2077,16 @@ namespace DusColl
             if (dt.Rows.Count > 0)
             {
                 dt = dt.Rows.Cast<System.Data.DataRow>().Skip(starrow).Take(int.Parse(pagingsizeclient.ToString())).CopyToDataTable();
-
             }
             dtlist.Add(dt);
 
             return dtlist;
-
         }
+
         public async Task<int> dbupdateBankNOT(int ID, string notarisID, string PemilikRekening, string NoRekening, string NamaBank,
             string CabangBank, string KodeInv, string PRC_CHECK, string PRC_SKMHT, string PRC_APHT, string PRC_CNLBAKD,
             string moduleID, string userid, string groupname)
         {
-
             int result = 0;
             try
             {
@@ -2202,7 +2109,6 @@ namespace DusColl
                             new SqlParameter("@UserIDLog", userid),
                             new SqlParameter("@UserGroupLog", groupname)
                  };
-
 
                 await Task.Delay(0);
                 DataTable dt = await dbaccess.ExecuteDataTable(strconnection, "udp_mdt_app_banknot_sve", sqlParam);
@@ -2245,14 +2151,10 @@ namespace DusColl
             }
 
             return result;
-
         }
-
 
         public async Task<List<string>> dbGetSchInvNotListCount(string keyword, int PageNumber, string moduleID, string userid, string groupname)
         {
-
-
             DataTable dt = new DataTable();
 
             dbAccessHelper dbaccess = new dbAccessHelper();
@@ -2284,20 +2186,16 @@ namespace DusColl
                 dta.Add("0");
             }
             return dta;
-
         }
+
         public async Task<List<DataTable>> dbGetSchInvNotList(DataTable DTFromDB, string keyword, int PageNumber, double pagenumberclient, double pagingsizeclient, string moduleID, string userid, string groupname)
         {
-
-
             DataTable dt = new DataTable();
             List<DataTable> dtlist = new List<DataTable>();
             if (DTFromDB == null || DTFromDB.Rows.Count == 0)
             {
-
                 dbAccessHelper dbaccess = new dbAccessHelper();
                 string strconnection = HasKeyProtect.DecryptionPass(OwinLibrary.GetDB());
-
 
                 SqlParameter[] sqlParam =
                  {
@@ -2309,13 +2207,11 @@ namespace DusColl
                 };
 
                 dt = await dbaccess.ExecuteDataTable(strconnection, "udp_mdt_app_SchInvNot_list", sqlParam);
-
             }
             else
             {
                 dt = DTFromDB;
             }
-
 
             dtlist.Add(dt);
             int starrow = (int.Parse(pagenumberclient.ToString()) - 1) * int.Parse(pagingsizeclient.ToString());
@@ -2323,17 +2219,15 @@ namespace DusColl
             if (dt.Rows.Count > 0)
             {
                 dt = dt.Rows.Cast<System.Data.DataRow>().Skip(starrow).Take(int.Parse(pagingsizeclient.ToString())).CopyToDataTable();
-
             }
             dtlist.Add(dt);
 
             return dtlist;
-
         }
+
         public async Task<int> dbupdateSchInvNot(int ID, string notarisID, string TglInv,
             string moduleID, string userid, string groupname)
         {
-
             int result = 0;
             try
             {
@@ -2348,7 +2242,6 @@ namespace DusColl
                             new SqlParameter("@UserIDLog", userid),
                             new SqlParameter("@UserGroupLog", groupname)
                  };
-
 
                 await Task.Delay(0);
                 DataTable dt = await dbaccess.ExecuteDataTable(strconnection, "udp_mdt_app_SchInvNot_sve", sqlParam);
@@ -2391,15 +2284,10 @@ namespace DusColl
             }
 
             return result;
-
         }
-
-
 
         public async Task<List<string>> dbGetNotRgnListCount(string keyword, int PageNumber, string moduleID, string userid, string groupname)
         {
-
-
             DataTable dt = new DataTable();
 
             dbAccessHelper dbaccess = new dbAccessHelper();
@@ -2431,20 +2319,16 @@ namespace DusColl
                 dta.Add("0");
             }
             return dta;
-
         }
+
         public async Task<List<DataTable>> dbGetNotRgnList(DataTable DTFromDB, string keyword, int PageNumber, double pagenumberclient, double pagingsizeclient, string moduleID, string userid, string groupname)
         {
-
-
             DataTable dt = new DataTable();
             List<DataTable> dtlist = new List<DataTable>();
             if (DTFromDB == null || DTFromDB.Rows.Count == 0)
             {
-
                 dbAccessHelper dbaccess = new dbAccessHelper();
                 string strconnection = HasKeyProtect.DecryptionPass(OwinLibrary.GetDB());
-
 
                 SqlParameter[] sqlParam =
                  {
@@ -2456,13 +2340,11 @@ namespace DusColl
                 };
 
                 dt = await dbaccess.ExecuteDataTable(strconnection, "udp_mdt_app_notrgn_list", sqlParam);
-
             }
             else
             {
                 dt = DTFromDB;
             }
-
 
             dtlist.Add(dt);
             int starrow = (int.Parse(pagenumberclient.ToString()) - 1) * int.Parse(pagingsizeclient.ToString());
@@ -2470,17 +2352,15 @@ namespace DusColl
             if (dt.Rows.Count > 0)
             {
                 dt = dt.Rows.Cast<System.Data.DataRow>().Skip(starrow).Take(int.Parse(pagingsizeclient.ToString())).CopyToDataTable();
-
             }
             dtlist.Add(dt);
 
             return dtlist;
-
         }
+
         public async Task<int> dbupdateNOTRgn(int ID, string notarisID, string wilayah, bool allowd,
             string moduleID, string userid, string groupname)
         {
-
             int result = 0;
             try
             {
@@ -2496,7 +2376,6 @@ namespace DusColl
                             new SqlParameter("@UserIDLog", userid),
                             new SqlParameter("@UserGroupLog", groupname)
                  };
-
 
                 await Task.Delay(0);
                 DataTable dt = await dbaccess.ExecuteDataTable(strconnection, "udp_mdt_app_notrgn_sve", sqlParam);
@@ -2539,15 +2418,10 @@ namespace DusColl
             }
 
             return result;
-
         }
-
-
 
         public async Task<List<string>> dbGetLogCommentListCount(string keyword, int PageNumber, string moduleID, string userid, string groupname)
         {
-
-
             DataTable dt = new DataTable();
 
             dbAccessHelper dbaccess = new dbAccessHelper();
@@ -2579,20 +2453,16 @@ namespace DusColl
                 dta.Add("0");
             }
             return dta;
-
         }
+
         public async Task<List<DataTable>> dbGetLogCommentList(DataTable DTFromDB, string keyword, int PageNumber, double pagenumberclient, double pagingsizeclient, string moduleID, string userid, string groupname)
         {
-
-
             DataTable dt = new DataTable();
             List<DataTable> dtlist = new List<DataTable>();
             if (DTFromDB == null || DTFromDB.Rows.Count == 0)
             {
-
                 dbAccessHelper dbaccess = new dbAccessHelper();
                 string strconnection = HasKeyProtect.DecryptionPass(OwinLibrary.GetDB());
-
 
                 SqlParameter[] sqlParam =
                  {
@@ -2604,13 +2474,11 @@ namespace DusColl
                 };
 
                 dt = await dbaccess.ExecuteDataTable(strconnection, "udp_mdt_app_LogComment_list", sqlParam);
-
             }
             else
             {
                 dt = DTFromDB;
             }
-
 
             dtlist.Add(dt);
             int starrow = (int.Parse(pagenumberclient.ToString()) - 1) * int.Parse(pagingsizeclient.ToString());
@@ -2618,17 +2486,15 @@ namespace DusColl
             if (dt.Rows.Count > 0)
             {
                 dt = dt.Rows.Cast<System.Data.DataRow>().Skip(starrow).Take(int.Parse(pagingsizeclient.ToString())).CopyToDataTable();
-
             }
             dtlist.Add(dt);
 
             return dtlist;
-
         }
+
         public async Task<int> dbupdateLogComment(int ID, string statusNew,
             string moduleID, string userid, string groupname)
         {
-
             int result = 0;
             try
             {
@@ -2642,7 +2508,6 @@ namespace DusColl
                             new SqlParameter("@UserIDLog", userid),
                             new SqlParameter("@UserGroupLog", groupname)
                  };
-
 
                 await Task.Delay(0);
                 DataTable dt = await dbaccess.ExecuteDataTable(strconnection, "udp_mdt_app_LogComment_sve", sqlParam);
@@ -2685,16 +2550,10 @@ namespace DusColl
             }
 
             return result;
-
         }
-
-
-
 
         public async Task<List<string>> dbGetAccCabangListCount(string keyword, int PageNumber, string moduleID, string userid, string groupname)
         {
-
-
             DataTable dt = new DataTable();
 
             dbAccessHelper dbaccess = new dbAccessHelper();
@@ -2726,20 +2585,16 @@ namespace DusColl
                 dta.Add("0");
             }
             return dta;
-
         }
+
         public async Task<List<DataTable>> dbGetAccCabangList(DataTable DTFromDB, string keyword, int PageNumber, double pagenumberclient, double pagingsizeclient, string moduleID, string userid, string groupname)
         {
-
-
             DataTable dt = new DataTable();
             List<DataTable> dtlist = new List<DataTable>();
             if (DTFromDB == null || DTFromDB.Rows.Count == 0)
             {
-
                 dbAccessHelper dbaccess = new dbAccessHelper();
                 string strconnection = HasKeyProtect.DecryptionPass(OwinLibrary.GetDB());
-
 
                 SqlParameter[] sqlParam =
                  {
@@ -2751,13 +2606,11 @@ namespace DusColl
                 };
 
                 dt = await dbaccess.ExecuteDataTable(strconnection, "udp_mdt_app_acccabang_list", sqlParam);
-
             }
             else
             {
                 dt = DTFromDB;
             }
-
 
             dtlist.Add(dt);
             int starrow = (int.Parse(pagenumberclient.ToString()) - 1) * int.Parse(pagingsizeclient.ToString());
@@ -2765,17 +2618,15 @@ namespace DusColl
             if (dt.Rows.Count > 0)
             {
                 dt = dt.Rows.Cast<System.Data.DataRow>().Skip(starrow).Take(int.Parse(pagingsizeclient.ToString())).CopyToDataTable();
-
             }
             dtlist.Add(dt);
 
             return dtlist;
-
         }
+
         public async Task<int> dbupdateAccCabang(int ID, string UserIDCab, string TglInv, bool allowed,
             string moduleID, string userid, string groupname)
         {
-
             int result = 0;
             try
             {
@@ -2791,7 +2642,6 @@ namespace DusColl
                             new SqlParameter("@UserIDLog", userid),
                             new SqlParameter("@UserGroupLog", groupname)
                  };
-
 
                 await Task.Delay(0);
                 DataTable dt = await dbaccess.ExecuteDataTable(strconnection, "udp_mdt_app_acccabang_sve", sqlParam);
@@ -2834,14 +2684,10 @@ namespace DusColl
             }
 
             return result;
-
         }
-
 
         public async Task<List<string>> dbGetAcctGrpListCount(string keyword, int PageNumber, string moduleID, string userid, string groupname)
         {
-
-
             DataTable dt = new DataTable();
 
             dbAccessHelper dbaccess = new dbAccessHelper();
@@ -2873,20 +2719,16 @@ namespace DusColl
                 dta.Add("0");
             }
             return dta;
-
         }
+
         public async Task<List<DataTable>> dbGetAcctGrpList(DataTable DTFromDB, string keyword, int PageNumber, double pagenumberclient, double pagingsizeclient, string moduleID, string userid, string groupname)
         {
-
-
             DataTable dt = new DataTable();
             List<DataTable> dtlist = new List<DataTable>();
             if (DTFromDB == null || DTFromDB.Rows.Count == 0)
             {
-
                 dbAccessHelper dbaccess = new dbAccessHelper();
                 string strconnection = HasKeyProtect.DecryptionPass(OwinLibrary.GetDB());
-
 
                 SqlParameter[] sqlParam =
                  {
@@ -2898,13 +2740,11 @@ namespace DusColl
                 };
 
                 dt = await dbaccess.ExecuteDataTable(strconnection, "udp_mdt_app_acctgrp_list", sqlParam);
-
             }
             else
             {
                 dt = DTFromDB;
             }
-
 
             dtlist.Add(dt);
             int starrow = (int.Parse(pagenumberclient.ToString()) - 1) * int.Parse(pagingsizeclient.ToString());
@@ -2912,17 +2752,15 @@ namespace DusColl
             if (dt.Rows.Count > 0)
             {
                 dt = dt.Rows.Cast<System.Data.DataRow>().Skip(starrow).Take(int.Parse(pagingsizeclient.ToString())).CopyToDataTable();
-
             }
             dtlist.Add(dt);
 
             return dtlist;
-
         }
+
         public async Task<int> dbupdateAcctGrp(int ID, string usrid, string grpnme,
             string moduleID, string userid, string groupname)
         {
-
             int result = 0;
             try
             {
@@ -2937,7 +2775,6 @@ namespace DusColl
                             new SqlParameter("@UserIDLog", userid),
                             new SqlParameter("@UserGroupLog", groupname)
                  };
-
 
                 await Task.Delay(0);
                 DataTable dt = await dbaccess.ExecuteDataTable(strconnection, "udp_mdt_app_acctgrp_sve", sqlParam);
@@ -2980,14 +2817,10 @@ namespace DusColl
             }
 
             return result;
-
         }
-
 
         public async Task<List<string>> dbGetBankListCount(string keyword, bool IsActive, int PageNumber, string moduleID, string userid, string groupname)
         {
-
-
             DataTable dt = new DataTable();
 
             dbAccessHelper dbaccess = new dbAccessHelper();
@@ -3020,20 +2853,16 @@ namespace DusColl
                 dta.Add("0");
             }
             return dta;
-
         }
+
         public async Task<List<DataTable>> dbGetBankList(DataTable DTFromDB, string keyword, bool IsActive, int PageNumber, double pagenumberclient, double pagingsizeclient, string moduleID, string userid, string groupname)
         {
-
-
             DataTable dt = new DataTable();
             List<DataTable> dtlist = new List<DataTable>();
             if (DTFromDB == null || DTFromDB.Rows.Count == 0)
             {
-
                 dbAccessHelper dbaccess = new dbAccessHelper();
                 string strconnection = HasKeyProtect.DecryptionPass(OwinLibrary.GetDB());
-
 
                 SqlParameter[] sqlParam =
                  {
@@ -3046,13 +2875,11 @@ namespace DusColl
                 };
 
                 dt = await dbaccess.ExecuteDataTable(strconnection, "udp_mdt_app_bank_list", sqlParam);
-
             }
             else
             {
                 dt = DTFromDB;
             }
-
 
             dtlist.Add(dt);
             int starrow = (int.Parse(pagenumberclient.ToString()) - 1) * int.Parse(pagingsizeclient.ToString());
@@ -3060,16 +2887,14 @@ namespace DusColl
             if (dt.Rows.Count > 0)
             {
                 dt = dt.Rows.Cast<System.Data.DataRow>().Skip(starrow).Take(int.Parse(pagingsizeclient.ToString())).CopyToDataTable();
-
             }
             dtlist.Add(dt);
 
             return dtlist;
-
         }
+
         public async Task<int> dbupdateBank(int ID, string BANK_ID, string BANK_NAME, string BI_CODE, bool Isactive, string moduleID, string userid, string groupname)
         {
-
             int result = 0;
             try
             {
@@ -3087,7 +2912,6 @@ namespace DusColl
                             new SqlParameter("@UserGroupLog", groupname)
                  };
 
-
                 await Task.Delay(0);
                 DataTable dt = await dbaccess.ExecuteDataTable(strconnection, "udp_mdt_app_bank_sve", sqlParam);
 
@@ -3101,6 +2925,7 @@ namespace DusColl
 
             return result;
         }
+
         public async Task<int> dbdeleteBank(int ID, string moduleID, string UserID, string GroupName)
         {
             int result = 0;
@@ -3128,14 +2953,10 @@ namespace DusColl
             }
 
             return result;
-
         }
-
 
         public async Task<List<string>> dbGeteducListCount(string keyword, bool IsActive, int PageNumber, string moduleID, string userid, string groupname)
         {
-
-
             DataTable dt = new DataTable();
 
             dbAccessHelper dbaccess = new dbAccessHelper();
@@ -3168,20 +2989,16 @@ namespace DusColl
                 dta.Add("0");
             }
             return dta;
-
         }
+
         public async Task<List<DataTable>> dbGeteducList(DataTable DTFromDB, string keyword, bool IsActive, int PageNumber, double pagenumberclient, double pagingsizeclient, string moduleID, string userid, string groupname)
         {
-
-
             DataTable dt = new DataTable();
             List<DataTable> dtlist = new List<DataTable>();
             if (DTFromDB == null || DTFromDB.Rows.Count == 0)
             {
-
                 dbAccessHelper dbaccess = new dbAccessHelper();
                 string strconnection = HasKeyProtect.DecryptionPass(OwinLibrary.GetDB());
-
 
                 SqlParameter[] sqlParam =
                  {
@@ -3194,13 +3011,11 @@ namespace DusColl
                 };
 
                 dt = await dbaccess.ExecuteDataTable(strconnection, "udp_mdt_app_pendidikan_list", sqlParam);
-
             }
             else
             {
                 dt = DTFromDB;
             }
-
 
             dtlist.Add(dt);
             int starrow = (int.Parse(pagenumberclient.ToString()) - 1) * int.Parse(pagingsizeclient.ToString());
@@ -3208,16 +3023,14 @@ namespace DusColl
             if (dt.Rows.Count > 0)
             {
                 dt = dt.Rows.Cast<System.Data.DataRow>().Skip(starrow).Take(int.Parse(pagingsizeclient.ToString())).CopyToDataTable();
-
             }
             dtlist.Add(dt);
 
             return dtlist;
-
         }
+
         public async Task<int> dbupdateeduc(int ID, string educ_NAME, bool Isactive, string moduleID, string userid, string groupname)
         {
-
             int result = 0;
             try
             {
@@ -3233,7 +3046,6 @@ namespace DusColl
                             new SqlParameter("@UserGroupLog", groupname)
                  };
 
-
                 await Task.Delay(0);
                 DataTable dt = await dbaccess.ExecuteDataTable(strconnection, "udp_mdt_app_pendidikan_sve", sqlParam);
 
@@ -3247,6 +3059,7 @@ namespace DusColl
 
             return result;
         }
+
         public async Task<int> dbdeleteeduc(int ID, string moduleID, string UserID, string GroupName)
         {
             int result = 0;
@@ -3274,13 +3087,10 @@ namespace DusColl
             }
 
             return result;
-
         }
 
         public async Task<List<string>> dbGetRegionListCount(string keyword, bool IsActive, bool IsPusat, int PageNumber, string moduleID, string userid, string groupname)
         {
-
-
             DataTable dt = new DataTable();
 
             dbAccessHelper dbaccess = new dbAccessHelper();
@@ -3314,20 +3124,16 @@ namespace DusColl
                 dta.Add("0");
             }
             return dta;
-
         }
+
         public async Task<List<DataTable>> dbGetRegionList(DataTable DTFromDB, string keyword, bool IsActive, bool IsPusat, int PageNumber, double pagenumberclient, double pagingsizeclient, string moduleID, string userid, string groupname)
         {
-
-
             DataTable dt = new DataTable();
             List<DataTable> dtlist = new List<DataTable>();
             if (DTFromDB == null || DTFromDB.Rows.Count == 0)
             {
-
                 dbAccessHelper dbaccess = new dbAccessHelper();
                 string strconnection = HasKeyProtect.DecryptionPass(OwinLibrary.GetDB());
-
 
                 SqlParameter[] sqlParam =
                  {
@@ -3341,13 +3147,11 @@ namespace DusColl
                 };
 
                 dt = await dbaccess.ExecuteDataTable(strconnection, "udp_mdt_app_region_list", sqlParam);
-
             }
             else
             {
                 dt = DTFromDB;
             }
-
 
             dtlist.Add(dt);
             int starrow = (int.Parse(pagenumberclient.ToString()) - 1) * int.Parse(pagingsizeclient.ToString());
@@ -3355,16 +3159,14 @@ namespace DusColl
             if (dt.Rows.Count > 0)
             {
                 dt = dt.Rows.Cast<System.Data.DataRow>().Skip(starrow).Take(int.Parse(pagingsizeclient.ToString())).CopyToDataTable();
-
             }
             dtlist.Add(dt);
 
             return dtlist;
-
         }
+
         public async Task<int> dbupdateRegion(int ID, string REGION, string REGION_NAME, bool ISPUSAT, bool IsActive, string moduleID, string userid, string groupname)
         {
-
             int result = 0;
             try
             {
@@ -3381,7 +3183,6 @@ namespace DusColl
                             new SqlParameter("@UserGroupLog", groupname)
                  };
 
-
                 await Task.Delay(0);
                 DataTable dt = await dbaccess.ExecuteDataTable(strconnection, "udp_mdt_app_region_sve", sqlParam);
 
@@ -3395,6 +3196,7 @@ namespace DusColl
 
             return result;
         }
+
         public async Task<int> dbdeleteRegion(int ID, string moduleID, string UserID, string GroupName)
         {
             int result = 0;
@@ -3422,14 +3224,10 @@ namespace DusColl
             }
 
             return result;
-
         }
-
 
         public async Task<List<string>> dbGetInfoTextListCount(string keyword, int PageNumber, string moduleID, string userid, string groupname)
         {
-
-
             DataTable dt = new DataTable();
 
             dbAccessHelper dbaccess = new dbAccessHelper();
@@ -3461,20 +3259,16 @@ namespace DusColl
                 dta.Add("0");
             }
             return dta;
-
         }
+
         public async Task<List<DataTable>> dbGetInfoTextList(DataTable DTFromDB, string keyword, int PageNumber, double pagenumberclient, double pagingsizeclient, string moduleID, string userid, string groupname)
         {
-
-
             DataTable dt = new DataTable();
             List<DataTable> dtlist = new List<DataTable>();
             if (DTFromDB == null || DTFromDB.Rows.Count == 0)
             {
-
                 dbAccessHelper dbaccess = new dbAccessHelper();
                 string strconnection = HasKeyProtect.DecryptionPass(OwinLibrary.GetDB());
-
 
                 SqlParameter[] sqlParam =
                  {
@@ -3486,13 +3280,11 @@ namespace DusColl
                 };
 
                 dt = await dbaccess.ExecuteDataTable(strconnection, "udp_mdt_app_infotext_list", sqlParam);
-
             }
             else
             {
                 dt = DTFromDB;
             }
-
 
             dtlist.Add(dt);
             int starrow = (int.Parse(pagenumberclient.ToString()) - 1) * int.Parse(pagingsizeclient.ToString());
@@ -3500,16 +3292,14 @@ namespace DusColl
             if (dt.Rows.Count > 0)
             {
                 dt = dt.Rows.Cast<System.Data.DataRow>().Skip(starrow).Take(int.Parse(pagingsizeclient.ToString())).CopyToDataTable();
-
             }
             dtlist.Add(dt);
 
             return dtlist;
-
         }
+
         public async Task<int> dbupdateInfoText(int ID, string InfoText, string EndDate, string moduleID, string userid, string groupname)
         {
-
             int result = 0;
             try
             {
@@ -3525,7 +3315,6 @@ namespace DusColl
                             new SqlParameter("@UserGroupLog", groupname)
                  };
 
-
                 await Task.Delay(0);
                 DataTable dt = await dbaccess.ExecuteDataTable(strconnection, "udp_mdt_app_infotext_sve", sqlParam);
 
@@ -3539,6 +3328,7 @@ namespace DusColl
 
             return result;
         }
+
         public async Task<int> dbdeleteInfoText(int ID, string moduleID, string UserID, string GroupName)
         {
             int result = 0;
@@ -3566,14 +3356,10 @@ namespace DusColl
             }
 
             return result;
-
         }
-
 
         public async Task<List<string>> dbGetDivisiGrpListCount(string keyword, int PageNumber, string moduleID, string userid, string groupname)
         {
-
-
             DataTable dt = new DataTable();
 
             dbAccessHelper dbaccess = new dbAccessHelper();
@@ -3605,20 +3391,16 @@ namespace DusColl
                 dta.Add("0");
             }
             return dta;
-
         }
+
         public async Task<List<DataTable>> dbGetDivisiGrpList(DataTable DTFromDB, string keyword, int PageNumber, double pagenumberclient, double pagingsizeclient, string moduleID, string userid, string groupname)
         {
-
-
             DataTable dt = new DataTable();
             List<DataTable> dtlist = new List<DataTable>();
             if (DTFromDB == null || DTFromDB.Rows.Count == 0)
             {
-
                 dbAccessHelper dbaccess = new dbAccessHelper();
                 string strconnection = HasKeyProtect.DecryptionPass(OwinLibrary.GetDB());
-
 
                 SqlParameter[] sqlParam =
                  {
@@ -3630,13 +3412,11 @@ namespace DusColl
                 };
 
                 dt = await dbaccess.ExecuteDataTable(strconnection, "udp_mdt_app_teamho_list", sqlParam);
-
             }
             else
             {
                 dt = DTFromDB;
             }
-
 
             dtlist.Add(dt);
             int starrow = (int.Parse(pagenumberclient.ToString()) - 1) * int.Parse(pagingsizeclient.ToString());
@@ -3644,16 +3424,14 @@ namespace DusColl
             if (dt.Rows.Count > 0)
             {
                 dt = dt.Rows.Cast<System.Data.DataRow>().Skip(starrow).Take(int.Parse(pagingsizeclient.ToString())).CopyToDataTable();
-
             }
             dtlist.Add(dt);
 
             return dtlist;
-
         }
+
         public async Task<int> dbupdateDivisiGrp(int ID, string GROUP_NAME, string PIC, string moduleID, string userid, string groupname)
         {
-
             int result = 0;
             try
             {
@@ -3669,7 +3447,6 @@ namespace DusColl
                             new SqlParameter("@UserGroupLog", groupname)
                  };
 
-
                 await Task.Delay(0);
                 DataTable dt = await dbaccess.ExecuteDataTable(strconnection, "udp_mdt_app_teamho_sve", sqlParam);
 
@@ -3683,6 +3460,7 @@ namespace DusColl
 
             return result;
         }
+
         public async Task<int> dbdeleteDivisiGrp(int ID, string moduleID, string UserID, string GroupName)
         {
             int result = 0;
@@ -3710,14 +3488,10 @@ namespace DusColl
             }
 
             return result;
-
         }
-
 
         public async Task<List<string>> dbGetDivisiListCount(string keyword, int PageNumber, string moduleID, string userid, string groupname)
         {
-
-
             DataTable dt = new DataTable();
 
             dbAccessHelper dbaccess = new dbAccessHelper();
@@ -3749,20 +3523,16 @@ namespace DusColl
                 dta.Add("0");
             }
             return dta;
-
         }
+
         public async Task<List<DataTable>> dbGetDivisiList(DataTable DTFromDB, string keyword, int PageNumber, double pagenumberclient, double pagingsizeclient, string moduleID, string userid, string groupname)
         {
-
-
             DataTable dt = new DataTable();
             List<DataTable> dtlist = new List<DataTable>();
             if (DTFromDB == null || DTFromDB.Rows.Count == 0)
             {
-
                 dbAccessHelper dbaccess = new dbAccessHelper();
                 string strconnection = HasKeyProtect.DecryptionPass(OwinLibrary.GetDB());
-
 
                 SqlParameter[] sqlParam =
                  {
@@ -3774,13 +3544,11 @@ namespace DusColl
                 };
 
                 dt = await dbaccess.ExecuteDataTable(strconnection, "udp_mdt_app_divisi_list", sqlParam);
-
             }
             else
             {
                 dt = DTFromDB;
             }
-
 
             dtlist.Add(dt);
             int starrow = (int.Parse(pagenumberclient.ToString()) - 1) * int.Parse(pagingsizeclient.ToString());
@@ -3788,16 +3556,14 @@ namespace DusColl
             if (dt.Rows.Count > 0)
             {
                 dt = dt.Rows.Cast<System.Data.DataRow>().Skip(starrow).Take(int.Parse(pagingsizeclient.ToString())).CopyToDataTable();
-
             }
             dtlist.Add(dt);
 
             return dtlist;
-
         }
+
         public async Task<int> dbupdateDivisi(int ID, string DIVISI, string DIVISI_NAME, string CONT_PERIODE, string CONT_ATASNAMA, string CONT_JABATANATASNAMA, string Group, string PIC, bool IsActive, string DivCode, string moduleID, string userid, string groupname)
         {
-
             int result = 0;
             try
             {
@@ -3819,7 +3585,6 @@ namespace DusColl
                             new SqlParameter("@UserGroupLog", groupname)
                  };
 
-
                 await Task.Delay(0);
                 DataTable dt = await dbaccess.ExecuteDataTable(strconnection, "udp_mdt_app_divisi_sve", sqlParam);
 
@@ -3833,6 +3598,7 @@ namespace DusColl
 
             return result;
         }
+
         public async Task<int> dbdeleteDivisi(int ID, string moduleID, string UserID, string GroupName)
         {
             int result = 0;
@@ -3860,15 +3626,10 @@ namespace DusColl
             }
 
             return result;
-
         }
-
-
 
         public async Task<List<string>> dbGethandlejobsListCount(string keyword, string Divisi, bool IsActive, int PageNumber, string moduleID, string userid, string groupname)
         {
-
-
             DataTable dt = new DataTable();
 
             dbAccessHelper dbaccess = new dbAccessHelper();
@@ -3902,20 +3663,16 @@ namespace DusColl
                 dta.Add("0");
             }
             return dta;
-
         }
+
         public async Task<List<DataTable>> dbGethandlejobsList(DataTable DTFromDB, string keyword, string Divisi, bool IsActive, int PageNumber, double pagenumberclient, double pagingsizeclient, string moduleID, string userid, string groupname)
         {
-
-
             DataTable dt = new DataTable();
             List<DataTable> dtlist = new List<DataTable>();
             if (DTFromDB == null || DTFromDB.Rows.Count == 0)
             {
-
                 dbAccessHelper dbaccess = new dbAccessHelper();
                 string strconnection = HasKeyProtect.DecryptionPass(OwinLibrary.GetDB());
-
 
                 SqlParameter[] sqlParam =
                  {
@@ -3929,13 +3686,11 @@ namespace DusColl
                 };
 
                 dt = await dbaccess.ExecuteDataTable(strconnection, "udp_mdt_app_handlejobs_list", sqlParam);
-
             }
             else
             {
                 dt = DTFromDB;
             }
-
 
             dtlist.Add(dt);
             int starrow = (int.Parse(pagenumberclient.ToString()) - 1) * int.Parse(pagingsizeclient.ToString());
@@ -3943,16 +3698,14 @@ namespace DusColl
             if (dt.Rows.Count > 0)
             {
                 dt = dt.Rows.Cast<System.Data.DataRow>().Skip(starrow).Take(int.Parse(pagingsizeclient.ToString())).CopyToDataTable();
-
             }
             dtlist.Add(dt);
 
             return dtlist;
-
         }
+
         public async Task<int> dbupdatehandlejobs(int ID, int IDDET, string JOBID, string JOBDESC, string Divisi, string DivisiSelectOne, bool IsActive, string moduleID, string userid, string groupname)
         {
-
             int result = 0;
             try
             {
@@ -3971,7 +3724,6 @@ namespace DusColl
                             new SqlParameter("@UserGroupLog", groupname)
                  };
 
-
                 await Task.Delay(0);
                 DataTable dt = await dbaccess.ExecuteDataTable(strconnection, "udp_mdt_app_handlejobs_sve", sqlParam);
 
@@ -3985,6 +3737,7 @@ namespace DusColl
 
             return result;
         }
+
         public async Task<int> dbdeletehandlejobs(int ID, int IDDET, string moduleID, string UserID, string GroupName)
         {
             int result = 0;
@@ -4013,16 +3766,10 @@ namespace DusColl
             }
 
             return result;
-
         }
-
-
-
 
         public async Task<List<string>> dbGetDocTypeListCount(string keyword, string Divisi, string RegType, bool IsActive, int PageNumber, string moduleID, string userid, string groupname)
         {
-
-
             DataTable dt = new DataTable();
 
             dbAccessHelper dbaccess = new dbAccessHelper();
@@ -4057,20 +3804,16 @@ namespace DusColl
                 dta.Add("0");
             }
             return dta;
-
         }
+
         public async Task<List<DataTable>> dbGetDocTypeList(DataTable DTFromDB, string keyword, string Divisi, string RegType, bool IsActive, int PageNumber, double pagenumberclient, double pagingsizeclient, string moduleID, string userid, string groupname)
         {
-
-
             DataTable dt = new DataTable();
             List<DataTable> dtlist = new List<DataTable>();
             if (DTFromDB == null || DTFromDB.Rows.Count == 0)
             {
-
                 dbAccessHelper dbaccess = new dbAccessHelper();
                 string strconnection = HasKeyProtect.DecryptionPass(OwinLibrary.GetDB());
-
 
                 SqlParameter[] sqlParam =
                  {
@@ -4085,13 +3828,11 @@ namespace DusColl
                 };
 
                 dt = await dbaccess.ExecuteDataTable(strconnection, "udp_mdt_app_document_type_list", sqlParam);
-
             }
             else
             {
                 dt = DTFromDB;
             }
-
 
             dtlist.Add(dt);
             int starrow = (int.Parse(pagenumberclient.ToString()) - 1) * int.Parse(pagingsizeclient.ToString());
@@ -4099,16 +3840,14 @@ namespace DusColl
             if (dt.Rows.Count > 0)
             {
                 dt = dt.Rows.Cast<System.Data.DataRow>().Skip(starrow).Take(int.Parse(pagingsizeclient.ToString())).CopyToDataTable();
-
             }
             dtlist.Add(dt);
 
             return dtlist;
-
         }
+
         public async Task<int> dbupdateDocType(int ID, int IDDET, string doctype, string docalias, string regtype, bool IsMandatory, bool IsActive, string Divisi, string DivisiSelOne, bool IsNeedTemplate, string moduleID, string userid, string groupname)
         {
-
             int result = 0;
             try
             {
@@ -4131,7 +3870,6 @@ namespace DusColl
                             new SqlParameter("@UserGroupLog", groupname)
                  };
 
-
                 await Task.Delay(0);
                 DataTable dt = await dbaccess.ExecuteDataTable(strconnection, "udp_mdt_app_document_type_sve", sqlParam);
 
@@ -4145,6 +3883,7 @@ namespace DusColl
 
             return result;
         }
+
         public async Task<int> dbdeleteDocType(int ID, int IDDET, string moduleID, string UserID, string GroupName)
         {
             int result = 0;
@@ -4173,14 +3912,10 @@ namespace DusColl
             }
 
             return result;
-
         }
-
-
 
         public async Task<List<string>> dbGetCoaListCount(string ntryid, int PageNumber, string moduleID, string userid, string groupname)
         {
-
             DataTable dt = new DataTable();
             string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
             using (HttpClient httpClient = new HttpClient())
@@ -4237,16 +3972,14 @@ namespace DusColl
                 dta.Add("0");
             }
             return dta;
-
         }
+
         public async Task<List<DataTable>> dbGetCoaList(DataTable DTFromDB, string ntryid, int PageNumber, double pagenumberclient, double pagingsizeclient, string moduleID, string userid, string groupname)
         {
-
             DataTable dt = new DataTable();
             List<DataTable> dtlist = new List<DataTable>();
             if (DTFromDB == null || DTFromDB.Rows.Count == 0)
             {
-
                 string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
                 using (HttpClient httpClient = new HttpClient())
                 {
@@ -4293,26 +4026,23 @@ namespace DusColl
                 dt = DTFromDB;
             }
 
-
             dtlist.Add(dt);
             int starrow = (int.Parse(pagenumberclient.ToString()) - 1) * int.Parse(pagingsizeclient.ToString());
 
             if (dt.Rows.Count > 0)
             {
                 dt = dt.Rows.Cast<System.Data.DataRow>().Skip(starrow).Take(int.Parse(pagingsizeclient.ToString())).CopyToDataTable();
-
             }
             dtlist.Add(dt);
 
             return dtlist;
-
         }
+
         public async Task<int> dbupdateCoa(int ID, string CoaCode, string Description, bool TipeCoa, bool OprMinus, string NatureAcct,
                                                 string GrupOrderRptbalance, string GrupAcct, bool IsNotViewInLR, bool IsNotViewInNR, string InitialCode,
                                                 bool IsBlock, string moduleID, string userid, string groupname
                                                 )
         {
-
             int resultInt = 0;
             DataTable dt = new DataTable();
             string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
@@ -4352,7 +4082,6 @@ namespace DusColl
                            {"GroupName", groupname},
                         };
 
-
                     var stringPayload = JsonConvert.SerializeObject(model);
                     var content = new StringContent(stringPayload, Encoding.UTF8, "application/json");
 
@@ -4366,11 +4095,10 @@ namespace DusColl
                 }
             }
             return resultInt;
-
         }
+
         public async Task<int> dbdeleteCoa(int ID, string moduleID, string userid, string groupname)
         {
-
             int resultInt = 0;
             DataTable dt = new DataTable();
             string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
@@ -4399,7 +4127,6 @@ namespace DusColl
                            {"GroupName", groupname},
                         };
 
-
                     var stringPayload = JsonConvert.SerializeObject(model);
                     var content = new StringContent(stringPayload, Encoding.UTF8, "application/json");
 
@@ -4413,14 +4140,10 @@ namespace DusColl
                 }
             }
             return resultInt;
-
         }
-
 
         public async Task<List<string>> dbGetCoaMAPListCount(string ntryid, int PageNumber, string moduleID, string userid, string groupname)
         {
-
-
             DataTable dt = new DataTable();
             string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
             using (HttpClient httpClient = new HttpClient())
@@ -4477,16 +4200,14 @@ namespace DusColl
                 dta.Add("0");
             }
             return dta;
-
         }
+
         public async Task<List<DataTable>> dbGetCoaMAPList(DataTable DTFromDB, string ntryid, int PageNumber, double pagenumberclient, double pagingsizeclient, string moduleID, string userid, string groupname)
         {
-
             DataTable dt = new DataTable();
             List<DataTable> dtlist = new List<DataTable>();
             if (DTFromDB == null || DTFromDB.Rows.Count == 0)
             {
-
                 string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
                 using (HttpClient httpClient = new HttpClient())
                 {
@@ -4533,25 +4254,22 @@ namespace DusColl
                 dt = DTFromDB;
             }
 
-
             dtlist.Add(dt);
             int starrow = (int.Parse(pagenumberclient.ToString()) - 1) * int.Parse(pagingsizeclient.ToString());
 
             if (dt.Rows.Count > 0)
             {
                 dt = dt.Rows.Cast<System.Data.DataRow>().Skip(starrow).Take(int.Parse(pagingsizeclient.ToString())).CopyToDataTable();
-
             }
             dtlist.Add(dt);
 
             return dtlist;
-
         }
+
         public async Task<int> dbupdateCoaMAP(int ID, string KodeGroup, string Transaksi, string LawanTransaksi,
                                                 string Debit, string Kredit, string StartDate, string EndDate, string moduleID, string userid, string groupname
                                                 )
         {
-
             int resultInt = 0;
             DataTable dt = new DataTable();
             string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
@@ -4587,7 +4305,6 @@ namespace DusColl
                            {"GroupName", groupname},
                         };
 
-
                     var stringPayload = JsonConvert.SerializeObject(model);
                     var content = new StringContent(stringPayload, Encoding.UTF8, "application/json");
 
@@ -4601,11 +4318,10 @@ namespace DusColl
                 }
             }
             return resultInt;
-
         }
+
         public async Task<int> dbdeleteCoaMAP(int ID, string moduleID, string userid, string groupname)
         {
-
             int resultInt = 0;
             DataTable dt = new DataTable();
             string uril = HasKeyProtect.DecryptionPass(OwinLibrary.GetUrlAPI());
@@ -4634,7 +4350,6 @@ namespace DusColl
                            {"GroupName", groupname},
                         };
 
-
                     var stringPayload = JsonConvert.SerializeObject(model);
                     var content = new StringContent(stringPayload, Encoding.UTF8, "application/json");
 
@@ -4648,8 +4363,6 @@ namespace DusColl
                 }
             }
             return resultInt;
-
         }
-
     }
 }

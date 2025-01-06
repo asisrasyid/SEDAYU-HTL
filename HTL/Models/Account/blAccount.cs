@@ -1,7 +1,4 @@
 ﻿using HashNetFramework;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,8 +9,7 @@ namespace DusColl
 {
     public class blAccount
     {
-
-        vmAccountddl Accountddl = new vmAccountddl();
+        private vmAccountddl Accountddl = new vmAccountddl();
 
         public async Task<vmAccount> AuthenticateUserGroupMatrik(cAccount model)
         {
@@ -37,9 +33,9 @@ namespace DusColl
 
             return Account;
         }
+
         public async Task<cAccount> AuthenticateUser(cAccount model, string email, string template)
         {
-
             string strMessage = "";
             model.Controller = "Home";
             model.email = email;
@@ -60,7 +56,7 @@ namespace DusColl
                 model.GenMoon = HasKeyProtect.Encryption(model.GenMoon ?? "");
                 model.IDBPN = HasKeyProtect.Encryption(model.IDBPN ?? "");
                 model.Phone = HasKeyProtect.Encryption(model.Phone ?? "");
-                model.NoSK= HasKeyProtect.Encryption(model.NoSK?? "");
+                model.NoSK = HasKeyProtect.Encryption(model.NoSK ?? "");
 
                 strMessage = "";
             }
@@ -70,37 +66,31 @@ namespace DusColl
                 model.Action = "LogUserIn";
             }
 
-
             model.MessageNotValid = strMessage;
             model.ShowMessage = "alert alert-danger display-block";
             model.PropAccess = model.AuthenProperty;
             return model;
         }
+
         public cAccount NotExistSesionID(HttpCookie authCookie, cAccount model)
         {
-
             if (model == null)
             {
                 model = new cAccount();
                 model.RouteName = "DefaultExpired";
-
             }
             else
             {
                 if (model.UserID == null)
                 {
-
                     model.SessionIDNotExist = false;
                     model.RouteName = "DefaultExpired";
-
                 }
                 else
                 {
-
                     model.RouteName = "";
                     model.SessionIDNotExist = false;
                 }
-
             }
 
             try
@@ -117,22 +107,16 @@ namespace DusColl
                 {
                     model.SessionIDNotExist = true;
                 }
-
             }
-
             catch
             {
                 model.SessionIDNotExist = true;
             }
 
-
-
             if (model.SessionIDNotExist == true)
             {
                 model.RouteName = "DefaultExpired";
             }
-
-
 
             if (model.RouteName == "DefaultExpired")
             {
@@ -153,6 +137,5 @@ namespace DusColl
 
             return model;
         }
-
     }
 }

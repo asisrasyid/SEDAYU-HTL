@@ -13,7 +13,6 @@
         factory(jQuery);
     }
 }(function($, undefined){
-
 	function UTCDate(){
 		return new Date(Date.UTC.apply(Date, arguments));
 	}
@@ -79,7 +78,6 @@
 			return a;
 		};
 	})();
-
 
 	// Picker object
 
@@ -941,7 +939,6 @@
 							// Calendar week: ms between thursdays, div ms per day, div 7 days
 							calWeek =  (th - yth) / 864e5 / 7 + 1;
 						html.push('<td class="cw">'+ calWeek +'</td>');
-
 					}
 				}
 				clsName = this.getClassNames(prevMonth);
@@ -1883,7 +1880,6 @@
 
 	$.fn.datepicker.DPGlobal = DPGlobal;
 
-
 	/* DATEPICKER NO CONFLICT
 	* =================== */
 
@@ -1914,5 +1910,4 @@
 	$(function(){
 		datepickerPlugin.call($('[data-provide="datepicker-inline"]'));
 	});
-
 }));

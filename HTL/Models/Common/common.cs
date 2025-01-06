@@ -1,13 +1,8 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel;
-using System.Linq;
-using System.Web;
 
 namespace DusColl
 {
-
     [Serializable]
     public enum cCommandTextCommon
     {
@@ -43,7 +38,7 @@ namespace DusColl
 
         [Description("api/FDCMCommon/dbGetConfig")]
         cmdGetConfig = 9,
-        
+
         [Description("api/FDCMCommon/dbSetHostHistory")]
         SetHostHistory = 10,
 
@@ -66,12 +61,9 @@ namespace DusColl
         cmdGeAHUprovin = 16,
 
         [Description("api/FDCMCommon/dbGetCoa")]
-        cmdGetCoa =17,
+        cmdGetCoa = 17,
 
         [Description("api/FDCMCommon/dbGeAHUPengadilanNegeri")]
         cmdGeAHUPengadilanNegeri = 160,
-
     }
-
-  
 }

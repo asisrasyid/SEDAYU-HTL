@@ -2,8 +2,6 @@
 var elemntupload = ".modal-content";
 
 var vmDash = function () {
-
-
     var onFilterBranchByClient = function () {
         var Parclientid = $("#SelectClient").val();
         var jsoncoll = "";
@@ -35,7 +33,6 @@ var vmDash = function () {
                     } else {
                         window.location.href = data.url;
                     }
-
                 },
                 error: function (x, y, z) {
                     App.unblockUI(elemntupload);
@@ -45,7 +42,6 @@ var vmDash = function () {
                 }
             });
         }
-
     };
 
     var onOpenFilter = function () {
@@ -90,7 +86,6 @@ var vmDash = function () {
                 if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
             }
         });
-
     };
     var onApplyFilter = function (parForm, pardownloadexcel) {
         var jsoncoll = "";
@@ -139,9 +134,7 @@ var vmDash = function () {
         $('#filterdatadialog .select2').val('').trigger("change");
     };
 
-
     return {
-
         OpenFilter: function () {
             onOpenFilter();
         },
@@ -154,7 +147,5 @@ var vmDash = function () {
         FilterBranchByClient: function () {
             onFilterBranchByClient();
         },
-
-
     };
 }();

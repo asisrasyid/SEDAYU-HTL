@@ -1,65 +1,57 @@
 ﻿using DocumentFormat.OpenXml;
-using DocumentFormat.OpenXml.Drawing;
-using DocumentFormat.OpenXml.Packaging;
 using HashNetFramework;
 using Ionic.Zip;
-using iTextSharp.text;
 using iTextSharp.text.pdf;
-using iTextSharp.text.pdf.parser;
+using java.sql;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using PdfSharp;
-using PdfSharp.Drawing;
-using PdfSharp.Drawing.Layout;
 using Spire.Pdf;
 using Spire.Pdf.AutomaticFields;
 using Spire.Pdf.Graphics;
 using Spire.Pdf.Tables;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
-using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Reflection;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Web.Security;
-using System.Windows.Forms;
 using System.Xml;
-using Xceed.Words.NET;
+
 namespace DusColl.Controllers
 {
     public class HTLController : Controller
     {
+        private vmAccount Account = new vmAccount();
+        private blAccount lgAccount = new blAccount();
+        private vmHTL HTL = new vmHTL();
+        private vmHTLddl HTLddl = new vmHTLddl();
+        private blHTLddl HTLbl = new blHTLddl();
 
+        private cFilterContract modFilter = new cFilterContract();
+        private vmCommon Common = new vmCommon();
+        private vmCommonddl Commonddl = new vmCommonddl();
 
-        vmAccount Account = new vmAccount();
-        blAccount lgAccount = new blAccount();
-        vmHTL HTL = new vmHTL();
-        vmHTLddl HTLddl = new vmHTLddl();
-        blHTLddl HTLbl = new blHTLddl();
+        private string tempTransksi = "HTLdtlist";
+        private string tempTransksifilter = "HTLlistfilter";
+        private string tempcommon = "common";
+        private string MainControllerNameHeaderTx = "HTL";
+        private string MainActionNameHeaderTx = "clnHeaderTx";
 
-        cFilterContract modFilter = new cFilterContract();
-        vmCommon Common = new vmCommon();
-        vmCommonddl Commonddl = new vmCommonddl();
-
-        string tempTransksi = "HTLdtlist";
-        string tempTransksifilter = "HTLlistfilter";
-        string tempcommon = "common";
-        string MainControllerNameHeaderTx = "HTL";
-        string MainActionNameHeaderTx = "clnHeaderTx";
-
+        public class DataRoya
+        {
+            public cHTL RoyashowData { get; set; }
+            public DataTable DokumenUpload { get; set; }
+        }
 
         //[HttpPost]
         //public ActionResult Save(string data4, string difname)
@@ -159,7 +151,6 @@ namespace DusColl.Controllers
         [HttpPost]
         public ActionResult Save(string data4, string difname)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -191,7 +182,7 @@ namespace DusColl.Controllers
 
                 base64 = Convert.ToBase64String(bytes);
 
-                /* remark untuk icloud 
+                /* remark untuk icloud
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri("https://43.231.129.73/");
                 client.DefaultRequestHeaders.Add("api-key", "4e50972b-8809-42e4-ac35-d9d873b55886");
@@ -255,7 +246,6 @@ namespace DusColl.Controllers
                 if (jsondata.Data.KelaminTemp.ToString().ToLower() == "laki-laki")
                 {
                     jsondata.Data.KelaminTemp = "laki-laki";
-
                 }
                 else if (jsondata.Data.KelaminTemp.ToString().ToLower() == "perempuan")
                 {
@@ -271,12 +261,10 @@ namespace DusColl.Controllers
                     jsondata.Data.StatusPerkawinan = "Menikah";
                 }
 
-
                 if ((jsondata.Data.TanggalLahir ?? "") != "")
                 {
                     jsondata.Data.TanggalLahir = DateTime.Parse(jsondata.Data.TanggalLahir.ToString()).ToString("dd-MMMM-yyyy");
                 }
-
 
                 if (jsondata.Flag.ToString() == "Y")
                 {
@@ -323,7 +311,6 @@ namespace DusColl.Controllers
                     sm = difname ?? "",
                     moderror = false
                 });
-
             }
             catch (Exception ex)
             {
@@ -343,7 +330,6 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-
 
         [HttpPost]
         public async Task<ActionResult> clnHeaderTxHT(String menu, String caption, string kd, string tipemodule)
@@ -372,10 +358,8 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
 
-
             try
             {
-
                 string UserID = Account.AccountLogin.UserID;
                 string UserName = Account.AccountLogin.UserName;
                 string ClientID = Account.AccountLogin.ClientID;
@@ -401,7 +385,6 @@ namespace DusColl.Controllers
                 string menuitemdescription = Account.AccountMetrikList.Where(x => x.MenuItem.ModuleID == caption).Select(y => y.MenuItem.ModuleName).SingleOrDefault().ToString();
                 // extend //
 
-
                 // some field must be overide first for default filter//
                 string Divisi = "";
                 string Cabang = "";
@@ -410,7 +393,6 @@ namespace DusColl.Controllers
                 string FromDate = "";
                 string Todate = "";
                 int Status = (menu == "renew") ? 10 : -1; //default aktif
-
 
                 // set default for paging//
                 int PageNumber = 1;
@@ -454,7 +436,6 @@ namespace DusColl.Controllers
                 {
                     statuspro = -1; //all
                     kd = tipemodule ?? "";
-
                 }
                 else if (caption == "HTLLISTHT6")
                 {
@@ -492,8 +473,6 @@ namespace DusColl.Controllers
                 HTL.DTAllTx = await HTLddl.dbGetHeaderTxHTCheckedList(statuspro, chec, UserID, kd);
                 TotalRecord = HTL.DTAllTx.Rows.Count;
 
-
-
                 //set in filter for paging//
                 modFilter.TotalRecord = TotalRecord;
                 modFilter.TotalPage = TotalPage;
@@ -513,7 +492,6 @@ namespace DusColl.Controllers
                 HTL.FilterTransaksi = modFilter;
                 HTL.Permission = PermisionModule;
 
-
                 //if (Common.ddlhak == null)
                 //{
                 //    Common.ddlhak = await Commonddl.dbdbGetDdlEnumsListByEncrypt("HAK", caption, UserID, GroupName);
@@ -531,9 +509,7 @@ namespace DusColl.Controllers
 
                 //}
 
-
                 //Common.ddlstatus = await Commonddl.dbdbGetDdlEnumsListByEncrypt("STATHDL", caption, UserID, GroupName, "99");
-
 
                 ViewBag.ShowNotaris = "";
                 if (int.Parse(UserTypes) == (int)UserType.FDCM)
@@ -545,8 +521,6 @@ namespace DusColl.Controllers
                 //ViewData["SelectHak"] = OwinLibrary.Get_SelectListItem(Common.ddlhak);
                 //ViewData["SelectNotaris"] = OwinLibrary.Get_SelectListItem(Common.ddlnotaris);
                 //ViewData["SelectStatus"] = OwinLibrary.Get_SelectListItem(Common.ddlstatus);
-
-
 
                 //set session filterisasi //
                 TempData[tempTransksi] = HTL;
@@ -599,6 +573,535 @@ namespace DusColl.Controllers
 
 
         [HttpPost]
+        public async Task<ActionResult> clnHeaderTxRoyaPros(String menu, String caption, string kd, string tipemodule)
+        {
+            Account = (vmAccount)Session["Account"];
+            bool IsErrorTimeout = false;
+            if (Account != null)
+            {
+                Account.AccountLogin = lgAccount.NotExistSesionID(Request.Cookies[FormsAuthentication.FormsCookieName], Account.AccountLogin);
+                if (Account.AccountLogin.RouteName != "")
+                {
+                    IsErrorTimeout = true;
+                }
+            }
+            else
+            {
+                IsErrorTimeout = true;
+            }
+            if (IsErrorTimeout == true)
+            {
+                string urlpath = Url.Action("AccountTimeOut", "Account", new { area = "" });
+                return Json(new
+                {
+                    url = urlpath,
+                    moderror = IsErrorTimeout
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+            try
+            {
+                string UserID = Account.AccountLogin.UserID;
+                string UserName = Account.AccountLogin.UserName;
+                string ClientID = Account.AccountLogin.ClientID;
+                string IDCabang = Account.AccountLogin.IDCabang;
+                string IDNotaris = Account.AccountLogin.IDNotaris;
+                string Region = Account.AccountLogin.Region;
+                string GroupName = Account.AccountLogin.GroupName;
+                string ClientName = Account.AccountLogin.ClientName;
+                string CabangName = Account.AccountLogin.CabangName;
+                string Mailed = Account.AccountLogin.Mailed;
+                string GenMoon = Account.AccountLogin.GenMoon;
+                string UserTypes = HasKeyProtect.Decryption(Account.AccountLogin.UserType);
+                string idcaption = HasKeyProtect.Encryption(caption);
+
+                var chkstau = caption.Substring(caption.Length - 2, 2);
+                if (chkstau == "on")
+                {
+                    caption = caption.Replace(chkstau, "");
+                }
+
+                // extend //
+                cAccountMetrik PermisionModule = Account.AccountMetrikList.Where(x => x.MenuItem.ModuleID == caption).SingleOrDefault();
+                string menuitemdescription = Account.AccountMetrikList.Where(x => x.MenuItem.ModuleID == caption).Select(y => y.MenuItem.ModuleName).SingleOrDefault().ToString();
+                // extend //
+
+                // some field must be overide first for default filter//
+                string Divisi = "";
+                string Cabang = "";
+                string Area = "";
+                string RequestNo = "";
+                string FromDate = "";
+                string Todate = "";
+                int Status = (menu == "renew") ? 10 : -1; //default aktif
+
+                // set default for paging//
+                int PageNumber = 1;
+                double TotalRecord = 0;
+                double TotalPage = 0;
+                double pagingsizeclient = 0;
+                double pagenumberclient = 0;
+                double totalRecordclient = 0;
+                double totalPageclient = 0;
+                int statuspro = 0;
+
+                menuitemdescription = "DAFTAR LIST ROYA ";
+
+                if (caption == "ROYADONE")
+                {
+                    statuspro = 30; //ditanguhkan
+                    menuitemdescription = menuitemdescription + "(PENGAJUAN SELESAI)";
+                }
+                else
+                if (caption == "ROYAPROS")
+                {
+                    statuspro = 10;  //ditutup
+                    menuitemdescription = menuitemdescription + "(PROSES PENGAJUAN)";
+                }
+                else if (caption == "ROYAALL")
+                {
+                    statuspro = 100; //menunggu hasil
+                    menuitemdescription = menuitemdescription + "(PROSES ROYA)";
+                }
+                bool chec = (chkstau == "on") ? true : false;
+                kd = kd ?? "";
+                HTL.DTAllTx = await HTLddl.dbGetHeaderTxRoyaCheckedList(statuspro, chec, UserID, kd);
+                TotalRecord = HTL.DTAllTx.Rows.Count;
+
+                //set in filter for paging//
+                modFilter.TotalRecord = TotalRecord;
+                modFilter.TotalPage = TotalPage;
+                modFilter.pagingsizeclient = pagingsizeclient;
+                modFilter.totalRecordclient = totalRecordclient;
+                modFilter.totalPageclient = totalPageclient;
+                modFilter.pagenumberclient = pagenumberclient;
+
+                modFilter.ModuleName = caption;
+                modFilter.ModuleID = idcaption;
+                modFilter.idcaption = idcaption;
+
+                modFilter.UserTypes = UserTypes;
+
+                //set to object pendataran//
+
+                HTL.FilterTransaksi = modFilter;
+                HTL.Permission = PermisionModule;
+
+                //if (Common.ddlhak == null)
+                //{
+                //    Common.ddlhak = await Commonddl.dbdbGetDdlEnumsListByEncrypt("HAK", caption, UserID, GroupName);
+                //}
+
+                //if (Common.ddlnotaris == null)
+                // {
+                //   Common.ddlnotaris = await HTLddl.dbdbGetDdlNotarisListByEncrypt(caption, UserID, GroupName);
+
+                // if (int.Parse(UserTypes) == (int)UserType.Notaris)
+                //{
+                //  string notrs = HashNetFramework.HasKeyProtect.Encryption(UserID);
+                //Common.ddlnotaris = Common.ddlnotaris.AsEnumerable().Where(x => x.Value == notrs).ToList();
+                //}
+
+                //}
+
+                //Common.ddlstatus = await Commonddl.dbdbGetDdlEnumsListByEncrypt("STATHDL", caption, UserID, GroupName, "99");
+
+                ViewBag.ShowNotaris = "";
+                if (int.Parse(UserTypes) == (int)UserType.FDCM)
+                {
+                    ViewBag.ShowNotaris = "allow";
+                }
+                ViewBag.UserTypess = UserTypes;
+
+                //ViewData["SelectHak"] = OwinLibrary.Get_SelectListItem(Common.ddlhak);
+                //ViewData["SelectNotaris"] = OwinLibrary.Get_SelectListItem(Common.ddlnotaris);
+                //ViewData["SelectStatus"] = OwinLibrary.Get_SelectListItem(Common.ddlstatus);
+
+                //set session filterisasi //
+                TempData[tempTransksi] = HTL;
+                TempData[tempTransksifilter] = modFilter;
+                TempData[tempcommon] = Common;
+
+                ViewBag.menu = menu;
+                ViewBag.caption = caption;
+                ViewBag.captiondesc = menuitemdescription;
+                ViewBag.rute = "HTL";
+                ViewBag.action = "clnHeaderTxHT";
+
+                bool isModeFilter = modFilter.isModeFilter;
+                string filteron = isModeFilter == false ? "" : ", Pencarian :  Aktif";
+                ViewBag.Total = "Total Data : " + TotalRecord.ToString() + filteron;
+
+                if (chkstau == "on")
+                {
+                    ViewBag.chk = "on";
+                }
+                else
+                {
+                    ViewBag.chk = "off";
+                }
+                //send back to client browser//
+                return Json(new
+                {
+                    moderror = IsErrorTimeout,
+                    view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/HTL/uiRoyaProsLst.cshtml", HTL),
+                });
+            }
+            catch (Exception ex)
+            {
+                var msg = ex.Message.ToString();
+                OwinLibrary.CreateLog(msg, "LogErrorPUB.txt");
+                string urlpath = Url.Action("AccountTimeOut", "Account", new { area = "" });
+                if (IsErrorTimeout == false)
+                {
+                    Response.StatusCode = 406;
+                    Response.TrySkipIisCustomErrors = true;
+                    urlpath = Url.Action("Index", "Error", new { area = "" });
+                }
+                return Json(new
+                {
+                    url = urlpath,
+                    moderror = IsErrorTimeout
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> clnHeaderTxRoya(String menu, String caption)
+        {
+            Account = (vmAccount)Session["Account"];
+            bool IsErrorTimeout = false;
+            if (Account != null)
+            {
+                Account.AccountLogin = lgAccount.NotExistSesionID(Request.Cookies[FormsAuthentication.FormsCookieName], Account.AccountLogin);
+                if (Account.AccountLogin.RouteName != "")
+                {
+                    IsErrorTimeout = true;
+                }
+            }
+            else
+            {
+                IsErrorTimeout = true;
+            }
+            if (IsErrorTimeout == true)
+            {
+                string urlpath = Url.Action("AccountTimeOut", "Account", new { area = "" });
+                return Json(new
+                {
+                    url = urlpath,
+                    moderror = IsErrorTimeout
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+            try
+            {
+                string UserID = Account.AccountLogin.UserID;
+                string UserName = Account.AccountLogin.UserName;
+                string ClientID = Account.AccountLogin.ClientID;
+                string IDCabang = Account.AccountLogin.IDCabang;
+                string IDNotaris = Account.AccountLogin.IDNotaris;
+                string Region = Account.AccountLogin.Region;
+                string GroupName = Account.AccountLogin.GroupName;
+                string ClientName = Account.AccountLogin.ClientName;
+                string CabangName = Account.AccountLogin.CabangName;
+                string Mailed = Account.AccountLogin.Mailed;
+                string GenMoon = Account.AccountLogin.GenMoon;
+                string UserTypes = HasKeyProtect.Decryption(Account.AccountLogin.UserType);
+                string idcaption = HasKeyProtect.Encryption(caption);
+
+                // extend //
+                cAccountMetrik PermisionModule = Account.AccountMetrikList.Where(x => x.MenuItem.ModuleID == caption).SingleOrDefault();
+                string menuitemdescription = Account.AccountMetrikList.Where(x => x.MenuItem.ModuleID == caption).Select(y => y.MenuItem.ModuleName).SingleOrDefault().ToString();
+                // extend //
+
+                // some field must be overide first for default filter//
+                string Divisi = "";
+                string Cabang = "";
+                string Area = "";
+                string RequestNo = "";
+                string FromDate = "";
+                string Todate = "";
+                int Status = (menu == "renew") ? 10 : -1; //default aktif
+
+                // set default for paging//
+                int PageNumber = 1;
+                double TotalRecord = 0;
+                double TotalPage = 0;
+                double pagingsizeclient = 0;
+                double pagenumberclient = 0;
+                double totalRecordclient = 0;
+                double totalPageclient = 0;
+
+                // try show filter data//
+                List<String> recordPage = await HTLddl.dbGetHeaderTxListCount(RequestNo, Divisi, Cabang, Area, FromDate, Todate, Status, PageNumber, caption, UserID, GroupName);
+                TotalRecord = Convert.ToDouble(recordPage[0]);
+                TotalPage = Convert.ToDouble(recordPage[1]);
+                pagingsizeclient = Convert.ToDouble(recordPage[2]);
+                pagenumberclient = PageNumber;
+                List<DataTable> dtlist = await HTLddl.dbGetHeaderTxList(null, RequestNo, Divisi, Cabang, Area, FromDate, Todate, Status, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
+                totalRecordclient = dtlist[0].Rows.Count;
+                totalPageclient = int.Parse(Math.Ceiling(decimal.Parse(totalRecordclient.ToString()) / decimal.Parse(pagingsizeclient.ToString())).ToString());
+
+                //set in filter for paging//
+                modFilter.TotalRecord = TotalRecord;
+                modFilter.TotalPage = TotalPage;
+                modFilter.pagingsizeclient = pagingsizeclient;
+                modFilter.totalRecordclient = totalRecordclient;
+                modFilter.totalPageclient = totalPageclient;
+                modFilter.pagenumberclient = pagenumberclient;
+
+                modFilter.ModuleName = caption;
+                modFilter.ModuleID = idcaption;
+                modFilter.idcaption = idcaption;
+
+                modFilter.UserTypes = UserTypes;
+
+                //set to object pendataran//
+                HTL.DTAllTx = dtlist[0];
+                HTL.DTHeaderTx = dtlist[1];
+                HTL.FilterTransaksi = modFilter;
+                HTL.Permission = PermisionModule;
+
+                if (Common.ddlhak == null)
+                {
+                    Common.ddlhak = await Commonddl.dbdbGetDdlEnumsListByEncrypt("HAK", caption, UserID, GroupName);
+                }
+
+                //if (Common.ddlnotaris == null)
+                // {
+                //   Common.ddlnotaris = await HTLddl.dbdbGetDdlNotarisListByEncrypt(caption, UserID, GroupName);
+
+                // if (int.Parse(UserTypes) == (int)UserType.Notaris)
+                //{
+                //  string notrs = HashNetFramework.HasKeyProtect.Encryption(UserID);
+                //Common.ddlnotaris = Common.ddlnotaris.AsEnumerable().Where(x => x.Value == notrs).ToList();
+                //}
+
+                //}
+
+                //Common.ddlstatus = await Commonddl.dbdbGetDdlEnumsListByEncrypt("STATHDL", caption, UserID, GroupName, "99");
+
+                ViewBag.ShowNotaris = "";
+                if (int.Parse(UserTypes) == (int)UserType.FDCM)
+                {
+                    ViewBag.ShowNotaris = "allow";
+                }
+                ViewBag.UserTypess = UserTypes;
+
+                //ViewData["SelectHak"] = OwinLibrary.Get_SelectListItem(Common.ddlhak);
+                //ViewData["SelectNotaris"] = OwinLibrary.Get_SelectListItem(Common.ddlnotaris);
+                //ViewData["SelectStatus"] = OwinLibrary.Get_SelectListItem(Common.ddlstatus);
+
+                //set session filterisasi //
+                TempData[tempTransksi] = HTL;
+                TempData[tempTransksifilter] = modFilter;
+                TempData[tempcommon] = Common;
+
+                ViewBag.menu = menu;
+                ViewBag.caption = caption;
+                ViewBag.captiondesc = menuitemdescription;
+                ViewBag.rute = "HTL";
+                ViewBag.action = "clnHeaderTx";
+
+                bool isModeFilter = modFilter.isModeFilter;
+                string filteron = isModeFilter == false ? "" : ", Pencarian :  Aktif";
+                ViewBag.Total = "Total Data : " + TotalRecord.ToString() + filteron;
+
+                //send back to client browser//
+                return Json(new
+                {
+                    moderror = IsErrorTimeout,
+                    view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/HTL/uiHTLLst.cshtml", HTL),
+                });
+            }
+            catch (Exception ex)
+            {
+                var msg = ex.Message.ToString();
+                OwinLibrary.CreateLog(msg, "LogErrorPUB.txt");
+                string urlpath = Url.Action("AccountTimeOut", "Account", new { area = "" });
+                if (IsErrorTimeout == false)
+                {
+                    Response.StatusCode = 406;
+                    Response.TrySkipIisCustomErrors = true;
+                    urlpath = Url.Action("Index", "Error", new { area = "" });
+                }
+                return Json(new
+                {
+                    url = urlpath,
+                    moderror = IsErrorTimeout
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> clnRoyaListPros(String menu, String caption)
+        {
+            Account = (vmAccount)Session["Account"];
+            bool IsErrorTimeout = false;
+            if (Account != null)
+            {
+                Account.AccountLogin = lgAccount.NotExistSesionID(Request.Cookies[FormsAuthentication.FormsCookieName], Account.AccountLogin);
+                if (Account.AccountLogin.RouteName != "")
+                {
+                    IsErrorTimeout = true;
+                }
+            }
+            else
+            {
+                IsErrorTimeout = true;
+            }
+            if (IsErrorTimeout == true)
+            {
+                string urlpath = Url.Action("AccountTimeOut", "Account", new { area = "" });
+                return Json(new
+                {
+                    url = urlpath,
+                    moderror = IsErrorTimeout
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+            try
+            {
+                string UserID = Account.AccountLogin.UserID;
+                string UserName = Account.AccountLogin.UserName;
+                string ClientID = Account.AccountLogin.ClientID;
+                string IDCabang = Account.AccountLogin.IDCabang;
+                string IDNotaris = Account.AccountLogin.IDNotaris;
+                string Region = Account.AccountLogin.Region;
+                string GroupName = Account.AccountLogin.GroupName;
+                string ClientName = Account.AccountLogin.ClientName;
+                string CabangName = Account.AccountLogin.CabangName;
+                string Mailed = Account.AccountLogin.Mailed;
+                string GenMoon = Account.AccountLogin.GenMoon;
+                string UserTypes = HasKeyProtect.Decryption(Account.AccountLogin.UserType);
+                string idcaption = HasKeyProtect.Encryption(caption);
+
+                // extend //
+                cAccountMetrik PermisionModule = Account.AccountMetrikList.Where(x => x.MenuItem.ModuleID == caption).SingleOrDefault();
+                string menuitemdescription = Account.AccountMetrikList.Where(x => x.MenuItem.ModuleID == caption).Select(y => y.MenuItem.ModuleName).SingleOrDefault().ToString();
+                // extend //
+
+                // some field must be overide first for default filter//
+                string Divisi = "";
+                string Cabang = "";
+                string Area = "";
+                string RequestNo = "";
+                string FromDate = "";
+                string Todate = "";
+                int Status = (menu == "renew") ? 10 : -1; //default aktif
+
+                // set default for paging//
+                int PageNumber = 1;
+                double TotalRecord = 0;
+                double TotalPage = 0;
+                double pagingsizeclient = 0;
+                double pagenumberclient = 0;
+                double totalRecordclient = 0;
+                double totalPageclient = 0;
+
+                // try show filter data//
+                List<String> recordPage = await HTLddl.dbGetHeaderTxListCountRoyaPros(RequestNo, Divisi, Cabang, Area, FromDate, Todate, Status, PageNumber, caption, UserID, GroupName);
+                TotalRecord = Convert.ToDouble(recordPage[0]);
+                TotalPage = Convert.ToDouble(recordPage[1]);
+                pagingsizeclient = Convert.ToDouble(recordPage[2]);
+                pagenumberclient = PageNumber;
+                List<DataTable> dtlist = await HTLddl.dbGetHeaderTxListRoyaPros(null, RequestNo, Divisi, Cabang, Area, FromDate, Todate, Status, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
+                totalRecordclient = dtlist[0].Rows.Count;
+                totalPageclient = int.Parse(Math.Ceiling(decimal.Parse(totalRecordclient.ToString()) / decimal.Parse(pagingsizeclient.ToString())).ToString());
+
+                //set in filter for paging//
+                modFilter.TotalRecord = TotalRecord;
+                modFilter.TotalPage = TotalPage;
+                modFilter.pagingsizeclient = pagingsizeclient;
+                modFilter.totalRecordclient = totalRecordclient;
+                modFilter.totalPageclient = totalPageclient;
+                modFilter.pagenumberclient = pagenumberclient;
+
+                modFilter.ModuleName = caption;
+                modFilter.ModuleID = idcaption;
+                modFilter.idcaption = idcaption;
+
+                modFilter.UserTypes = UserTypes;
+
+                //set to object pendataran//
+                HTL.DTAllTx = dtlist[0];
+                HTL.DTHeaderTx = dtlist[1];
+                HTL.FilterTransaksi = modFilter;
+                HTL.Permission = PermisionModule;
+
+                if (Common.ddlhak == null)
+                {
+                    Common.ddlhak = await Commonddl.dbdbGetDdlEnumsListByEncrypt("HAK", caption, UserID, GroupName);
+                }
+
+                //if (Common.ddlnotaris == null)
+                // {
+                //   Common.ddlnotaris = await HTLddl.dbdbGetDdlNotarisListByEncrypt(caption, UserID, GroupName);
+
+                // if (int.Parse(UserTypes) == (int)UserType.Notaris)
+                //{
+                //  string notrs = HashNetFramework.HasKeyProtect.Encryption(UserID);
+                //Common.ddlnotaris = Common.ddlnotaris.AsEnumerable().Where(x => x.Value == notrs).ToList();
+                //}
+
+                //}
+
+                //Common.ddlstatus = await Commonddl.dbdbGetDdlEnumsListByEncrypt("STATHDL", caption, UserID, GroupName, "99");
+
+                ViewBag.ShowNotaris = "";
+                if (int.Parse(UserTypes) == (int)UserType.FDCM)
+                {
+                    ViewBag.ShowNotaris = "allow";
+                }
+                ViewBag.UserTypess = UserTypes;
+
+                //ViewData["SelectHak"] = OwinLibrary.Get_SelectListItem(Common.ddlhak);
+                //ViewData["SelectNotaris"] = OwinLibrary.Get_SelectListItem(Common.ddlnotaris);
+                //ViewData["SelectStatus"] = OwinLibrary.Get_SelectListItem(Common.ddlstatus);
+
+                //set session filterisasi //
+                TempData[tempTransksi] = HTL;
+                TempData[tempTransksifilter] = modFilter;
+                TempData[tempcommon] = Common;
+
+                ViewBag.menu = menu;
+                ViewBag.caption = caption;
+                ViewBag.captiondesc = menuitemdescription;
+                ViewBag.rute = "HTL";
+                ViewBag.action = "clnHeaderTx";
+
+                bool isModeFilter = modFilter.isModeFilter;
+                string filteron = isModeFilter == false ? "" : ", Pencarian :  Aktif";
+                ViewBag.Total = "Total Data : " + TotalRecord.ToString() + filteron;
+
+                //send back to client browser//
+                return Json(new
+                {
+                    moderror = IsErrorTimeout,
+                    view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/HTL/uiRoyaProsLst.cshtml", HTL),
+                });
+            }
+            catch (Exception ex)
+            {
+                var msg = ex.Message.ToString();
+                OwinLibrary.CreateLog(msg, "LogErrorPUB.txt");
+                string urlpath = Url.Action("AccountTimeOut", "Account", new { area = "" });
+                if (IsErrorTimeout == false)
+                {
+                    Response.StatusCode = 406;
+                    Response.TrySkipIisCustomErrors = true;
+                    urlpath = Url.Action("Index", "Error", new { area = "" });
+                }
+                return Json(new
+                {
+                    url = urlpath,
+                    moderror = IsErrorTimeout
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
+        [HttpPost]
         public async Task<ActionResult> clnHeaderTx(String menu, String caption)
         {
             Account = (vmAccount)Session["Account"];
@@ -625,10 +1128,8 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
 
-
             try
             {
-
                 string UserID = Account.AccountLogin.UserID;
                 string UserName = Account.AccountLogin.UserName;
                 string ClientID = Account.AccountLogin.ClientID;
@@ -648,7 +1149,6 @@ namespace DusColl.Controllers
                 string menuitemdescription = Account.AccountMetrikList.Where(x => x.MenuItem.ModuleID == caption).Select(y => y.MenuItem.ModuleName).SingleOrDefault().ToString();
                 // extend //
 
-
                 // some field must be overide first for default filter//
                 string Divisi = "";
                 string Cabang = "";
@@ -657,7 +1157,6 @@ namespace DusColl.Controllers
                 string FromDate = "";
                 string Todate = "";
                 int Status = (menu == "renew") ? 10 : -1; //default aktif
-
 
                 // set default for paging//
                 int PageNumber = 1;
@@ -668,7 +1167,6 @@ namespace DusColl.Controllers
                 double totalRecordclient = 0;
                 double totalPageclient = 0;
 
-
                 // try show filter data//
                 List<String> recordPage = await HTLddl.dbGetHeaderTxListCount(RequestNo, Divisi, Cabang, Area, FromDate, Todate, Status, PageNumber, caption, UserID, GroupName);
                 TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -678,7 +1176,6 @@ namespace DusColl.Controllers
                 List<DataTable> dtlist = await HTLddl.dbGetHeaderTxList(null, RequestNo, Divisi, Cabang, Area, FromDate, Todate, Status, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
                 totalRecordclient = dtlist[0].Rows.Count;
                 totalPageclient = int.Parse(Math.Ceiling(decimal.Parse(totalRecordclient.ToString()) / decimal.Parse(pagingsizeclient.ToString())).ToString());
-
 
                 //set in filter for paging//
                 modFilter.TotalRecord = TotalRecord;
@@ -700,7 +1197,6 @@ namespace DusColl.Controllers
                 HTL.FilterTransaksi = modFilter;
                 HTL.Permission = PermisionModule;
 
-
                 if (Common.ddlhak == null)
                 {
                     Common.ddlhak = await Commonddl.dbdbGetDdlEnumsListByEncrypt("HAK", caption, UserID, GroupName);
@@ -718,9 +1214,7 @@ namespace DusColl.Controllers
 
                 //}
 
-
                 //Common.ddlstatus = await Commonddl.dbdbGetDdlEnumsListByEncrypt("STATHDL", caption, UserID, GroupName, "99");
-
 
                 ViewBag.ShowNotaris = "";
                 if (int.Parse(UserTypes) == (int)UserType.FDCM)
@@ -732,8 +1226,6 @@ namespace DusColl.Controllers
                 //ViewData["SelectHak"] = OwinLibrary.Get_SelectListItem(Common.ddlhak);
                 //ViewData["SelectNotaris"] = OwinLibrary.Get_SelectListItem(Common.ddlnotaris);
                 //ViewData["SelectStatus"] = OwinLibrary.Get_SelectListItem(Common.ddlstatus);
-
-
 
                 //set session filterisasi //
                 TempData[tempTransksi] = HTL;
@@ -780,7 +1272,6 @@ namespace DusColl.Controllers
         //[HttpPost]
         //public async Task<ActionResult> clnMTDDVISI(String menu, String caption)
         //{
-
         //    Account = (vmAccount)Session["Account"];
         //    bool IsErrorTimeout = false;
         //    if (Account != null)
@@ -851,7 +1342,6 @@ namespace DusColl.Controllers
         //        modFilter.keyword = Keyword;
         //        modFilter.PageNumber = PageNumber;
 
-
         //        // try show filter data//
         //        List<String> recordPage = await MasterDataddl.dbGetDivisiListCount(Keyword, PageNumber, caption, UserID, GroupName);
         //        TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -875,8 +1365,6 @@ namespace DusColl.Controllers
         //        master.DTDetailForGrid = dtlist[1];
         //        master.MasterFilter = modFilter;
 
-
-
         //        if (Common.ddlPic == null)
         //        {
         //            Common.ddlPic = await Commonddl.dbdbGetDdlPICListByEncrypt("1", "", caption, UserID, GroupName);
@@ -896,13 +1384,10 @@ namespace DusColl.Controllers
         //        ViewData["SelectPIC"] = OwinLibrary.Get_SelectListItem(Common.ddlPic);
         //        ViewData["SelectPeriode"] = OwinLibrary.Get_SelectListItem(Common.ddlPeriode);
 
-
-
         //        //set session filterisasi //
         //        TempData["DVISIMList"] = master;
         //        TempData["DVISIMListFilter"] = modFilter;
         //        TempData["common"] = Common;
-
 
         //        //set caption view//
         //        ViewBag.menu = menu;
@@ -911,9 +1396,7 @@ namespace DusColl.Controllers
         //        ViewBag.rute = "MasterData";
         //        ViewBag.action = "clnMTDDVISI";
 
-
         //        ViewBag.Total = "Total Data : " + TotalRecord.ToString();
-
 
         //        //send back to client browser//
         //        return Json(new
@@ -991,7 +1474,6 @@ namespace DusColl.Controllers
         //        //descript some value for db//
         //        caption = HasKeyProtect.Decryption(caption);
 
-
         //        // try show filter data//
         //        List<DataTable> dtlist = await MasterDataddl.dbGetDivisiList(master.DTFromDB, keyword, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
         //        // update active paging back to filter //
@@ -1003,7 +1485,6 @@ namespace DusColl.Controllers
 
         //        string filteron = isModeFilter == false ? "" : ", Pencarian Data : Aktif";
         //        ViewBag.Total = "Total Data : " + TotalRecord.ToString() + filteron;
-
 
         //        //set session filterisasi //
         //        TempData["DVISIMList"] = master;
@@ -1035,7 +1516,6 @@ namespace DusColl.Controllers
         //    }
 
         //}
-
 
         public async Task<ActionResult> clnOpenAddHTLIPTDBT()
         {
@@ -1075,7 +1555,6 @@ namespace DusColl.Controllers
                 string caption = HashNetFramework.HasKeyProtect.Decryption(modFilter.idcaption);
                 string UserTypes = HasKeyProtect.Decryption(Account.AccountLogin.UserType);
 
-
                 string viewbro = "/Views/HTL/_IManData.cshtml";
                 TempData[tempTransksi] = HTL;
                 TempData[tempTransksifilter] = modFilter;
@@ -1089,8 +1568,6 @@ namespace DusColl.Controllers
                     msg = "",
                     view = CustomEngineView.RenderRazorViewToString(ControllerContext, viewbro, null),
                 });
-
-
             }
             catch (Exception ex)
             {
@@ -1109,9 +1586,7 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
-
 
         public async Task<ActionResult> clnOpenAddHTL(string paramkey, string oprfun)
         {
@@ -1162,7 +1637,6 @@ namespace DusColl.Controllers
 
                 string UserTypes = HasKeyProtect.Decryption(Account.AccountLogin.UserType);
 
-
                 //if (int.Parse(UserTypes) == (int)UserType.Notaris)
                 //{
                 //    Common.ddlstatus = Common.ddlstatus.AsEnumerable().Where(x => x.Value == "6" || x.Value == "11" || x.Value == "7" || (int.Parse(x.Value) >= 20 && int.Parse(x.Value) < 30)).ToList();
@@ -1186,8 +1660,6 @@ namespace DusColl.Controllers
                 //}
                 //ViewData["SelectHak"] = new MultiSelectList(Common.ddlhak, "Value", "Text");
                 //ViewData["SelectNotaris"] = new MultiSelectList(Common.ddlnotaris, "Value", "Text");
-
-
 
                 string Opr4view = "add";
                 string keyup = paramkey;
@@ -1213,13 +1685,11 @@ namespace DusColl.Controllers
                     DataRow dr = HTL.DTAllTx.AsEnumerable().Where(x => x.Field<string>("keylookupdata") == paramkey).SingleOrDefault();
                     if (dr != null)
                     {
-
                         Opr4view = "edit";
                         if (oprfun == "x4vw")
                         {
                             Opr4view = "view";
                         }
-
 
                         modeldata.IDHeaderTx = int.Parse(dr["Id"].ToString());
                         modeldata.TglOrder = dr["TglOrder"].ToString();
@@ -1299,7 +1769,6 @@ namespace DusColl.Controllers
                         modeldata.StatusHTdesc = dr["StatusHTDesc"].ToString();
                         modeldata.NamaCabang = dr["NamaCabang"].ToString();
 
-
                         modeldata.DeadlineSLA = dr["DeadlineSLA"].ToString();
                         modeldata.PosisiPenangan = dr["PosHandleIsue"].ToString();
 
@@ -1332,7 +1801,6 @@ namespace DusColl.Controllers
 
                         modeldata.JmlTerbitSPA = bool.Parse(dr["JmlTerbitSPA"].ToString());
 
-
                         //ambil data psangan debitur//
                         modeldata.DataPSG = await HTLddl.dbGetMultiData(modeldata.NoAppl, "0", caption, UserID, GroupName);
                         //ambil data tanah//
@@ -1356,9 +1824,7 @@ namespace DusColl.Controllers
                         ViewBag.ShowTabPendAkad = ShowPenAkd;
                         ViewBag.ShowTabTangan = ShowTabTangan;
                         ViewBag.ShowTabFillSPA = ShowTabFillSPA;
-
                     }
-
                 }
 
                 if (Common.ddlDocument == null)
@@ -1451,7 +1917,6 @@ namespace DusColl.Controllers
                 }
                 ViewData["SelectPosisiPenanganan"] = new MultiSelectList(Common.ddlPosistionPenanganan, "Value", "Text");
 
-
                 ViewBag.showtabnotaris = "";
                 string usrtp = HasKeyProtect.Decryption(Account.AccountLogin.UserType);
                 if (int.Parse(usrtp) == (int)UserType.Notaris || int.Parse(usrtp) == (int)UserType.FDCM)
@@ -1476,12 +1941,9 @@ namespace DusColl.Controllers
                 ViewBag.oprvalue = Opr4view;
                 ViewBag.Menu = modFilter.Menu;
 
-
-
                 ViewBag.keyup = keyup;
                 ViewBag.keyup1 = keyup1;
                 ViewBag.keyup2 = keyup2;
-
 
                 ////pengecekan on progress editable u nokontak //
                 //if (((int.Parse(usrtp) == (int)UserType.Branch || int.Parse(usrtp) == (int)UserType.HO))
@@ -1514,13 +1976,11 @@ namespace DusColl.Controllers
                     ViewBag.allowht = "allow";
                 }
 
-
                 HTL.HeaderInfo = modeldata;
                 TempData[tempTransksi] = HTL;
                 TempData[tempTransksifilter] = modFilter;
                 TempData["common"] = Common;
                 // senback to client browser//
-
 
                 return Json(new
                 {
@@ -1529,7 +1989,6 @@ namespace DusColl.Controllers
                     keydata = paramkey,
                     view = CustomEngineView.RenderRazorViewToString(ControllerContext, viewbro, HTL.HeaderInfo),
                 });
-
             }
             catch (Exception ex)
             {
@@ -1548,12 +2007,943 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
+        }
+        [HttpPost]
+        public async Task<ActionResult> UploadDocRoyOld(string[] files, string documentType, string encryptedDocId, string paramkey, string nopp)
+        {
+            Account = (vmAccount)Session["Account"];
+            bool IsErrorTimeout = false;
 
+            if (Account != null)
+            {
+                Account.AccountLogin = lgAccount.NotExistSesionID(Request.Cookies[FormsAuthentication.FormsCookieName], Account.AccountLogin);
+                if (Account.AccountLogin.RouteName != "")
+                {
+                    IsErrorTimeout = true;
+                }
+            }
+            else
+            {
+                IsErrorTimeout = true;
+            }
+
+            if (IsErrorTimeout)
+            {
+                string urlpath = Url.Action("AccountTimeOut", "Account", new { area = "" });
+                return Json(new
+                {
+                    url = urlpath,
+                    moderror = IsErrorTimeout
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+            try
+            {
+                modFilter = TempData[tempTransksifilter] as cFilterContract;
+                HTL = TempData[tempTransksi] as vmHTL;
+
+                Common = TempData["common"] as vmCommon;
+                Common = Common ?? new vmCommon();
+
+                string UserID = Account.AccountLogin.UserID;
+                string GroupName = Account.AccountLogin.GroupName;
+
+                string UserTypes = HasKeyProtect.Decryption(Account.AccountLogin.UserType);
+
+                foreach (var file in files)
+                {
+                    string base64File = file;
+                    string SvdocumentType = documentType;
+                    string SvencryptedDocId = encryptedDocId;
+                    string svparamkey = paramkey;
+                    string svnopp = nopp;
+                    string FileName = SvdocumentType + ".pdf";
+                    string ContentType = "Application/pdf";
+                    await HTLddl.dbSaveRoyaData(
+                               "0", "", "", "", svnopp, "99",
+                               SvdocumentType, FileName, ContentType, "", base64File,
+                               "ROYAUPLOAD", UserID, GroupName
+                           );
+                }
+               
+                return Json(new { success = true, message = "Semua file berhasil disimpan." }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                var msg = ex.Message;
+                OwinLibrary.CreateLog(msg, "LogErrorFDCM.txt");
+
+                string urlpath = Url.Action("AccountTimeOut", "Account", new { area = "" });
+                if (!IsErrorTimeout)
+                {
+                    Response.StatusCode = 406;
+                    Response.TrySkipIisCustomErrors = true;
+                    urlpath = Url.Action("Index", "Error", new { area = "" });
+                }
+
+                return Json(new
+                {
+                    url = urlpath,
+                    moderror = IsErrorTimeout
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public class UploadedFileModel
+        {
+            public string File { get; set; }
+            public string DocumentType { get; set; }
+            public string EncryptedDocId { get; set; }
+            public string Paramkey { get; set; }
+            public string Nopp { get; set; }
         }
 
 
 
-        public async Task<ActionResult> clnOpenAddRoya(string paramkey, string oprfun)
+
+        public async Task<ActionResult> UploadDocRoyTest(List<string> paramkey, List<string> documentType, List<string> nopp)
+        {
+            Account = (vmAccount)Session["Account"];
+            bool IsErrorTimeout = false;
+
+            if (Account != null)
+            {
+                Account.AccountLogin = lgAccount.NotExistSesionID(Request.Cookies[FormsAuthentication.FormsCookieName], Account.AccountLogin);
+                if (Account.AccountLogin.RouteName != "")
+                {
+                    IsErrorTimeout = true;
+                }
+            }
+            else
+            {
+                IsErrorTimeout = true;
+            }
+
+            if (IsErrorTimeout)
+            {
+                string urlpath = Url.Action("AccountTimeOut", "Account", new { area = "" });
+                return Json(new
+                {
+                    url = urlpath,
+                    moderror = IsErrorTimeout
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+            try
+            {
+                // Ambil data filterisasi dari session atau TempData
+                if ((paramkey == null || paramkey.Count == 0))
+                {
+                    modFilter = new cFilterContract();
+                    HTL = new vmHTL();
+                    modFilter.idcaption = HasKeyProtect.Encryption("ROYALIST");
+                }
+                else
+                {
+                    modFilter = TempData[tempTransksifilter] as cFilterContract;
+                    HTL = TempData[tempTransksi] as vmHTL;
+                }
+
+                Common = TempData["common"] as vmCommon;
+                Common = Common ?? new vmCommon();
+
+                string UserID = Account.AccountLogin.UserID;
+                string GroupName = Account.AccountLogin.GroupName;
+
+                string UserTypes = HasKeyProtect.Decryption(Account.AccountLogin.UserType);
+
+                // Validasi file yang diterima dari request
+                var files = Request.Files;
+                if (files.Count == 0)
+                {
+                    return Json(new { success = false, message = "Tidak ada file yang diunggah." });
+                }
+
+                // Looping untuk setiap file yang dikirim
+                for (int i = 0; i < files.Count; i++)
+                {
+                    var file = files[i];
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        string currentParamKey = paramkey.Count > i ? paramkey[i] : ""; // Ambil paramkey untuk file ini
+                        string currentDocumentType = documentType.Count > i ? documentType[i] : ""; // Ambil documentType untuk file ini
+                        string currentnopp = nopp.Count > i ? nopp[i] : "";
+
+                        byte[] fileBytes = null;
+                        using (BinaryReader reader = new BinaryReader(file.InputStream))
+                        {
+                            fileBytes = reader.ReadBytes(file.ContentLength);
+                        }
+
+                        // Konversi gambar menjadi PDF jika perlu
+                        string mimeType = file.ContentType;
+                        if (mimeType.Contains("image"))
+                        {
+                            fileBytes = OwinLibrary.ConvertImageByteToPDFByte(fileBytes);
+                        }
+
+                        // Enkripsi file byte
+                        byte[] encryptedFileBytes = HasKeyProtect.SetFileByteEncrypt(fileBytes, "");
+                        string base64String = Convert.ToBase64String(encryptedFileBytes);
+
+                        // Detail file
+                        string FileName = currentDocumentType + ".pdf";
+                        string ContentType = "Application/pdf";
+                        string ContentLength = encryptedFileBytes.Length.ToString();
+                        string FileByte = base64String;
+
+                        // Ambil informasi aplikasi
+                        DataRow dr = HTL.DTAllTx.AsEnumerable()
+                            .FirstOrDefault(x => x.Field<string>("keylookupdata") == currentParamKey);
+
+                        if (dr != null)
+                        {
+                            string noapp = dr["NoAppl"].ToString();
+
+                            // Simpan data ke database
+                            await HTLddl.dbSaveRoyaData(
+                                "0", "", "", "", noapp, "99",
+                                currentDocumentType, FileName, ContentType, ContentLength, FileByte,
+                                "ROYAUPLOAD", UserID, GroupName
+                            );
+                        }
+                        else
+                        {
+                            return Json(new { success = false, message = $"Data untuk paramkey {currentParamKey} tidak ditemukan." });
+                        }
+                    }
+                }
+
+                return Json(new { success = true, message = "Semua file berhasil disimpan." }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                var msg = ex.Message;
+                OwinLibrary.CreateLog(msg, "LogErrorFDCM.txt");
+
+                string urlpath = Url.Action("AccountTimeOut", "Account", new { area = "" });
+                if (!IsErrorTimeout)
+                {
+                    Response.StatusCode = 406;
+                    Response.TrySkipIisCustomErrors = true;
+                    urlpath = Url.Action("Index", "Error", new { area = "" });
+                }
+
+                return Json(new
+                {
+                    url = urlpath,
+                    moderror = IsErrorTimeout
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
+        public async Task<ActionResult> UploadDocRoy(List<string> paramkey, List<string> documentType, List<string> nopp)
+        {
+            Account = (vmAccount)Session["Account"];
+            bool IsErrorTimeout = false;
+
+            if (Account != null)
+            {
+                Account.AccountLogin = lgAccount.NotExistSesionID(Request.Cookies[FormsAuthentication.FormsCookieName], Account.AccountLogin);
+                if (Account.AccountLogin.RouteName != "")
+                {
+                    IsErrorTimeout = true;
+                }
+            }
+            else
+            {
+                IsErrorTimeout = true;
+            }
+
+            if (IsErrorTimeout)
+            {
+                string urlpath = Url.Action("AccountTimeOut", "Account", new { area = "" });
+                return Json(new
+                {
+                    url = urlpath,
+                    moderror = IsErrorTimeout
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+            try
+            {
+                // Ambil data filterisasi dari session atau TempData
+                if ((paramkey == null || paramkey.Count == 0))
+                {
+                    modFilter = new cFilterContract();
+                    HTL = new vmHTL();
+                    modFilter.idcaption = HasKeyProtect.Encryption("ROYALIST");
+                }
+                else
+                {
+                    modFilter = TempData[tempTransksifilter] as cFilterContract;
+                    HTL = TempData[tempTransksi] as vmHTL;
+                }
+
+                Common = TempData["common"] as vmCommon;
+                Common = Common ?? new vmCommon();
+
+                string UserID = Account.AccountLogin.UserID;
+                string GroupName = Account.AccountLogin.GroupName;
+
+                string UserTypes = HasKeyProtect.Decryption(Account.AccountLogin.UserType);
+
+                // Validasi file yang diterima dari request
+                var files = Request.Files;
+                if (files.Count == 0)
+                {
+                    return Json(new { success = false, message = "Tidak ada file yang diunggah." });
+                }
+
+                // Looping untuk setiap file yang dikirim
+                for (int i = 0; i < files.Count; i++)
+                {
+                    var file = files[i];
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        string currentParamKey = paramkey.Count > i ? paramkey[i] : ""; // Ambil paramkey untuk file ini
+                        string currentDocumentType = documentType.Count > i ? documentType[i] : ""; // Ambil documentType untuk file ini
+                        string currentnopp = nopp.Count > i ? nopp[i] : "";
+
+                        byte[] fileBytes = null;
+                        using (BinaryReader reader = new BinaryReader(file.InputStream))
+                        {
+                            fileBytes = reader.ReadBytes(file.ContentLength);
+                        }
+
+                        // Konversi gambar menjadi PDF jika perlu
+                        string mimeType = file.ContentType;
+                        if (mimeType.Contains("image"))
+                        {
+                            fileBytes = OwinLibrary.ConvertImageByteToPDFByte(fileBytes);
+                        }
+
+                        // Enkripsi file byte
+                        byte[] encryptedFileBytes = HasKeyProtect.SetFileByteEncrypt(fileBytes, "");
+                        string base64String = Convert.ToBase64String(encryptedFileBytes);
+
+                        // Detail file
+                        string FileName = currentDocumentType + ".pdf";
+                        string ContentType = "Application/pdf";
+                        string ContentLength = encryptedFileBytes.Length.ToString();
+                        string FileByte = base64String;
+
+                        // Ambil informasi aplikasi
+                        DataRow dr = HTL.DTAllTx.AsEnumerable()
+                            .FirstOrDefault(x => x.Field<string>("keylookupdata") == currentParamKey);
+
+                        if (dr != null)
+                        {
+                            string noapp = dr["NoAppl"].ToString();
+
+                            // Simpan data ke database
+                            await HTLddl.dbSaveRoyaData(
+                                "0", "", "", "", noapp, "99",
+                                currentDocumentType, FileName, ContentType, ContentLength, FileByte,
+                                "ROYAUPLOAD", UserID, GroupName
+                            );
+                        }
+                        else
+                        {
+                            return Json(new { success = false, message = $"Data untuk paramkey {currentParamKey} tidak ditemukan." });
+                        }
+                    }
+                }
+
+                return Json(new { success = true, message = "Semua file berhasil disimpan." }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                var msg = ex.Message;
+                OwinLibrary.CreateLog(msg, "LogErrorFDCM.txt");
+
+                string urlpath = Url.Action("AccountTimeOut", "Account", new { area = "" });
+                if (!IsErrorTimeout)
+                {
+                    Response.StatusCode = 406;
+                    Response.TrySkipIisCustomErrors = true;
+                    urlpath = Url.Action("Index", "Error", new { area = "" });
+                }
+
+                return Json(new
+                {
+                    url = urlpath,
+                    moderror = IsErrorTimeout
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public async Task<ActionResult> clnOpenAddRoyaDt(string paramkey, string oprfun)
+        {
+            Account = (vmAccount)Session["Account"];
+            bool IsErrorTimeout = false;
+            if (Account != null)
+            {
+                Account.AccountLogin = lgAccount.NotExistSesionID(Request.Cookies[FormsAuthentication.FormsCookieName], Account.AccountLogin);
+                if (Account.AccountLogin.RouteName != "")
+                {
+                    IsErrorTimeout = true;
+                }
+            }
+            else
+            {
+                IsErrorTimeout = true;
+            }
+            if (IsErrorTimeout == true)
+            {
+                string urlpath = Url.Action("AccountTimeOut", "Account", new { area = "" });
+                return Json(new
+                {
+                    url = urlpath,
+                    moderror = IsErrorTimeout
+                }, JsonRequestBehavior.AllowGet);
+            }
+            try
+            {
+                //get session filterisasi //
+                if ((paramkey ?? "") == "")
+                {
+                    modFilter = new cFilterContract();
+                    HTL = new vmHTL();
+                    modFilter.idcaption = HasKeyProtect.Encryption("ROYALIST");
+                }
+                else
+                {
+                    modFilter = TempData[tempTransksifilter] as cFilterContract;
+                    HTL = TempData[tempTransksi] as vmHTL;
+                }
+
+                Common = (TempData["common"] as vmCommon);
+                Common = Common == null ? new vmCommon() : Common;
+
+                string UserID = Account.AccountLogin.UserID;
+                string GroupName = Account.AccountLogin.GroupName;
+                string caption = HashNetFramework.HasKeyProtect.Decryption(modFilter.idcaption);
+
+                string UserTypes = HasKeyProtect.Decryption(Account.AccountLogin.UserType);
+                string Opr4view = "add";
+                string keyup = paramkey;
+                string keyup1 = "";
+                string keyup2 = "";
+
+                cHTL modeldata = new cHTL();
+                if (HTL.DTAllTx is null)
+                {
+                    modeldata.IDHeaderTx = 0;
+                    modeldata.TglOrder = "1984-04-29";
+                    //modeldata.TgllahirDebitur = "1984-04-29";
+                    modeldata.NoAppl = "";
+                    modeldata.keylookupdataHTX = "";
+                    modeldata.DataTNH = new DataTable();
+                    modeldata.DataPSG = new DataTable();
+                    modeldata.DataSRT = new DataTable();
+                    modeldata.DataSRTPSG = new DataTable();
+                    modeldata.Status = "0";
+                }
+                else
+                {
+                    DataRow dr = HTL.DTAllTx.AsEnumerable().Where(x => x.Field<string>("keylookupdata") == paramkey).SingleOrDefault();
+                    if (dr != null)
+                    {
+                        Opr4view = "edit";
+                        if (oprfun == "x4vw")
+                        {
+                            Opr4view = "view";
+                        }
+
+                        modeldata.IDHeaderTx = int.Parse(dr["Id"].ToString());
+                        modeldata.TglOrder = dr["TglOrder"].ToString();
+                        modeldata.NoBlanko = dr["NoBlanko"].ToString();
+                        modeldata.NoSertifikat = dr["NoSertifikat"].ToString();
+                        modeldata.NoAppl = dr["NoAppl"].ToString();
+                        modeldata.JenisSertifikat = dr["JenisSertifikat"].ToString();
+                        modeldata.NomorNIB = dr["NomorNIB"].ToString();
+                        modeldata.NoSuratUkur = dr["NoSuratUkur"].ToString();
+                        modeldata.LuasTanah = dr["LuasTanah"].ToString().Replace(".00", "");
+                        modeldata.LokasiTanahDiProvinsi = dr["LokasiTanahDiProvinsi"].ToString();
+                        modeldata.LokasiTanahDiKota = dr["LokasiTanahDiKota"].ToString();
+                        modeldata.LokasiTanahDiKecamatan = dr["LokasiTanahDiKecamatan"].ToString();
+                        modeldata.LokasiTanahDiDesaKelurahan = dr["LokasiTanahDiDesaKelurahan"].ToString();
+                        modeldata.NamaDebitur = dr["Debitur"].ToString();
+                        modeldata.WargaDebitur = dr["WargaDebitur"].ToString();
+                        modeldata.JKelaminDebitur = dr["JKelaminDebitur"].ToString();
+                        modeldata.TptLahirDebitur = dr["TptLahirDebitur"].ToString();
+                        modeldata.TgllahirDebitur = dr["TgllahirDebitur"].ToString();
+                        modeldata.PekerjaanDebitur = dr["PekerjaanDebitur"].ToString();
+                        modeldata.NIKDebitur = dr["NIKDebitur"].ToString();
+                        modeldata.JenisPengajuan = dr["JenisPengajuan"].ToString();
+                        modeldata.JenisPengajuanDesc = dr["JenisPengajuanDesc"].ToString();
+                        modeldata.AlamatDebitur = dr["AlamatDebitur"].ToString();
+                        modeldata.ProvinsiDebitur = dr["ProvinsiDebitur"].ToString();
+                        modeldata.KotaDebitur = dr["KotaDebitur"].ToString();
+                        modeldata.RTDebitur = dr["RTDebitur"].ToString();
+                        modeldata.RWDebitur = dr["RWDebitur"].ToString();
+                        modeldata.StatusDebitur = dr["StatusDebitur"].ToString();
+                        modeldata.KecamatanDebitur = dr["KecamatanDebitur"].ToString();
+                        modeldata.DesaKelurahanDebitur = dr["DesaKelurahanDebitur"].ToString();
+                        modeldata.PekerjaanPemilikSertifikat = dr["PekerjaanPemilikSertifikat"].ToString();
+                        modeldata.NIKPemilikSertifikat = dr["NIKPemilikSertifikat"].ToString();
+                        modeldata.JenisPengajuan = dr["JenisPengajuan"].ToString();
+                        modeldata.JenisPengajuanDesc = dr["JenisPengajuanDesc"].ToString();
+                        modeldata.NamaPemilikSertifikat = dr["NamaPemilikSertifikat"].ToString();
+
+                        modeldata.JKelaminPemilikSertifikat = dr["JKelaminPemilikSertifikat"].ToString();
+                        modeldata.TptlahirPemilikSertifikat = dr["TptlahirPemilikSertifikat"].ToString();
+                        modeldata.TgllahirPemilikSertifikat = dr["TgllahirPemilikSertifikat"].ToString().Replace("00:00:00", "");
+                        modeldata.WargaPemilikSertifikat = dr["WargaPemilikSertifikat"].ToString();
+
+                        modeldata.AlamatPemilikSertifikat = dr["AlamatPemilikSertifikat"].ToString();
+                        modeldata.ProvinsiPemilikSertifikat = dr["ProvinsiPemilikSertifikat"].ToString();
+                        modeldata.KotaPemilikSertifikat = dr["KotaPemilikSertifikat"].ToString();
+                        modeldata.KecamatanPemilikSertifikat = dr["KecamatanPemilikSertifikat"].ToString();
+                        modeldata.DesaKelurahanPemilikSertifikat = dr["DesaKelurahanPemilikSertifikat"].ToString();
+
+                        modeldata.OrderKeNotaris = dr["OrderKeNotaris"].ToString();
+                        modeldata.NilaiHT = dr["NilaiHT"].ToString().Replace(".00", "");
+                        modeldata.NilaiPinjamanDiterima = dr["NilaiTerimaNasabah"].ToString().Replace(".00", "");
+                        modeldata.KodeAkta = dr["KodeAkta"].ToString();
+                        modeldata.NoHT = dr["NoHT"].ToString();
+                        modeldata.kodesht = dr["KodeSHT"].ToString();
+                        modeldata.nosht = dr["NoSHT"].ToString();
+                        modeldata.TglSertifikatCEK = dr["TglSertifikatCek"].ToString().Replace("00:00:00", "");
+                        modeldata.TglSuratUkur = dr["TglSuratUkur"].ToString().Replace("00:00:00", "");
+
+                        modeldata.JasaPengecekan = bool.Parse(dr["JasaPengecekan"].ToString());
+                        modeldata.JasaValidasi = bool.Parse(dr["JasaValidasi"].ToString());
+                        modeldata.SKMHT = bool.Parse(dr["SKMHT"].ToString());
+                        modeldata.APHT_SHT = bool.Parse(dr["APHT_SHT"].ToString());
+                        modeldata.ROYA = bool.Parse(dr["ROYA"].ToString());
+                        modeldata.PENCORETAN_PTSL = bool.Parse(dr["PENCORETAN_PTSL"].ToString());
+                        modeldata.KUASA_MENGAMBIL = bool.Parse(dr["KUASA_MENGAMBIL"].ToString());
+                        modeldata.PNBP = bool.Parse(dr["PNBP"].ToString());
+                        modeldata.ADM_HT = bool.Parse(dr["ADM_HT"].ToString());
+
+                        modeldata.NoPerjanjian = dr["NoPerjanjian"].ToString();
+                        modeldata.TglPerjanjian = dr["TglPerjanjian"].ToString();
+
+                        modeldata.Keterangan = dr["Keterangan"].ToString();
+                        modeldata.Status = dr["Status"].ToString();
+                        modeldata.Statusdesc = dr["Statusdesc"].ToString();
+                        modeldata.Statushakdesc = dr["Statushakdesc"].ToString();
+                        //modeldata.StatusHT = dr["Statusdesc"].ToString();
+                        modeldata.StatusHTdesc = dr["StatusHTDesc"].ToString();
+                        modeldata.NamaCabang = dr["NamaCabang"].ToString();
+
+                        modeldata.DeadlineSLA = dr["DeadlineSLA"].ToString();
+                        modeldata.PosisiPenangan = dr["PosHandleIsue"].ToString();
+
+                        //percobaan//
+                        string perihal = dr["Perihal"].ToString();
+                        string perihalPending = dr["AlasanPending"].ToString();
+                        string perihalPendingAkd = dr["AlasanPendingAkd"].ToString();
+
+                        string ShowPen = dr["ShowTabPend"].ToString();
+                        string ShowPenAkd = dr["ShowTabPendAkd"].ToString();
+                        string ShowTabTangan = dr["ShowTabTangan"].ToString();
+                        string ShowTabFillSPA = dr["ShowTabFillSPA"].ToString();
+
+                        modeldata.Case = perihal;
+                        modeldata.CaseDesc = dr["PerihalDesc"].ToString();
+                        modeldata.ShowTabCancel = dr["ShowTabCancel"].ToString();
+
+                        modeldata.CaseCabPending = perihalPending;
+                        modeldata.CaseCabPendingDesc = dr["AlasanPendingDesc"].ToString();
+
+                        modeldata.CaseCabPendingAkd = perihalPendingAkd;
+                        modeldata.CaseCabPendingAkdDesc = dr["AlasanPendingAkdDesc"].ToString();
+
+                        modeldata.CaseCabDesc = dr["PerihalCabDesc"].ToString();
+
+                        modeldata.noberkasht = dr["NoBerkasSHT"].ToString();
+                        modeldata.noberkasceking = dr["NoBerkasCEK"].ToString();
+
+                        modeldata.keylookupdataHTX = paramkey;
+
+                        modeldata.JmlTerbitSPA = bool.Parse(dr["JmlTerbitSPA"].ToString());
+
+                        //ambil data psangan debitur//
+                        modeldata.DataPSG = await HTLddl.dbGetMultiData(modeldata.NoAppl, "0", caption, UserID, GroupName);
+                        //ambil data tanah//
+                        modeldata.DataTNH = await HTLddl.dbGetMultiData(modeldata.NoAppl, "1", caption, UserID, GroupName);
+                        //ambil data SPA//
+                        modeldata.DataTNHSPA = await HTLddl.dbGetMultiData(modeldata.NoAppl, "1", caption, UserID, GroupName);
+                        //ambil data sertifikat//
+                        modeldata.DataSRT = await HTLddl.dbGetMultiData(modeldata.NoAppl, "2", caption, UserID, GroupName);
+                        //ambil data pasangan sertifikat//
+                        modeldata.DataSRTPSG = await HTLddl.dbGetMultiData(modeldata.NoAppl, "3", caption, UserID, GroupName);
+
+                        //ambil data upload document//
+                        modeldata.DTDokumen = await Commonddl.dbdbGetJenisDokumen("0", "", "400", caption, UserID, GroupName);
+
+                        ViewBag.Nappl = modeldata.NoAppl;
+                        ViewBag.Jndata1 = "1";
+                        ViewBag.Jndata2 = "2";
+                        ViewBag.Jndata3 = "0";
+                        ViewBag.Jndata4 = "3";
+                        ViewBag.ShowTabPend = ShowPen;
+                        ViewBag.ShowTabPendAkad = ShowPenAkd;
+                        ViewBag.ShowTabTangan = ShowTabTangan;
+                        ViewBag.ShowTabFillSPA = ShowTabFillSPA;
+                        ViewBag.ParamKeyShw = paramkey;
+                        ViewBag.NoappSec = dr["NoAppl"].ToString();
+
+                    }
+                }
+
+                if (Common.ddlDocument == null)
+                {
+                    Common.ddlDocument = await Commonddl.dbdbGetJenisDokumenDll("-900", modeldata.NoAppl, "3", caption, UserID, GroupName);
+                }
+                ViewData["SelectDocumentReg"] = OwinLibrary.Get_SelectListItem(Common.ddlDocument);
+
+                //if (Common.ddlstatus == null)
+                //{
+                Common.ddlstatus = await Commonddl.dbdbGetDdlEnumsListByEncryptNw("STATHDL", caption, UserID, GroupName, modeldata.Status);
+                Common.ddlstatusmap = await Commonddl.dbdbGetDdlEnumsListByEncryptNwdt("MAPSTAT", caption, UserID, GroupName, modeldata.Status);
+                //}
+                ViewData["SelectStatus"] = new MultiSelectList(Common.ddlstatus, "Value", "Text");
+
+                if (Common.ddlhak == null)
+                {
+                    Common.ddlhak = await Commonddl.dbdbGetDdlEnumsListByEncrypt("HAK", caption, UserID, GroupName, "99");
+                }
+                ViewData["SelectHak"] = new MultiSelectList(Common.ddlhak, "Value", "Text");
+
+                if (Common.ddlJenPen == null)
+                {
+                    Common.ddlJenPen = await Commonddl.dbdbGetDdlEnumsListByEncrypt("JNAJU", caption, UserID, GroupName, "99");
+                }
+                ViewData["SelectJEN"] = new MultiSelectList(Common.ddlJenPen, "Value", "Text");
+
+                if (Common.ddlJenKel == null)
+                {
+                    Common.ddlJenKel = await Commonddl.dbdbGetDdlEnumsListByEncrypt("JENKEL", caption, UserID, GroupName, "99");
+                }
+                ViewData["SelectJENKEL"] = new MultiSelectList(Common.ddlJenKel, "Value", "Text");
+
+                if (Common.ddlStatKW == null)
+                {
+                    Common.ddlStatKW = await Commonddl.dbdbGetDdlEnumsListByEncrypt("WARGA", caption, UserID, GroupName, "99");
+                }
+                ViewData["SelectWarga"] = new MultiSelectList(Common.ddlStatKW, "Value", "Text");
+
+                if (Common.ddlStatNKH == null)
+                {
+                    Common.ddlStatNKH = await Commonddl.dbdbGetDdlEnumsListByEncrypt("NIKAH", caption, UserID, GroupName, "99");
+                }
+                ViewData["SelectStatusNikah"] = new MultiSelectList(Common.ddlStatNKH, "Value", "Text");
+
+                if (Common.ddlnotaris == null)
+                {
+                    Common.ddlnotaris = await HTLddl.dbdbGetDdlNotarisListByEncrypt(caption, modeldata.NoAppl, UserID, GroupName);
+                }
+                if (int.Parse(UserTypes) == (int)UserType.Notaris)
+                {
+                    string notrs = HashNetFramework.HasKeyProtect.Encryption(UserID);
+                    Common.ddlnotaris = Common.ddlnotaris.AsEnumerable().Where(x => x.Value == notrs).ToList();
+                }
+
+                if (int.Parse(UserTypes) == (int)UserType.Branch && (int.Parse(modeldata.Status ?? "0") <= 0 || int.Parse(modeldata.Status ?? "0") == 6))
+                {
+                    Common.ddlnotaris = await HTLddl.dbdbGetDdlNotarisListByEncrypt(caption, modeldata.NoAppl, UserID, GroupName);
+                }
+
+                ViewData["SelectNotaris"] = OwinLibrary.Get_SelectListItem(Common.ddlnotaris);
+
+                if (Common.ddlCase == null)
+                {
+                    Common.ddlCase = await Commonddl.dbdbGetDdlEnumsListByEncrypt("CASE", caption, UserID, GroupName, "99");
+                }
+                ViewData["SelectCase"] = new MultiSelectList(Common.ddlCase, "Value", "Text");
+
+                if (Common.ddlCaseCab == null)
+                {
+                    Common.ddlCaseCab = await Commonddl.dbdbGetDdlEnumsListByEncrypt("CASECAB", caption, UserID, GroupName, "99");
+                }
+                ViewData["SelectCaseCab"] = new MultiSelectList(Common.ddlCaseCab, "Value", "Text");
+
+                if (Common.ddlCasepen == null)
+                {
+                    Common.ddlCasepen = await Commonddl.dbdbGetDdlEnumsListByEncrypt("CASEPEN", caption, UserID, GroupName, "99");
+                }
+                ViewData["SelectCasePending"] = new MultiSelectList(Common.ddlCasepen, "Value", "Text");
+
+                if (Common.ddlCasepenAkd == null)
+                {
+                    Common.ddlCasepenAkd = await Commonddl.dbdbGetDdlEnumsListByEncrypt("PENAKD", caption, UserID, GroupName, "99");
+                }
+                ViewData["SelectCasePendingAkd"] = new MultiSelectList(Common.ddlCasepenAkd, "Value", "Text");
+
+                if (Common.ddlPosistionPenanganan == null)
+                {
+                    Common.ddlPosistionPenanganan = await Commonddl.dbdbGetDdlEnumsListByEncrypt("POSHDNLE", caption, UserID, GroupName, "99");
+                }
+                ViewData["SelectPosisiPenanganan"] = new MultiSelectList(Common.ddlPosistionPenanganan, "Value", "Text");
+
+                ViewBag.showtabnotaris = "";
+                string usrtp = HasKeyProtect.Decryption(Account.AccountLogin.UserType);
+                if (int.Parse(usrtp) == (int)UserType.Notaris || int.Parse(usrtp) == (int)UserType.FDCM)
+                {
+                    ViewBag.showtabnotaris = "allow";
+                }
+
+                ViewBag.hidesave = "";
+                if (int.Parse(usrtp) == (int)UserType.FDCM && Opr4view == "add")
+                {
+                    ViewBag.hidesave = "hidden";
+                }
+
+                ViewBag.btncaption = "Simpan";
+                if ((int.Parse(usrtp) != (int)UserType.HO && int.Parse(usrtp) != (int)UserType.Branch) || (modeldata.Status == "21")) //pending
+                {
+                    ViewBag.btncaption = "Submit";
+                }
+
+                ViewBag.OprMenu = Opr4view == "add" ? "PENAMBAHAN DATA" : Opr4view == "edit" ? "PERUBAHAN DATA (" + modeldata.NoAppl + ")" : "";
+                ViewBag.OprMenu = Opr4view == "view" ? "NO APLIKASI " + modeldata.NoAppl : ViewBag.OprMenu;
+                ViewBag.oprvalue = "add";
+                ViewBag.Menu = modFilter.Menu;
+                ViewBag.noapp = modeldata.NoAppl;
+
+                ViewBag.keyup = keyup;
+                ViewBag.keyup1 = keyup1;
+                ViewBag.keyup2 = keyup2;
+
+                ////pengecekan on progress editable u nokontak //
+                //if (((int.Parse(usrtp) == (int)UserType.Branch || int.Parse(usrtp) == (int)UserType.HO))
+                //    && int.Parse((modeldata.Status ?? "0")) >= 10 && int.Parse((modeldata.Status ?? "0")) < 40)
+                //{
+                //    ViewBag.editkontrak = "allow";
+                //    ViewBag.oprvalue = "view";
+                //    ViewBag.hidesave = "show";
+                //}
+
+                string viewbro = "/Views/HTL/_uiRoyaUpdNwShwo.cshtml";
+                if (int.Parse(usrtp) == (int)UserType.Branch)
+                {
+                    ViewBag.user = "cabang";
+                }
+
+                if (int.Parse(usrtp) == (int)UserType.Notaris)
+                {
+                    ViewBag.user = "notaris";
+                    // viewbro = "/Views/HTL/_uiHTLUpd.cshtml"; //_uiHTLUpdNw.cshtml
+                }
+
+                if (int.Parse(usrtp) == (int)UserType.FDCM)
+                {
+                    ViewBag.user = "admin";
+                }
+
+                if (int.Parse(usrtp) == (int)UserType.FDCM && (modeldata.StatusHT == "47" || modeldata.StatusHT == "54"))
+                {
+                    ViewBag.allowht = "allow";
+                }
+
+                HTL.HeaderInfo = modeldata;
+                TempData[tempTransksi] = HTL;
+                TempData[tempTransksifilter] = modFilter;
+                TempData["common"] = Common;
+                // senback to client browser//
+
+                return Json(new
+                {
+                    moderror = IsErrorTimeout,
+                    loadcabang = 0,
+                    keydata = paramkey,
+                    view = CustomEngineView.RenderRazorViewToString(ControllerContext, viewbro, HTL.HeaderInfo),
+                });
+            }
+            catch (Exception ex)
+            {
+                var msg = ex.Message.ToString();
+                OwinLibrary.CreateLog(msg, "LogErrorFDCM.txt");
+                string urlpath = Url.Action("AccountTimeOut", "Account", new { area = "" });
+                if (IsErrorTimeout == false)
+                {
+                    Response.StatusCode = 406;
+                    Response.TrySkipIisCustomErrors = true;
+                    urlpath = Url.Action("Index", "Error", new { area = "" });
+                }
+                return Json(new
+                {
+                    url = urlpath,
+                    moderror = IsErrorTimeout
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public async Task<ActionResult> clnOpenAddRoya(string menu)
+        {
+            Account = (vmAccount)Session["Account"];
+            bool IsErrorTimeout = false;
+            if (Account != null)
+            {
+                Account.AccountLogin = lgAccount.NotExistSesionID(Request.Cookies[FormsAuthentication.FormsCookieName], Account.AccountLogin);
+                if (Account.AccountLogin.RouteName != "")
+                {
+                    IsErrorTimeout = true;
+                }
+            }
+            else
+            {
+                IsErrorTimeout = true;
+            }
+            if (IsErrorTimeout == true)
+            {
+                string urlpath = Url.Action("AccountTimeOut", "Account", new { area = "" });
+                return Json(new
+                {
+                    url = urlpath,
+                    moderror = IsErrorTimeout
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+            try
+            {
+                string caption = "ROYALIST";
+
+                string UserID = Account.AccountLogin.UserID;
+                string UserName = Account.AccountLogin.UserName;
+                string ClientID = Account.AccountLogin.ClientID;
+                string IDCabang = Account.AccountLogin.IDCabang;
+                string IDNotaris = Account.AccountLogin.IDNotaris;
+                string Region = Account.AccountLogin.Region;
+                string GroupName = Account.AccountLogin.GroupName;
+                string ClientName = Account.AccountLogin.ClientName;
+                string CabangName = Account.AccountLogin.CabangName;
+                string Mailed = Account.AccountLogin.Mailed;
+                string GenMoon = Account.AccountLogin.GenMoon;
+                string UserTypes = HasKeyProtect.Decryption(Account.AccountLogin.UserType);
+                string idcaption = HasKeyProtect.Encryption(caption);
+
+                // extend //
+                cAccountMetrik PermisionModule = Account.AccountMetrikList.Where(x => x.MenuItem.ModuleID == caption).SingleOrDefault();
+                string menuitemdescription = Account.AccountMetrikList.Where(x => x.MenuItem.ModuleID == caption).Select(y => y.MenuItem.ModuleName).SingleOrDefault().ToString();
+                // extend //
+
+                // some field must be overide first for default filter//
+                string Divisi = "";
+                string Cabang = "";
+                string Area = "";
+                string RequestNo = "";
+                string FromDate = "";
+                string Todate = "";
+                int Status = (menu == "renew") ? 10 : -1; //default aktif
+
+                // set default for paging//
+                int PageNumber = 1;
+                double TotalRecord = 0;
+                double TotalPage = 0;
+                double pagingsizeclient = 0;
+                double pagenumberclient = 0;
+                double totalRecordclient = 0;
+                double totalPageclient = 0;
+
+                // try show filter data//
+                List<String> recordPage = await HTLddl.dbGetHeaderTxListCount(RequestNo, Divisi, Cabang, Area, FromDate, Todate, Status, PageNumber, caption, UserID, GroupName);
+                TotalRecord = Convert.ToDouble(recordPage[0]);
+                TotalPage = Convert.ToDouble(recordPage[1]);
+                pagingsizeclient = Convert.ToDouble(recordPage[2]);
+                pagenumberclient = PageNumber;
+                List<DataTable> dtlist = await HTLddl.dbGetHeaderTxList(null, RequestNo, Divisi, Cabang, Area, FromDate, Todate, Status, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
+                totalRecordclient = dtlist[0].Rows.Count;
+                totalPageclient = int.Parse(Math.Ceiling(decimal.Parse(totalRecordclient.ToString()) / decimal.Parse(pagingsizeclient.ToString())).ToString());
+
+                //set in filter for paging//
+                modFilter.TotalRecord = TotalRecord;
+                modFilter.TotalPage = TotalPage;
+                modFilter.pagingsizeclient = pagingsizeclient;
+                modFilter.totalRecordclient = totalRecordclient;
+                modFilter.totalPageclient = totalPageclient;
+                modFilter.pagenumberclient = pagenumberclient;
+
+                modFilter.ModuleName = caption;
+                modFilter.ModuleID = idcaption;
+                modFilter.idcaption = idcaption;
+
+                modFilter.UserTypes = UserTypes;
+
+                //set to object pendataran//
+                HTL.DTAllTx = dtlist[0];
+                HTL.DTHeaderTx = dtlist[1];
+                HTL.FilterTransaksi = modFilter;
+                HTL.Permission = PermisionModule;
+
+                if (Common.ddlhak == null)
+                {
+                    Common.ddlhak = await Commonddl.dbdbGetDdlEnumsListByEncrypt("HAK", caption, UserID, GroupName);
+                }
+
+                //if (Common.ddlnotaris == null)
+                // {
+                //   Common.ddlnotaris = await HTLddl.dbdbGetDdlNotarisListByEncrypt(caption, UserID, GroupName);
+
+                // if (int.Parse(UserTypes) == (int)UserType.Notaris)
+                //{
+                //  string notrs = HashNetFramework.HasKeyProtect.Encryption(UserID);
+                //Common.ddlnotaris = Common.ddlnotaris.AsEnumerable().Where(x => x.Value == notrs).ToList();
+                //}
+
+                //}
+
+                //Common.ddlstatus = await Commonddl.dbdbGetDdlEnumsListByEncrypt("STATHDL", caption, UserID, GroupName, "99");
+
+                ViewBag.ShowNotaris = "";
+                if (int.Parse(UserTypes) == (int)UserType.FDCM)
+                {
+                    ViewBag.ShowNotaris = "allow";
+                }
+                ViewBag.UserTypess = UserTypes;
+
+                //ViewData["SelectHak"] = OwinLibrary.Get_SelectListItem(Common.ddlhak);
+                //ViewData["SelectNotaris"] = OwinLibrary.Get_SelectListItem(Common.ddlnotaris);
+                //ViewData["SelectStatus"] = OwinLibrary.Get_SelectListItem(Common.ddlstatus);
+
+                //set session filterisasi //
+                TempData[tempTransksi] = HTL;
+                TempData[tempTransksifilter] = modFilter;
+                TempData[tempcommon] = Common;
+
+                /// Views / HTL / _uiRoyaUpdNw.cshtml
+
+                ViewBag.menu = menu;
+                ViewBag.caption = caption;
+                ViewBag.captiondesc = menuitemdescription;
+                ViewBag.rute = "HTL";
+                ViewBag.action = "clnHeaderTx";
+
+                bool isModeFilter = modFilter.isModeFilter;
+                string filteron = isModeFilter == false ? "" : ", Pencarian :  Aktif";
+                ViewBag.Total = "Total Data : " + TotalRecord.ToString() + filteron;
+
+                //send back to client browser//
+                return Json(new
+                {
+                    moderror = IsErrorTimeout,
+                    view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/HTL/_uiRoyaUpdNw.cshtml", HTL),
+                });
+            }
+            catch (Exception ex)
+            {
+                var msg = ex.Message.ToString();
+                OwinLibrary.CreateLog(msg, "LogErrorPUB.txt");
+                string urlpath = Url.Action("AccountTimeOut", "Account", new { area = "" });
+                if (IsErrorTimeout == false)
+                {
+                    Response.StatusCode = 406;
+                    Response.TrySkipIisCustomErrors = true;
+                    urlpath = Url.Action("Index", "Error", new { area = "" });
+                }
+                return Json(new
+                {
+                    url = urlpath,
+                    moderror = IsErrorTimeout
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public async Task<ActionResult> clnOpenAddRoyaViewData(string paramkey, string oprfun)
         {
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
@@ -1602,7 +2992,6 @@ namespace DusColl.Controllers
 
                 string UserTypes = HasKeyProtect.Decryption(Account.AccountLogin.UserType);
 
-
                 //if (int.Parse(UserTypes) == (int)UserType.Notaris)
                 //{
                 //    Common.ddlstatus = Common.ddlstatus.AsEnumerable().Where(x => x.Value == "6" || x.Value == "11" || x.Value == "7" || (int.Parse(x.Value) >= 20 && int.Parse(x.Value) < 30)).ToList();
@@ -1627,13 +3016,10 @@ namespace DusColl.Controllers
                 //ViewData["SelectHak"] = new MultiSelectList(Common.ddlhak, "Value", "Text");
                 //ViewData["SelectNotaris"] = new MultiSelectList(Common.ddlnotaris, "Value", "Text");
 
-
-
                 string Opr4view = "add";
                 string keyup = paramkey;
                 string keyup1 = "";
                 string keyup2 = "";
-
                 cHTL modeldata = new cHTL();
                 if (HTL.DTAllTx is null)
                 {
@@ -1647,19 +3033,18 @@ namespace DusColl.Controllers
                     modeldata.DataSRT = new DataTable();
                     modeldata.DataSRTPSG = new DataTable();
                     modeldata.Status = "0";
+                    modeldata.DTDokumen = await Commonddl.dbdbGetJenisDokumen("0", "", "400", caption, UserID, GroupName);
                 }
                 else
                 {
                     DataRow dr = HTL.DTAllTx.AsEnumerable().Where(x => x.Field<string>("keylookupdata") == paramkey).SingleOrDefault();
                     if (dr != null)
                     {
-
                         Opr4view = "edit";
                         if (oprfun == "x4vw")
                         {
                             Opr4view = "view";
                         }
-
 
                         modeldata.IDHeaderTx = int.Parse(dr["Id"].ToString());
                         modeldata.TglOrder = dr["TglOrder"].ToString();
@@ -1739,7 +3124,6 @@ namespace DusColl.Controllers
                         modeldata.StatusHTdesc = dr["StatusHTDesc"].ToString();
                         modeldata.NamaCabang = dr["NamaCabang"].ToString();
 
-
                         modeldata.DeadlineSLA = dr["DeadlineSLA"].ToString();
                         modeldata.PosisiPenangan = dr["PosHandleIsue"].ToString();
 
@@ -1772,7 +3156,6 @@ namespace DusColl.Controllers
 
                         modeldata.JmlTerbitSPA = bool.Parse(dr["JmlTerbitSPA"].ToString());
 
-
                         //ambil data psangan debitur//
                         modeldata.DataPSG = await HTLddl.dbGetMultiData(modeldata.NoAppl, "0", caption, UserID, GroupName);
                         //ambil data tanah//
@@ -1783,9 +3166,8 @@ namespace DusColl.Controllers
                         modeldata.DataSRT = await HTLddl.dbGetMultiData(modeldata.NoAppl, "2", caption, UserID, GroupName);
                         //ambil data pasangan sertifikat//
                         modeldata.DataSRTPSG = await HTLddl.dbGetMultiData(modeldata.NoAppl, "3", caption, UserID, GroupName);
-
                         //ambil data upload document//
-                        modeldata.DTDokumen = await Commonddl.dbdbGetJenisDokumen("0", modeldata.NoAppl, "4", caption, UserID, GroupName);
+                        modeldata.DTDokumen = await Commonddl.dbdbGetJenisDokumen("0", "", "400", caption, UserID, GroupName);
 
                         ViewBag.Nappl = modeldata.NoAppl;
                         ViewBag.Jndata1 = "1";
@@ -1796,9 +3178,7 @@ namespace DusColl.Controllers
                         ViewBag.ShowTabPendAkad = ShowPenAkd;
                         ViewBag.ShowTabTangan = ShowTabTangan;
                         ViewBag.ShowTabFillSPA = ShowTabFillSPA;
-
                     }
-
                 }
 
                 if (Common.ddlDocument == null)
@@ -1891,7 +3271,6 @@ namespace DusColl.Controllers
                 }
                 ViewData["SelectPosisiPenanganan"] = new MultiSelectList(Common.ddlPosistionPenanganan, "Value", "Text");
 
-
                 ViewBag.showtabnotaris = "";
                 string usrtp = HasKeyProtect.Decryption(Account.AccountLogin.UserType);
                 if (int.Parse(usrtp) == (int)UserType.Notaris || int.Parse(usrtp) == (int)UserType.FDCM)
@@ -1916,12 +3295,9 @@ namespace DusColl.Controllers
                 ViewBag.oprvalue = Opr4view;
                 ViewBag.Menu = modFilter.Menu;
 
-
-
                 ViewBag.keyup = keyup;
                 ViewBag.keyup1 = keyup1;
                 ViewBag.keyup2 = keyup2;
-
 
                 ////pengecekan on progress editable u nokontak //
                 //if (((int.Parse(usrtp) == (int)UserType.Branch || int.Parse(usrtp) == (int)UserType.HO))
@@ -1954,13 +3330,11 @@ namespace DusColl.Controllers
                     ViewBag.allowht = "allow";
                 }
 
-
                 HTL.HeaderInfo = modeldata;
                 TempData[tempTransksi] = HTL;
                 TempData[tempTransksifilter] = modFilter;
                 TempData["common"] = Common;
                 // senback to client browser//
-
 
                 return Json(new
                 {
@@ -1969,7 +3343,6 @@ namespace DusColl.Controllers
                     keydata = paramkey,
                     view = CustomEngineView.RenderRazorViewToString(ControllerContext, viewbro, HTL.HeaderInfo),
                 });
-
             }
             catch (Exception ex)
             {
@@ -1988,11 +3361,7 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
-
-
-
 
         [HttpPost]
         public async Task<ActionResult> GroupPos(string NoAPP, string PosBerkas, string GroupPos, string ketPos, int nominal, string user)
@@ -2046,7 +3415,6 @@ namespace DusColl.Controllers
             }
         }
 
-
         public async Task<ActionResult> clnOpenAddHTLIPT(string paramkey, string idrel, string oprfun, string gdid, string idg, string scn)
         {
             Account = (vmAccount)Session["Account"];
@@ -2086,16 +3454,13 @@ namespace DusColl.Controllers
 
                 string UserTypes = HasKeyProtect.Decryption(Account.AccountLogin.UserType);
 
-
                 string Opr4view = "add";
                 string keyup = paramkey;
                 string keyup1 = "";
                 string keyup2 = "";
                 string NoAPPL = HashNetFramework.HasKeyProtect.Decryption(idrel);
 
-
                 cHTLIPTData modeldata = new cHTLIPTData();
-
 
                 if (gdid == "gdp")
                 {
@@ -2106,7 +3471,6 @@ namespace DusColl.Controllers
                     DataRow dr = HTL.HeaderInfo.DataTNH.AsEnumerable().Where(x => x.Field<string>("keylookupdata") == paramkey).SingleOrDefault();
                     if (dr != null)
                     {
-
                         Opr4view = "edit";
                         if (oprfun == "x4vw")
                         {
@@ -2140,7 +3504,6 @@ namespace DusColl.Controllers
                         modeldata.NoSHT = dr["NoSHT"].ToString();
                         modeldata.NoBerkasSHT = dr["NoBerkasSHT"].ToString();
                         modeldata.LinkBerkasSHT = dr["LinkBerkasSHT"].ToString();
-
                     }
                     else
                     {
@@ -2156,15 +3519,12 @@ namespace DusColl.Controllers
 
                     Common.ddlLokkota = await Commonddl.dbdbGetDdlEnumsListByEncrypt("LOKTANAHKOTA", caption, UserID, GroupName, modeldata.LokasiTanahDiProvinsi);
                     ViewData["SelectLokasiTanah"] = new MultiSelectList(Common.ddlLokkota, "Value", "Text");
-
                 }
-
                 else if (gdid == "gdtnhspa")
                 {
                     DataRow dr = HTL.HeaderInfo.DataTNHSPA.AsEnumerable().Where(x => x.Field<string>("keylookupdata") == paramkey).SingleOrDefault();
                     if (dr != null)
                     {
-
                         Opr4view = "edit";
                         if (oprfun == "x4vw")
                         {
@@ -2199,7 +3559,6 @@ namespace DusColl.Controllers
                         modeldata.NoSHT = dr["NoSHT"].ToString();
                         modeldata.NoBerkasSHT = dr["NoBerkasSHT"].ToString();
                         modeldata.LinkBerkasSHT = dr["LinkBerkasSHT"].ToString();
-
                     }
                     else
                     {
@@ -2215,16 +3574,13 @@ namespace DusColl.Controllers
 
                     Common.ddlLokkota = await Commonddl.dbdbGetDdlEnumsListByEncrypt("LOKTANAHKOTA", caption, UserID, GroupName, modeldata.LokasiTanahDiProvinsi);
                     ViewData["SelectLokasiTanah"] = new MultiSelectList(Common.ddlLokkota, "Value", "Text");
-
                 }
-
 
                 if (gdid == "gdsrt")
                 {
                     DataRow dr = HTL.HeaderInfo.DataSRT.AsEnumerable().Where(x => x.Field<string>("keylookupdata") == paramkey).SingleOrDefault();
                     if (dr != null)
                     {
-
                         Opr4view = "edit";
                         if (oprfun == "x4vw")
                         {
@@ -2276,7 +3632,6 @@ namespace DusColl.Controllers
 
                     Common.ddlStatNKH = await Commonddl.dbdbGetDdlEnumsListByEncrypt("NIKAH", caption, UserID, GroupName, "99");
                     ViewData["SelectStatusNikah"] = new MultiSelectList(Common.ddlStatNKH, "Value", "Text");
-
                 }
 
                 if (gdid == "gdpsg")
@@ -2284,7 +3639,6 @@ namespace DusColl.Controllers
                     DataRow dr = HTL.HeaderInfo.DataPSG.AsEnumerable().Where(x => x.Field<string>("keylookupdata") == paramkey).SingleOrDefault();
                     if (dr != null)
                     {
-
                         Opr4view = "edit";
                         if (oprfun == "x4vw")
                         {
@@ -2319,7 +3673,6 @@ namespace DusColl.Controllers
                         modeldata.Kota = dr["Kota"].ToString();
                         modeldata.Kecamatan = dr["Kecamatan"].ToString();
                         modeldata.DesaKelurahan = dr["DesaKelurahan"].ToString();
-
                     }
                     else
                     {
@@ -2342,7 +3695,6 @@ namespace DusColl.Controllers
                     DataRow dr = HTL.HeaderInfo.DataSRTPSG.AsEnumerable().Where(x => x.Field<string>("keylookupdata") == paramkey).SingleOrDefault();
                     if (dr != null)
                     {
-
                         Opr4view = "edit";
                         if (oprfun == "x4vw")
                         {
@@ -2376,7 +3728,6 @@ namespace DusColl.Controllers
                         modeldata.Kota = dr["Kota"].ToString();
                         modeldata.Kecamatan = dr["Kecamatan"].ToString();
                         modeldata.DesaKelurahan = dr["DesaKelurahan"].ToString();
-
                     }
                     else
                     {
@@ -2396,7 +3747,6 @@ namespace DusColl.Controllers
                     Common.ddlStatNKH = await Commonddl.dbdbGetDdlEnumsListByEncrypt("NIKAH", caption, UserID, GroupName, "99");
                     ViewData["SelectStatusNikah"] = new MultiSelectList(Common.ddlStatNKH, "Value", "Text");
                 }
-
 
                 ViewBag.showtabnotaris = "";
                 string usrtp = HasKeyProtect.Decryption(Account.AccountLogin.UserType);
@@ -2470,8 +3820,6 @@ namespace DusColl.Controllers
                     msg = NoAPPL == "" ? "Silahkan disikan data aplikasi dan debitur terlebih dahulu, kemudian tekan tombol 'Simpan'" : "",
                     view = NoAPPL == "" ? "" : CustomEngineView.RenderRazorViewToString(ControllerContext, viewbro, modeldata),
                 });
-
-
             }
             catch (Exception ex)
             {
@@ -2490,15 +3838,12 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> clnUpdHTL(cHTL model, string ctex, string diadu, HttpPostedFileBase potofile, HttpPostedFileBase ttdformstr, HttpPostedFileBase ttdskstr, HttpPostedFileBase ttdabsstr)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -2524,7 +3869,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 HTL = TempData[tempTransksi] as vmHTL;
                 modFilter = TempData[tempTransksifilter] as cFilterContract;
                 Common = (TempData["common"] as vmCommon);
@@ -2537,7 +3881,6 @@ namespace DusColl.Controllers
                 TempData[tempTransksi] = HTL;
                 TempData[tempTransksifilter] = modFilter;
                 TempData["common"] = Common;
-
 
                 //get value from aply filter //
                 string keyword = modFilter.keywordfilter;
@@ -2592,7 +3935,6 @@ namespace DusColl.Controllers
                 {
                     dr = HTL.DTAllTx.AsEnumerable().Where(x => x.Field<string>("keylookupdata") == keylookupdata).SingleOrDefault();
                     ID = (dr != null) ? int.Parse(dr["Id"].ToString()) : ID;
-
                 }
 
                 statusOld = int.Parse(HTL.HeaderInfo.Status ?? (model.Status ?? "0"));
@@ -2639,7 +3981,6 @@ namespace DusColl.Controllers
                 model.NilaiHT = (model.NilaiHT ?? HTL.HeaderInfo.NilaiHT).Replace(",", "");
                 model.NilaiPinjamanDiterima = (model.NilaiPinjamanDiterima ?? HTL.HeaderInfo.NilaiPinjamanDiterima).Replace(",", "");
 
-
                 model.KodeAkta = (model.KodeAkta ?? HTL.HeaderInfo.KodeAkta);
                 model.NoHT = (model.NoHT ?? HTL.HeaderInfo.NoHT);
                 model.TglSertifikatCEK = (model.TglSertifikatCEK ?? HTL.HeaderInfo.TglSertifikatCEK);
@@ -2663,7 +4004,6 @@ namespace DusColl.Controllers
                 model.Statushakdesc = model.Statushakdesc ?? HTL.HeaderInfo.Statushakdesc;
                 model.NamaCabang = model.NamaCabang ?? HTL.HeaderInfo.NamaCabang;
 
-
                 string UserTypes = HashNetFramework.HasKeyProtect.Decryption(Account.AccountLogin.UserType);
                 if (int.Parse(UserTypes) == (int)UserType.Branch || int.Parse(UserTypes) == (int)UserType.HO)
                 {
@@ -2683,7 +4023,6 @@ namespace DusColl.Controllers
                 int result = 0;
                 string notaris = (model.OrderKeNotaris == "-9999" ? "" : model.OrderKeNotaris);
 
-
                 //pengecekan on progress editable u nokontrak cabang //
                 if (((int.Parse(UserTypes) == (int)UserType.Branch || int.Parse(UserTypes) == (int)UserType.HO))
                     && int.Parse((model.Status ?? "0")) >= 10 && int.Parse((model.Status ?? "0")) < 40)
@@ -2702,7 +4041,6 @@ namespace DusColl.Controllers
                         EnumMessage = "Silahkan isikan catatan";
                     }
                 }
-
 
                 if (statusOld != statusNew && model.Keterangan == "" && (ctex.ToLower() ?? "") == "submit") // && statusOld > 6 tidak sama dengan revisi
                 {
@@ -2737,7 +4075,6 @@ namespace DusColl.Controllers
                 {
                     EnumMessage = "No Sertifikat minimal 5 digit";
                 }
-
 
                 if (model.NomorNIB.Length < 5)
                 {
@@ -2787,7 +4124,6 @@ namespace DusColl.Controllers
                     EnumMessage = "Isikan No Perjanjian,Tgl Perjanjian, Nilai HT, kode akta , nomor APHT dan jenis penanganan dengan benar";
                 }
 
-
                 if (EnumMessage == "")
                 {
                     DataTable dtx = await HTLddl.dbdbGetDdlOrderGetCek("11", "", "", "", UserID, GroupName);
@@ -2806,7 +4142,6 @@ namespace DusColl.Controllers
                         EnumMessage = "Batas waktu submit hanya diperbolehkan hari senin-jumat dari jam 08:00 s/d/ 17:00 (dihari kerja)";
                     }
                 }
-
 
                 //if (result == 1 && (ctex.ToLower() ?? "") == "simpan")
                 //{
@@ -2879,7 +4214,6 @@ namespace DusColl.Controllers
                 //&& (ctex.ToLower() ?? "") == "submit"
                 if (result == 1)
                 {
-
                     // try show filter data//
                     List<String> recordPage = await HTLddl.dbGetHeaderTxListCount("", "", "", "", "", "", 0, PageNumber, caption, UserID, GroupName);
                     TotalRecord = Convert.ToDouble(recordPage[0]);
@@ -2917,7 +4251,6 @@ namespace DusColl.Controllers
                 string filteron = isModeFilter == false ? "" : ", Pencarian Data : Aktif";
                 ViewBag.Total = "Total Data : " + TotalRecord.ToString() + filteron;
 
-
                 //ViewData["SelectNamaNotaris"] = OwinLibrary.Get_SelectListItem(Common.ddlNotaris);
 
                 // senback to client browser//
@@ -2929,7 +4262,6 @@ namespace DusColl.Controllers
                     mode = ctex.ToLower(),
                     resulted = result
                 });
-
             }
             catch (Exception ex)
             {
@@ -2954,7 +4286,6 @@ namespace DusColl.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> clnUpdHTLNW(cHTL model, string ctex, string diadu, HttpPostedFileBase potofile, HttpPostedFileBase ttdformstr, HttpPostedFileBase ttdskstr, HttpPostedFileBase ttdabsstr)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -2980,9 +4311,7 @@ namespace DusColl.Controllers
             }
             try
             {
-
-
-                // 'ModelState.AddModelError(nameof(ForgotPasswordMV.Email), 
+                // 'ModelState.AddModelError(nameof(ForgotPasswordMV.Email),
 
                 HTL = TempData[tempTransksi] as vmHTL;
                 modFilter = TempData[tempTransksifilter] as cFilterContract;
@@ -2996,7 +4325,6 @@ namespace DusColl.Controllers
                 TempData[tempTransksi] = HTL;
                 TempData[tempTransksifilter] = modFilter;
                 TempData["common"] = Common;
-
 
                 //get value from aply filter //
                 string keyword = modFilter.keywordfilter;
@@ -3108,7 +4436,6 @@ namespace DusColl.Controllers
                     model.ADM_HT = model.ADM_HT != HTL.HeaderInfo.ADM_HT ? model.ADM_HT : HTL.HeaderInfo.ADM_HT;
                     model.NoPerjanjian = model.NoPerjanjian ?? HTL.HeaderInfo.NoPerjanjian;
                     model.TglPerjanjian = model.TglPerjanjian ?? HTL.HeaderInfo.TglPerjanjian;
-
                 }
 
                 model.Keterangan = model.Keterangan ?? "";
@@ -3205,7 +4532,6 @@ namespace DusColl.Controllers
                 //    EnumMessage = "Silahkan isikan catatan";
                 //}
 
-
                 ////penagihan invoice
                 //if (int.Parse(UserTypes) == (int)UserType.Notaris && statusNew == 50 &&
                 //    (model.NoPerjanjian.Length < 10 || (model.TglPerjanjian ?? "") == "" || (model.KodeAkta ?? "") == "" || (model.NoHT ?? "") == ""
@@ -3232,7 +4558,6 @@ namespace DusColl.Controllers
                 string IDIDENTI = "0";
                 if (EnumMessage == "")
                 {
-
                     //validation model
                     string EnumMessageModel = "";
                     string displayName = "";
@@ -3287,16 +4612,13 @@ namespace DusColl.Controllers
                     {
                         if ((ctex.ToLower() ?? "") == "submit")
                         {
-                            //cek detail 
+                            //cek detail
                             if (model.DataPSG == null)
                             {
-
                             }
                             else if (model.DataPSG.Rows.Count == 0)
                             {
-
                             }
-
                         }
 
                         DataTable dtx = await HTLddl.dbdbGetDdlOrderGetCek("11", "", "", "", UserID, GroupName);
@@ -3315,7 +4637,6 @@ namespace DusColl.Controllers
                                 }
                             }
 
-
                             string perihalpending = model.CaseCabPending ?? "";
                             if (model.CaseCaPendingbMulti != null)
                             {
@@ -3324,7 +4645,6 @@ namespace DusColl.Controllers
                                     perihalpending = string.Join(",", model.CaseCaPendingbMulti);
                                 }
                             }
-
 
                             string perihalpendingakd = model.CaseCabPendingAkd ?? "";
                             if (model.CaseCaPendingAkdMulti != null)
@@ -3356,7 +4676,6 @@ namespace DusColl.Controllers
                                 //diaduasNoAppl = HasKeyProtect.Encryption(dtresult.Rows[0][2].ToString());
                                 //EnumMessage = EnumsDesc.GetDescriptionEnums((ProccessOutput)result);
                                 //EnumMessage = (result == 1 || result == 86) ? String.Format(EnumMessage, "Data ", "di" + ctex) : EnumMessage;
-
 
                                 string orderPPAT = model.OrderKeNotaris;
                                 if (result == 8890073) /* OD siap akad */
@@ -3393,7 +4712,6 @@ namespace DusColl.Controllers
                             {
                                 EnumMessage = HasilEnum;
                             }
-
                         }
                         else
                         {
@@ -3411,7 +4729,6 @@ namespace DusColl.Controllers
                 string filteron = isModeFilter == false ? "" : ", Pencarian Data : Aktif";
                 ViewBag.Total = "Total Data : " + TotalRecord.ToString() + filteron;
 
-
                 return Json(new
                 {
                     moderror = IsErrorTimeout,
@@ -3422,7 +4739,6 @@ namespace DusColl.Controllers
                     gtid = IDIDENTI,
                     resulted = result
                 });
-
             }
             catch (Exception ex)
             {
@@ -3443,11 +4759,11 @@ namespace DusColl.Controllers
             }
         }
 
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> clnUpdHTLIPT(cHTLIPTData model, string jntexipt, string auxipt, string ctexipt, HttpPostedFileBase filesipt, string euxipt)
+        public async Task<ActionResult> clnUpdRoyaNW(cHTL model, string noapp, string ctex, string diadu, HttpPostedFileBase potofile, HttpPostedFileBase ttdformstr, HttpPostedFileBase ttdskstr, HttpPostedFileBase ttdabsstr)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -3473,6 +4789,7 @@ namespace DusColl.Controllers
             }
             try
             {
+                // 'ModelState.AddModelError(nameof(ForgotPasswordMV.Email),
 
                 HTL = TempData[tempTransksi] as vmHTL;
                 modFilter = TempData[tempTransksifilter] as cFilterContract;
@@ -3487,6 +4804,198 @@ namespace DusColl.Controllers
                 TempData[tempTransksifilter] = modFilter;
                 TempData["common"] = Common;
 
+                //get value from aply filter //
+                string keyword = modFilter.keywordfilter;
+                string keylookupdata = model.keylookupdataHTX;
+
+                //set field to output//
+                string KeySearch = modFilter.RequestNo ?? "";
+                string todate = modFilter.todate ?? "";
+                string fromdate = modFilter.fromdate ?? "";
+                string SelectArea = modFilter.SelectArea ?? "";
+                string SelectBranch = modFilter.SelectBranch ?? "";
+                string SelectDivisi = modFilter.SelectDivisi ?? "";
+                string SelectNotaris = modFilter.SelectNotaris ?? "";
+                string Status = modFilter.SelectContractStatus ?? "-1";
+
+                //set default for paging //
+                int PageNumber = 1;
+                double TotalRecord = modFilter.TotalRecord;
+                double TotalPage = 0;
+                double pagingsizeclient = modFilter.pagingsizeclient;
+                double pagenumberclient = modFilter.pagenumberclient;
+                double totalRecordclient = 0;
+                double totalPageclient = 0;
+                bool isModeFilter = modFilter.isModeFilter;
+
+                //set filter//
+                modFilter.keywordfilter = keyword;
+                modFilter.keylookupfilter = keylookupdata;
+
+                //set filter//
+                modFilter.RequestNo = KeySearch;
+                modFilter.SelectDivisi = SelectDivisi;
+                modFilter.SelectArea = SelectArea;
+                modFilter.SelectBranch = SelectBranch;
+                modFilter.SelectNotaris = SelectNotaris;
+                modFilter.todate = todate;
+                modFilter.fromdate = fromdate;
+                modFilter.SelectContractStatus = Status;
+                modFilter.ModuleName = caption;
+                modFilter.isModeFilter = true;
+                //set filter//
+
+                //decript some model apply for DB//
+                caption = HasKeyProtect.Decryption(caption);
+                // string NotarisID = HasKeyProtect.Decryption(model.NotarisID);
+
+                DataRow dr;
+                int ID = 0;
+                int statusOld = 0;
+                int statusNew = 0;
+
+                if ((keylookupdata ?? "") != "")
+                {
+                    string checkID = HasKeyProtect.Decryption(keylookupdata);
+                    if (checkID.All(char.IsDigit))
+                    {
+                        ID = int.Parse(checkID);
+                    }
+                    else
+                    {
+                        dr = HTL.DTAllTx.AsEnumerable().Where(x => x.Field<string>("keylookupdata") == keylookupdata).SingleOrDefault();
+                        ID = (dr != null) ? int.Parse(dr["Id"].ToString()) : ID;
+                    }
+                }
+
+                model.Status = model.Status ?? "0";
+                model.Status = model.Status.All(char.IsNumber) ? model.Status : HasKeyProtect.Decryption(model.Status);
+
+                statusOld = int.Parse(HTL.HeaderInfo.Status ?? (model.Status ?? "0"));
+                model.TglOrder = model.TglOrder ?? HTL.HeaderInfo.TglOrder;
+                model.NoSertifikat = model.NoSertifikat ?? HTL.HeaderInfo.NoSertifikat;
+                model.NoAppl = model.NoAppl ?? HTL.HeaderInfo.NoAppl;
+
+                model.NIKDebitur = model.NIKDebitur ?? HTL.HeaderInfo.NIKDebitur;
+                model.NamaDebitur = model.NamaDebitur ?? HTL.HeaderInfo.NamaDebitur;
+                model.WargaDebitur = model.WargaDebitur ?? HTL.HeaderInfo.WargaDebitur;
+                model.JKelaminDebitur = model.JKelaminDebitur ?? HTL.HeaderInfo.JKelaminDebitur;
+                model.TptLahirDebitur = model.TptLahirDebitur ?? HTL.HeaderInfo.TptLahirDebitur;
+                model.TgllahirDebitur = model.TgllahirDebitur ?? HTL.HeaderInfo.TgllahirDebitur;
+                model.AlamatDebitur = model.AlamatDebitur ?? HTL.HeaderInfo.AlamatDebitur;
+                model.ProvinsiDebitur = model.ProvinsiDebitur ?? HTL.HeaderInfo.ProvinsiDebitur;
+                model.KotaDebitur = model.KotaDebitur ?? HTL.HeaderInfo.KotaDebitur;
+                model.KecamatanDebitur = model.KecamatanDebitur ?? HTL.HeaderInfo.KecamatanDebitur;
+                model.DesaKelurahanDebitur = model.DesaKelurahanDebitur ?? HTL.HeaderInfo.DesaKelurahanDebitur;
+                model.PekerjaanDebitur = model.PekerjaanDebitur ?? HTL.HeaderInfo.PekerjaanDebitur;
+                model.ModifiedDate = model.ModifiedDate ?? HTL.HeaderInfo.ModifiedDate;
+
+                
+
+                model.NilaiHT = (model.NilaiHT ?? HTL.HeaderInfo.NilaiHT ?? "0").Replace(",", "");
+                model.NilaiPinjamanDiterima = (model.NilaiPinjamanDiterima ?? HTL.HeaderInfo.NilaiPinjamanDiterima ?? "0").Replace(",", "");
+
+                
+
+                model.Keterangan = model.Keterangan ?? "";
+                model.Status = model.Status ?? "0";   // HTL.HeaderInfo.Status;
+                model.Statusdesc = model.Statusdesc ?? HTL.HeaderInfo.Statusdesc;
+                model.Statushakdesc = model.Statushakdesc ?? HTL.HeaderInfo.Statushakdesc;
+                model.StatusHT = model.StatusHT ?? HTL.HeaderInfo.StatusHT;
+                model.StatusHTdesc = model.StatusHTdesc ?? HTL.HeaderInfo.StatusHTdesc;
+                model.NamaCabang = model.NamaCabang ?? HTL.HeaderInfo.NamaCabang;
+                model.Case = model.Case ?? HTL.HeaderInfo.Case;
+                model.CaseCabPending = model.CaseCabPending ?? HTL.HeaderInfo.CaseCabPending;
+                model.CaseCabPendingAkd = model.CaseCabPendingAkd ?? HTL.HeaderInfo.CaseCabPendingAkd;
+                model.nosht = model.nosht ?? HTL.HeaderInfo.nosht;
+                model.kodesht = model.kodesht ?? HTL.HeaderInfo.kodesht;
+                model.TglHasilSertifikat = model.TglHasilSertifikat ?? HTL.HeaderInfo.TglHasilSertifikat;
+                model.noberkasceking = model.noberkasceking ?? HTL.HeaderInfo.noberkasceking;
+                model.noberkasht = model.noberkasht ?? HTL.HeaderInfo.noberkasht;
+                string bckpNoModl = model.NoAppl ?? "";
+                ctex = (ctex ?? "") == "" ? "" : HasKeyProtect.Decryption(ctex);
+                diadu = (diadu ?? "") == "" ? "" : HasKeyProtect.Decryption(diadu);
+
+                model.NoAppl = (diadu ?? "") == "" ? model.NoAppl ?? "" : diadu;
+                string Noapp = model.NoAppl;
+
+                DataTable reslut = await HTLddl.dbUpdateRoyaSave("0", Noapp, "10", UserID, GroupName);
+                string EnumMessage = null;
+                if (reslut != null && reslut.Rows.Count > 0)
+                {
+                    EnumMessage = reslut.Rows[0][0].ToString();
+                }
+                var simpleResult = reslut.AsEnumerable().Select(row => reslut.Columns.Cast<DataColumn>().ToDictionary(col => col.ColumnName, col => row[col])).ToList();
+               
+                return Json(new
+                {
+                    moderror = IsErrorTimeout,
+                    view = "",
+                    msg = EnumMessage,
+                    mode = ctex.ToLower(),
+                    rs = simpleResult
+                });
+            }
+            catch (Exception ex)
+            {
+                var msg = ex.Message.ToString();
+                OwinLibrary.CreateLog(msg, "LogErrorFDCM.txt");
+                string urlpath = Url.Action("AccountTimeOut", "Account", new { area = "" });
+                if (IsErrorTimeout == false)
+                {
+                    Response.StatusCode = 406;
+                    Response.TrySkipIisCustomErrors = true;
+                    urlpath = Url.Action("Index", "Error", new { area = "" });
+                }
+                return Json(new
+                {
+                    url = urlpath,
+                    moderror = IsErrorTimeout
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> clnUpdHTLIPT(cHTLIPTData model, string jntexipt, string auxipt, string ctexipt, HttpPostedFileBase filesipt, string euxipt)
+        {
+            Account = (vmAccount)Session["Account"];
+            bool IsErrorTimeout = false;
+            if (Account != null)
+            {
+                Account.AccountLogin = lgAccount.NotExistSesionID(Request.Cookies[FormsAuthentication.FormsCookieName], Account.AccountLogin);
+                if (Account.AccountLogin.RouteName != "")
+                {
+                    IsErrorTimeout = true;
+                }
+            }
+            else
+            {
+                IsErrorTimeout = true;
+            }
+            if (IsErrorTimeout == true)
+            {
+                string urlpath = Url.Action("AccountTimeOut", "Account", new { area = "" });
+                return Json(new
+                {
+                    url = urlpath,
+                    moderror = IsErrorTimeout
+                }, JsonRequestBehavior.AllowGet);
+            }
+            try
+            {
+                HTL = TempData[tempTransksi] as vmHTL;
+                modFilter = TempData[tempTransksifilter] as cFilterContract;
+                Common = (TempData["common"] as vmCommon);
+                Common = Common == null ? new vmCommon() : Common;
+
+                string UserID = Account.AccountLogin.UserID;
+                string GroupName = Account.AccountLogin.GroupName;
+                string caption = modFilter.idcaption;
+
+                TempData[tempTransksi] = HTL;
+                TempData[tempTransksifilter] = modFilter;
+                TempData["common"] = Common;
 
                 //get value from aply filter //
                 string keyword = modFilter.keywordfilter;
@@ -3500,7 +5009,6 @@ namespace DusColl.Controllers
                 int ID = 0;
                 int statusOld = 0;
                 int statusNew = 0;
-
 
                 model.NoApplIpt = HashNetFramework.HasKeyProtect.Decryption(auxipt);
                 model.JenisData = HashNetFramework.HasKeyProtect.Decryption(jntexipt);
@@ -3517,7 +5025,7 @@ namespace DusColl.Controllers
                 double MaxSIZEDOC = 0;
                 if ((keylookupdata ?? "") != "")
                 {
-                    if (model.JenisData == "0") //pasangan debitur 
+                    if (model.JenisData == "0") //pasangan debitur
                     {
                         JENDOC = "KTP";
                         dr = HTL.HeaderInfo.DataPSG.AsEnumerable().Where(x => x.Field<string>("keylookupdata") == keylookupdata).SingleOrDefault();
@@ -3579,7 +5087,6 @@ namespace DusColl.Controllers
                         }
                     }
                 }
-
 
                 string CEKMODEL = "";
                 if (model.JenisData == "0" || model.JenisData == "2" || model.JenisData == "3")
@@ -3674,7 +5181,6 @@ namespace DusColl.Controllers
                         result = await HTLddl.dbupdateHTLIPT(ID, model, mode, caption, UserID, GroupName);
                     }
 
-
                     if (model.JenisData == "0")
                     {
                         viewbro = "/Views/HTL/uiHTLLstGridPSG.cshtml";
@@ -3691,7 +5197,6 @@ namespace DusColl.Controllers
                             IEnumerable<cListSelected> ppat = await HTLddl.dbdbGetDdlNotarisListByEncrypt(caption, model.NoApplIpt, UserID, GroupName);
                             viewppat = new JavaScriptSerializer().Serialize(ppat);
                         }
-
                     }
                     if (model.JenisData == "2")
                     {
@@ -3760,7 +5265,6 @@ namespace DusColl.Controllers
                     mode = "",
                     resulted = result
                 }); ;
-
             }
             catch (Exception ex)
             {
@@ -3831,7 +5335,6 @@ namespace DusColl.Controllers
                 TempData["common"] = Common;
                 // senback to client browser//
 
-
                 return Json(new
                 {
                     moderror = IsErrorTimeout,
@@ -3839,7 +5342,6 @@ namespace DusColl.Controllers
                     keydata = paramkey,
                     view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/Home/_CheckINV.cshtml", HTL),
                 });
-
             }
             catch (Exception ex)
             {
@@ -3858,7 +5360,6 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
 
         public async Task<ActionResult> clnOpenShowvalEXP(string paramkey, string oprfun)
@@ -3911,7 +5412,6 @@ namespace DusColl.Controllers
                 TempData["common"] = Common;
                 // senback to client browser//
 
-
                 return Json(new
                 {
                     moderror = IsErrorTimeout,
@@ -3919,7 +5419,6 @@ namespace DusColl.Controllers
                     keydata = paramkey,
                     view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/Home/_CheckEXP.cshtml", HTL),
                 });
-
             }
             catch (Exception ex)
             {
@@ -3938,7 +5437,6 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
 
         public async Task<ActionResult> clnOpenShowvalRJT(string paramkey, string oprfun)
@@ -3991,7 +5489,6 @@ namespace DusColl.Controllers
                 TempData["common"] = Common;
                 // senback to client browser//
 
-
                 return Json(new
                 {
                     moderror = IsErrorTimeout,
@@ -3999,7 +5496,6 @@ namespace DusColl.Controllers
                     keydata = paramkey,
                     view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/Home/_CheckRJT.cshtml", HTL),
                 });
-
             }
             catch (Exception ex)
             {
@@ -4018,9 +5514,7 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
-
 
         public async Task<ActionResult> clnOpenShowHisTL(string paramkey, string oprfun)
         {
@@ -4082,7 +5576,6 @@ namespace DusColl.Controllers
                     keydata = paramkey,
                     view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/Home/_TimeLine.cshtml", HTL),
                 });
-
             }
             catch (Exception ex)
             {
@@ -4101,10 +5594,10 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
 
         #region upload Sertifikat
+
         public async Task<ActionResult> clnKoncePlodSrt(string paridno, string parkepo)
         {
             Account = (vmAccount)Session["Account"];
@@ -4124,7 +5617,6 @@ namespace DusColl.Controllers
 
             try
             {
-
                 string UserID = Account.AccountLogin.UserID;
                 string GroupName = Account.AccountLogin.GroupName;
                 string caption = "UPLODSERTICEK";
@@ -4151,7 +5643,6 @@ namespace DusColl.Controllers
                     ops3 = "",
                     view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/HTL/uiHTLUploadSRT.cshtml", HTL),
                 });
-
             }
             catch (Exception ex)
             {
@@ -4165,8 +5656,8 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> clnKoncePlodsrtsve(HttpPostedFileBase files, string idx, string modepro, string tglpro, string noappl)
@@ -4196,7 +5687,6 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
 
-
             string parcno = "";
             string keylokup = parcno;
             string Jenis_Doc = "SERTIFIKAT PENGECEKAN";
@@ -4222,10 +5712,8 @@ namespace DusColl.Controllers
 
                 if (AllowUpload == true)
                 {
-
                     if (modepro == "chk")
                     {
-
                         var xmlString = "";
                         XmlDocument xml = new XmlDocument();
                         xmlString = Server.MapPath(Request.ApplicationPath) + "External\\Template\\TemplateDoc_Check.xml";
@@ -4268,7 +5756,6 @@ namespace DusColl.Controllers
                         validmsg = await Commonddl.dbValidFileupload(files, "SERTICEK", noappl, moduleID, UserID, GroupName);
                         if (validmsg == "")
                         {
-
                             byte[] imagebyte = null;
                             BinaryReader reader = new BinaryReader(files.InputStream);
                             imagebyte = reader.ReadBytes((int)files.ContentLength);
@@ -4279,7 +5766,6 @@ namespace DusColl.Controllers
                             {
                                 imagebyte = OwinLibrary.ConvertImageByteToPDFByte(imagebyte);
                             }
-
 
                             var splitfilename = files.FileName.Split('_');
                             string noapplfile = splitfilename[0];
@@ -4333,9 +5819,7 @@ namespace DusColl.Controllers
                     flbtmtype = filetype,
                     mode = modepro,
                 });
-
             }
-
             catch (Exception ex)
             {
                 var msg = ex.Message.ToString();
@@ -4352,9 +5836,9 @@ namespace DusColl.Controllers
                     url = urlpath,
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
-
             }
         }
+
         #endregion upload Sertifikat
 
         #region upload Dokumen
@@ -4378,7 +5862,6 @@ namespace DusColl.Controllers
 
             try
             {
-
                 string UserID = Account.AccountLogin.UserID;
                 string GroupName = Account.AccountLogin.GroupName;
                 string caption = "UPLOADDOC";
@@ -4428,7 +5911,6 @@ namespace DusColl.Controllers
                     {
                         valued = ".iptsht";
                     }
-
 
                     //
                     vie = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/HTL/uiHTLLstGridTNHSPA.cshtml", HTL.HeaderInfo);
@@ -4513,7 +5995,6 @@ namespace DusColl.Controllers
                     ViewBag.oprvalue = "edit";
                     valued = "";
 
-
                     HTL.HeaderInfo.DataTNHSPA = await HTLddl.dbGetMultiData(paridno, "1", caption, UserID, GroupName);
                     //HTL.HeaderInfo.NoAppl = paridno;
                     vie = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/HTL/uiHTLLstGridTNHSPA.cshtml", HTL.HeaderInfo);
@@ -4559,7 +6040,6 @@ namespace DusColl.Controllers
                     alsb = AllowSubmit,
                     spaipt = iptspa
                 }); ;
-
             }
             catch (Exception ex)
             {
@@ -4573,7 +6053,6 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
 
         public async Task<ActionResult> clnCheckDocmandorcncl(string paridno, string stated)
@@ -4595,7 +6074,6 @@ namespace DusColl.Controllers
 
             try
             {
-
                 string UserID = Account.AccountLogin.UserID;
                 string GroupName = Account.AccountLogin.GroupName;
                 string caption = "UPLOADDOC";
@@ -4638,7 +6116,6 @@ namespace DusColl.Controllers
                     vienm = vienmae,
                     view = vie
                 });
-
             }
             catch (Exception ex)
             {
@@ -4652,9 +6129,7 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
-
 
         public async Task<ActionResult> clnKoncePloddoc(string paridno, string parkepo)
         {
@@ -4675,7 +6150,6 @@ namespace DusColl.Controllers
 
             try
             {
-
                 string UserID = Account.AccountLogin.UserID;
                 string GroupName = Account.AccountLogin.GroupName;
                 string caption = "UPLOADDOC";
@@ -4698,7 +6172,6 @@ namespace DusColl.Controllers
                     ops3 = "",
                     view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/HTL/uiHTLUploadDoc.cshtml", HTL),
                 });
-
             }
             catch (Exception ex)
             {
@@ -4712,10 +6185,9 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
 
-        public async Task<ActionResult> clnKoncePloddocnw(string paridno, string paridno1, string parkepo)
+        public async Task<ActionResult> clnKoncePloddocnwRoya(string paridno, string paridno1, string parkepo, string grdoctyp)
         {
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
@@ -4734,7 +6206,6 @@ namespace DusColl.Controllers
 
             try
             {
-
                 modFilter = TempData[tempTransksifilter] as cFilterContract;
                 HTL = TempData[tempTransksi] as vmHTL;
                 Common = (TempData["common"] as vmCommon);
@@ -4749,7 +6220,7 @@ namespace DusColl.Controllers
                 paridno1 = (paridno1 == "-9999") ? "" : paridno1;
                 parkepo = HasKeyProtect.Decryption(parkepo);
                 string htocpar = (paridno == "") ? paridno1 : paridno;
-                HTL.DTDokumen = await Commonddl.dbdbGetJenisDokumen("0", htocpar, "4", caption, UserID, GroupName);
+                HTL.DTDokumen = await Commonddl.dbdbGetJenisDokumen("0", htocpar, "400", caption, UserID, GroupName);
                 htocpar = HasKeyProtect.Encryption(htocpar);
 
                 cHTL dtt = new cHTL();
@@ -4770,9 +6241,8 @@ namespace DusColl.Controllers
                     ops2 = "",
                     ops3 = "",
                     htdoc = htocpar,
-                    view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/HTL/uiHTLUploadDocNw.cshtml", dtt),
+                    view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/HTL/uiRoyaUploadDocNw.cshtml", dtt),
                 });
-
             }
             catch (Exception ex)
             {
@@ -4786,7 +6256,6 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
 
         public async Task<ActionResult> clnKoncePloddocnwvw(string paridno, string parkepo)
@@ -4808,7 +6277,6 @@ namespace DusColl.Controllers
 
             try
             {
-
                 modFilter = TempData[tempTransksifilter] as cFilterContract;
                 HTL = TempData[tempTransksi] as vmHTL;
                 Common = (TempData["common"] as vmCommon);
@@ -4842,7 +6310,6 @@ namespace DusColl.Controllers
                     ops3 = "",
                     view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/HTL/uiHTLUploadDocVw.cshtml", dtt),
                 });
-
             }
             catch (Exception ex)
             {
@@ -4856,7 +6323,6 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
 
         public async Task<ActionResult> clnKoncePloddocshtnw(string paridno, string paridno1, string parkepo)
@@ -4878,7 +6344,6 @@ namespace DusColl.Controllers
 
             try
             {
-
                 modFilter = TempData[tempTransksifilter] as cFilterContract;
                 HTL = TempData[tempTransksi] as vmHTL;
                 Common = (TempData["common"] as vmCommon);
@@ -4916,7 +6381,6 @@ namespace DusColl.Controllers
                     htdoc = htocpar,
                     view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/HTL/uiHTLUploadDocNwSHT.cshtml", dtt),
                 });
-
             }
             catch (Exception ex)
             {
@@ -4930,9 +6394,7 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -4988,10 +6450,8 @@ namespace DusColl.Controllers
 
                 if (AllowUpload == true)
                 {
-
                     if (modepro == "chk")
                     {
-
                         var xmlString = "";
                         XmlDocument xml = new XmlDocument();
                         xmlString = Server.MapPath(Request.ApplicationPath) + "External\\Template\\TemplateDoc_Check.xml";
@@ -5069,7 +6529,6 @@ namespace DusColl.Controllers
                         validmsg = await Commonddl.dbValidFileupload(files, "UPLOADDOC", noappl, moduleID, UserID, GroupName);
                         if (validmsg == "")
                         {
-
                             byte[] imagebyte = null;
                             BinaryReader reader = new BinaryReader(files.InputStream);
                             imagebyte = reader.ReadBytes((int)files.ContentLength);
@@ -5080,7 +6539,6 @@ namespace DusColl.Controllers
                             {
                                 imagebyte = OwinLibrary.ConvertImageByteToPDFByte(imagebyte);
                             }
-
 
                             var splitfilename = files.FileName.Split('_');
                             string NoSertifikat = splitfilename[0];
@@ -5122,7 +6580,6 @@ namespace DusColl.Controllers
                 TempData[tempTransksi] = HTL;
                 TempData["common"] = Common;
 
-
                 //string[] document = documen;
                 return Json(new
                 {
@@ -5135,9 +6592,7 @@ namespace DusColl.Controllers
                     flbtmtype = filetype,
                     mode = modepro,
                 });
-
             }
-
             catch (Exception ex)
             {
                 var msg = ex.Message.ToString();
@@ -5154,7 +6609,6 @@ namespace DusColl.Controllers
                     url = urlpath,
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
-
             }
         }
 
@@ -5198,7 +6652,6 @@ namespace DusColl.Controllers
             modFilter = TempData[tempTransksifilter] as cFilterContract;
             Common = (TempData["common"] as vmCommon);
 
-
             try
             {
                 string UserID = Account.AccountLogin.UserID;
@@ -5208,7 +6661,6 @@ namespace DusColl.Controllers
                 string moduleID = caption != "UPLOADDOC" ? HasKeyProtect.Decryption(caption) : caption;
                 bool AllowUpload = Account.AccountMetrikList.Where(x => x.MenuItem.ModuleID == moduleID).Select(x => x.AllowUpload).SingleOrDefault();
                 bool AllowSubmit = Account.AccountMetrikList.Where(x => x.MenuItem.ModuleID == moduleID).Select(x => x.AllowSubmit).SingleOrDefault();
-
 
                 string FlagOpr = "";
                 string notransaksi = "";
@@ -5239,7 +6691,6 @@ namespace DusColl.Controllers
                     kode = cntproo.Substring(cntproo.Length - 5);
                     cntproo = cntproo.Replace(kode, "");
                 }
-
 
                 cntproo = HashNetFramework.HasKeyProtect.Decryption(cntproo) == "-9999" ? cntproo : HashNetFramework.HasKeyProtect.Decryption(cntproo);
                 if (HTL.HeaderInfo == null)
@@ -5284,12 +6735,10 @@ namespace DusColl.Controllers
 
                 if (AllowUpload == true || (AllowSubmit == true))
                 {
-
                     if (files != null)
                     {
                         foreach (HttpPostedFileBase file in files)
                         {
-
                             decimal sizep = file.ContentLength / 1000;
                             if (file.FileName.Length > 50)
                             {
@@ -5322,7 +6771,6 @@ namespace DusColl.Controllers
                             var idoc = 0;
                             foreach (HttpPostedFileBase file in files)
                             {
-
                                 byte[] imagebyte = null;
                                 BinaryReader reader = new BinaryReader(file.InputStream);
                                 imagebyte = reader.ReadBytes((int)file.ContentLength);
@@ -5409,7 +6857,6 @@ namespace DusColl.Controllers
                 TempData[tempTransksi] = HTL;
                 TempData["common"] = Common;
 
-
                 //string[] document = documen;
                 return Json(new
                 {
@@ -5425,7 +6872,6 @@ namespace DusColl.Controllers
                     golpod = IDUpload
                 });
             }
-
             catch (Exception ex)
             {
                 var msg = ex.Message.ToString();
@@ -5442,7 +6888,6 @@ namespace DusColl.Controllers
                     url = urlpath,
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
-
             }
         }
 
@@ -5500,10 +6945,8 @@ namespace DusColl.Controllers
 
                 if (AllowUpload == true)
                 {
-
                     if (modepro == "chk")
                     {
-
                         var xmlString = "";
                         XmlDocument xml = new XmlDocument();
                         xmlString = Server.MapPath(Request.ApplicationPath) + "External\\Template\\TemplateDoc_Check.xml";
@@ -5581,7 +7024,6 @@ namespace DusColl.Controllers
                         validmsg = await Commonddl.dbValidFileupload(files, "UPLOADDOC", noappl, moduleID, UserID, GroupName);
                         if (validmsg == "")
                         {
-
                             byte[] imagebyte = null;
                             BinaryReader reader = new BinaryReader(files.InputStream);
                             imagebyte = reader.ReadBytes((int)files.ContentLength);
@@ -5592,8 +7034,6 @@ namespace DusColl.Controllers
                             {
                                 imagebyte = OwinLibrary.ConvertImageByteToPDFByte(imagebyte);
                             }
-
-
 
                             var splitfilename = files.FileName.Split('_');
                             string NoSertifikat = splitfilename[0];
@@ -5608,7 +7048,6 @@ namespace DusColl.Controllers
                             //convert byte to base//
                             string base64String = Convert.ToBase64String(filebyteECP, 0, filebyteECP.Length);
 
-
                             Jenis_Doc = splitfilename[1].ToLower().Replace(".jpg", "").Replace(".jpeg", "").Replace(".JPG", "").Replace(".JPEG", "").Replace(".pdf", "").Replace(".PDF", "");
                             string DocumentType = Jenis_Doc.ToUpper();
                             string FileName = files.FileName;
@@ -5616,7 +7055,6 @@ namespace DusColl.Controllers
                             string ContentType = "Application/pdf";
                             string ContentLength = filebyteECP.Length.ToString();
                             string FileByte = base64String;
-
 
                             DataTable dtx = await HTLddl.dbSaveRegMitradoc("0", "", "", "", noappl, "99", DocumentType, FileName, ContentType, ContentLength, FileByte, moduleID, UserID, GroupName);
                             resultsuct = int.Parse(dtx.Rows[0][0].ToString());
@@ -5637,7 +7075,6 @@ namespace DusColl.Controllers
                 TempData[tempTransksi] = HTL;
                 TempData["common"] = Common;
 
-
                 //string[] document = documen;
                 return Json(new
                 {
@@ -5650,9 +7087,7 @@ namespace DusColl.Controllers
                     flbtmtype = filetype,
                     mode = modepro,
                 });
-
             }
-
             catch (Exception ex)
             {
                 var msg = ex.Message.ToString();
@@ -5669,7 +7104,6 @@ namespace DusColl.Controllers
                     url = urlpath,
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
-
             }
         }
 
@@ -5712,7 +7146,6 @@ namespace DusColl.Controllers
             HTL = TempData[tempTransksi] as vmHTL;
             modFilter = TempData[tempTransksifilter] as cFilterContract;
             Common = (TempData["common"] as vmCommon);
-
 
             try
             {
@@ -5759,7 +7192,6 @@ namespace DusColl.Controllers
                     cntproo = cntproo.Replace(kode, "");
                 }
 
-
                 cntproo = HashNetFramework.HasKeyProtect.Decryption(cntproo) == "-9999" ? cntproo : HashNetFramework.HasKeyProtect.Decryption(cntproo);
                 if (HTL.HeaderInfo == null)
                 {
@@ -5803,12 +7235,10 @@ namespace DusColl.Controllers
 
                 if (AllowUpload == true || (AllowSubmit == true))
                 {
-
                     if (files != null)
                     {
                         foreach (HttpPostedFileBase file in files)
                         {
-
                             decimal sizep = file.ContentLength / 1000;
                             if (file.FileName.Length > 50)
                             {
@@ -5848,7 +7278,6 @@ namespace DusColl.Controllers
                             var idoc = 0;
                             foreach (HttpPostedFileBase file in files)
                             {
-
                                 byte[] imagebyte = null;
                                 BinaryReader reader = new BinaryReader(file.InputStream);
                                 imagebyte = reader.ReadBytes((int)file.ContentLength);
@@ -5899,7 +7328,6 @@ namespace DusColl.Controllers
                                 //}
                                 //}
                                 //pdfReader.Close();
-
 
                                 //prepare to encrypt
                                 string KECEP = noappl;
@@ -5980,7 +7408,6 @@ namespace DusColl.Controllers
                 TempData[tempTransksi] = HTL;
                 TempData["common"] = Common;
 
-
                 //string[] document = documen;
                 return Json(new
                 {
@@ -5996,7 +7423,6 @@ namespace DusColl.Controllers
                     golpod = IDUpload,
                 });
             }
-
             catch (Exception ex)
             {
                 var msg = ex.Message.ToString();
@@ -6013,13 +7439,10 @@ namespace DusColl.Controllers
                     url = urlpath,
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
-
             }
         }
 
-
         #endregion upload Dokumen
-
 
         public async Task<ActionResult> clnCheckDocmandornk(string paridno, string stated)
         {
@@ -6040,7 +7463,6 @@ namespace DusColl.Controllers
 
             try
             {
-
                 string UserID = Account.AccountLogin.UserID;
                 string GroupName = Account.AccountLogin.GroupName;
                 string caption = "HTLLIST";
@@ -6074,7 +7496,6 @@ namespace DusColl.Controllers
                     dtn = JSONresult,
                     view = ""
                 });
-
             }
             catch (Exception ex)
             {
@@ -6088,7 +7509,6 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
 
         public async Task<ActionResult> clnCheckProvchange(string paridno, string stated)
@@ -6110,7 +7530,6 @@ namespace DusColl.Controllers
 
             try
             {
-
                 string UserID = Account.AccountLogin.UserID;
                 string GroupName = Account.AccountLogin.GroupName;
                 string caption = "HTLLIST";
@@ -6122,7 +7541,6 @@ namespace DusColl.Controllers
 
                 Common.ddlLokprov = await Commonddl.dbdbGetDdlEnumsListByEncrypt("LOKTANAHKOTA", caption, UserID, GroupName, stated);
                 ViewData["SelectLokasiTanahProv"] = new MultiSelectList(Common.ddlLokprov, "Value", "Text");
-
 
                 modFilter.idcaption = caption;
                 TempData[tempTransksi] = HTL;
@@ -6144,7 +7562,6 @@ namespace DusColl.Controllers
                     dtn = JSONresult,
                     view = ""
                 });
-
             }
             catch (Exception ex)
             {
@@ -6158,13 +7575,10 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
-
 
         public async Task<ActionResult> clnchkfle(string secnocon, string coontpe, string clnfdc)
         {
-
             string EnumMessage = "";
             string filenamevar = "View Dokumen";
             byte[] res = null;
@@ -6195,7 +7609,6 @@ namespace DusColl.Controllers
 
             try
             {
-
                 //get session filterisasi //
                 modFilter = TempData[tempTransksifilter] as cFilterContract;
                 HTL = TempData[tempTransksi] as vmHTL;
@@ -6229,7 +7642,6 @@ namespace DusColl.Controllers
                 string infokon = "";
                 string infofisrst = "";
 
-
                 if (clnfdc == "ckalleddxtx" || clnfdc == "ckalleddxtxp") /* upload pl pada grid yang sudah ttd*/
                 {
                     secnocon = "MNL_" + HashNetFramework.HasKeyProtect.Decryption(secnocon).Replace("/", "").Replace("-", "");
@@ -6238,7 +7650,6 @@ namespace DusColl.Controllers
                 {
                     secnocon = HashNetFramework.HasKeyProtect.Decryption(secnocon);
                 }
-
 
                 int idicategetdb = 1;
                 string ID = "0";
@@ -6280,7 +7691,6 @@ namespace DusColl.Controllers
                 }
                 if (idicategetdb == 0)
                 {
-
                     if (secnocon == "chkall")
                     {
                         secnocon = "-99";
@@ -6356,7 +7766,6 @@ namespace DusColl.Controllers
                             res = imageBytes;
                         }
 
-
                         //    finalPdf = new iTextSharp.text.pdf.PdfReader(imageBytes, pass);
                         //    for (int i = 1; i < finalPdf.NumberOfPages + 1; i++)
                         //    {
@@ -6393,7 +7802,6 @@ namespace DusColl.Controllers
                 }
                 catch
                 {
-
                 }
 
                 if (secnocon == "chkall" || secnocon == "-99")
@@ -6429,7 +7837,6 @@ namespace DusColl.Controllers
                 var jsonresult = Json(new { view = viewhml, moderror = IsErrorTimeout, dwn = clnfdc, infoselect = infofisrst, bytetyipe = res, msg = EnumMessage, cap = nokonview, contenttype = contenttypeed, filename = filenamevar, viewpath = viewpathed, JsonRequestBehavior.AllowGet });
                 jsonresult.MaxJsonLength = int.MaxValue;
                 return jsonresult;
-
             }
             catch (Exception ex)
             {
@@ -6454,7 +7861,6 @@ namespace DusColl.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> clnResend(string[] AktaSelectdwn, string prevedid, string namaidpool, string reooo)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -6470,10 +7876,8 @@ namespace DusColl.Controllers
                 IsErrorTimeout = true;
             }
 
-
             try
             {
-
                 //get filter data from session before//
                 modFilter = TempData[tempTransksifilter] as cFilterContract;
                 HTL = TempData[tempTransksi] as vmHTL;
@@ -6502,8 +7906,6 @@ namespace DusColl.Controllers
                 string SecureModuleId = HasKeyProtect.Decryption(modFilter.idcaption);
                 string Email = HasKeyProtect.Decryption(modFilter.MailerDaemoon);
                 string UserGenCode = HasKeyProtect.Decryption(modFilter.GenDeamoon);
-
-
 
                 ////set login key//
                 string LoginAksesKey = UserID + Email + UserGenCode;
@@ -6627,7 +8029,6 @@ namespace DusColl.Controllers
                 string filenamepar = (prevedid == "brk" ? "BERKAS DOKUMEN HT_" + minut + ".zip" : "SERTIFIKAT PENGECEKAN HT_" + minut + ".zip");
                 return File(buffer, "application/zip", filenamepar);
             }
-
             catch (Exception ex)
             {
                 var msg = ex.Message.ToString();
@@ -6646,6 +8047,7 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         public static byte[] ReadAllBytes(Stream instream)
         {
             if (instream is MemoryStream)
@@ -6660,7 +8062,6 @@ namespace DusColl.Controllers
 
         public async Task<ActionResult> clnchkfledl(string secnocon, string geolo)
         {
-
             string EnumMessage = "";
             byte[] res = null;
             Account = (vmAccount)Session["Account"];
@@ -6690,7 +8091,6 @@ namespace DusColl.Controllers
 
             try
             {
-
                 //get session filterisasi //
                 modFilter = TempData[tempTransksifilter] as cFilterContract;
                 HTL = TempData[tempTransksi] as vmHTL;
@@ -6734,7 +8134,6 @@ namespace DusColl.Controllers
                 var jsonresult = Json(new { view = "", moderror = IsErrorTimeout, msg = EnumMessage, rst = resultsuct, JsonRequestBehavior.AllowGet });
                 jsonresult.MaxJsonLength = int.MaxValue;
                 return jsonresult;
-
             }
             catch (Exception ex)
             {
@@ -6755,13 +8154,10 @@ namespace DusColl.Controllers
             }
         }
 
-
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> clnResendSHT(string[] AktaSelectdwn, string prevedid, string namaidpool, string reooo)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -6777,10 +8173,8 @@ namespace DusColl.Controllers
                 IsErrorTimeout = true;
             }
 
-
             try
             {
-
                 //get filter data from session before//
                 modFilter = TempData[tempTransksifilter] as cFilterContract;
                 HTL = TempData[tempTransksi] as vmHTL;
@@ -6805,8 +8199,6 @@ namespace DusColl.Controllers
                     AllowDownload = Metrik.AllowDownload;
                 }
 
-
-
                 //bool AllowPrint = Metrik.AllowPrint;
 
                 //deript for db//
@@ -6816,8 +8208,6 @@ namespace DusColl.Controllers
                 string SecureModuleId = HasKeyProtect.Decryption(modFilter.idcaption);
                 string Email = HasKeyProtect.Decryption(modFilter.MailerDaemoon);
                 string UserGenCode = HasKeyProtect.Decryption(modFilter.GenDeamoon);
-
-
 
                 ////set login key//
                 string LoginAksesKey = UserID + Email + UserGenCode;
@@ -6894,7 +8284,6 @@ namespace DusColl.Controllers
                     }
                 }
 
-
                 const int bufferSize = 104857600;
                 var buffer = new byte[bufferSize];
                 string minut = "";
@@ -6939,13 +8328,11 @@ namespace DusColl.Controllers
                 DataTable DocumentByte = new DataTable();
                 //var dbx = new DropboxClient(keybox);
 
-
                 if (code == "trmppat" || reooo == "cretbast" || reooo == "rekapulang")
                 {
                     string sourceFile = Server.MapPath(Request.ApplicationPath) + "External\\TemplateINV\\BUKTITERIMA.docx";
                     using (MemoryStream pdfDocumentstream = new MemoryStream())
                     {
-
                         Spire.Doc.Document doc = new Spire.Doc.Document();
                         doc.LoadFromFile(sourceFile);
                         /* update */
@@ -7022,7 +8409,6 @@ namespace DusColl.Controllers
                         y = y + font1.MeasureString("Country List", format1).Height;
                         y = y + 25;
 
-
                         //DataTable resultdtpdf = HTL.DTHeaderTx.DefaultView.ToTable(false, new string[]
                         //{ "No", "NoPerjanjian","Debitur", "NoSHM","PemilikSHM","NoAkta","KodeSHT","NoSHT","NilaiHT","PinjamanKonsumen" });
 
@@ -7075,7 +8461,6 @@ namespace DusColl.Controllers
                                 table.Columns[i].Width = 12;
                                 table.Columns[i].StringFormat = new PdfStringFormat(PdfTextAlignment.Right, PdfVerticalAlignment.Middle);
                             }
-
                         }
 
                         PdfLayoutResult result = table.Draw(page, new PointF(0, y));
@@ -7117,14 +8502,11 @@ namespace DusColl.Controllers
                             SizeF size = font.MeasureString(compositeField.Text);
                             compositeField.Bounds = new RectangleF(pageSize.Width - (130), y + 2, size.Width, size.Height);
                             compositeField.Draw(docfooter.Pages[i].Canvas);
-
                         }
 
                         docfooter.SaveToStream(pdfDocumentstream);
                         filtpe = "application/pdf";
                         minut = DateTime.Now.ToString("ddMMyyyymmss");
-
-
 
                         if (resulted == "1")
                         {
@@ -7151,12 +8533,10 @@ namespace DusColl.Controllers
                         //    namatitle = "BUKTI SERAH TERIMA_" + "(No." + nobast + ")",
                         //    view = "",
                         //});
-
                     }
                 }
                 else if (code == "trmcab")
                 {
-
                     int result = await Commonddl.dbupdateflagsht("1", dataupload, caption, UserID, GroupName);
                     string errmessage = "";
                     errmessage = result.ToString() + " data Berhasil diproses, silahkan dicek kembali";
@@ -7234,7 +8614,6 @@ namespace DusColl.Controllers
 
                     if (reooo == "HTLLISTHT5")
                     {
-
                         var resultqueryer = from data in HTL.DTAllTx.AsEnumerable()
                                             select new
                                             {
@@ -7365,7 +8744,6 @@ namespace DusColl.Controllers
                                             //}
                                             //else
                                             //{
-
                                             //pathsbe = s.FILE_NAME;
                                             //}
                                             zip.AddEntry(pathsbe, imageBytes);
@@ -7388,10 +8766,7 @@ namespace DusColl.Controllers
 
                     return File(buffer, filtpe, filenamepar);
                 }
-
-
             }
-
             catch (Exception ex)
             {
                 var msg = ex.Message.ToString();
@@ -7500,11 +8875,9 @@ namespace DusColl.Controllers
                         branchjson = new JavaScriptSerializer().Serialize(tempbrach),
                         brachselect = SelectBranch, //HasKeyProtect.Decryption(SelectBranch),
                     });
-
                 }
                 else
                 {
-
                     // get value filter before//
                     string Keykode = modFilter.RequestNo;
                     string SelectArea = modFilter.SelectArea;
@@ -7592,13 +8965,12 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> clnHeaderTxFilter(cFilterContract model)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -7632,7 +9004,6 @@ namespace DusColl.Controllers
                 Common = (TempData[tempcommon] as vmCommon);
                 Common = Common == null ? new vmCommon() : Common;
 
-
                 string UserID = Account.AccountLogin.UserID;
                 string UserName = Account.AccountLogin.UserName;
                 string ClientID = Account.AccountLogin.ClientID;
@@ -7647,7 +9018,6 @@ namespace DusColl.Controllers
                 string idcaption = HasKeyProtect.Decryption(modFilter.ModuleID);
                 string caption = idcaption;
                 string menu = modFilter.Menu;
-
 
                 // extend //
                 cAccountMetrik PermisionModule = Account.AccountMetrikList.Where(x => x.MenuItem.ModuleID == caption).SingleOrDefault();
@@ -7694,7 +9064,6 @@ namespace DusColl.Controllers
                 string validtxt = "";
                 if (validtxt == "")
                 {
-
                     // try show filter data//
                     SelectNotaris = SelectNotaris != "" ? HasKeyProtect.Decryption(SelectNotaris) : SelectNotaris;
                     SelectNotarisInv = SelectNotarisInv != "" ? HasKeyProtect.Decryption(SelectNotarisInv) : SelectNotarisInv;
@@ -7733,7 +9102,6 @@ namespace DusColl.Controllers
                     TempData[tempTransksi] = HTL;
                     TempData[tempcommon] = Common;
 
-
                     string filteron = isModeFilter == false ? "" : ", Pencarian :  Aktif";
                     ViewBag.Total = "Total Data : " + TotalRecord.ToString() + filteron;
 
@@ -7742,7 +9110,6 @@ namespace DusColl.Controllers
                     {
                         ViewBag.ShowNotaris = "allow";
                     }
-
 
                     ViewBag.menu = menu;
                     ViewBag.caption = caption;
@@ -7775,7 +9142,6 @@ namespace DusColl.Controllers
                         message = validtxt
                     });
                 }
-
             }
             catch (Exception ex)
             {
@@ -7795,6 +9161,7 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         public async Task<ActionResult> clnRgridHeaderTx(int paged)
         {
             Account = (vmAccount)Session["Account"];
@@ -7898,9 +9265,7 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
-
 
         public async Task<ActionResult> clnRgridIpt(string ap, string jn)
         {
@@ -7950,7 +9315,6 @@ namespace DusColl.Controllers
                     HTL.HeaderInfo.DataPSG = await HTLddl.dbGetMultiData(ap, jn, caption, UserID, GroupName);
                 }
 
-
                 if (jn == "1")
                 {
                     viewbro = "/Views/HTL/uiHTLLstGridTNH.cshtml";
@@ -7968,7 +9332,6 @@ namespace DusColl.Controllers
                     viewbro = "/Views/HTL/uiHTLLstGridSRTPSG.cshtml";
                     HTL.HeaderInfo.DataSRTPSG = await HTLddl.dbGetMultiData(ap, jn, caption, UserID, GroupName);
                 }
-
 
                 ViewBag.Nappl = ap;
                 ViewBag.Jndata1 = "1";
@@ -8004,24 +9367,18 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
 
         private static void Table_BeginRowLayout(object sender, BeginRowLayoutEventArgs args)
 
         {
-
             args.MinimalHeight = 15f;
-
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> vwHT(string eux, string aux)
         {
-
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -8037,10 +9394,8 @@ namespace DusColl.Controllers
                 IsErrorTimeout = true;
             }
 
-
             try
             {
-
                 // get from session //
                 modFilter = TempData[tempTransksifilter] as cFilterContract;
                 HTL = TempData[tempTransksi] as vmHTL;
@@ -8073,9 +9428,7 @@ namespace DusColl.Controllers
                     gtid = "",
                     resulted = result
                 });
-
             }
-
             catch (Exception ex)
             {
                 var msg = ex.Message.ToString();
@@ -8094,6 +9447,7 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         public static byte[] CreateDokumen4BPNHT(
                         string TemplateName,
                         string NoAppl,
@@ -8107,7 +9461,6 @@ namespace DusColl.Controllers
             byte[] imagetemplate = null;
             byte[] imageBytes = null;
             byte[] imageBytes1 = null;
-
 
             string filenamnew = TemplateName + ".docx";
             string filenamnewpdf = TemplateName + ".pdf";
@@ -8142,14 +9495,10 @@ namespace DusColl.Controllers
             return res;
         }
 
-
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> vwmhn(string eux, string aux)
         {
-
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -8165,10 +9514,8 @@ namespace DusColl.Controllers
                 IsErrorTimeout = true;
             }
 
-
             try
             {
-
                 // get from session //
                 modFilter = TempData[tempTransksifilter] as cFilterContract;
                 HTL = TempData[tempTransksi] as vmHTL;
@@ -8213,7 +9560,6 @@ namespace DusColl.Controllers
                 string NilaiHakMilik = "";
                 string NilaiHTDesc = "";
 
-
                 string NamaPICPT = "";
                 string AlamatPICPT = "";
                 string NamaPTPIC = "";
@@ -8241,7 +9587,6 @@ namespace DusColl.Controllers
                 KecamatanBidangTanah = rw["LokasiTanahDiKecamatan"].ToString();
                 KelDesaBidangTanah = rw["LokasiTanahDiDesaKelurahan"].ToString();
                 AlamatBidangTanah = rw["LokasiTanahDiAlamat"].ToString();
-
 
                 nibSertifikat = rw["NomorNIB"].ToString();
                 blankoSertifikat = rw["NoBlanko"].ToString();
@@ -8301,11 +9646,9 @@ namespace DusColl.Controllers
                 //TglMasukMitra = DateTime.Parse(rw["tglmasuk"].ToString(), new System.Globalization.CultureInfo("id-ID")).ToString("dd MMMM yyyy");
                 //TglAkhirMitra = DateTime.Parse(rw["tglakhir"].ToString(), new System.Globalization.CultureInfo("id-ID")).ToString("dd MMMM yyyy");
 
-
                 caption = HasKeyProtect.Decryption(caption);
                 // extend //
                 cAccountMetrik PermisionModule = Account.AccountMetrikList.Where(x => x.MenuItem.ModuleID == caption).SingleOrDefault();
-
 
                 string ttdpat = "";
                 string namanotaris = "";
@@ -8354,7 +9697,7 @@ namespace DusColl.Controllers
                 //    filenamevar = "SURAT PERMOHONAN_" + SertifikathakMilikno.Substring(SertifikathakMilikno.Length - 5, 5) + offic;
 
                 //}
-                //else 
+                //else
 
                 if (aux == "suku" || aux == "sukuskpt")
                 {
@@ -8387,14 +9730,12 @@ namespace DusColl.Controllers
 
                 //    }
 
-
                 //    filenamevar = "SURAT KEABSAHAN_" + SertifikathakMilikno.Substring(SertifikathakMilikno.Length - 5, 5) + offic;
                 //}
 
                 var contenttypeed = contenttipe; //"application /pdf";
                 string powderdockp = PermisionModule.AllowPrint == true ? "1" : "0";
                 string powderdockd = PermisionModule.AllowDownload == true ? "1" : "0";
-
 
                 //"application /vnd.ms-excel";// application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"; // "application /ms-excel";
                 var viewpathed = "Content/assets/pages/pdfjs-dist/web/viewer.html?parpowderdockp=" + powderdockp + "&parpowderdockd=" + powderdockd + "&pardsecuredmoduleID=&file=";
@@ -8404,7 +9745,6 @@ namespace DusColl.Controllers
                 //}
                 //create area footer//
             }
-
             catch (Exception ex)
             {
                 var msg = ex.Message.ToString();
@@ -8423,6 +9763,7 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         public static byte[] CreateDokumen4BPN(
                         string TemplateName,
                         string NoAppl,
@@ -8436,7 +9777,6 @@ namespace DusColl.Controllers
             byte[] imagetemplate = null;
             byte[] imageBytes = null;
             byte[] imageBytes1 = null;
-
 
             string filenamnew = TemplateName + ".docx";
             string filenamnewpdf = TemplateName + ".pdf";
@@ -8470,7 +9810,6 @@ namespace DusColl.Controllers
             //System.IO.File.Delete(pathfilenew);
             return res;
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -8514,7 +9853,6 @@ namespace DusColl.Controllers
                 string GroupName = Account.AccountLogin.GroupName;
                 string caption = ""; //HasKeyProtect.Decryption(modFilter.idcaption);
 
-
                 DataTable dt = new DataTable();
 
                 string resulttxt = string.Empty;
@@ -8538,7 +9876,6 @@ namespace DusColl.Controllers
                     view = "",
                     msg = errmessage,
                 });
-
             }
             catch (Exception ex)
             {
@@ -8557,9 +9894,7 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
-
 
         public async Task<ActionResult> clnOpenAddUploadRegis(string gontok)
         {
@@ -8612,7 +9947,6 @@ namespace DusColl.Controllers
                 //{
                 //} else
 
-
                 Common.ddlJenisDokumen = await Commonddl.dbdbGetDdlEnumsListByEncrypt("FLAGSPS", "", UserID, GroupName);
                 ViewData["SelectTrans"] = OwinLibrary.Get_SelectListItem(Common.ddlJenisDokumen);
 
@@ -8625,7 +9959,6 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout,
                     view = CustomEngineView.RenderRazorViewToString(ControllerContext, viewpo, modFilter),
                 });
-
             }
             catch (Exception ex)
             {
@@ -8644,9 +9977,7 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
-
 
         public async Task<ActionResult> clnOpenAddBASTSCH(string gontok)
         {
@@ -8699,7 +10030,6 @@ namespace DusColl.Controllers
                 //{
                 //} else
 
-
                 Common.ddlJenisDokumen = await Commonddl.dbdbGetDdlEnumsListByEncrypt("FLAGBAST", "", UserID, GroupName);
                 ViewData["SelectTrans"] = OwinLibrary.Get_SelectListItem(Common.ddlJenisDokumen);
 
@@ -8712,7 +10042,6 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout,
                     view = CustomEngineView.RenderRazorViewToString(ControllerContext, viewpo, modFilter),
                 });
-
             }
             catch (Exception ex)
             {
@@ -8731,9 +10060,7 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -8777,7 +10104,6 @@ namespace DusColl.Controllers
                 string GroupName = Account.AccountLogin.GroupName;
                 string caption = ""; //HasKeyProtect.Decryption(modFilter.idcaption);
 
-
                 DataTable dt = new DataTable();
 
                 string resulttxt = string.Empty;
@@ -8801,7 +10127,6 @@ namespace DusColl.Controllers
                     view = "",
                     msg = errmessage,
                 });
-
             }
             catch (Exception ex)
             {
@@ -8820,18 +10145,14 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
-
     }
-
 }
 
 /*
             float maxw = 0;
             using (var document = DocX.Load(path + filenam + ".docx"))
             {
-
                 Xceed.Document.NET.Border ds = new Xceed.Document.NET.Border();
                 ds.Tcbs = Xceed.Document.NET.BorderStyle.Tcbs_single;
                 Xceed.Document.NET.Borders bd = new Xceed.Document.NET.Borders();
@@ -8839,7 +10160,6 @@ namespace DusColl.Controllers
 
                 //document.MarginRight = 50;
                 List<Xceed.Document.NET.Section> pop = document.Sections.ToList();
-
 
                 string txt = "";
                 foreach (Xceed.Document.NET.Section kop in pop)
@@ -8853,7 +10173,6 @@ namespace DusColl.Controllers
                         koip.Border(ds);
                         //txt = new String(koip.Text.ToCharArray().Distinct().ToArray());
                         {
-
                             float widhtparag = kop.PageWidth;
                             float maxllop = maxw;
                             string newstring = "";
@@ -8867,7 +10186,6 @@ namespace DusColl.Controllers
                             Size textSize = TextRenderer.MeasureText("-", arialBold);
                             pjnkarperhruf = textSize.Width;
                             jumlahhuruf = maxllop / pjnkarperhruf;
-
 
                             foreach (var item in koip.Text.Split(new string[] { "\n" }
                                  , StringSplitOptions.RemoveEmptyEntries))
@@ -8934,6 +10252,5 @@ namespace DusColl.Controllers
 
                 document.SaveAs(path + string.Format(filenamnew, nomorhak));
                 document.Dispose();
-
             }
 */

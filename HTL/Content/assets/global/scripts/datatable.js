@@ -2,7 +2,6 @@
 Wrapper/Helper Class for datagrid based on jQuery Datatable Plugin
 ***/
 var Datatable = function() {
-
     var tableOptions; // main options
     var dataTable; // datatable object
     var table; // actual table jquery object
@@ -23,10 +22,8 @@ var Datatable = function() {
     };
 
     return {
-
         //main function to initiate the module
         init: function(options) {
-
             if (!$().dataTable) {
                 return;
             }
@@ -35,7 +32,7 @@ var Datatable = function() {
 
             // default settings
             options = $.extend(true, {
-                src: "", // actual table  
+                src: "", // actual table
                 filterApplyAction: "filter",
                 filterCancelAction: "filter_cancel",
                 resetGroupActionInputOnSuccess: true,
@@ -295,7 +292,5 @@ var Datatable = function() {
         getTable: function() {
             return table;
         }
-
     };
-
 };

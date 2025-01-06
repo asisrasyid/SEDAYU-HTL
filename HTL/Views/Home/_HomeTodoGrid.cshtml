@@ -1,6 +1,5 @@
 ﻿@model DusColl.vmHome
 
-
 <style>
     td:not(:first-child) {
         white-space: nowrap;
@@ -17,8 +16,6 @@
         border: 0;
     }
 </style>
-
-
 
 <table class="table table-striped table-hover table-bordered" id="table_tx">
     <thead>
@@ -44,33 +41,32 @@
             <td align="center">
                 @if (int.Parse(item["TransStatus"].ToString()) == (int)HashNetFramework.StatusDocTrans.WAITAPRV)
                 {
-                    <i class='fa fa-user' title="Menunggu Verifikasi"></i>
+                <i class='fa fa-user' title="Menunggu Verifikasi"></i>
                 }
                 else if (int.Parse(item["TransStatus"].ToString()) == (int)HashNetFramework.StatusDocTrans.COMPLATE)
                 {
-                    <i class='fa fa-check-square' title="Pengajuan Selesai"></i>
+                <i class='fa fa-check-square' title="Pengajuan Selesai"></i>
                 }
                 else if (int.Parse(item["TransStatus"].ToString()) == (int)HashNetFramework.StatusDocTrans.REJECT)
                 {
-                    <i class='fa fa-minus-circle' title="Pengajuan Ditolak"></i>
+                <i class='fa fa-minus-circle' title="Pengajuan Ditolak"></i>
                 }
                 else if (int.Parse(item["TransStatus"].ToString()) == (int)HashNetFramework.StatusDocTrans.CANCELLED)
                 {
-                    <i class='fa fa-times-circle' title="Pengajuan DiBatalkan"></i>
+                <i class='fa fa-times-circle' title="Pengajuan DiBatalkan"></i>
                 }
                 else if (int.Parse(item["TransStatus"].ToString()) == (int)HashNetFramework.StatusDocTrans.REVISE)
                 {
-                    <i class='fa fa-edit' title="Pengajuan Direvisi"></i>
+                <i class='fa fa-edit' title="Pengajuan Direvisi"></i>
                 }
                 else if (int.Parse(item["TransStatus"].ToString()) == (int)HashNetFramework.StatusDocTrans.WAITEMPLID)
                 {
-                    <i class='fa fa-user-secret' title="Menunggu Generate EmployeeID"></i>
+                <i class='fa fa-user-secret' title="Menunggu Generate EmployeeID"></i>
                 }
                 else if (int.Parse(item["TransStatus"].ToString()) == (int)HashNetFramework.StatusDocTrans.PENDTASK)
                 {
-                    <i class='fa fa-edit' title="Menunggu Kelengkapan Data"></i>
+                <i class='fa fa-edit' title="Menunggu Kelengkapan Data"></i>
                 }
-
             </td>
             <td>
                 @Html.Raw(item["jenispengajuandesc"])
@@ -108,8 +104,6 @@
     </tbody>
 </table>
 
-
-
 <script>
     $.getScript("/Content/assets/pages/scripts/table-datatable-custom.js")
         .done(function (script, textStatus) {
@@ -129,7 +123,6 @@
 
             TableDatatablesEditable1.initPaging(tabled, currentP, totalR, totalP, nextP, prevP, parurl, divgrid, 0);
             $("#table_tx_filter > label > input").after("<button type='button' class='btn green' title='Pencarian' onclick='vmHomePages.OpenFilter();'> <i class='fa fa-filter'></i></button > ");
-          
+
         });
 </script>
-

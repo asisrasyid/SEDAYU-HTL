@@ -1,14 +1,9 @@
 ﻿using HashNetFramework;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
 using System.Linq;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
@@ -17,7 +12,6 @@ namespace DusColl
     [Serializable]
     public class vmCommon
     {
-
         public IEnumerable<cListSelected> ddlItems { get; set; }
         public IEnumerable<cListSelected> ddlCusts { get; set; }
         public IEnumerable<cListSelected> ddlCase { get; set; }
@@ -27,7 +21,6 @@ namespace DusColl
         public IEnumerable<cListSelected> ddlVendor { get; set; }
         public IEnumerable<cListSelected> ddlFollow { get; set; }
 
-
         public IEnumerable<cListSelected> ddlNIK { get; set; }
         public IEnumerable<cListSelected> ddlNIB { get; set; }
         public IEnumerable<cListSelected> ddlnotaris { get; set; }
@@ -35,11 +28,11 @@ namespace DusColl
 
         public IEnumerable<cListSelected> ddlUserID { get; set; }
 
-        public IEnumerable<cListSelected> ddlGrupUser{ get; set; }
+        public IEnumerable<cListSelected> ddlGrupUser { get; set; }
 
         public IEnumerable<cListSelected> ddlnotarisInv { get; set; }
         public IEnumerable<cListSelected> ddlstatus { get; set; }
-        public DataTable  ddlstatusmap { get; set; }
+        public DataTable ddlstatusmap { get; set; }
         public IEnumerable<cListSelected> ddlsrc { get; set; }
         public IEnumerable<cListSelected> ddlhak { get; set; }
 
@@ -71,14 +64,11 @@ namespace DusColl
         public IEnumerable<cListSelected> ddlJenisDokumen { get; set; }
 
         public IEnumerable<cListSelected> ddlGrupAkses { get; set; }
-
-
     }
 
     [Serializable]
     public class vmCommonddl
     {
-
         public async Task<string> dbValidFileupload(HttpPostedFileBase file, string TypeCekFileFormat, string noappl, string module, string UserID, string Groupname, double MaxSizeR = 0)
         {
             string valid = "";
@@ -116,12 +106,10 @@ namespace DusColl
                     {
                         valid = "No Aplikasi harus 14 digit";
                     }
-
                 }
 
                 if (valid == "")
                 {
-
                     vmHTLddl dttl = new vmHTLddl();
                     DataTable dt = await dttl.dbdbGetDdlOrderGetCek("1", splitfilename[0], "", module, UserID, Groupname);
                     if (dt.Rows.Count == 0)
@@ -144,7 +132,7 @@ namespace DusColl
                     DataTable dt = await dttl.dbdbGetDdlOrderGetCek("4", noappl, "", module, UserID, Groupname);
                     if (dt.Rows.Count == 0)
                     {
-                        //insert 
+                        //insert
                         dt = await dttl.dbdbGetDdlOrderGetCek("6", noappl, "", module, UserID, Groupname);
                     }
                     else
@@ -166,7 +154,6 @@ namespace DusColl
 
         public async Task<IEnumerable<cListSelected>> dbdbGetDdlBranchListByEncrypt(string RegType, string SelectBranch, string SelectRegion, string moduleid, string UserID, string GroupName)
         {
-
             DataTable dt = new DataTable();
             IEnumerable<cListSelected> DDL = null;
             try
@@ -192,7 +179,6 @@ namespace DusColl
                            Value = (c.Field<Int32>("BrchID").ToString()),
                            Text = c.Field<string>("BranchName")
                        }).ToList();
-
             }
             catch (Exception ex)
             {
@@ -205,7 +191,6 @@ namespace DusColl
 
         public async Task<IEnumerable<cListSelected>> dbdbGetDdlDevisiListByEncrypt(string tipe, string SelectDevisi, string module, string UserID, string groupname)
         {
-
             DataTable dt = new DataTable();
             IEnumerable<cListSelected> DDL = null;
             try
@@ -230,7 +215,6 @@ namespace DusColl
                            Value = (c.Field<Int32>("DevisiID")).ToString(),
                            Text = c.Field<string>("DevisiName")
                        }).ToList();
-
             }
             catch (Exception ex)
             {
@@ -243,7 +227,6 @@ namespace DusColl
 
         public async Task<IEnumerable<cListSelected>> dbdbGetDdlDevisiGrpListByEncrypt(string tipe, string SelectGroup, string module, string UserID, string groupname)
         {
-
             DataTable dt = new DataTable();
             IEnumerable<cListSelected> DDL = null;
             try
@@ -268,7 +251,6 @@ namespace DusColl
                            Value = (c.Field<Int32>("GroupID")).ToString(),
                            Text = c.Field<string>("GroupName")
                        }).ToList();
-
             }
             catch (Exception ex)
             {
@@ -281,7 +263,6 @@ namespace DusColl
 
         public async Task<DataTable> dbdbGetDdlDevisiPeriodeListByEncrypt(string tipe, string SelectDevisi, string module, string UserID, string groupname)
         {
-
             DataTable dt = new DataTable();
             IEnumerable<cListSelected> DDL = null;
             try
@@ -299,7 +280,6 @@ namespace DusColl
                 };
 
                 dt = await dbaccess.ExecuteDataTable(strconnection, "udp_com_app_prm_devisi_get", sqlParam);
-
             }
             catch (Exception ex)
             {
@@ -312,7 +292,6 @@ namespace DusColl
 
         public async Task<IEnumerable<cListSelected>> dbdbGetDdlRegionListByEncrypt(string tipe, string SelectRegion, string module, string UserID, string groupname)
         {
-
             DataTable dt = new DataTable();
             IEnumerable<cListSelected> DDL = null;
             try
@@ -337,7 +316,6 @@ namespace DusColl
                            Value = (c.Field<Int32>("RegionID").ToString()),
                            Text = c.Field<string>("RegionName")
                        }).ToList();
-
             }
             catch (Exception ex)
             {
@@ -348,10 +326,8 @@ namespace DusColl
             return DDL;
         }
 
-
         public async Task<IEnumerable<cListSelected>> dbdbGetDdlhandleJobListByEncrypt(string regtype, string SelectCode, string selectdiv, string module, string UserID, string groupname)
         {
-
             DataTable dt = new DataTable();
             IEnumerable<cListSelected> DDL = null;
             try
@@ -377,7 +353,6 @@ namespace DusColl
                            Value = (c.Field<Int32>("JobID").ToString()),
                            Text = c.Field<string>("jobDesc")
                        }).ToList();
-
             }
             catch (Exception ex)
             {
@@ -390,7 +365,6 @@ namespace DusColl
 
         public async Task<IEnumerable<cListSelected>> dbdbGetDdlBranchBranchListByEncrypt(string SelectBranch, string ModuleID, string UserID, string GroupName)
         {
-
             DataTable dt = new DataTable();
             IEnumerable<cListSelected> DDL = null;
             try
@@ -414,7 +388,6 @@ namespace DusColl
                            Value = (c.Field<Int32>("BrchID").ToString()),
                            Text = c.Field<string>("BranchName")
                        }).ToList();
-
             }
             catch (Exception ex)
             {
@@ -424,7 +397,6 @@ namespace DusColl
 
             return DDL;
         }
-
 
         public IEnumerable<cListSelected> dbGetDdlgrupListByEncrypt(List<cAccountGroupUser> dt)
         {
@@ -440,7 +412,6 @@ namespace DusColl
 
         public async Task<IEnumerable<cListSelected>> dbdbGetDdlEnumListByEncrypt(string formCode, string enumname, string Moduleid, string UserID, string GroupName)
         {
-
             DataTable dt = new DataTable();
             IEnumerable<cListSelected> DDL = null;
             try
@@ -464,9 +435,7 @@ namespace DusColl
                        {
                            Value = (c.Field<string>("EnumValue")),
                            Text = c.Field<string>("EnumsDesc")
-
                        }).ToList();
-
             }
             catch (Exception ex)
             {
@@ -479,7 +448,6 @@ namespace DusColl
 
         public async Task<IEnumerable<cListSelected>> dbdbGetDdlPICListByEncrypt(string SelectUserID, string UserType, string Moduleid, string UserID, string GroupName)
         {
-
             DataTable dt = new DataTable();
             IEnumerable<cListSelected> DDL = null;
             try
@@ -503,9 +471,7 @@ namespace DusColl
                        {
                            Value = (c.Field<string>("PICID")),
                            Text = c.Field<string>("Name")
-
                        }).ToList();
-
             }
             catch (Exception ex)
             {
@@ -516,10 +482,8 @@ namespace DusColl
             return DDL;
         }
 
-
         public async Task<DataTable> dbdbGetDokumenList(string id, string RegNo, string Cont_no, string typeview, string divisi, string regtype, string moduleId, string UserIDLog, string UserGroupLog)
         {
-
             DataTable dt = new DataTable();
             try
             {
@@ -540,7 +504,6 @@ namespace DusColl
                 };
 
                 dt = await dbaccess.ExecuteDataTable(strconnection, "udp_app_trx_regismitra_docview", sqlParam);
-
             }
             catch (Exception ex)
             {
@@ -553,19 +516,15 @@ namespace DusColl
 
         public async Task<IEnumerable<cListSelected>> dbdbGetDokumenListCek(DataTable dt)
         {
-
             IEnumerable<cListSelected> DDL = null;
             try
             {
-
                 DDL = (from c in dt.AsEnumerable()
                        select new cListSelected()
                        {
                            Value = HasKeyProtect.Encryption((c.Field<int>("ID").ToString())),
                            Text = c.Field<string>("DOCUMENT_TYPE")
-
                        }).ToList();
-
             }
             catch (Exception ex)
             {
@@ -576,10 +535,8 @@ namespace DusColl
             return DDL;
         }
 
-
         public async Task<IEnumerable<cListSelected>> dbdbGetJenisDokumenList(string id, string Regno, string tipe, string moduleId, string UserIDLog, string UserGroupLog)
         {
-
             DataTable dt = new DataTable();
             IEnumerable<cListSelected> DDL = null;
             try
@@ -606,9 +563,7 @@ namespace DusColl
                        {
                            Value = (c.Field<int>("ID").ToString()),
                            Text = c.Field<string>("Docname")
-
                        }).ToList();
-
             }
             catch (Exception ex)
             {
@@ -621,7 +576,6 @@ namespace DusColl
 
         public async Task<DataTable> dbdbGetJenisDokumen(string id, string Regno, string tipe, string moduleId, string UserIDLog, string UserGroupLog)
         {
-
             DataTable dt = new DataTable();
             IEnumerable<cListSelected> DDL = null;
             try
@@ -643,7 +597,6 @@ namespace DusColl
                 };
 
                 dt = await dbaccess.ExecuteDataTable(strconnection, "udp_app_trx_htl_docview", sqlParam);
-
             }
             catch (Exception ex)
             {
@@ -656,7 +609,6 @@ namespace DusColl
 
         public async Task<IEnumerable<cListSelected>> dbdbGetJenisDokumenDll(string id, string Regno, string tipe, string moduleId, string UserIDLog, string UserGroupLog)
         {
-
             DataTable dt = new DataTable();
             IEnumerable<cListSelected> DDL = null;
             try
@@ -685,7 +637,6 @@ namespace DusColl
                            Value = HashNetFramework.HasKeyProtect.Encryption(c.Field<int>("IDDOC").ToString()),
                            Text = c.Field<string>("DOCUMENT_TYPE")
                        }).ToList();
-
             }
             catch (Exception ex)
             {
@@ -698,7 +649,6 @@ namespace DusColl
 
         public async Task<IEnumerable<cListSelected>> dbdbGetDdlbankNameListByEncrypt(string SelectCode, string UserID)
         {
-
             DataTable dt = new DataTable();
             IEnumerable<cListSelected> DDL = null;
             try
@@ -720,7 +670,6 @@ namespace DusColl
                            Value = (c.Field<string>("BANKID")),
                            Text = c.Field<string>("BANKNAME")
                        }).ToList();
-
             }
             catch (Exception ex)
             {
@@ -731,15 +680,11 @@ namespace DusColl
             return DDL;
         }
 
-
-
         public async Task<DataTable> dbdbGetDdlMitraListByEncryptcek(string Key, string cabang, string regtype, string moduleid, string UserID, string groupname)
         {
-
             DataTable dt = new DataTable();
             try
             {
-
                 dbAccessHelper dbaccess = new dbAccessHelper();
                 string strconnection = HasKeyProtect.DecryptionPass(OwinLibrary.GetDB());
 
@@ -754,8 +699,6 @@ namespace DusColl
                 };
 
                 dt = await dbaccess.ExecuteDataTable(strconnection, "udp_com_app_mitra_get_cek", sqlParam);
-
-
             }
             catch (Exception ex)
             {
@@ -768,7 +711,6 @@ namespace DusColl
 
         public async Task<IEnumerable<cListSelected>> dbdbGetDdlpendidikanListByEncrypt(string SelectCode, string UserID)
         {
-
             DataTable dt = new DataTable();
             IEnumerable<cListSelected> DDL = null;
             try
@@ -790,7 +732,6 @@ namespace DusColl
                            Value = c.Field<int>("ID").ToString(),
                            Text = c.Field<string>("EducDesc")
                        }).ToList();
-
             }
             catch (Exception ex)
             {
@@ -801,10 +742,8 @@ namespace DusColl
             return DDL;
         }
 
-
         public async Task<IEnumerable<cListSelected>> dbdbGetDdlEnumsListByEncryptNw(string Kode, string moduleid, string UserID, string groupname, string fromKode = "")
         {
-
             DataTable dt = new DataTable();
             IEnumerable<cListSelected> DDL = null;
             try
@@ -819,7 +758,6 @@ namespace DusColl
                     new SqlParameter ("@moduleId",moduleid),
                     new SqlParameter ("@UserIDLog",UserID),
                     new SqlParameter ("@UserGroupLog",groupname),
-
                 };
 
                 dt = await dbaccess.ExecuteDataTable(strconnection, "udp_com_app_prm_enums_get", sqlParam);
@@ -830,7 +768,6 @@ namespace DusColl
                            Value = HasKeyProtect.Encryption(c.Field<string>("EnumValue")),
                            Text = c.Field<string>("EnumsDesc")
                        }).ToList();
-
             }
             catch (Exception ex)
             {
@@ -843,7 +780,6 @@ namespace DusColl
 
         public async Task<DataTable> dbdbGetDdlEnumsListByEncryptNwdt(string Kode, string moduleid, string UserID, string groupname, string fromKode = "")
         {
-
             DataTable dt = new DataTable();
             try
             {
@@ -857,11 +793,9 @@ namespace DusColl
                     new SqlParameter ("@moduleId",moduleid),
                     new SqlParameter ("@UserIDLog",UserID),
                     new SqlParameter ("@UserGroupLog",groupname),
-
                 };
 
                 dt = await dbaccess.ExecuteDataTable(strconnection, "udp_com_app_prm_enums_get", sqlParam);
-
             }
             catch (Exception ex)
             {
@@ -873,7 +807,6 @@ namespace DusColl
 
         public async Task<IEnumerable<cListSelected>> dbdbGetDdlNotarisListByEncrypt(string Moduleid, string UserID, string GroupName)
         {
-
             DataTable dt = new DataTable();
             IEnumerable<cListSelected> DDL = null;
             try
@@ -896,7 +829,6 @@ namespace DusColl
                            Value = HashNetFramework.HasKeyProtect.Encryption(c.Field<string>("IDNotaris")),
                            Text = c.Field<string>("NamaNotaris")
                        }).ToList();
-
             }
             catch (Exception ex)
             {
@@ -909,7 +841,6 @@ namespace DusColl
 
         public async Task<IEnumerable<cListSelected>> dbdbGetDdlNotarisListByEncryptINV(string Moduleid, string UserID, string GroupName)
         {
-
             DataTable dt = new DataTable();
             IEnumerable<cListSelected> DDL = null;
             try
@@ -932,7 +863,6 @@ namespace DusColl
                            Value = HashNetFramework.HasKeyProtect.Encryption(c.Field<string>("IDNotaris")),
                            Text = c.Field<string>("NamaNotaris")
                        }).ToList();
-
             }
             catch (Exception ex)
             {
@@ -943,10 +873,8 @@ namespace DusColl
             return DDL;
         }
 
-
         public async Task<IEnumerable<cListSelected>> dbdbGetDdlEnumsListByEncrypt(string Kode, string moduleid, string UserID, string groupname, string fromKode = "")
         {
-
             DataTable dt = new DataTable();
             IEnumerable<cListSelected> DDL = null;
             try
@@ -961,7 +889,6 @@ namespace DusColl
                     new SqlParameter ("@moduleId",moduleid),
                     new SqlParameter ("@UserIDLog",UserID),
                     new SqlParameter ("@UserGroupLog",groupname),
-
                 };
 
                 dt = await dbaccess.ExecuteDataTable(strconnection, "udp_com_app_prm_enums_get", sqlParam);
@@ -972,7 +899,6 @@ namespace DusColl
                            Value = (c.Field<string>("EnumValue")),
                            Text = c.Field<string>("EnumsDesc")
                        }).ToList();
-
             }
             catch (Exception ex)
             {
@@ -982,7 +908,6 @@ namespace DusColl
 
             return DDL;
         }
-
 
         public async Task<int> dbupdateflagsht(string jenisinv, DataTable dtx, string moduleID, string userid, string groupname)
         {
@@ -1012,7 +937,6 @@ namespace DusColl
 
         public async Task<List<cDocumentsGet>> Getdocview(int IDKey, string regno, string tipe, string moduleid, string UserID, string groupname)
         {
-
             DataTable dt = new DataTable();
             List<cDocumentsGet> DDL = new List<cDocumentsGet>();
             try
@@ -1051,7 +975,6 @@ namespace DusColl
                            ID_UPLOAD = c.Field<string>("ID_UPLOAD"),
                            Document_Type = c.Field<string>("DocumentType"),
                        }).ToList();
-
             }
             catch (Exception ex)
             {
@@ -1062,10 +985,8 @@ namespace DusColl
             return DDL;
         }
 
-
         public async Task<List<string>> dbGetApprovalLogListCount(string ForeCastNo, int PageNumber, string idcaption, string userid, string groupname)
         {
-
             DataTable dt = new DataTable();
 
             dbAccessHelper dbaccess = new dbAccessHelper();
@@ -1096,18 +1017,15 @@ namespace DusColl
                 dta.Add("0");
             }
 
-
             return dta;
         }
 
         public async Task<List<DataTable>> dbGetApprovalLogList(DataTable DTFromDB, string ForeCastNo, int PageNumber, double pagenumberclient, double pagingsizeclient, string idcaption, string userid, string groupname)
         {
-
             DataTable dt = new DataTable();
             List<DataTable> dtlist = new List<DataTable>();
             if (DTFromDB == null || DTFromDB.Rows.Count == 0)
             {
-
                 dbAccessHelper dbaccess = new dbAccessHelper();
                 string strconnection = HasKeyProtect.DecryptionPass(OwinLibrary.GetDB());
 
@@ -1121,14 +1039,11 @@ namespace DusColl
                 };
 
                 dt = await dbaccess.ExecuteDataTable(strconnection, "udp_app_trx_approvallog_list", sqlParam);
-
-
             }
             else
             {
                 dt = DTFromDB;
             }
-
 
             dtlist.Add(dt);
 
@@ -1203,7 +1118,6 @@ namespace DusColl
                            Text = c.Field<string>("EnumsDesc").ToString(),
                            Value = c.Field<string>("EnumValue").ToString()
                        }).ToList();
-
             }
             catch (Exception ex)
             {
@@ -1267,6 +1181,7 @@ namespace DusColl
 
             return dt;
         }
+
         public async Task<IEnumerable<cListSelected>> dbGetDdlItemsList(string keyword, string userID, string GroupName)
         {
             DataTable dt = new DataTable();
@@ -1290,7 +1205,6 @@ namespace DusColl
                            Text = c.Field<String>("ItemDescription").ToString(),
                            Value = c.Field<String>("ItemCode").ToString()
                        }).ToList();
-
             }
             catch (Exception ex)
             {
@@ -1324,7 +1238,6 @@ namespace DusColl
                            Text = c.Field<String>("CustomerName").ToString(),
                            Value = c.Field<String>("CustomerID").ToString()
                        }).ToList();
-
             }
             catch (Exception ex)
             {
@@ -1358,7 +1271,6 @@ namespace DusColl
                            Text = c.Field<String>("VendorName").ToString(),
                            Value = c.Field<String>("VendorID").ToString()
                        }).ToList();
-
             }
             catch (Exception ex)
             {
@@ -1378,7 +1290,6 @@ namespace DusColl
                 dbAccessHelper dbaccess = new dbAccessHelper();
                 string strconnection = HasKeyProtect.DecryptionPass(OwinLibrary.GetDBCFG());
 
-
                 SqlParameter[] sqlParam =
                 {
                     new SqlParameter ("@key" ,kode),
@@ -1392,8 +1303,6 @@ namespace DusColl
                            Code = c.Field<string>("Code").ToString(),
                            Name = c.Field<string>("Name").ToString(),
                        }).ToList();
-
-
             }
             catch (Exception ex)
             {
@@ -1404,11 +1313,9 @@ namespace DusColl
             return DDL;
         }
 
-
         public async Task<DataTable> dbSetHostHistory(string UserID, string HostID, string ipaddress, string ipaddress1, string action,
            string TimeOut, string browser, string type = "")
         {
-
             DataTable DDL = new DataTable();
             //string DDL = "";
             try
@@ -1429,7 +1336,6 @@ namespace DusColl
                 };
 
                 DDL = await dbaccess.ExecuteDataTable(strconnection, "udp_com_app_host_history_sve", sqlParam);
-
             }
             catch (Exception ex)
             {
@@ -1439,9 +1345,9 @@ namespace DusColl
 
             return DDL;
         }
+
         public DataTable dbSetHostHistoryCK(string UserID, string HostID, string ipaddress, string ipaddress1, string action, string TimeOut, string browser = "", string type = "")
         {
-
             DataTable DDL = new DataTable();
             //string DDL = "";
             try
@@ -1462,7 +1368,6 @@ namespace DusColl
                 };
 
                 DDL = dbaccess.ExecuteDataTableNonAsync(strconnection, "udp_com_app_host_history_sve", sqlParam);
-
             }
             catch (Exception ex)
             {
@@ -1473,12 +1378,8 @@ namespace DusColl
             return DDL;
         }
 
-
-
-
         public async Task<int> dbSetOTPCode(string secIDUser, string templatename, string ModuleID, string useremail, string hostid, string ipaddress, string veryfiedcode)
         {
-
             DataTable dt = new DataTable();
             int result = 0;
             try
@@ -1497,10 +1398,8 @@ namespace DusColl
                     new SqlParameter ("@veryfiedcode",veryfiedcode),
                 };
 
-
                 dt = await dbaccess.ExecuteDataTable(strconnection, "udp_com_app_otp_code_set", sqlParam);
                 result = int.Parse(dt.Rows[0][0].ToString());
-
             }
             catch (Exception ex)
             {
@@ -1509,12 +1408,10 @@ namespace DusColl
             }
 
             return result;
-
         }
 
         public async Task<cOTP> dbCheckOTPCode(string secIDUser, string templatename, string ModuleID, string useremail, string hostid, string ipaddress, string OtpInputByuser, bool checkOTP = false, string col1 = "", string col2 = "")
         {
-
             cOTP otprec = new cOTP();
 
             try
@@ -1533,9 +1430,7 @@ namespace DusColl
                     new SqlParameter ("@OtpInputByUser",OtpInputByuser),
                     new SqlParameter ("@Col1",col1),
                     new SqlParameter ("@Col2",col2)
-
                 };
-
 
                 DataTable dt = await dbaccess.ExecuteDataTable(strconnection, "udp_com_app_otp_code_chk", sqlParam);
 
@@ -1544,8 +1439,6 @@ namespace DusColl
 
                 otprec.Result = resultED;
                 otprec.Otpcode = Otpcode;
-
-
             }
             catch (Exception ex)
             {
@@ -1554,8 +1447,6 @@ namespace DusColl
             }
 
             return otprec;
-
-
         }
 
         public async Task<cOTP> VerifiedOTP(string UserID, string Mailed, string templatename, string HostPCName, string ipAddress, string OTPInputByUser, string CommentLog, string externalmessage, string extencol1 = "", string extencol2 = "")
@@ -1594,7 +1485,6 @@ namespace DusColl
                             {
                                 resultsendemail = await MessageEmail.sendEmail((int)EmailType.ResetPassword, Mailed, OTPInputByUser);
                             }
-
                         }
                         else //gagal generate
                         {
@@ -1607,7 +1497,6 @@ namespace DusColl
                     {
                         // await dbSetHostHistory(UserID, HostPCName, ipAddress, "Code : " + CommentLog).ConfigureAwait(false);
                     }
-
                 }
             }
 
@@ -1626,7 +1515,7 @@ namespace DusColl
                 MessageNotValid = (externalmessage ?? "") == "" ? MessageNotValid : externalmessage;
             }
 
-            // jika berhasil 
+            // jika berhasil
             if (resulted == (int)ProccessOutput.Success)
             {
                 if (templatename == "AccountWrongLogin")
@@ -1646,14 +1535,12 @@ namespace DusColl
 
             return ResultOutput;
         }
-
-
     }
 
     public static class initcapp
     {
-
         #region initicaptital
+
         public static string InitCap(string InputString)
         {
             string result = "";
@@ -1703,14 +1590,12 @@ namespace DusColl
             }
             return result;
         }
+
         public static string Stuff(this string str, int start, int length, string replaceWith_expression)
         {
             return str.Remove(start, length).Insert(start, replaceWith_expression);
         }
+
         #endregion initicaptital
-
-
     }
-
-
 }

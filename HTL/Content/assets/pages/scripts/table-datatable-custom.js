@@ -1,5 +1,4 @@
 ﻿var TableDatatablesEditable1 = function () {
-
     var initPickers = function () {
         //init date pickers
         $('.date-picker').datepicker({
@@ -8,14 +7,11 @@
         });
     }
 
-
     var handleTablePage = function (tabled, currentP, totalR, totalP, nextP, prevP, parurl, divgrid, ismodal, istotal = 'n') {
-
         var elemntupload = "";
         if (ismodal == 1) {
             elemntupload = ".modal-body";
         }
-
 
         if ((totalP == 0) && (totalR > 0)) {
             totalP = 1;
@@ -33,7 +29,6 @@
                 "pageLength": 5,
                 //"autoWidth": true,
 
-                
                 //altEditor: true,     // Enable altEditor
                 language: {
                     "sSearch": "",  //Cari Data
@@ -56,17 +51,14 @@
                     //{ extend: 'csv', className: 'btn purple btn-outline ' }
                 ],
 
-                
-
                 "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
 
                 // Uncomment below line("dom" parameter) to fix the dropdown overflow issue in the datatable cells. The default datatable layout
-                // setup uses scrollable div(table-scrollable) with overflow:auto to enable vertical scroll(see: assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js). 
-                // So when dropdowns used the scrollable div should be removed. 
+                // setup uses scrollable div(table-scrollable) with overflow:auto to enable vertical scroll(see: assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js).
+                // So when dropdowns used the scrollable div should be removed.
                 "dom": "<'row' <'col-md-12'T>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
 
                 drawCallback: function () {
-
                     //var currentP =@Model.DetailFilter.PageNumber.ToString();
                     //var totalP =@Model.DetailFilter.TotalPage.ToString();
                     //var nextP =@Model.DetailFilter.PageNumber+1;
@@ -81,7 +73,6 @@
                         $("#" + tabled + "_paginate .pagination > li.active > a").attr("href", "javascript:;");
                         $("#" + tabled + "_paginate .pagination > li.active").removeClass("active");
                         $("#" + tabled + "_info").html("");
-
 
                         if (totalR > 0) {
                             $("#" + tabled + "_info").append('<div class="">');
@@ -131,9 +122,6 @@
                                     }
                                 });
                             });
-
-
-
                         }
 
                         if (parseFloat(currentP) > 1) {
@@ -165,7 +153,6 @@
                                             if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
                                         }
                                     });
-
                                 });
                         }
 
@@ -198,7 +185,6 @@
                                             if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
                                         }
                                     });
-
                                 });
                         }
 
@@ -212,22 +198,17 @@
                             $("#" + tabled + "_paginate .pagination > li.prev.disabled").addClass("disabled");
                         }
                     } else {
-
                         $("#" + tabled + "_info").remove();
                         $("#" + tabled + "_paginate").remove();
                     }
-
-
                 }
                 ,
                 footerCallback: function (row, data, start, end, display) {
-
                     if (istotal == 'y') {
                         var api = this.api(), data;
 
                         // converting to interger to find total
                         var intVal = function (i) {
-
                             return typeof i === 'string' ?
                                 i.replace(/[\$,]/g, '') * 1 :
                                 typeof i === 'number' ?
@@ -246,12 +227,9 @@
 
                         $(api.column(5).footer()).html(monTotal);
                     }
-
                 }
-
             });
         }
-
 
         $("#" + tabled).on('search.dt', function () {
             var valued = $('.dataTables_filter input').val();
@@ -279,19 +257,15 @@
             //    }
             //});
         });
-
     }
 
-
     var handleTable = function (tabled) {
-
         var table = $(tabled);
 
         var oTable = table.dataTable({
-
             // Uncomment below line("dom" parameter) to fix the dropdown overflow issue in the datatable cells. The default datatable layout
-            // setup uses scrollable div(table-scrollable) with overflow:auto to enable vertical scroll(see: assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js). 
-            // So when dropdowns used the scrollable div should be removed. 
+            // setup uses scrollable div(table-scrollable) with overflow:auto to enable vertical scroll(see: assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js).
+            // So when dropdowns used the scrollable div should be removed.
             //"dom": "<'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
 
             "lengthMenu": [
@@ -325,27 +299,19 @@
                 [0, "asc"]
             ] // set first column as a default sort by asc
         });
-
-
     }
 
     return {
-
         //main function to initiate the module
         init: function (partabled) {
             handleTable(partabled);
         },
         initPaging: function (partabled, currentP, totalR, totalP, nextP, prevP, parurl, divgrid, ismodal, istotal) {
             handleTablePage(partabled, currentP, totalR, totalP, nextP, prevP, parurl, divgrid, ismodal, istotal);
-
         }
     };
-
 }();
 
 jQuery(document).ready(function () {
-
     //TableDatatablesEditable1.init("#sample_editable_acctount");
 });
-
-

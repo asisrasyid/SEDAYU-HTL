@@ -1,5 +1,4 @@
 ﻿var TableDatatablesEditable1 = function () {
-
     var initPickers = function () {
         //init date pickers
         $('.date-picker').datepicker({
@@ -9,7 +8,6 @@
     }
 
     var handleTable = function () {
-
         function restoreRow(oTable, nRow) {
             var aData = oTable.fnGetData(nRow);
             var jqTds = $('>td', nRow);
@@ -85,8 +83,6 @@
         var nEditing = null;
         var nNew = false;
 
-      
-
         $('#btnaddInvMNL').click(function (e) {
             e.preventDefault();
 
@@ -96,7 +92,6 @@
                     $(nEditing).find("td:first").html("Untitled");
                     nEditing = null;
                     nNew = false;
-
                 } else {
                     oTable.fnDeleteRow(nEditing); // cancel
                     nEditing = null;
@@ -151,7 +146,6 @@
                 /* Editing this row and want to save it */
                 saveRow(oTable, nEditing);
                 nEditing = null;
-
             } else {
                 /* No edit in progress - let's start one */
                 editRow(oTable, nRow);
@@ -164,10 +158,8 @@
         //main function to initiate the module
         init: function () {
             handleTable();
-
         }
     };
-
 }();
 
 jQuery(document).ready(function () {

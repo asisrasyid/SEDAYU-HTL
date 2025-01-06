@@ -7,89 +7,89 @@
                 HttpMethod = "POST"
             }, new { id = "clnMaster_form", @class = "form-horizontal" }))
             {
-                @Html.AntiForgeryToken();
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h4 class="modal-title">@ViewBag.OprMenu (@ViewBag.menu)</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="form-body">
-                        @Html.HiddenFor(x => x.keylookup)
-                        <div class="form-horizontal">
-                            <div class="form-body" style="padding:20px">
-                                @if (ViewBag.oprvalue == "view")
+            @Html.AntiForgeryToken();
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">@ViewBag.OprMenu (@ViewBag.menu)</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-body">
+                    @Html.HiddenFor(x => x.keylookup)
+                    <div class="form-horizontal">
+                        <div class="form-body" style="padding:20px">
+                            @if (ViewBag.oprvalue == "view")
                                 {
 
-                                    <div class="form-group">
-                                        <div class="col-md-12">
-                                            Nama PPAT
-                                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control NonEdittable", @maxlength = "50", @disabled = "disabled" })
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-md-12">
-                                            Wilayah 
-                                            @Html.TextBoxFor(m => m.Wilayah, new { @class = "form-control NonEdittable", @maxlength = "50", @disabled = "disabled" })
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-md-12">
-                                            Status
-                                            @Html.TextBox("stat", Model.IsActiveData == false ? "NonAktif" : "Aktif", new { @class = "form-control NonEdittable", @maxlength = "50", @disabled = "disabled" })
-                                        </div>
-                                    </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    Nama PPAT
+                                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control NonEdittable", @maxlength = "50", @disabled = "disabled" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    Wilayah
+                                    @Html.TextBoxFor(m => m.Wilayah, new { @class = "form-control NonEdittable", @maxlength = "50", @disabled = "disabled" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    Status
+                                    @Html.TextBox("stat", Model.IsActiveData == false ? "NonAktif" : "Aktif", new { @class = "form-control NonEdittable", @maxlength = "50", @disabled = "disabled" })
+                                </div>
+                            </div>
                                 }
                                 else
                                 {
 
-                                    <div class="form-group">
-                                        <div class="col-md-12">
-                                            Nama PPAT
-                                            @Html.DropDownListFor(m => m.SelectNotaris, (MultiSelectList)ViewData["SelectNotaris"], new { @class = "form-control select2" })
-                                        </div>
-                                    </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    Nama PPAT
+                                    @Html.DropDownListFor(m => m.SelectNotaris, (MultiSelectList)ViewData["SelectNotaris"], new { @class = "form-control select2" })
+                                </div>
+                            </div>
 
-                                    <div class="form-group">
-                                        <div class="col-md-12">
-                                            Wilayah 
-                                            @Html.DropDownListFor(m => m.SelectNotarisRgn, (MultiSelectList)ViewData["SelectNotarisRgn"], new { @class = "form-control select2" })
-                                        </div>
-                                    </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    Wilayah
+                                    @Html.DropDownListFor(m => m.SelectNotarisRgn, (MultiSelectList)ViewData["SelectNotarisRgn"], new { @class = "form-control select2" })
+                                </div>
+                            </div>
 
-                                    <div class="form-group">
-                                        <div class="col-md-4 form-md-checkboxes">
-                                            <label>Status</label>
-                                            <div class="md-checkbox-inline">
-                                                <div class="md-checkbox has-success">
-                                                    @Html.CheckBoxFor(x => x.IsActiveData, new { id = "IsActiveData", @class = "md-check", @checked = "checked" })
-                                                    <label for="IsActiveData">
-                                                        <span></span>
-                                                        <span class="check"></span>
-                                                        <span class="box"></span>DiAktifkan
-                                                    </label>
-                                                </div>
-                                            </div>
+                            <div class="form-group">
+                                <div class="col-md-4 form-md-checkboxes">
+                                    <label>Status</label>
+                                    <div class="md-checkbox-inline">
+                                        <div class="md-checkbox has-success">
+                                            @Html.CheckBoxFor(x => x.IsActiveData, new { id = "IsActiveData", @class = "md-check", @checked = "checked" })
+                                            <label for="IsActiveData">
+                                                <span></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span>DiAktifkan
+                                            </label>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
 
                                 }
-                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn green" data-dismiss="modal">
-                        <i class="fa fa-close"></i>
-                        <span>&nbsp;Tutup</span>
-                    </button>
-                    @if (ViewBag.oprvalue != "view")
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn green" data-dismiss="modal">
+                    <i class="fa fa-close"></i>
+                    <span>&nbsp;Tutup</span>
+                </button>
+                @if (ViewBag.oprvalue != "view")
                     {
-                        <button type="button" class="btn green masteradd">
-                            <i class="fa fa-check-square"></i>
-                            <span>&nbsp;Simpan </span>
-                        </button>
+                <button type="button" class="btn green masteradd">
+                    <i class="fa fa-check-square"></i>
+                    <span>&nbsp;Simpan </span>
+                </button>
                     }
-                </div>
+            </div>
             }
         </div>
         <!-- /.modal-content -->
@@ -124,6 +124,4 @@
 
     vmMasterData.initbuton();
     vmMasterData.init();
-
-
 </script>

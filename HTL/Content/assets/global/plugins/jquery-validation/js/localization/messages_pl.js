@@ -5,7 +5,6 @@
 		factory( jQuery );
 	}
 }(function( $ ) {
-
 /*
  * Translated default messages for the jQuery validation plugin.
  * Locale: PL (Polish; język polski, polszczyzna)
@@ -29,5 +28,4 @@ $.extend($.validator.messages, {
 	max: $.validator.format("Proszę o podanie wartości mniejszej bądź równej {0}."),
 	min: $.validator.format("Proszę o podanie wartości większej bądź równej {0}.")
 });
-
 }));

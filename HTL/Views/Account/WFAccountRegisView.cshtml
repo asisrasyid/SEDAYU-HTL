@@ -28,41 +28,40 @@
                 {
                     if (int.Parse(Model.HeaderInfo.StatusDoc) == (int)HashNetFramework.StatusDocTrans.WAITAPRV)
                     {
-                        <li class="">
-                            <a href="#tab_1_3" data-toggle="tab" aria-expanded="true">Tindakan</a>
-                        </li>
+                <li class="">
+                    <a href="#tab_1_3" data-toggle="tab" aria-expanded="true">Tindakan</a>
+                </li>
                     }
                 }
 
-
                 @if (int.Parse(Model.HeaderInfo.StatusDoc) == (int)HashNetFramework.StatusDocTrans.DRAFT || int.Parse(Model.HeaderInfo.StatusDoc) == (int)HashNetFramework.StatusDocTrans.REVISE)
                 {
-                    <li class="dropdown pull-right tabdrop">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;" aria-expanded="false"><i class="fa fa-ellipsis-v"></i>&nbsp;Tindakan<i class="fa fa-angle-down"></i> <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="#tab5" data-toggle="tab" onclick="vmForecast.OpenAdd('@ViewBag.caption','REVHDR');" id="request">Ajukan Forecast</a>
-                            </li>
-                            <li>
-                                <a href="#tab6" data-toggle="tab" onclick="vmForecast.OpenAdd('@ViewBag.caption','CNLHDR');">Batalkan Forecast</a>
-                            </li>
-                            <li>
-                                <a href="#tab7" data-toggle="tab" onclick="vmForecast.OpenAdd('@ViewBag.caption','');">Tambah Barang</a>
-                            </li>
-                            <li>
-                                <a href="#tab7" data-toggle="tab" onclick="vmForecast.DelAdd('SelectGrid','');" id="delrequest">Hapus Barang</a>
-                            </li>
-                            <li>
-                                <a href="#tab8" data-toggle="tab" id="backpage" onclick="vmHomePages.LoadMenu('@ViewBag.menu','@ViewBag.caption','@ViewBag.rute','@ViewBag.action')">Kembali</a>
-                            </li>
-                        </ul>
-                    </li>
+                <li class="dropdown pull-right tabdrop">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;" aria-expanded="false"><i class="fa fa-ellipsis-v"></i>&nbsp;Tindakan<i class="fa fa-angle-down"></i> <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="#tab5" data-toggle="tab" onclick="vmForecast.OpenAdd('@ViewBag.caption','REVHDR');" id="request">Ajukan Forecast</a>
+                        </li>
+                        <li>
+                            <a href="#tab6" data-toggle="tab" onclick="vmForecast.OpenAdd('@ViewBag.caption','CNLHDR');">Batalkan Forecast</a>
+                        </li>
+                        <li>
+                            <a href="#tab7" data-toggle="tab" onclick="vmForecast.OpenAdd('@ViewBag.caption','');">Tambah Barang</a>
+                        </li>
+                        <li>
+                            <a href="#tab7" data-toggle="tab" onclick="vmForecast.DelAdd('SelectGrid','');" id="delrequest">Hapus Barang</a>
+                        </li>
+                        <li>
+                            <a href="#tab8" data-toggle="tab" id="backpage" onclick="vmHomePages.LoadMenu('@ViewBag.menu','@ViewBag.caption','@ViewBag.rute','@ViewBag.action')">Kembali</a>
+                        </li>
+                    </ul>
+                </li>
                 }
                 else
                 {
-                    <li class="dropdown pull-right tabdrop">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;" id="backpage" onclick="vmHomePages.LoadMenu('@ViewBag.menu','@ViewBag.caption','@ViewBag.rute','@ViewBag.action')" aria-expanded="false"><i class="fa fa-ellipsis-v"></i>&nbsp;Kembali</a>
-                    </li>
+                <li class="dropdown pull-right tabdrop">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;" id="backpage" onclick="vmHomePages.LoadMenu('@ViewBag.menu','@ViewBag.caption','@ViewBag.rute','@ViewBag.action')" aria-expanded="false"><i class="fa fa-ellipsis-v"></i>&nbsp;Kembali</a>
+                </li>
                 }
             </ul>
             <div class="tab-content">
@@ -147,7 +146,6 @@
                     </div>
                 </div>
 
-
                 <div class="tab-pane fade " id="tab_1_2">
                     <div id="gridTxLog">
                         @{Html.RenderPartial("~/Views/Account/WFAccountRegisAprvLog.cshtml");}
@@ -157,11 +155,11 @@
                 {
                     if (int.Parse(Model.HeaderInfo.StatusDoc) == (int)HashNetFramework.StatusDocTrans.WAITAPRV)
                     {
-                        <div class="tab-pane fade " id="tab_1_3">
-                            <div id="FollowTx">
-                                @{Html.RenderPartial("~/Views/Account/WFAccountRegisFollow.cshtml", Model.HeaderInfo);}
-                            </div>
-                        </div>
+                <div class="tab-pane fade " id="tab_1_3">
+                    <div id="FollowTx">
+                        @{Html.RenderPartial("~/Views/Account/WFAccountRegisFollow.cshtml", Model.HeaderInfo);}
+                    </div>
+                </div>
                     }
                 }
             </div>
@@ -173,7 +171,6 @@
 </div>
 <div id="uidivadd">
 </div>
-
 
 <!-- /.modal-content -->
 @*<script src="~/Scripts/jquery.validate.min.js"></script>

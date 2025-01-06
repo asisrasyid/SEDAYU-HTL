@@ -3,7 +3,6 @@
 <!--<![endif]-->
 <!-- BEGIN HEAD -->
 
-
 @model HashNetFramework.cAccountRegis
 <!-- BEGIN HEAD -->
 <head>
@@ -46,7 +45,6 @@
     <div class="content" style="padding-top:25px;">
         <h4 style="padding:15px;padding-left:0px">Aktivasi ID Pengguna</h4>
 
-
         <div id="cssShowMessage" style="display:none;">
             <button class="close" data-close="alert"></button>
             <h4>Selamat..</h4>
@@ -58,38 +56,36 @@
             </div>
         </div>
 
-
         @using (Ajax.BeginForm("AccountRegisAktivasi", new { Controller = "Account" }, new AjaxOptions { HttpMethod = "POST" }, new { id = "form_regisfu", @class = "login-form" }))
         {
-            @Html.AntiForgeryToken();
+        @Html.AntiForgeryToken();
 
+        @Html.HiddenFor(x => x.KodeRegisCabang)
 
-            @Html.HiddenFor(x => x.KodeRegisCabang)
+        <div id="cssShowMessage" style="display:none;">
+            <button class="close" data-close="alert"></button>
+            <span id="idShowMessage"></span>
+        </div>
 
-            <div id="cssShowMessage" style="display:none;">
-                <button class="close" data-close="alert"></button>
-                <span id="idShowMessage"></span>
+        <div class="row">
+            <div class="col-xs-12">
+                @Html.TextBoxFor(m => m.email, new { @class = "form-control form-control-solid placeholder-no-fix form-group", autocomplete = "off", placeholder = "Email" })
+                @Html.ValidationMessageFor(m => m.email, "", new { @class = "error-block" })
             </div>
-
-            <div class="row">
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <label class="control-label visible-ie8 visible-ie9">Kode aktivasi</label>
                 <div class="col-xs-12">
-                    @Html.TextBoxFor(m => m.email, new { @class = "form-control form-control-solid placeholder-no-fix form-group", autocomplete = "off", placeholder = "Email" })
-                    @Html.ValidationMessageFor(m => m.email, "", new { @class = "error-block" })
+                    @Html.TextBoxFor(m => m.Userkodeverified, new { @class = "form-control form-control-solid placeholder-no-fix form-group ", autocomplete = "off", placeholder = "Kode Aktivasi" })
+                    @Html.ValidationMessageFor(m => m.Userkodeverified, "", new { @class = "error-block" })
                 </div>
             </div>
-            <div class="row">
-                <div class="form-group">
-                    <label class="control-label visible-ie8 visible-ie9">Kode aktivasi</label>
-                    <div class="col-xs-12">
-                        @Html.TextBoxFor(m => m.Userkodeverified, new { @class = "form-control form-control-solid placeholder-no-fix form-group ", autocomplete = "off", placeholder = "Kode Aktivasi" })
-                        @Html.ValidationMessageFor(m => m.Userkodeverified, "", new { @class = "error-block" })
-                    </div>
-                </div>
-            </div>
-            <button type="button" class="btn green" onclick="vmAccount.ApplySbmtActv('#form_regisfu', '')">
-                <i class="fa fa-gear"></i>
-                <span>&nbsp;Submit</span>
-            </button>
+        </div>
+        <button type="button" class="btn green" onclick="vmAccount.ApplySbmtActv('#form_regisfu', '')">
+            <i class="fa fa-gear"></i>
+            <span>&nbsp;Submit</span>
+        </button>
 
         }
         <div class="row" id="footnoted">
@@ -135,9 +131,5 @@
                 return false;
             }
         });
-
     </script>
 </body>
-
-
-

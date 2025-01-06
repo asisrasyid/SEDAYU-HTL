@@ -5,7 +5,6 @@
 		factory( jQuery );
 	}
 }(function( $ ) {
-
 /*
  * Translated default messages for the jQuery validation plugin.
  * Locale: LT (Lithuanian; lietuvių kalba)
@@ -29,5 +28,4 @@ $.extend($.validator.messages, {
 	max: $.validator.format("Prašau įvesti reikšmę mažesnę arba lygią {0}."),
 	min: $.validator.format("Prašau įvesti reikšmę didesnę arba lygią {0}.")
 });
-
 }));

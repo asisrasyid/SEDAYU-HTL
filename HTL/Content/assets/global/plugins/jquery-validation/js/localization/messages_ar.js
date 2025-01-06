@@ -5,7 +5,6 @@
 		factory( jQuery );
 	}
 }(function( $ ) {
-
 /*
  * Translated default messages for the jQuery validation plugin.
  * Locale: AR (Arabic; العربية)
@@ -29,5 +28,4 @@ $.extend($.validator.messages, {
 	max: $.validator.format("رجاء إدخال عدد أقل من أو يساوي (0}"),
 	min: $.validator.format("رجاء إدخال عدد أكبر من أو يساوي (0}")
 });
-
 }));

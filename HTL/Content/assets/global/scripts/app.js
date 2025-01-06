@@ -2,7 +2,6 @@
 Core script to handle the entire theme and core functions
 **/
 var App = function () {
-
     // IE mode
     var isRTL = false;
     var isIE8 = false;
@@ -21,10 +20,6 @@ var App = function () {
 
     // theme layout color set
 
-
-
-  
-
     var brandColors = {
         'blue': '#89C4F4',
         'red': '#F3565D',
@@ -36,7 +31,6 @@ var App = function () {
 
     // initializes main settings
     var handleInit = function () {
-
         if ($('body').css('direction') === 'rtl') {
             isRTL = true;
         }
@@ -77,7 +71,7 @@ var App = function () {
                 }
                 resize = setTimeout(function () {
                     _runResizeHandlers();
-                }, 50); // wait 50ms until window resize finishes.                
+                }, 50); // wait 50ms until window resize finishes.
                 currheight = document.documentElement.clientHeight; // store last body client height
             });
         } else {
@@ -202,7 +196,6 @@ var App = function () {
 
     // Handlesmaterial design checkboxes
     var handleMaterialDesign = function () {
-
         // Material design ckeckbox and radio effects
         $('body').on('click', '.md-checkbox > label, .md-radio > label', function () {
             var the = $(this);
@@ -224,7 +217,7 @@ var App = function () {
 
         if ($('body').hasClass('page-md')) {
             // Material design click effect
-            // credit where credit's due; http://thecodeplayer.com/walkthrough/ripple-click-effect-google-material-design       
+            // credit where credit's due; http://thecodeplayer.com/walkthrough/ripple-click-effect-google-material-design
             var element, circle, d, x, y;
             $('body').on('click', 'a.btn, button.btn, input.btn, label.btn', function (e) {
                 element = $(this);
@@ -344,7 +337,7 @@ var App = function () {
 
     // Handles Bootstrap Modals.
     var handleModals = function () {
-        // fix stackable modal issue: when 2 or more modals opened, closing one of modal will remove .modal-open class. 
+        // fix stackable modal issue: when 2 or more modals opened, closing one of modal will remove .modal-open class.
         $('body').on('hide.bs.modal', function () {
             if ($('.modal:visible').size() > 1 && $('html').hasClass('modal-open') === false) {
                 $('html').addClass('modal-open');
@@ -365,7 +358,7 @@ var App = function () {
             $('body').removeClass("modal-open-noscroll");
         });
 
-        // remove ajax content and remove cache on modal closed 
+        // remove ajax content and remove cache on modal closed
         $('body').on('hidden.bs.modal', '.modal:not(.modal-cached)', function () {
             $(this).removeData('bs.modal');
         });
@@ -407,7 +400,7 @@ var App = function () {
     // Handles Bootstrap Dropdowns
     var handleDropdowns = function () {
         /*
-          Hold dropdown on click  
+          Hold dropdown on click
         */
         $('body').on('click', '.dropdown-menu.hold-on-click', function (e) {
             e.stopPropagation();
@@ -440,7 +433,7 @@ var App = function () {
         });
     };
 
-    // Handle textarea autosize 
+    // Handle textarea autosize
     var handleTextareaAutosize = function () {
         if (typeof (autosize) == "function") {
             autosize(document.querySelector('textarea.autosizeme'));
@@ -582,20 +575,19 @@ var App = function () {
     //* END:CORE HANDLERS *//
 
     return {
-
         //main function to initiate the theme
         init: function () {
             //IMPORTANT!!!: Do not modify the core handlers call order.
 
             //Core handlers
             handleInit(); // initialize core variables
-            handleOnResize(); // set and handle responsive    
+            handleOnResize(); // set and handle responsive
 
-            //UI Component handlers     
-            handleMaterialDesign(); // handle material design       
+            //UI Component handlers
+            handleMaterialDesign(); // handle material design
             handleiCheck(); // handles custom icheck radio and checkboxes
             handleBootstrapSwitch(); // handle bootstrap switch plugin
-            handleScrollers(); // handles slim scrolling contents 
+            handleScrollers(); // handles slim scrolling contents
             handleFancybox(); // handle fancy box
             handleSelect2(); // handle custom Select2 dropdowns
             handlePortletTools(); // handles portlet action bar functionality(refresh, configure, toggle, remove)
@@ -604,7 +596,7 @@ var App = function () {
             handleTabs(); // handle tabs
             handleTooltips(); // handle bootstrap tooltips
             handlePopovers(); // handles bootstrap popovers
-            handleAccordions(); //handles accordions 
+            handleAccordions(); //handles accordions
             handleModals(); // handle modals
             handleBootstrapConfirmation(); // handle bootstrap confirmations
             handleTextareaAutosize(); // handle autosize textareas
@@ -615,27 +607,25 @@ var App = function () {
 
             // Hacks
             handleFixInputPlaceholderForIE(); //IE8 & IE9 input placeholder issue fix
-
-           
         },
 
         //main function to initiate core javascript after ajax complete
         initAjax: function () {
-            //handleUniform(); // handles custom radio & checkboxes     
+            //handleUniform(); // handles custom radio & checkboxes
             handleiCheck(); // handles custom icheck radio and checkboxes
             handleBootstrapSwitch(); // handle bootstrap switch plugin
-            handleDropdownHover(); // handles dropdown hover       
-            handleScrollers(); // handles slim scrolling contents 
+            handleDropdownHover(); // handles dropdown hover
+            handleScrollers(); // handles slim scrolling contents
             handleSelect2(); // handle custom Select2 dropdowns
             handleFancybox(); // handle fancy box
             handleDropdowns(); // handle dropdowns
             handleTooltips(); // handle bootstrap tooltips
             handlePopovers(); // handles bootstrap popovers
-            handleAccordions(); //handles accordions 
+            handleAccordions(); //handles accordions
             handleBootstrapConfirmation(); // handle bootstrap confirmations
         },
 
-        //init main components 
+        //init main components
         initComponents: function () {
             this.initAjax();
         },
@@ -750,7 +740,6 @@ var App = function () {
                     $.each(attrList, function (key, value) {
                         the.attr(key, value);
                     });
-
                 }
             });
         },
@@ -834,10 +823,9 @@ var App = function () {
         },
 
         alert: function (options) {
-
             options = $.extend(true, {
                 container: "", // alerts parent container(by default placed after the page breadcrumbs)
-                place: "append", // "append" or "prepend" in container 
+                place: "append", // "append" or "prepend" in container
                 type: 'success', // alert's type
                 message: "", // alert's message
                 close: true, // make alert closable
@@ -1014,9 +1002,7 @@ var App = function () {
             return sizes[size] ? sizes[size] : 0;
         }
     };
-
 }();
-
 
 jQuery(document).ready(function () {
     App.init(); // init metronic core componets

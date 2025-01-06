@@ -1,11 +1,8 @@
 var FormWizard = function () {
-
-
     var onChecklist = function (status, idname) {
         if (status == true) {
             $("input:checkbox[name='" + idname + "']:unchecked").each(function (i, o) {
                 $("input:checkbox[name='" + idname + "']")[i].checked = true;
-
             });
         } else {
             $("input:checkbox[name='" + idname + "']:checked").each(function (i, o) {
@@ -34,7 +31,6 @@ var FormWizard = function () {
                         confirmButtonText: "Tutup",
                     });
                 } else {
-
                     var byteArray = new Uint8Array(data.datafile);
                     var blob = new Blob([byteArray], { type: data.contenttype });
                     var link = document.createElement('a');
@@ -42,7 +38,6 @@ var FormWizard = function () {
                     var fileName = data.filename;
                     link.download = fileName;
                     link.click();
-
                 }
                 App.unblockUI();
             },
@@ -56,16 +51,13 @@ var FormWizard = function () {
                 App.unblockUI();
             }
         });
-
     };
 
     var onUploadOrderRegisFileMasal = function () {
-
         try {
             document.getElementById("Order_form"), addEventListener("submit", function (e) {
                 var form = e.target;
                 if (form.getAttribute("enctype") == "multipart/form-data") {
-
                     var valid = $(form).valid();
                     if (valid == true) {
                         App.blockUI({ target: elemtid });
@@ -134,11 +126,9 @@ var FormWizard = function () {
                                         }
 
                                         App.unblockUI(elemtid);
-
                                     }
 
                                     if (xhr.status != 200) {
-
                                         App.unblockUI(elemtid);
                                         if (returnedData.moderror == false) { window.location.href = returnedData.url; } else { location.reload(); }
                                     }
@@ -158,11 +148,8 @@ var FormWizard = function () {
             }, true);
         }
         catch (ex) {
-
         }
     }
-
-
 
     return {
         //main function to initiate the module
@@ -181,7 +168,6 @@ var FormWizard = function () {
         },
 
         regmasal: function (tpos) {
-
             $(".modal-backdrop").remove();
             $("#messageboxakta").modal("hide");
 
@@ -212,19 +198,15 @@ var FormWizard = function () {
                     App.unblockUI();
                 }
             });
-
-
         },
 
         sendconfirmviewgrid: function () {
-
             var form = $("#Order_form");
             var token = $('input[name="__RequestVerificationToken"]', form).val();
             var parmenu = $("input[name=menu]").val();
             var parcaption = $("input[name=caption]").val();
             var parcode = $("input[name=verifiedcode]").val();
             var parsended = $("input[name=sended]").val();
-
 
             $.ajax({
                 url: "Contract/clnConfirmOrderView",
@@ -272,7 +254,6 @@ var FormWizard = function () {
                                 $("#capresultdetail").html(x.capresultdetailed);
                                 $("#idrowsendconfirm").show();
                             } else {
-
                                 if (x.htmlvalid == "") {
                                     $("input[name=verifiedcode]").val(inputValue);
                                     $("input[name=sended]").val(x.cmdput);
@@ -292,11 +273,9 @@ var FormWizard = function () {
                     if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
                 }
             });
-
         },
 
         confirmviewgrid: function () {
-
             var form = $("#Order_form");
             var token = $('input[name="__RequestVerificationToken"]', form).val();
 
@@ -335,7 +314,6 @@ var FormWizard = function () {
         },
 
         cancelconfirmviewgrid: function (idnama) {
-
             var form = $("#Order_form");
             var token = $('input[name="__RequestVerificationToken"]', form).val();
 
@@ -347,7 +325,6 @@ var FormWizard = function () {
                 var strp = $(o).val();
                 seldown.push(strp);
             });
-
 
             if ($("input:checkbox[name='" + idnama + "']:checked").length == 0) {
                 swal({
@@ -369,7 +346,6 @@ var FormWizard = function () {
                 confirmButtonText: "Proses"
             }, function (inputValue) {
                 if (inputValue) {
-
                     $.ajax({
                         url: "Contract/clnCancelOrderView",
                         type: "POST",
@@ -408,13 +384,11 @@ var FormWizard = function () {
                             if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
                         }
                     });
-
                 }
             });
         },
 
         Filterdataview: function (idnama) {
-
             var form = $("#Order_form");
             var token = $('input[name="__RequestVerificationToken"]', form).val();
 
@@ -513,7 +487,6 @@ var FormWizard = function () {
         },
 
         refreshformmasal: function () {
-
             $('input[type != "hidden"]').val("");
             $("#idrowconfirm").hide();
             $("#table_List_orderRegis").dataTable().remove();
@@ -523,7 +496,6 @@ var FormWizard = function () {
             $("#idrowinputmasal").hide();
 
             FormWizard.init();
-
         },
 
         init: function () {
@@ -554,12 +526,10 @@ var FormWizard = function () {
                     }
                 });
 
-
             $.validator.addMethod("numbernilai", function (value, element) {
                 value = value.replace(/\,/g, "").replace(/\./g, "");
                 return this.optional(element) || /^\d{7,18}$/.test(value);
             }, "Isikan dengan angka (minimal 7 digit)");
-
 
             $.validator.addMethod("numberposkode", function (value, element) {
                 return this.optional(element) || /^\d{5}$/.test(value);
@@ -576,7 +546,6 @@ var FormWizard = function () {
             $.validator.addMethod("numberkontrak", function (value, element) {
                 return this.optional(element) || /^\d{10}$/.test(value);
             }, "Isikan dengan angka (10 digit)");
-
 
             $.validator.addMethod("numberroda", function (value, element) {
                 return this.optional(element) || /^\d{1,2}$/.test(value);
@@ -596,7 +565,6 @@ var FormWizard = function () {
                 errorClass: 'help-block help-block-error', // default input error message class
                 focusInvalid: false, // do not focus the last invalid input
                 rules: {
-
                     "DetailOrderRegis.Jenis_Pelanggan": {
                         required: true
                     },
@@ -631,7 +599,6 @@ var FormWizard = function () {
                         required: true,
                         numbernilai: true
                     },
-
 
                     "DetailOrderRegis.Nama_Debitur": {
                         required: true,
@@ -693,7 +660,6 @@ var FormWizard = function () {
                         maxlength: 35
                     },
 
-
                     "DetailOrderRegis.Nama_Pemilik_BPKB": {
                         required: true,
                         maxlength: 50
@@ -754,7 +720,6 @@ var FormWizard = function () {
                         required: true,
                         maxlength: 35
                     },
-
 
                     "DetailOrderRegis.Jenis_Object": {
                         required: true,
@@ -794,12 +759,9 @@ var FormWizard = function () {
                         required: true,
                         maxlength: 35
                     }
-
                 },
 
-
                 messages: {
-
                     "DetailOrderRegis.Jenis_Pelanggan": {
                         required: "Field wajib diisi"
                     },
@@ -814,7 +776,6 @@ var FormWizard = function () {
                     },
                     "DetailOrderRegis.NoPerjanjian": {
                         required: "Field wajib diisi"
-
                     },
                     "DetailOrderRegis.Tanggal_awal_angsuran": {
                         required: "Field wajib diisi"
@@ -831,7 +792,6 @@ var FormWizard = function () {
                     "DetailOrderRegis.Nilai_Objek_Penjaminan": {
                         required: "Field wajib diisi"
                     },
-
 
                     "DetailOrderRegis.Nama_Debitur": {
                         required: "Field wajib diisi",
@@ -889,7 +849,6 @@ var FormWizard = function () {
                         maxlength: "Isikan (maksimal {0} karakkter)"
                     },
 
-
                     "DetailOrderRegis.Nama_Pemilik_BPKB": {
                         required: "Field wajib diisi",
                         maxlength: "Isikan (maksimal {0} karakkter)"
@@ -946,7 +905,6 @@ var FormWizard = function () {
                         maxlength: "Isikan (maksimal {0} karakkter)"
                     },
 
-
                     "DetailOrderRegis.Jenis_Object": {
                         required: "Field wajib diisi",
                     },
@@ -956,7 +914,6 @@ var FormWizard = function () {
                     "DetailOrderRegis.Merk": {
                         required: "Field wajib diisi",
                         maxlength: "Isikan (maksimal {0} karakkter)"
-
                     },
                     "DetailOrderRegis.Tipe_Kendaraan": {
                         required: "Field wajib diisi",
@@ -988,7 +945,6 @@ var FormWizard = function () {
                         required: "Field wajib diisi",
                         maxlength: "Isikan (maksimal {0} karakkter)"
                     }
-
                 },
 
                 errorPlacement: function (error, element) { // render error placement for each input type
@@ -1001,14 +957,13 @@ var FormWizard = function () {
                     }
                 },
 
-                invalidHandler: function (event, validator) { //display error alert on form submit   
+                invalidHandler: function (event, validator) { //display error alert on form submit
                     success.hide();
                     error.show();
                     App.scrollTo(error, -200);
                 },
 
                 highlight: function (element) { // hightlight error inputs
-
                     $(element)
                         .closest('.form-group').removeClass('has-success').addClass('has-error'); // set error class to the control group
                 },
@@ -1029,7 +984,6 @@ var FormWizard = function () {
                             .closest('.form-group').removeClass('has-error').addClass('has-success'); // set success class to the control group
                     }
                 }
-
             });
 
             var displayConfirm = function () {
@@ -1102,7 +1056,6 @@ var FormWizard = function () {
                     success.hide();
                     error.hide();
 
-
                     if (form.valid() == false) {
                         return false;
                     }
@@ -1135,16 +1088,9 @@ var FormWizard = function () {
                 "#Jenis_Kelamin_BPKB,#Jenis_Identitas_BPKB,#RT_Debitur,#RW_Debitur,#Jenis_Object,#Kondisi_Object", form).change(function () {
                     form.validate().element($(this)); //revalidate the chosen dropdown value and show error or success message for the input
                 });
-
-
-
         }
-
     };
-
 }();
-
-
 
 jQuery(document).ready(function () {
     FormWizard.init();

@@ -74,7 +74,6 @@
     return xhr.status >= 200 && xhr.status <= 299;
   } // `a.click()` doesn't work for all browsers (#465)
 
-
   function click(node) {
     try {
       node.dispatchEvent(new MouseEvent('click'));
@@ -86,7 +85,6 @@
   } // Detect WebView inside a native macOS app by ruling out all browsers
   // We just need to check for 'Safari' because all other browsers (besides Firefox) include that too
   // https://www.whatismybrowser.com/guides/the-latest-user-agent/macos
-
 
   var isMacOSWebView = /Macintosh/.test(navigator.userAgent) && /AppleWebKit/.test(navigator.userAgent) && !/Safari/.test(navigator.userAgent);
   var saveAs = _global.saveAs || ( // probably in some web worker
@@ -123,7 +121,7 @@
       }, 0);
     }
   } // Use msSaveOrOpenBlob as a second approach
-  : 'msSaveOrOpenBlob' in navigator ? function 
+  : 'msSaveOrOpenBlob' in navigator ? function
                   (blob, name, opts) {
     name = name || blob.name || 'download';
 

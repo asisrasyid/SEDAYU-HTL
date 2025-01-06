@@ -2,7 +2,6 @@
 var elemntupload = ".modal-content";
 
 var vmFinance = function () {
-
     var onOpenAdd = function () {
         var jsoncoll = "";
         var jsonreposn = "";
@@ -32,7 +31,6 @@ var vmFinance = function () {
                 if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
             }
         });
-
     };
     var onReqCnl = function (varkeylookup) {
         var jsoncoll = "";
@@ -48,7 +46,6 @@ var vmFinance = function () {
         },
             function (isConfirm) {
                 if (isConfirm) {
-
                     $.ajax({
                         url: "Finance/clnPaymentRegisrejt",
                         type: "POST",
@@ -124,7 +121,6 @@ var vmFinance = function () {
                 if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
             }
         });
-
     };
     var onApplyFilter = function (parForm, pardownloadexcel) {
         var jsoncoll = "";
@@ -135,7 +131,6 @@ var vmFinance = function () {
             url: frm.attr('action'),
             data: frm.serialize() + "&download=" + pardownloadexcel,
             beforeSend: function () {
-
                 App.blockUI({ target: elemntupload });
             },
             success: function (data) {
@@ -181,7 +176,6 @@ var vmFinance = function () {
         $('#filterdatadialog .select2').val('').trigger("change");
     };
 
-
     var onOpenAddInv = function (param) {
         var jsoncoll = "";
         var jsonreposn = "";
@@ -212,10 +206,7 @@ var vmFinance = function () {
                 if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
             }
         });
-
     };
-
-
 
     var onOpenAddInvpaid = function (param) {
         var jsoncoll = "";
@@ -248,7 +239,6 @@ var vmFinance = function () {
             }
         });
     };
-
 
     var onAddInvGEN = function (param2, param1) {
         var jsoncoll = "";
@@ -304,7 +294,6 @@ var vmFinance = function () {
                 if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
             }
         });
-
     };
 
     var onOpenAddInvPAT = function (param) {
@@ -337,7 +326,6 @@ var vmFinance = function () {
                 if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
             }
         });
-
     };
     var onAddInvPATGEN = function (param2, param1) {
         var jsoncoll = "";
@@ -393,10 +381,7 @@ var vmFinance = function () {
                 if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
             }
         });
-
     };
-
-
 
     var onReqCnlInv = function (varkeylookup, oprprm) {
         var jsoncoll = "";
@@ -413,7 +398,6 @@ var vmFinance = function () {
         },
             function (isConfirm) {
                 if (isConfirm) {
-
                     $.ajax({
                         url: "Finance/clnPaymentRegisrejtINV",
                         type: "POST",
@@ -489,7 +473,6 @@ var vmFinance = function () {
                 if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
             }
         });
-
     };
     var onApplyFilterInv = function (parForm, pardownloadexcel) {
         var jsoncoll = "";
@@ -500,7 +483,6 @@ var vmFinance = function () {
             url: frm.attr('action'),
             data: frm.serialize() + "&download=" + pardownloadexcel,
             beforeSend: function () {
-
                 App.blockUI({ target: elemntupload });
             },
             success: function (data) {
@@ -546,8 +528,6 @@ var vmFinance = function () {
         $('#filterdatadialog .select2').val('').trigger("change");
     };
 
-
-
     var onOpenAddFP = function () {
         var jsoncoll = "";
         var jsonreposn = "";
@@ -577,7 +557,6 @@ var vmFinance = function () {
                 if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
             }
         });
-
     };
     var onReqCnlFP = function (varkeylookup) {
         var jsoncoll = "";
@@ -593,7 +572,6 @@ var vmFinance = function () {
         },
             function (isConfirm) {
                 if (isConfirm) {
-
                     $.ajax({
                         url: "Finance/clnFakturRegisrejt",
                         type: "POST",
@@ -669,7 +647,6 @@ var vmFinance = function () {
                 if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
             }
         });
-
     };
     var onApplyFilterFP = function (parForm, pardownloadexcel) {
         var jsoncoll = "";
@@ -680,7 +657,6 @@ var vmFinance = function () {
             url: frm.attr('action'),
             data: frm.serialize() + "&download=" + pardownloadexcel,
             beforeSend: function () {
-
                 App.blockUI({ target: elemntupload });
             },
             success: function (data) {
@@ -727,7 +703,6 @@ var vmFinance = function () {
         $('#filterdatadialog .select2').val('').trigger("change");
     };
 
-
     var onOpenAddMNL = function () {
         var jsoncoll = "";
         var jsonreposn = "";
@@ -757,7 +732,6 @@ var vmFinance = function () {
                 if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
             }
         });
-
     };
     var onReqApplyMNL = function (varkeylookup) {
         var jsoncoll = "";
@@ -773,7 +747,6 @@ var vmFinance = function () {
         },
             function (isConfirm) {
                 if (isConfirm) {
-
                     $.ajax({
                         url: "Finance/clnPaymentRegisMNL",
                         type: "POST",
@@ -839,7 +812,6 @@ var vmFinance = function () {
                 if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
             }
         });
-
     };
     var onReqCnlJur = function (varkeylookup) {
         var jsoncoll = "";
@@ -855,7 +827,6 @@ var vmFinance = function () {
         },
             function (isConfirm) {
                 if (isConfirm) {
-
                     $.ajax({
                         url: "Finance/clnPaymentRegisrejtJUR",
                         type: "POST",
@@ -931,7 +902,6 @@ var vmFinance = function () {
                 if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
             }
         });
-
     };
     var onApplyFilterJur = function (parForm, pardownloadexcel) {
         var jsoncoll = "";
@@ -942,7 +912,6 @@ var vmFinance = function () {
             url: frm.attr('action'),
             data: frm.serialize() + "&download=" + pardownloadexcel,
             beforeSend: function () {
-
                 App.blockUI({ target: elemntupload });
             },
             success: function (data) {
@@ -988,7 +957,6 @@ var vmFinance = function () {
         $('#filterdatadialog .select2').val('').trigger("change");
     };
 
-
     var onOpenAddInvBNI = function (parampo) {
         var jsoncoll = "";
         var jsonreposn = "";
@@ -1018,10 +986,8 @@ var vmFinance = function () {
                 if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
             }
         });
-
     };
     var onReqCnlInvBNI = function (varkeylookup, varkd) {
-
         var kodepol = varkeylookup;
         var kddkod = varkd;
         var pesanTxt = "";
@@ -1036,7 +1002,6 @@ var vmFinance = function () {
             pesanTxt = "Yakin ingin Membatalkan Pengajuan, Jika anda sudah yakin silahkan tekan tombol 'Ya'"
         }
 
-
         swal({
             title: "Konfirmasi",
             text: pesanTxt,
@@ -1047,7 +1012,6 @@ var vmFinance = function () {
         },
             function (isConfirm) {
                 if (isConfirm) {
-
                     $.ajax({
                         url: "Finance/clnPaymentProsesBNI",
                         type: "POST",
@@ -1123,7 +1087,6 @@ var vmFinance = function () {
                 if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
             }
         });
-
     };
     var onApplyFilterInvBNI = function (parForm, pardownloadexcel) {
         var jsoncoll = "";
@@ -1134,7 +1097,6 @@ var vmFinance = function () {
             url: frm.attr('action'),
             data: frm.serialize() + "&download=" + pardownloadexcel,
             beforeSend: function () {
-
                 App.blockUI({ target: elemntupload });
             },
             success: function (data) {
@@ -1180,9 +1142,7 @@ var vmFinance = function () {
         $('#filterdatadialog .select2').val('').trigger("change");
     };
 
-
     var OnReCombine = function (idnama, codeprev) {
-
         $("#namaidpool").val(idnama);
         $("#prevedid").val(codeprev);
         $("#reooo").val("rcom");
@@ -1205,7 +1165,6 @@ var vmFinance = function () {
         if (status == true) {
             $("input:checkbox[name='" + idname + "']:unchecked").each(function (i, o) {
                 $("input:checkbox[name='" + idname + "']")[i].checked = true;
-
             });
         } else {
             $("input:checkbox[name='" + idname + "']:checked").each(function (i, o) {
@@ -1260,10 +1219,7 @@ var vmFinance = function () {
         }
     };
 
-
     return {
-
-
         rupiahbro: function (param, param2, ishtml) {
             var angka = param == "" ? "0" : param;
             var posisidecimal = -1;
@@ -1293,7 +1249,6 @@ var vmFinance = function () {
                 }
             }
         },
-
 
         init: function () {
             //currency value validation
@@ -1349,7 +1304,6 @@ var vmFinance = function () {
                                     });
                                 },
                                 error: function (error) {
-
                                 }
                             });
                         } else {
@@ -1379,9 +1333,7 @@ var vmFinance = function () {
                 var par0 = pop[0].replace(/["]/g, "");
                 var par1 = pop[1].replace(/["]/g, "");
                 vmFinance.CetakINV(par0, par1);
-
             });
-
 
             $(".addinvgenpaid").unbind("click");
             $(".addinvgenpaid").bind("click", function () {
@@ -1389,8 +1341,6 @@ var vmFinance = function () {
                 var par0 = pop.replace(/["]/g, "");
                 vmFinance.OpenAddInvpaid(par0);
             });
-
-
 
             $(".addinvpat").unbind("click");
             $(".addinvpat").bind("click", function () {
@@ -1406,7 +1356,6 @@ var vmFinance = function () {
                 var add = $("#JenisTransaksi").val();
                 vmFinance.OpenInvPATGEN(par0, add);
             });
-
 
             $(".LoadMenu").unbind("click");
             $(".LoadMenu").bind("click", function () {
@@ -1453,7 +1402,6 @@ var vmFinance = function () {
         },
 
         OpenInvGEN: function (param, param1) {
-
             var form = $('#billpayment_form');
             var token = $('input[name="__RequestVerificationToken"]', form).val();
             var table = $('#table_List_billing_payment_upload').DataTable();
@@ -1489,16 +1437,13 @@ var vmFinance = function () {
                     target: 'top'
                 });
             }
-
         },
-
 
         OpenAddInvPAT: function (param) {
             onOpenAddInvPAT(param);
         },
 
         OpenInvPATGEN: function (param, param1) {
-
             var form = $('#billpayment_form');
             var token = $('input[name="__RequestVerificationToken"]', form).val();
             var table = $('#table_List_billing_payment_upload').DataTable();
@@ -1534,7 +1479,6 @@ var vmFinance = function () {
                     target: 'top'
                 });
             }
-
         },
 
         ReqCnlInv: function (keylookup, oprprm) {
@@ -1549,8 +1493,6 @@ var vmFinance = function () {
         ResetFilterInv: function (parForm) {
             onResetFilterInv(parForm);
         },
-
-
 
         OpenAddFP: function () {
             onOpenAddFP();
@@ -1568,7 +1510,6 @@ var vmFinance = function () {
             onResetFilterFP(parForm);
         },
 
-
         OpenAddJur: function () {
             onOpenAddJur();
         },
@@ -1584,7 +1525,6 @@ var vmFinance = function () {
         ResetFilterJur: function (parForm) {
             onResetFilterJur(parForm);
         },
-
 
         OpenAddInvBNI: function () {
             onOpenAddInvBNI();
@@ -1613,7 +1553,6 @@ var vmFinance = function () {
         ReCombine: function (idnama, codeprev) {
             OnReCombine(idnama, codeprev);
         },
-
 
         CooBeerBeginInvPPAT: function () {
             App.blockUI({
@@ -1647,7 +1586,6 @@ var vmFinance = function () {
             if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
         },
 
-
         CooBeerBeginInv: function () {
             App.blockUI({
                 target: '#billpayment_form'
@@ -1678,7 +1616,6 @@ var vmFinance = function () {
                         downloadLink.href = linkSource;
                         downloadLink.download = fileName;
                         downloadLink.click();
-
                     }
                 });
             } else {
@@ -1691,7 +1628,6 @@ var vmFinance = function () {
             var jsonreposn = JSON.parse(jsoncoll);
             if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
         },
-
 
         CooBeerBeginInvlag: function () {
             App.blockUI({
@@ -1711,7 +1647,6 @@ var vmFinance = function () {
                     confirmButtonText: "Tutup",
                 }, function () {
                     if (x.result == 1) {
-
                     }
                 });
             } else {
@@ -1724,7 +1659,6 @@ var vmFinance = function () {
             var jsonreposn = JSON.parse(jsoncoll);
             if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
         },
-
 
         CooBeerBeginCetakInv: function () {
             App.blockUI();
@@ -1768,8 +1702,6 @@ var vmFinance = function () {
             if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
         },
 
-
-
         CooBeerBegin: function () {
             App.blockUI();
         },
@@ -1803,10 +1735,5 @@ var vmFinance = function () {
             var jsonreposn = JSON.parse(jsoncoll);
             if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
         },
-
     }
-
-
 }();
-
-

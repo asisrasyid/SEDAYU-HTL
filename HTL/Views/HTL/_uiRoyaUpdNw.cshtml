@@ -1,211 +1,42 @@
-﻿@model  HashNetFramework.cHTL
-@using (Ajax.BeginForm("clnUpdHTLNW", new { Controller = "HTL" }, new AjaxOptions
-{
-    HttpMethod = "POST"
-}, new { id = "clnHTL_form", @class = "form-horizontal" }))
-{
+﻿@model DusColl.vmHTL
 
-    @Html.AntiForgeryToken();
-    @Html.HiddenFor(x => x.keylookupdataHTX);
-    @Html.Hidden("ctex");
-    @Html.Hidden("eux");
-    @Html.Hidden("aux", HashNetFramework.HasKeyProtect.Encryption(Model.NoAppl));
+<style>
+    .font-white {
+        background-color: #95A5A6;
+    }
 
-    <div class="modal-header">
-        <h4 class="modal-title">
-            <strong>FORM PENGAJUAN - @ViewBag.OprMenu </strong>
-            @{
-                var txtpro = (Model.OrderKeNotaris ?? "") == "" ? "" : " oleh PPAT " + (Model.OrderKeNotaris ?? "");
-            }
-            <br /> <b>
-                <small>
-                    Status Penanganan : @(Model.Statusdesc ?? "Input Pengajuan Roya")
-                </small>
-            </b>
-        </h4>
-    </div>
-    <div class="portlet light">
-        <div class="portlet-title">
-            <div class="row" id="formreport">
-                <div class="portlet light">
-                    <div class="portlet-title col-sm-12">
-                    </div>
-                    <div class="form-body">
-                        <div class="form-group">
-                            <label class="control-label col-md-3"></label>
-                            <div class="col-md-4">
-                                <div class="input-group">
-                                    <span class="input-group-addon">No Kontrak </span>
-                                    <input class="form-control" placeholder="Masukan No Kontrak">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    .font-whitea {
+        color: #555;
+    }
+</style>
 
-                <div class="modal-footer" style="background-color:#ffffff;border-color:#eee">
-                    <button type="button" class="btn green dreportref">
-                        <i class="fa fa-circle-o"></i>
-                        <span>&nbsp;Reset</span>
-                    </button>
-
-                    <div class="btn-group">
-                        <a class="btn green dreport" aria-expanded="false">
-                            <i class="fa fa-cloud-download"></i> &nbsp;Cari
-                        </a>
-                    </div>
-                </div>
+<div class="portlet" id="grdl">
+    <div class="portlet-title" style="min-height:0px;margin-bottom:0px">
+        <div class="caption LoadMenu" data-value="@ViewBag.menu,@ViewBag.caption,@ViewBag.rute,@ViewBag.action" style="cursor:pointer">
+            <i class="icon-settings font-whitea"></i>
+            <span class="caption-subject font-whitea sbold uppercase">@ViewBag.captiondesc</span>
+        </div>
+        <div class="actions" id="actiongrid">
+            <div class="btn-group">
             </div>
         </div>
     </div>
-    <div class="portlet box green col-md-12">
-        <div class="portlet-title">
-            <div class="caption">
-                <i class="fa fa-comments"></i>PASANGAN DEBITUR
-            </div>
-        </div>
-        <div class="portlet-body portlet-bodyies">
-            <div class="row">
-                <div class="col-md-12" id="gdpsg">
-                    @{Html.RenderPartial("~/Views/HTL/uiHTLLstGridPSG.cshtml", Model);}
-                </div>
-            </div>
-        </div>
+    <div id="gridTx" class="portlet-body">
+        @{Html.RenderPartial("~/Views/HTL/uiHTLLstGridRoya.cshtml");}
     </div>
-
-    <div class="portlet box green col-md-12">
-        <div class="portlet-title">
-            <div class="caption">
-                <i class="fa fa-comments"></i>BIDANG TANAH
-            </div>
-        </div>
-        <div class="portlet-body portlet-bodyies">
-            <div class="row">
-                <div class="col-md-12" id="gdtnh">
-                    @{Html.RenderPartial("~/Views/HTL/uiHTLLstGridTNH.cshtml", Model);}
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="portlet box green col-md-12">
-        <div class="portlet-title">
-            <div class="caption">
-                <i class="fa fa-comments"></i>PEMILIK SERTIFIKAT
-            </div>
-        </div>
-        <div class="portlet-body portlet-bodyies">
-            <div class="row">
-                <div class="col-md-12" id="gdsrt">
-                    @{Html.RenderPartial("~/Views/HTL/uiHTLLstGridSRT.cshtml", Model);}
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="portlet box green col-md-12">
-        <div class="portlet-title">
-            <div class="caption">
-                <i class="fa fa-comments"></i>UPLOAD DOKUMEN PENDUKUNG ROYA
-            </div>
-        </div>
-    </div>
-    <div class="portlet light">
-        <div class="portlet-title">
-            <div class="row" id="formreport">
-                <div class="portlet light">
-                    <div class="portlet-title">
-                    </div>
-                    <div class="form-body">
-                        <div class="form-group">
-                            <label class="control-label col-md-3"></label>
-                            <div class="col-md-4">
-                                <div class="input-group">
-                                    <span class="input-group-addon">Dokumen 1</span>
-                                    <input class="form-control" type="file" placeholder="Masukan No Kontrak">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-body">
-                        <div class="form-group">
-                            <label class="control-label col-md-3"></label>
-                            <div class="col-md-4">
-                                <div class="input-group">
-                                    <span class="input-group-addon">Dokumen 2</span>
-                                    <input class="form-control" type="file" placeholder="Masukan No Kontrak">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="modal-footer" style="background-color:#ffffff;border-color:#eee">
-                    <button type="button" class="btn green dreportref">
-                        <i class="fa fa-circle-o"></i>
-                        <span>&nbsp;Reset</span>
-                    </button>
-
-                    <div class="btn-group">
-                        <a class="btn green dreport" aria-expanded="false">
-                            <i class="fa fa-cloud-download"></i> &nbsp;Cari
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-}
-
-<div id="uidivupdoc">
-</div>
-<div id="uidivaddipt">
-</div>
-<div id="uidivupdocvw">
 </div>
 
-<div id="iman">
-
+<div id="uidivfilter">
+</div>
+<div id="uidivadd">
+</div>
+<div id="uidivvw">
+</div>
+<div id="uidivhis">
 </div>
 
-<script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
-<script src="~/Content/assets/pages/scripts/form-fileupload.js"></script>
-
-<script src="~/Scripts/vmHTL.js"></script>
-<script src="~/Scripts/jquery.Jcrop.min.js"></script>
 <script>
-  var opp = '@ViewBag.oprvalue';
-    vmHTL.setvalhandle('@HashNetFramework.HasKeyProtect.Encryption(Model.OrderKeNotaris)',
-        '@Model.JKelaminDebitur',
-        '@Model.WargaDebitur',
-        '@Model.JKelaminPemilikSertifikat',
-        '@Model.WargaPemilikSertifikat',
-        '@Model.TglSuratUkur',
-        '@Model.TgllahirDebitur',
-        '@Model.TgllahirPemilikSertifikat',
-        '@Model.TglPerjanjian',
-        '@Model.NilaiHT',
-        '@Model.NilaiPinjamanDiterima',
-        '@Model.LuasTanah',
-        '@Model.StatusDebitur',
-        '@Model.Case',
-        '@Model.CaseCabPending',
-        '@Model.CaseCabPendingAkd'
-    );
-    $("#dialogwarkah").draggable({ handle: ".modal-header" });
-    vmHTL.initbuton();
-    vmHTL.init();
-
-    $(document).ready(function () {
-        $('.select2').on('change', function () {
-            var selectedValue = $(this).val();
-            if (selectedValue === "u335j1d0AAnc1AFWlweidw==") {
-                alert('masuk');
-            }
-        });
+    $.getScript("Scripts/vmHTL.js", function () {
+        vmHTL.initbuton();
     });
-
-
 </script>

@@ -5,7 +5,6 @@
 		factory( jQuery );
 	}
 }(function( $ ) {
-
 /*
  * Translated default messages for the jQuery validation plugin.
  * Locale: PT (Portuguese; português)
@@ -35,5 +34,4 @@ $.extend($.validator.messages, {
 	postalcodeBR: "Por favor, forne&ccedil;a um CEP v&aacute;lido.",
 	cpfBR: "Por favor, forne&ccedil;a um CPF v&aacute;lido."
 });
-
 }));

@@ -85,7 +85,6 @@
     // "add" method are uploaded immediately, but it is possible to override
     // the "add" callback option to queue file uploads.
     $.widget('blueimp.fileupload', {
-
         options: {
             // The drop target element(s), by the default the complete document.
             // Set to null to disable drag & drop support:
@@ -865,7 +864,6 @@
         },
 
         _onFail: function (jqXHR, textStatus, errorThrown, options) {
-
             var response = options._response;
             if (options.recalculateProgress) {
                 // Remove the failed (error or abort) file upload from
@@ -972,7 +970,6 @@
         },
 
         _onAdd: function (e, data) {
-
             var that = this,
                 result = true,
                 options = $.extend({}, this.options, data),
@@ -1035,7 +1032,7 @@
             for (var o = 0; o < files.length; o++) {
                 options.nourut.push(o);
             }
-            
+
             data.originalFiles = files;
             $.each(fileSet || files, function (index, element) {
                 var newData = $.extend({}, data);
@@ -1431,7 +1428,6 @@
             }
         },
 
-
         // This method is exposed to the widget API and allows sending files
         // using the fileupload API. The data parameter accepts an object which
         // must have a files or fileInput property and can contain additional options:
@@ -1483,7 +1479,5 @@
             }
             return this._getXHRPromise(false, data && data.context);
         }
-
     });
-
 }));

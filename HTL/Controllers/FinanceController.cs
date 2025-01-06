@@ -1,50 +1,38 @@
 ﻿using HashNetFramework;
-using iTextSharp.text.pdf;
-using Newtonsoft.Json;
 using Spire.Pdf;
 using Spire.Pdf.AutomaticFields;
-using Spire.Pdf.Fields;
-using Spire.Pdf.General.Find;
 using Spire.Pdf.Graphics;
-using Spire.Pdf.Security;
 using Spire.Pdf.Tables;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Script.Serialization;
 using System.Web.Security;
-using WinSCP;
 
 namespace DusColl.Controllers
 {
     public class FinanceController : Controller
     {
-
-        vmAccount Account = new vmAccount();
-        blAccount lgAccount = new blAccount();
-        vmFinance Finance = new vmFinance();
-        vmFinanceddl Financeddl = new vmFinanceddl();
-        cFilterContract modFilter = new cFilterContract();
-        vmCommon Common = new vmCommon();
-        vmCommonddl Commonddl = new vmCommonddl();
-        blFinance lgFinance = new blFinance();
-        vmHTLddl HTLddl = new vmHTLddl();
-
+        private vmAccount Account = new vmAccount();
+        private blAccount lgAccount = new blAccount();
+        private vmFinance Finance = new vmFinance();
+        private vmFinanceddl Financeddl = new vmFinanceddl();
+        private cFilterContract modFilter = new cFilterContract();
+        private vmCommon Common = new vmCommon();
+        private vmCommonddl Commonddl = new vmCommonddl();
+        private blFinance lgFinance = new blFinance();
+        private vmHTLddl HTLddl = new vmHTLddl();
 
         /*
 
         #region invoice tax
+
         public async Task<ActionResult> clnFakturRegis(string menu, string caption)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -72,7 +60,6 @@ namespace DusColl.Controllers
 
             try
             {
-
                 string UserID = Account.AccountLogin.UserID;
                 string UserName = Account.AccountLogin.UserName;
                 string ClientID = Account.AccountLogin.ClientID;
@@ -167,11 +154,8 @@ namespace DusColl.Controllers
                 ViewBag.rute = "Finance";
                 ViewBag.action = "clnFakturRegis";
 
-
-
                 string filteron = modFilter.isModeFilter == false ? "" : "<br /> Pencarian Data :  Aktif";
                 ViewBag.Total = "Total Data : " + TotalRecord.ToString() + " Data <br /> Data on Pages : " + totalRecordclient.ToString() + " Data" + filteron;
-
 
                 // send back to client browser//
                 return Json(new
@@ -233,7 +217,6 @@ namespace DusColl.Controllers
                 Common = (TempData["common"] as vmCommon);
                 Common = Common == null ? new vmCommon() : Common;
 
-
                 // try make filter initial & set secure module name //
                 if (Common.ddlJenisKontrak == null)
                 {
@@ -250,7 +233,6 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout,
                     view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/Finance/_uiFakturRegisUpload.cshtml", Finance.DetailFilter),
                 });
-
             }
             catch (Exception ex)
             {
@@ -269,7 +251,6 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
 
         public async Task<ActionResult> clnOpenFilterpopFakturRegis()
@@ -301,8 +282,6 @@ namespace DusColl.Controllers
 
             try
             {
-
-
                 //get session filterisasi //
                 modFilter = TempData["FinanceTaxListFilterTxt"] as cFilterContract;
                 Finance = TempData["FinanceTaxListTxt"] as vmFinance;
@@ -315,8 +294,6 @@ namespace DusColl.Controllers
                 string SelectRequest = modFilter.SelectRequest;
                 string SelectRequestStatus = modFilter.SelectRequestStatus ?? "0";
                 string fromdate = modFilter.fromdate ?? "";
-
-
 
                 // try make filter initial & set secure module name //
                 if (Common.ddlJenisRequest == null)
@@ -349,7 +326,6 @@ namespace DusColl.Controllers
                     opsi7 = "",
                     view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/Finance/_uiFilterDataFakturRegis.cshtml", Finance.DetailFilter),
                 });
-
             }
             catch (Exception ex)
             {
@@ -368,14 +344,12 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> clnListFilterFakturRegis(cFilterContract model, string download)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -403,15 +377,11 @@ namespace DusColl.Controllers
 
             try
             {
-
-
-
                 //get session filterisasi //
                 modFilter = TempData["FinanceTaxListFilterTxt"] as cFilterContract;
                 Finance = TempData["FinanceTaxListTxt"] as vmFinance;
                 Common = (TempData["common"] as vmCommon);
                 Common = Common == null ? new vmCommon() : Common;
-
 
                 //get value from old define//
                 string UserID = modFilter.UserID;
@@ -441,7 +411,6 @@ namespace DusColl.Controllers
                 modFilter.fromdate = fromdate;
                 modFilter.NoPerjanjian = NoFaktur;
 
-
                 modFilter.PageNumber = PageNumber;
                 modFilter.isModeFilter = isModeFilter;
                 //set filter//
@@ -450,7 +419,6 @@ namespace DusColl.Controllers
                 string validtxt = ""; // lgOrder.CheckFilterisasiData(modFilter, download);
                 if (validtxt == "")
                 {
-
                     ////descript some value for db//
                     SelectClient = HasKeyProtect.Decryption(SelectClient);
                     caption = HasKeyProtect.Decryption(caption);
@@ -463,7 +431,6 @@ namespace DusColl.Controllers
                     List<DataTable> dtlist = await Financeddl.dbGetListFakturRegis(null, SelectClient, fromdate, SelectRequest, NoFaktur, SelectRequestStatus, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
                     totalRecordclient = dtlist[0].Rows.Count;
                     totalPageclient = int.Parse(Math.Ceiling(decimal.Parse(totalRecordclient.ToString()) / decimal.Parse(pagingsizeclient.ToString())).ToString());
-
 
                     //back to set in filter//
                     modFilter.TotalRecord = TotalRecord;
@@ -493,11 +460,9 @@ namespace DusColl.Controllers
                         download = "",
                         message = validtxt
                     });
-
                 }
                 else
                 {
-
                     TempData["FinanceTaxListFilterTxt"] = modFilter;
                     TempData["FinanceTaxListTxt"] = Finance;
                     TempData["Common"] = Common;
@@ -510,7 +475,6 @@ namespace DusColl.Controllers
                         download = "",
                         message = validtxt
                     });
-
                 }
             }
             catch (Exception ex)
@@ -536,7 +500,6 @@ namespace DusColl.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> clnFakturRegisup(HttpPostedFileBase files, cFilterContract model)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -563,7 +526,6 @@ namespace DusColl.Controllers
 
             try
             {
-
                 //// get from session //
                 modFilter = TempData["FinanceTaxListFilterTxt"] as cFilterContract;
                 Finance = TempData["FinanceTaxListTxt"] as vmFinance;
@@ -592,7 +554,6 @@ namespace DusColl.Controllers
                 double totalPageclient = 0;
                 bool isModeFilter = modFilter.isModeFilter;
 
-
                 //set filter//
                 modFilter.SelectClient = SelectClient;
                 modFilter.SelectRequest = SelectRequest;
@@ -606,7 +567,6 @@ namespace DusColl.Controllers
 
                 //decript some model apply for DB//
                 caption = HasKeyProtect.Decryption(caption);
-
 
                 byte[] filbyte = null;
                 string resulted = "";
@@ -638,12 +598,10 @@ namespace DusColl.Controllers
                     }
                 }
 
-
                 int result = 0;
                 DataTable resultdt = new DataTable();
                 if (validtxt == "")
                 {
-
                     resultdt = await Financeddl.dbGetFakturRegisupd(model.NoPerjanjian, model.SelectJenisKontrak, 0, model.fromdate, "0", 0, filbyte, "", caption, UserID, GroupName);
                     result = int.Parse(resultdt.Rows[0][0].ToString());
                 }
@@ -660,7 +618,6 @@ namespace DusColl.Controllers
 
                 if (result == 1)
                 {
-
                     //set paging in grid client//
                     List<DataTable> dtlist = await Financeddl.dbGetListFakturRegis(null, "", fromdate, SelectRequest, NoFaktur, SelectRequestStatus, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
                     totalRecordclient = dtlist[0].Rows.Count;
@@ -676,13 +633,10 @@ namespace DusColl.Controllers
 
                     Finance.DTOrdersFromDB = dtlist[0];
                     Finance.DTDetailForGrid = dtlist[1];
-
                 }
 
                 string filteron = isModeFilter == false ? "" : "<br /> Pencarian Data :  Aktif";
                 ViewBag.Total = "Total Data : " + TotalRecord.ToString() + " Data <br /> Data on Pages : " + totalRecordclient.ToString() + " Data" + filteron;
-
-
 
                 //keep session filterisasi before//
                 TempData["FinanceTaxListTxt"] = Finance;
@@ -698,7 +652,6 @@ namespace DusColl.Controllers
                     result = resulted,
                     view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/Finance/_uiGridFakturRegis.cshtml", Finance),
                 });
-
             }
             catch (Exception ex)
             {
@@ -722,7 +675,6 @@ namespace DusColl.Controllers
         [HttpPost]
         public async Task<ActionResult> clnFakturRegisrejt(string kelookup)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -749,7 +701,6 @@ namespace DusColl.Controllers
             }
             try
             {
-
                 //// get from session //
                 modFilter = TempData["FinanceTaxListFilterTxt"] as cFilterContract;
                 Finance = TempData["FinanceTaxListTxt"] as vmFinance;
@@ -767,7 +718,6 @@ namespace DusColl.Controllers
                 string SelectRequestStatus = modFilter.SelectRequestStatus ?? "";
                 string fromdate = modFilter.fromdate ?? "";
                 string NoFaktur = modFilter.NoPerjanjian ?? "";
-
 
                 //set default for paging //
                 int PageNumber = 1;
@@ -807,7 +757,6 @@ namespace DusColl.Controllers
                 DataTable dtx = Finance.DTDetailForGrid.AsEnumerable().Where(x => x.Field<string>("keylookupdata") == kelookup).CopyToDataTable();
                 string reqid = dtx.Rows[0]["ID"].ToString();
 
-
                 resultdt = await Financeddl.dbGetFakturRegisupd("", "", dt.Rows.Count, null, reqid, 2, null, "", caption, UserID, GroupName);
                 result = int.Parse(resultdt.Rows[0][0].ToString());
 
@@ -823,7 +772,6 @@ namespace DusColl.Controllers
 
                 if (result == 1)
                 {
-
                     //set paging in grid client//
                     List<DataTable> dtlist = await Financeddl.dbGetListFakturRegis(null, "", fromdate, SelectRequest, NoFaktur, SelectRequestStatus, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
                     totalRecordclient = dtlist[0].Rows.Count;
@@ -839,12 +787,10 @@ namespace DusColl.Controllers
 
                     Finance.DTOrdersFromDB = dtlist[0];
                     Finance.DTDetailForGrid = dtlist[1];
-
                 }
 
                 string filteron = isModeFilter == false ? "" : "<br /> Pencarian Data :  Aktif";
                 ViewBag.Total = "Total Data : " + TotalRecord.ToString() + " Data <br /> Data on Pages : " + totalRecordclient.ToString() + " Data" + filteron;
-
 
                 //keep session filterisasi before//
                 TempData["FinanceTaxListTxt"] = Finance;
@@ -859,7 +805,6 @@ namespace DusColl.Controllers
                     result = resulted,
                     view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/Finance/_uiGridFakturRegis.cshtml", Finance),
                 });
-
             }
             catch (Exception ex)
             {
@@ -879,6 +824,7 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         #endregion invoice tax
 
     */
@@ -887,7 +833,6 @@ namespace DusColl.Controllers
 
         public async Task<ActionResult> clnBillPaymentRegisINVPAT(string menu, string caption)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -915,7 +860,6 @@ namespace DusColl.Controllers
 
             try
             {
-
                 string UserID = Account.AccountLogin.UserID;
                 string UserName = Account.AccountLogin.UserName;
                 string ClientID = Account.AccountLogin.ClientID;
@@ -996,15 +940,12 @@ namespace DusColl.Controllers
                 TempData["FinanceListTxt"] = Finance;
                 TempData["FinanceListFilterTxt"] = modFilter;
 
-
                 // set caption menut text //
                 ViewBag.menu = menu;
                 ViewBag.caption = caption;
                 ViewBag.captiondesc = menuitemdescription;
                 ViewBag.rute = "Finance";
                 ViewBag.action = "clnBillPaymentRegisINVPAT";
-
-
 
                 // send back to client browser//
                 return Json(new
@@ -1086,7 +1027,6 @@ namespace DusColl.Controllers
                 Common.ddlJenisDokumen = await Commonddl.dbdbGetDdlEnumsListByEncrypt("JENINV", caption, UserID, GroupName);
                 ViewData["JENINV"] = OwinLibrary.Get_SelectListItem(Common.ddlJenisDokumen);
 
-
                 TempData["FinanceListTxt"] = Finance;
                 TempData["FinanceListFilterTxt"] = modFilter;
                 TempData["common"] = Common;
@@ -1096,7 +1036,6 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout,
                     view = CustomEngineView.RenderRazorViewToString(ControllerContext, viewpo, Finance.DetailFilter),
                 });
-
             }
             catch (Exception ex)
             {
@@ -1115,14 +1054,12 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> clnPaymentRegisINVPAT(string JenisTransaksi, string gontok, string NoPengajuanRequest)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -1150,7 +1087,6 @@ namespace DusColl.Controllers
 
             try
             {
-
                 //// get from session //
                 modFilter = TempData["FinanceListFilterTxt"] as cFilterContract;
                 Finance = TempData["FinanceListTxt"] as vmFinance;
@@ -1179,7 +1115,6 @@ namespace DusColl.Controllers
                 //double totalPageclient = 0;
                 //bool isModeFilter = modFilter.isModeFilter;
 
-
                 ////set filter//
                 //modFilter.SelectClient = SelectClient;
                 //modFilter.SelectRequest = SelectRequest;
@@ -1207,14 +1142,13 @@ namespace DusColl.Controllers
                 //cek validasi invoice recap//
                 DataTable dtvalid = await HTLddl.dbgetInvPPATvalid("9", UserID, caption, UserID, GroupName);
                 validtxt = dtvalid.Rows[0][0].ToString();
-                if ((NoPengajuanRequest ?? "") != "" || JenisTransaksi== "recapcreateinvoice")
+                if ((NoPengajuanRequest ?? "") != "" || JenisTransaksi == "recapcreateinvoice")
                 {
                     validtxt = "";
                 }
 
                 if (gontok == "createinvoice")
                 {
-
                     DataTable dtresultod = await HTLddl.dbgetOrderOS("9", UserID, caption, UserID, GroupName);
                     int totalpendht = int.Parse(dtresultod.Rows[0][0].ToString());
                     int limithriht = int.Parse(dtresultod.Rows[0][1].ToString());
@@ -1231,7 +1165,6 @@ namespace DusColl.Controllers
                     if (resultdt4inv.Rows.Count <= 0)
                     {
                         validtxt = "Tidak ada data tagihan yang akan dibuat invoice";
-
                     }
                     else if (totalpendht > 0)
                     {
@@ -1250,8 +1183,6 @@ namespace DusColl.Controllers
                         resultdt.Columns[3].ColumnName = "Key4";
                         NoPengajuanRequest = resultdt.Rows[0][1].ToString();
                     }
-
-
                 }
                 else
                 {
@@ -1262,7 +1193,6 @@ namespace DusColl.Controllers
                         resultdt.Columns.Add("Key3");
                         resultdt.Columns.Add("Key4");
                     }
-
                 }
 
                 //if (JenisTransaksi == "" || JenisTransaksi == "N/A")
@@ -1307,7 +1237,6 @@ namespace DusColl.Controllers
                             string sourceFile = Server.MapPath(Request.ApplicationPath) + "External\\TemplateINV\\" + namatemplte + ".docx";
                             using (MemoryStream pdfDocumentstream = new MemoryStream())
                             {
-
                                 jenisfile = namatemplte.Replace("PENGCEKAN", "PENGECEKAN") + "_" + ((NoPengajuanRequest ?? "DRAFT") == "" ? "DRAFT" : NoPengajuanRequest) + "_" + DateTime.Now.ToString("yyyyMMdd");
 
                                 Spire.Doc.Document doc = new Spire.Doc.Document();
@@ -1348,7 +1277,6 @@ namespace DusColl.Controllers
                                 y = y + font1.MeasureString("Country List", format1).Height;
                                 y = y + 5;
 
-
                                 DataTable resultdtpdf = Finance.DTREKAP.DefaultView.ToTable(false, new string[]
                                 { "No", "No Aplikasi","No Perjanjian","Tgl Perjanjian", "Nama Debitur","NoSertifikat","Nilai HT","Pinjaman_Konsumen","No HT","Kode Akta","StatusKontrack" });
 
@@ -1377,7 +1305,6 @@ namespace DusColl.Controllers
                                 {
                                     dataSource[i] = data[i].Split(';');
                                 }
-
 
                                 PdfTable table = new PdfTable();
                                 table.Style.CellPadding = 2;
@@ -1422,7 +1349,6 @@ namespace DusColl.Controllers
                                     {
                                         table.Columns[i].Width = 12;
                                         table.Columns[i].StringFormat = new PdfStringFormat(PdfTextAlignment.Right, PdfVerticalAlignment.Middle);
-
                                     }
                                     if (listheader[i] == "No APHT")
                                     {
@@ -1443,7 +1369,6 @@ namespace DusColl.Controllers
                                 table.Draw(page, new PointF(0, y));
                                 docpdf.SaveToStream(pdfDocumentstream, FileFormat.PDF);
 
-
                                 //footer//
                                 Spire.Pdf.PdfDocument docfooter = new Spire.Pdf.PdfDocument();
                                 docfooter.LoadFromStream(pdfDocumentstream);
@@ -1452,7 +1377,6 @@ namespace DusColl.Controllers
                                 y = pageSize.Height - 72;
                                 for (int i = 0; i < docfooter.Pages.Count; i++)
                                 {
-
                                     //draw line at bottom
                                     PdfPen pen = new PdfPen(PdfBrushes.Gray, 0.5f);
                                     docfooter.Pages[i].Canvas.DrawLine(pen, x, y, pageSize.Width - x, y);
@@ -1471,11 +1395,9 @@ namespace DusColl.Controllers
                                     SizeF size = font.MeasureString(compositeField.Text);
                                     compositeField.Bounds = new RectangleF(pageSize.Width - (130), y + 2, size.Width, size.Height);
                                     compositeField.Draw(docfooter.Pages[i].Canvas);
-
                                 }
 
                                 docfooter.SaveToStream(pdfDocumentstream);
-
 
                                 /*
                                 //protect with digital signature
@@ -1501,7 +1423,6 @@ namespace DusColl.Controllers
                             }
                             resultdt = new DataTable();
                             viewpathed = Convert.ToBase64String(datarekp, 0, datarekp.Length); //"Content/assets/pages/pdfjs-dist/web/viewer.html?parpowderdockd=wako&file=";
-
                         }
                     }
                     else
@@ -1523,7 +1444,6 @@ namespace DusColl.Controllers
 
                 if (result == 1)
                 {
-
                     //back to set in filter//
                     modFilter.TotalRecord = Finance.DTREKAP.Rows.Count;
                     modFilter.TotalPage = 1;
@@ -1538,7 +1458,6 @@ namespace DusColl.Controllers
                     ViewBag.Total = "Total Data : " + modFilter.TotalRecord.ToString() + " Data";
                 }
 
-
                 ViewBag.JenisTransaksi = JenisTransaksi;
                 ViewBag.NoPengajuanRequest = NoPengajuanRequest;
 
@@ -1549,7 +1468,6 @@ namespace DusColl.Controllers
                 TempData["common"] = Common;
 
                 //sendback to client browser//
-
 
                 return Json(new
                 {
@@ -1563,7 +1481,6 @@ namespace DusColl.Controllers
                     namatitle = namatemplte.ToLower() == "pengcekan" ? "PENGECEKAN SERTIPIKAT(No." + NoPengajuanRequest + ")" : "SKMHT/APHT(No." + NoPengajuanRequest + ")",
                     view = (resulted == "99") ? "" : CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/Finance/_uiGridBillingPaymentUploadINVPAT.cshtml", Finance),
                 });
-
             }
             catch (Exception ex)
             {
@@ -1584,10 +1501,8 @@ namespace DusColl.Controllers
             }
         }
 
-
         public async Task<ActionResult> clnBillPaymentRegisINV(string menu, string caption)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -1615,7 +1530,6 @@ namespace DusColl.Controllers
 
             try
             {
-
                 string UserID = Account.AccountLogin.UserID;
                 string UserName = Account.AccountLogin.UserName;
                 string ClientID = Account.AccountLogin.ClientID;
@@ -1696,15 +1610,12 @@ namespace DusColl.Controllers
                 TempData["FinanceListTxt"] = Finance;
                 TempData["FinanceListFilterTxt"] = modFilter;
 
-
                 // set caption menut text //
                 ViewBag.menu = menu;
                 ViewBag.caption = caption;
                 ViewBag.captiondesc = menuitemdescription;
                 ViewBag.rute = "Finance";
                 ViewBag.action = "clnBillPaymentRegisINVPAT";
-
-
 
                 // send back to client browser//
                 return Json(new
@@ -1731,7 +1642,6 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-
 
         public async Task<ActionResult> clnOpenAddUplodINVPD(string gontok)
         {
@@ -1796,7 +1706,6 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout,
                     view = CustomEngineView.RenderRazorViewToString(ControllerContext, viewpo, Finance.DetailFilter),
                 });
-
             }
             catch (Exception ex)
             {
@@ -1815,7 +1724,6 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
 
         [HttpPost]
@@ -1912,7 +1820,6 @@ namespace DusColl.Controllers
                 //    }
                 //    else
                 //    {
-
                 //        if (isdelete == true) //jika ada perubaha reload kembali
                 //        {
                 //            resultdt = Finance.DTREKAP.DefaultView.ToTable(false, new string[] { "No Aplikasi", "NoInv", "No Perjanjian", "NoSertifikat" }); ;
@@ -1931,8 +1838,6 @@ namespace DusColl.Controllers
                 //            resultdt.Columns[2].ColumnName = "Key3";
                 //            resultdt.Columns[3].ColumnName = "Key4";
                 //        }
-
-
 
                 //        NoPengajuanRequest = resultdt.Rows[0][1].ToString();
                 //    }
@@ -1989,7 +1894,6 @@ namespace DusColl.Controllers
                     namatitle = "",
                     view = "",
                 });
-
             }
             catch (Exception ex)
             {
@@ -2075,7 +1979,6 @@ namespace DusColl.Controllers
                     view = "",
                     msg = errmessage,
                 });
-
             }
             catch (Exception ex)
             {
@@ -2094,7 +1997,6 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
 
         public async Task<ActionResult> clnOpenAddUplodINV(string gontok)
@@ -2163,7 +2065,6 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout,
                     view = CustomEngineView.RenderRazorViewToString(ControllerContext, viewpo, Finance.DetailFilter),
                 });
-
             }
             catch (Exception ex)
             {
@@ -2182,14 +2083,12 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> clnPaymentRegisINV(string JenisTransaksi, string gontok, string NoPengajuanRequest, string SelectNotaris, string RequestNo, string[] AktaSelectdwn)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -2217,7 +2116,6 @@ namespace DusColl.Controllers
 
             try
             {
-
                 //// get from session //
                 modFilter = TempData["FinanceListFilterTxt"] as cFilterContract;
                 Finance = TempData["FinanceListTxt"] as vmFinance;
@@ -2247,7 +2145,6 @@ namespace DusColl.Controllers
                 //double totalRecordclient = 0;
                 //double totalPageclient = 0;
                 //bool isModeFilter = modFilter.isModeFilter;
-
 
                 ////set filter//
                 //modFilter.SelectClient = SelectClient;
@@ -2291,7 +2188,6 @@ namespace DusColl.Controllers
 
                             //load agian
                             //Finance.DTREKAP = await Financeddl.dbupdatepaymentINVGEN(JenisTransaksi, resultdt, null, NoPengajuanRequest, "", SelectNotaris, RequestNo, caption, UserID, GroupName);
-
                         }
                         resultdt4inv = Finance.DTREKAP;
                     }
@@ -2306,7 +2202,6 @@ namespace DusColl.Controllers
                     }
                     else
                     {
-
                         if (isdelete == true) //jika ada perubaha reload kembali
                         {
                             resultdt = Finance.DTREKAP.DefaultView.ToTable(false, new string[] { "No Aplikasi", "NoInv", "No Perjanjian", "NoSertifikat" }); ;
@@ -2326,14 +2221,11 @@ namespace DusColl.Controllers
                             resultdt.Columns[3].ColumnName = "Key4";
                         }
 
-
-
                         NoPengajuanRequest = resultdt.Rows[0][1].ToString();
                     }
                 }
                 else
                 {
-
                     if (resultdt.Columns.Count <= 0)
                     {
                         resultdt.Columns.Add("Key1");
@@ -2394,11 +2286,9 @@ namespace DusColl.Controllers
                             Finance.DTREKAP = resultdt;
                         }
 
-
                         string sourceFile = Server.MapPath(Request.ApplicationPath) + "External\\TemplateINV\\" + namatemplte + "ADM.docx";
                         using (MemoryStream pdfDocumentstream = new MemoryStream())
                         {
-
                             jenisfile = namatemplte.Replace("PENGCEKAN", "PENGECEKAN") + "_" + ((NoPengajuanRequest ?? "DRAFT") == "" ? "DRAFT" : NoPengajuanRequest) + "_" + DateTime.Now.ToString("yyyyMMdd");
                             if (gontok == "createinvoice")
                             {
@@ -2443,7 +2333,6 @@ namespace DusColl.Controllers
                             y = y + font1.MeasureString("Country List", format1).Height;
                             y = y + 5;
 
-
                             DataTable resultdtpdf = Finance.DTREKAP.DefaultView.ToTable(false, new string[]
                             { "No", "No Perjanjian","Tgl Perjanjian", "Nama Debitur","NoSertifikat","NamaPPAT","InvoicePPAT","tglInvoicePPAT","Nilai HT","Pinjaman_Konsumen","No HT","Kode Akta" });
 
@@ -2473,7 +2362,6 @@ namespace DusColl.Controllers
                             {
                                 dataSource[i] = data[i].Split(';');
                             }
-
 
                             PdfTable table = new PdfTable();
                             table.Style.CellPadding = 2;
@@ -2538,7 +2426,6 @@ namespace DusColl.Controllers
                                 y = pageSize.Height - 72;
                                 for (int i = 0; i < docfooter.Pages.Count; i++)
                                 {
-
                                     //draw line at bottom
                                     PdfPen pen = new PdfPen(PdfBrushes.Gray, 0.5f);
                                     docfooter.Pages[i].Canvas.DrawLine(pen, x, y, pageSize.Width - x, y);
@@ -2557,7 +2444,6 @@ namespace DusColl.Controllers
                                     SizeF size = font.MeasureString(compositeField.Text);
                                     compositeField.Bounds = new RectangleF(pageSize.Width - (130), y + 2, size.Width, size.Height);
                                     compositeField.Draw(docfooter.Pages[i].Canvas);
-
                                 }
 
                                 jenisfile = jenisfile + ".pdf";
@@ -2591,9 +2477,7 @@ namespace DusColl.Controllers
 
                             datarekp = pdfDocumentstream.ToArray();
                             viewpathed = Convert.ToBase64String(datarekp, 0, datarekp.Length);
-
                         }
-
                     }
                     else
                     {
@@ -2614,7 +2498,6 @@ namespace DusColl.Controllers
 
                 //if (result == 1)
                 //{
-
                 //back to set in filter//
                 if (Finance.DTREKAP == null)
                 {
@@ -2637,7 +2520,6 @@ namespace DusColl.Controllers
                 ViewBag.Total = "Total Data : " + modFilter.TotalRecord.ToString() + " Data";
                 //}
 
-
                 ViewBag.JenisTransaksi = JenisTransaksi;
                 ViewBag.NoPengajuanRequest = NoPengajuanRequest;
 
@@ -2648,7 +2530,6 @@ namespace DusColl.Controllers
                 TempData["common"] = Common;
 
                 //sendback to client browser//
-
 
                 return Json(new
                 {
@@ -2665,7 +2546,6 @@ namespace DusColl.Controllers
                     namatitle = namatemplte.ToLower() == "pengcekan" ? "PENGECEKAN SERTIPIKAT(No." + NoPengajuanRequest + ")" : "SKMHT/APHT(No." + NoPengajuanRequest + ")",
                     view = (resulted == "99") ? "" : CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/Finance/_uiGridBillingPaymentUploadINV.cshtml", Finance),
                 });
-
             }
             catch (Exception ex)
             {
@@ -2686,13 +2566,10 @@ namespace DusColl.Controllers
             }
         }
 
-
-
         //[HttpPost]
         //[ValidateAntiForgeryToken]
         //public async Task<ActionResult> clnListFilterBillingINV(cFilterContract model, string download)
         //{
-
         //    Account = (vmAccount)Session["Account"];
         //    bool IsErrorTimeout = false;
         //    if (Account != null)
@@ -2720,15 +2597,11 @@ namespace DusColl.Controllers
 
         //    try
         //    {
-
-
-
         //        //get session filterisasi //
         //        modFilter = TempData["FinanceListFilterTxt"] as cFilterContract;
         //        Finance = TempData["FinanceListTxt"] as vmFinance;
         //        Common = (TempData["common"] as vmCommon);
         //        Common = Common == null ? new vmCommon() : Common;
-
 
         //        //get value from old define//
         //        string UserID = modFilter.UserID;
@@ -2740,7 +2613,6 @@ namespace DusColl.Controllers
         //        string SelectRequest = model.SelectRequest ?? "";
         //        string SelectRequestStatus = model.SelectRequestStatus ?? "0";
         //        string fromdate = modFilter.fromdate ?? "";
-
 
         //        //set default for paging//
         //        int PageNumber = 1;
@@ -2765,7 +2637,6 @@ namespace DusColl.Controllers
         //        string validtxt = ""; // lgOrder.CheckFilterisasiData(modFilter, download);
         //        if (validtxt == "")
         //        {
-
         //            ////descript some value for db//
         //            SelectClient = HasKeyProtect.Decryption(SelectClient);
         //            caption = HasKeyProtect.Decryption(caption);
@@ -2778,7 +2649,6 @@ namespace DusColl.Controllers
         //            List<DataTable> dtlist = await Financeddl.dbGetPayListINV(null, SelectClient, fromdate, SelectRequest, SelectRequestStatus, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
         //            totalRecordclient = dtlist[0].Rows.Count;
         //            totalPageclient = int.Parse(Math.Ceiling(decimal.Parse(totalRecordclient.ToString()) / decimal.Parse(pagingsizeclient.ToString())).ToString());
-
 
         //            //back to set in filter//
         //            modFilter.TotalRecord = TotalRecord;
@@ -2812,7 +2682,6 @@ namespace DusColl.Controllers
         //        }
         //        else
         //        {
-
         //            TempData["FinanceListFilterTxt"] = modFilter;
         //            TempData["FinanceListTxt"] = Finance;
         //            TempData["Common"] = Common;
@@ -2851,7 +2720,6 @@ namespace DusColl.Controllers
         //[ValidateAntiForgeryToken]
         //public async Task<ActionResult> clnPaymentRegisINV(HttpPostedFileBase[] files, cFilterContract model)
         //{
-
         //    Account = (vmAccount)Session["Account"];
         //    bool IsErrorTimeout = false;
         //    if (Account != null)
@@ -2879,7 +2747,6 @@ namespace DusColl.Controllers
 
         //    try
         //    {
-
         //        //// get from session //
         //        modFilter = TempData["FinanceListFilterTxt"] as cFilterContract;
         //        Finance = TempData["FinanceListTxt"] as vmFinance;
@@ -2897,7 +2764,6 @@ namespace DusColl.Controllers
         //        string SelectRequestStatus = modFilter.SelectRequestStatus ?? "0";
         //        string fromdate = modFilter.fromdate ?? "";
 
-
         //        //set default for paging //
         //        int PageNumber = 1;
         //        double TotalRecord = modFilter.TotalRecord;
@@ -2907,7 +2773,6 @@ namespace DusColl.Controllers
         //        double totalRecordclient = 0;
         //        double totalPageclient = 0;
         //        bool isModeFilter = modFilter.isModeFilter;
-
 
         //        //set filter//
         //        modFilter.SelectClient = SelectClient;
@@ -2921,7 +2786,6 @@ namespace DusColl.Controllers
 
         //        //decript some model apply for DB//
         //        caption = HasKeyProtect.Decryption(caption);
-
 
         //        byte[] filbyte = null;
         //        string resulted = "";
@@ -3002,7 +2866,6 @@ namespace DusColl.Controllers
 
         //        if (result == 1)
         //        {
-
         //            //set paging in grid client//
         //            List<DataTable> dtlist = await Financeddl.dbGetPayListINV(null, "", fromdate, SelectRequest, SelectRequestStatus, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
         //            totalRecordclient = dtlist[0].Rows.Count;
@@ -3023,8 +2886,6 @@ namespace DusColl.Controllers
 
         //        string filteron = isModeFilter == false ? "" : "<br /> Pencarian Data :  Aktif";
         //        ViewBag.Total = "Total Data : " + TotalRecord.ToString() + " Data <br /> Data on Pages : " + totalRecordclient.ToString() + " Data" + filteron;
-
-
 
         //        //keep session filterisasi before//
         //        TempData["FinanceListTxt"] = Finance;
@@ -3065,7 +2926,6 @@ namespace DusColl.Controllers
         //[ValidateAntiForgeryToken]
         //public async Task<ActionResult> clnPaymentRegisINVGEN(cFilterContract model)
         //{
-
         //    Account = (vmAccount)Session["Account"];
         //    bool IsErrorTimeout = false;
         //    if (Account != null)
@@ -3093,7 +2953,6 @@ namespace DusColl.Controllers
 
         //    try
         //    {
-
         //        //// get from session //
         //        modFilter = TempData["FinanceListFilterTxt"] as cFilterContract;
         //        Finance = TempData["FinanceListTxt"] as vmFinance;
@@ -3111,7 +2970,6 @@ namespace DusColl.Controllers
         //        string SelectRequestStatus = modFilter.SelectRequestStatus ?? "0";
         //        string fromdate = modFilter.fromdate ?? "";
 
-
         //        //set default for paging //
         //        int PageNumber = 1;
         //        double TotalRecord = modFilter.TotalRecord;
@@ -3119,7 +2977,6 @@ namespace DusColl.Controllers
         //        double pagenumberclient = modFilter.pagenumberclient;
         //        double totalRecordclient = 0;
         //        bool isModeFilter = modFilter.isModeFilter;
-
 
         //        //set filter//
         //        modFilter.SelectClient = SelectClient;
@@ -3159,7 +3016,6 @@ namespace DusColl.Controllers
         //            Periodeiv = dt0.ToString("dd-MMM-yyyy");
         //        }
 
-
         //        if (validtxt == "")
         //        {
         //            resultdt = await Financeddl.dbupdatepaymentINVGEN(model.fromdate ?? "", caption, UserID, GroupName);
@@ -3178,7 +3034,6 @@ namespace DusColl.Controllers
         //            }
         //        }
 
-
         //        //keep session filterisasi before//
         //        TempData["FinanceListTxt"] = Finance;
         //        TempData["FinanceListFilterTxt"] = modFilter;
@@ -3191,8 +3046,6 @@ namespace DusColl.Controllers
         //        var jsonresult = Json(new { moderror = IsErrorTimeout, bytetyipe = resultbyte, result = resultdud, msg = validtxt, contenttype = contenttypeed, filename = filenamevar, viewpath = viewpathed, JsonRequestBehavior.AllowGet });
         //        jsonresult.MaxJsonLength = int.MaxValue;
         //        return jsonresult;
-
-
 
         //    }
         //    catch (Exception ex)
@@ -3217,7 +3070,6 @@ namespace DusColl.Controllers
         //[HttpPost]
         //public async Task<ActionResult> clnPaymentRegisrejtINV(string kelookup, string ogenta)
         //{
-
         //    Account = (vmAccount)Session["Account"];
         //    bool IsErrorTimeout = false;
         //    if (Account != null)
@@ -3245,7 +3097,6 @@ namespace DusColl.Controllers
 
         //    try
         //    {
-
         //        //// get from session //
         //        modFilter = TempData["FinanceListFilterTxt"] as cFilterContract;
         //        Finance = TempData["FinanceListTxt"] as vmFinance;
@@ -3262,7 +3113,6 @@ namespace DusColl.Controllers
         //        string SelectRequest = modFilter.SelectRequest ?? "";
         //        string SelectRequestStatus = modFilter.SelectRequestStatus ?? "";
         //        string fromdate = modFilter.fromdate ?? "";
-
 
         //        //set default for paging //
         //        int PageNumber = 1;
@@ -3336,7 +3186,6 @@ namespace DusColl.Controllers
 
         //        if (result == 1)
         //        {
-
         //            //set paging in grid client//
         //            List<DataTable> dtlist = await Financeddl.dbGetPayListINV(null, "", fromdate, SelectRequest, SelectRequestStatus, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
         //            totalRecordclient = dtlist[0].Rows.Count;
@@ -3357,7 +3206,6 @@ namespace DusColl.Controllers
 
         //        string filteron = isModeFilter == false ? "" : "<br /> Pencarian Data :  Aktif";
         //        ViewBag.Total = "Total Data : " + TotalRecord.ToString() + " Data <br /> Data on Pages : " + totalRecordclient.ToString() + " Data" + filteron;
-
 
         //        //keep session filterisasi before//
         //        TempData["FinanceListTxt"] = Finance;
@@ -3393,14 +3241,14 @@ namespace DusColl.Controllers
         //    }
         //}
 
-
         #endregion billing invoice
 
         /*
+
         #region billing BNI
+
         public async Task<ActionResult> clnBillPaymentRegisBNI(string menu, string caption)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -3428,7 +3276,6 @@ namespace DusColl.Controllers
 
             try
             {
-
                 string UserID = Account.AccountLogin.UserID;
                 string UserName = Account.AccountLogin.UserName;
                 string ClientID = Account.AccountLogin.ClientID;
@@ -3523,11 +3370,8 @@ namespace DusColl.Controllers
                 ViewBag.rute = "Finance";
                 ViewBag.action = "clnBillPaymentRegisBNI";
 
-
-
                 string filteron = modFilter.isModeFilter == false ? "" : "<br /> Pencarian Data :  Aktif";
                 ViewBag.Total = "Total Data : " + TotalRecord.ToString() + " Data <br /> Data on Pages : " + totalRecordclient.ToString() + " Data" + filteron;
-
 
                 // send back to client browser//
                 return Json(new
@@ -3584,8 +3428,6 @@ namespace DusColl.Controllers
 
             try
             {
-
-
                 //get session filterisasi //
                 modFilter = TempData["FinanceListFilterTxt"] as cFilterContract;
                 Finance = TempData["FinanceListTxt"] as vmFinance;
@@ -3598,8 +3440,6 @@ namespace DusColl.Controllers
                 string SelectRequest = modFilter.SelectRequest;
                 string SelectRequestStatus = modFilter.SelectRequestStatus ?? "0";
                 string fromdate = modFilter.fromdate ?? "";
-
-
 
                 // try make filter initial & set secure module name //
                 if (Common.ddlJenisRequest == null)
@@ -3633,7 +3473,6 @@ namespace DusColl.Controllers
                     opsi7 = "",
                     view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/Finance/_uiFilterDataBNI.cshtml", Finance.DetailFilter),
                 });
-
             }
             catch (Exception ex)
             {
@@ -3652,14 +3491,12 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> clnListFilterBillingBNI(cFilterContract model, string download)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -3687,13 +3524,11 @@ namespace DusColl.Controllers
 
             try
             {
-
                 //get session filterisasi //
                 modFilter = TempData["FinanceListFilterTxt"] as cFilterContract;
                 Finance = TempData["FinanceListTxt"] as vmFinance;
                 Common = (TempData["common"] as vmCommon);
                 Common = Common == null ? new vmCommon() : Common;
-
 
                 //get value from old define//
                 string UserID = modFilter.UserID;
@@ -3705,7 +3540,6 @@ namespace DusColl.Controllers
                 string SelectRequest = model.SelectRequest ?? "";
                 string SelectRequestStatus = model.SelectRequestStatus ?? "0";
                 string fromdate = model.fromdate ?? "";
-
 
                 //set default for paging//
                 int PageNumber = 1;
@@ -3730,7 +3564,6 @@ namespace DusColl.Controllers
                 string validtxt = ""; // lgOrder.CheckFilterisasiData(modFilter, download);
                 if (validtxt == "")
                 {
-
                     ////descript some value for db//
                     SelectClient = HasKeyProtect.Decryption(SelectClient);
                     caption = HasKeyProtect.Decryption(caption);
@@ -3743,7 +3576,6 @@ namespace DusColl.Controllers
                     List<DataTable> dtlist = await Financeddl.dbGetPayListBNI(null, SelectClient, fromdate, SelectRequest, SelectRequestStatus, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
                     totalRecordclient = dtlist[0].Rows.Count;
                     totalPageclient = int.Parse(Math.Ceiling(decimal.Parse(totalRecordclient.ToString()) / decimal.Parse(pagingsizeclient.ToString())).ToString());
-
 
                     //back to set in filter//
                     modFilter.TotalRecord = TotalRecord;
@@ -3773,11 +3605,9 @@ namespace DusColl.Controllers
                         download = "",
                         message = validtxt
                     });
-
                 }
                 else
                 {
-
                     TempData["FinanceListFilterTxt"] = modFilter;
                     TempData["FinanceListTxt"] = Finance;
                     TempData["Common"] = Common;
@@ -3790,7 +3620,6 @@ namespace DusColl.Controllers
                         download = "",
                         message = validtxt
                     });
-
                 }
             }
             catch (Exception ex)
@@ -3841,7 +3670,6 @@ namespace DusColl.Controllers
 
             try
             {
-
                 //get session filterisasi //
                 modFilter = TempData["FinanceListFilterTxt"] as cFilterContract;
                 Finance = TempData["FinanceListTxt"] as vmFinance;
@@ -3855,13 +3683,10 @@ namespace DusColl.Controllers
                 // get value filter have been filter//
                 // get value filter before//
 
-
                 string SelectClient = "";
                 string SelectRequest = modFilter.SelectRequest ?? "";
                 string SelectRequestStatus = modFilter.SelectRequestStatus ?? "0";
                 string fromdate = modFilter.fromdate ?? "";
-
-
 
                 // set & get for next paging //
                 int pagenumberclient = paged;
@@ -3891,7 +3716,6 @@ namespace DusColl.Controllers
                 TempData["FinanceListTxt"] = Finance;
                 TempData["common"] = Common;
 
-
                 return Json(new
                 {
                     moderror = IsErrorTimeout,
@@ -3914,15 +3738,12 @@ namespace DusColl.Controllers
                     url = urlpath,
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
-
             }
-
         }
 
         [HttpPost]
         public async Task<ActionResult> clnPaymentProsesBNI(string kelookup, string kodok)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -3950,7 +3771,6 @@ namespace DusColl.Controllers
 
             try
             {
-
                 //// get from session //
                 modFilter = TempData["FinanceListFilterTxt"] as cFilterContract;
                 Finance = TempData["FinanceListTxt"] as vmFinance;
@@ -3967,7 +3787,6 @@ namespace DusColl.Controllers
                 string SelectRequest = modFilter.SelectRequest ?? "";
                 string SelectRequestStatus = modFilter.SelectRequestStatus ?? "";
                 string fromdate = modFilter.fromdate ?? "";
-
 
                 //set default for paging //
                 int PageNumber = 1;
@@ -4038,7 +3857,6 @@ namespace DusColl.Controllers
 
                 if (result == 1)
                 {
-
                     //set paging in grid client//
                     List<DataTable> dtlist = await Financeddl.dbGetPayListBNI(null, "", fromdate, SelectRequest, SelectRequestStatus, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
                     totalRecordclient = dtlist[0].Rows.Count;
@@ -4054,12 +3872,10 @@ namespace DusColl.Controllers
 
                     Finance.DTOrdersFromDB = dtlist[0];
                     Finance.DTDetailForGrid = dtlist[1];
-
                 }
 
                 string filteron = isModeFilter == false ? "" : "<br /> Pencarian Data :  Aktif";
                 ViewBag.Total = "Total Data : " + TotalRecord.ToString() + " Data <br /> Data on Pages : " + totalRecordclient.ToString() + " Data" + filteron;
-
 
                 //keep session filterisasi before//
                 TempData["FinanceListTxt"] = Finance;
@@ -4074,7 +3890,6 @@ namespace DusColl.Controllers
                     result = resulted,
                     view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/Finance/_uiGridBillingPaymentUploadBNI.cshtml", Finance),
                 });
-
             }
             catch (Exception ex)
             {
@@ -4099,7 +3914,6 @@ namespace DusColl.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> clnReCombine(string[] AktaSelectdwn, string prevedid, string namaidpool, string reooo)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -4127,7 +3941,6 @@ namespace DusColl.Controllers
 
             try
             {
-
                 //get filter data from session before//
                 modFilter = TempData["FinanceListFilterTxt"] as cFilterContract;
                 Finance = TempData["FinanceListTxt"] as vmFinance;
@@ -4155,7 +3968,6 @@ namespace DusColl.Controllers
                 //string IDCabang = HasKeyProtect.Decryption(modFilter.BranchLogin);
                 string SecureModuleId = HasKeyProtect.Decryption(modFilter.idcaption);
 
-
                 //DataTable dataupload = new DataTable();
                 //dataupload.Columns.Add("CONT_TYPE", Type.GetType("System.Int32"));
                 //dataupload.Columns.Add("CLIENT_FDC_ID", Type.GetType("System.Int64"));
@@ -4179,7 +3991,6 @@ namespace DusColl.Controllers
                     keylookup = valued[0].ToString();
                     ListIDgrd.Add(keylookup);
 
-
                     ij = ij + 1;
 
                     DataRow resultquery = Finance.DTDetailForGrid.AsEnumerable().Where(x => x.Field<string>("keylookupdata") == keylookup).SingleOrDefault();
@@ -4191,7 +4002,6 @@ namespace DusColl.Controllers
                         }
                         combinenameid = combinenameid + resultquery["ID"].ToString() + "|";
                     }
-
                 }
 
                 int result = -1;
@@ -4215,7 +4025,6 @@ namespace DusColl.Controllers
                 }
 
                 EnumMessage = result == 1 ? " File txt berhasil digabungkan" : EnumMessage;
-
 
                 return Json(new
                 {
@@ -4243,14 +4052,17 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         #endregion billing BNI
+
         */
 
         /*
+
     #region billing payment
+
     public async Task<ActionResult> clnBillPaymentRegis(string menu, string caption)
     {
-
         Account = (vmAccount)Session["Account"];
         bool IsErrorTimeout = false;
         if (Account != null)
@@ -4278,7 +4090,6 @@ namespace DusColl.Controllers
 
         try
         {
-
             string UserID = Account.AccountLogin.UserID;
             string UserName = Account.AccountLogin.UserName;
             string ClientID = Account.AccountLogin.ClientID;
@@ -4371,11 +4182,8 @@ namespace DusColl.Controllers
             ViewBag.rute = "Finance";
             ViewBag.action = "clnBillPaymentRegis";
 
-
-
             string filteron = modFilter.isModeFilter == false ? "" : "<br /> Pencarian Data :  Aktif";
             ViewBag.Total = "Total Data : " + TotalRecord.ToString() + " Data <br /> Data on Pages : " + totalRecordclient.ToString() + " Data" + filteron;
-
 
             // send back to client browser//
             return Json(new
@@ -4437,7 +4245,6 @@ namespace DusColl.Controllers
             Common = (TempData["common"] as vmCommon);
             Common = Common == null ? new vmCommon() : Common;
 
-
             // try make filter initial & set secure module name //
             if (Common.ddlJenisKontrak == null)
             {
@@ -4454,7 +4261,6 @@ namespace DusColl.Controllers
                 moderror = IsErrorTimeout,
                 view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/Finance/_uiBillingPaymentUpload.cshtml", Finance.DetailFilter),
             });
-
         }
         catch (Exception ex)
         {
@@ -4473,7 +4279,6 @@ namespace DusColl.Controllers
                 moderror = IsErrorTimeout
             }, JsonRequestBehavior.AllowGet);
         }
-
     }
 
     public async Task<ActionResult> clnOpenFilterpop()
@@ -4505,8 +4310,6 @@ namespace DusColl.Controllers
 
         try
         {
-
-
             //get session filterisasi //
             modFilter = TempData["FinanceListFilterTxt"] as cFilterContract;
             Finance = TempData["FinanceListTxt"] as vmFinance;
@@ -4519,8 +4322,6 @@ namespace DusColl.Controllers
             string SelectRequest = modFilter.SelectRequest;
             string SelectRequestStatus = modFilter.SelectRequestStatus ?? "0";
             string fromdate = modFilter.fromdate ?? "";
-
-
 
             // try make filter initial & set secure module name //
             if (Common.ddlJenisRequest == null)
@@ -4553,7 +4354,6 @@ namespace DusColl.Controllers
                 opsi7 = "",
                 view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/Finance/_uiFilterData.cshtml", Finance.DetailFilter),
             });
-
         }
         catch (Exception ex)
         {
@@ -4572,14 +4372,12 @@ namespace DusColl.Controllers
                 moderror = IsErrorTimeout
             }, JsonRequestBehavior.AllowGet);
         }
-
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<ActionResult> clnListFilterBilling(cFilterContract model, string download)
     {
-
         Account = (vmAccount)Session["Account"];
         bool IsErrorTimeout = false;
         if (Account != null)
@@ -4607,15 +4405,11 @@ namespace DusColl.Controllers
 
         try
         {
-
-
-
             //get session filterisasi //
             modFilter = TempData["FinanceListFilterTxt"] as cFilterContract;
             Finance = TempData["FinanceListTxt"] as vmFinance;
             Common = (TempData["common"] as vmCommon);
             Common = Common == null ? new vmCommon() : Common;
-
 
             //get value from old define//
             string UserID = modFilter.UserID;
@@ -4627,7 +4421,6 @@ namespace DusColl.Controllers
             string SelectRequest = model.SelectRequest ?? "";
             string SelectRequestStatus = model.SelectRequestStatus ?? "0";
             string fromdate = modFilter.fromdate ?? "";
-
 
             //set default for paging//
             int PageNumber = 1;
@@ -4652,7 +4445,6 @@ namespace DusColl.Controllers
             string validtxt = ""; // lgOrder.CheckFilterisasiData(modFilter, download);
             if (validtxt == "")
             {
-
                 ////descript some value for db//
                 SelectClient = HasKeyProtect.Decryption(SelectClient);
                 caption = HasKeyProtect.Decryption(caption);
@@ -4665,7 +4457,6 @@ namespace DusColl.Controllers
                 List<DataTable> dtlist = await Financeddl.dbGetPayList(null, SelectClient, fromdate, SelectRequest, SelectRequestStatus, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
                 totalRecordclient = dtlist[0].Rows.Count;
                 totalPageclient = int.Parse(Math.Ceiling(decimal.Parse(totalRecordclient.ToString()) / decimal.Parse(pagingsizeclient.ToString())).ToString());
-
 
                 //back to set in filter//
                 modFilter.TotalRecord = TotalRecord;
@@ -4688,7 +4479,6 @@ namespace DusColl.Controllers
                 string filteron = isModeFilter == false ? "" : "<br /> Pencarian Data :  Aktif";
                 ViewBag.Total = "Total Data : " + TotalRecord.ToString() + " Data <br /> Data on Pages : " + totalRecordclient.ToString() + " Data" + filteron;
 
-
                 return Json(new
                 {
                     moderror = IsErrorTimeout,
@@ -4696,11 +4486,9 @@ namespace DusColl.Controllers
                     download = "",
                     message = validtxt
                 });
-
             }
             else
             {
-
                 TempData["FinanceListFilterTxt"] = modFilter;
                 TempData["FinanceListTxt"] = Finance;
                 TempData["Common"] = Common;
@@ -4713,7 +4501,6 @@ namespace DusColl.Controllers
                     download = "",
                     message = validtxt
                 });
-
             }
         }
         catch (Exception ex)
@@ -4739,7 +4526,6 @@ namespace DusColl.Controllers
     [ValidateAntiForgeryToken]
     public async Task<ActionResult> clnPaymentRegis(HttpPostedFileBase files, cFilterContract model)
     {
-
         Account = (vmAccount)Session["Account"];
         bool IsErrorTimeout = false;
         if (Account != null)
@@ -4767,7 +4553,6 @@ namespace DusColl.Controllers
 
         try
         {
-
             //// get from session //
             modFilter = TempData["FinanceListFilterTxt"] as cFilterContract;
             Finance = TempData["FinanceListTxt"] as vmFinance;
@@ -4785,7 +4570,6 @@ namespace DusColl.Controllers
             string SelectRequestStatus = modFilter.SelectRequestStatus ?? "0";
             string fromdate = modFilter.fromdate ?? "";
 
-
             //set default for paging //
             int PageNumber = 1;
             double TotalRecord = modFilter.TotalRecord;
@@ -4795,7 +4579,6 @@ namespace DusColl.Controllers
             double totalRecordclient = 0;
             double totalPageclient = 0;
             bool isModeFilter = modFilter.isModeFilter;
-
 
             //set filter//
             modFilter.SelectClient = SelectClient;
@@ -4809,7 +4592,6 @@ namespace DusColl.Controllers
 
             //decript some model apply for DB//
             caption = HasKeyProtect.Decryption(caption);
-
 
             byte[] filbyte = null;
             string resulted = "";
@@ -4837,7 +4619,6 @@ namespace DusColl.Controllers
                 }
                 else
                 {
-
                     string resulttxt = string.Empty;
                     using (BinaryReader b = new BinaryReader(files.InputStream))
                     {
@@ -4887,7 +4668,6 @@ namespace DusColl.Controllers
 
             if (result == 1)
             {
-
                 //set paging in grid client//
                 List<DataTable> dtlist = await Financeddl.dbGetPayList(null, "", fromdate, SelectRequest, SelectRequestStatus, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
                 totalRecordclient = dtlist[0].Rows.Count;
@@ -4903,13 +4683,10 @@ namespace DusColl.Controllers
 
                 Finance.DTOrdersFromDB = dtlist[0];
                 Finance.DTDetailForGrid = dtlist[1];
-
             }
 
             string filteron = isModeFilter == false ? "" : "<br /> Pencarian Data :  Aktif";
             ViewBag.Total = "Total Data : " + TotalRecord.ToString() + " Data <br /> Data on Pages : " + totalRecordclient.ToString() + " Data" + filteron;
-
-
 
             //keep session filterisasi before//
             TempData["FinanceListTxt"] = Finance;
@@ -4925,7 +4702,6 @@ namespace DusColl.Controllers
                 result = resulted,
                 view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/Finance/_uiGridBillingPaymentUpload.cshtml", Finance),
             });
-
         }
         catch (Exception ex)
         {
@@ -4949,7 +4725,6 @@ namespace DusColl.Controllers
     [HttpPost]
     public async Task<ActionResult> clnPaymentRegisrejt(string kelookup)
     {
-
         Account = (vmAccount)Session["Account"];
         bool IsErrorTimeout = false;
         if (Account != null)
@@ -4977,7 +4752,6 @@ namespace DusColl.Controllers
 
         try
         {
-
             //// get from session //
             modFilter = TempData["FinanceListFilterTxt"] as cFilterContract;
             Finance = TempData["FinanceListTxt"] as vmFinance;
@@ -4994,7 +4768,6 @@ namespace DusColl.Controllers
             string SelectRequest = modFilter.SelectRequest ?? "";
             string SelectRequestStatus = modFilter.SelectRequestStatus ?? "";
             string fromdate = modFilter.fromdate ?? "";
-
 
             //set default for paging //
             int PageNumber = 1;
@@ -5028,10 +4801,8 @@ namespace DusColl.Controllers
             int result = 0;
             DataTable resultdt = new DataTable();
 
-
             DataTable dtx = Finance.DTDetailForGrid.AsEnumerable().Where(x => x.Field<string>("keylookupdata") == kelookup).CopyToDataTable();
             string reqid = dtx.Rows[0]["ID"].ToString();
-
 
             resultdt = await Financeddl.dbupdatepayment("", "", dt.Rows.Count, null, reqid, 2, null, "", caption, UserID, GroupName);
             result = int.Parse(resultdt.Rows[0][0].ToString());
@@ -5048,7 +4819,6 @@ namespace DusColl.Controllers
 
             if (result == 1)
             {
-
                 //set paging in grid client//
                 List<DataTable> dtlist = await Financeddl.dbGetPayList(null, "", fromdate, SelectRequest, SelectRequestStatus, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
                 totalRecordclient = dtlist[0].Rows.Count;
@@ -5064,12 +4834,10 @@ namespace DusColl.Controllers
 
                 Finance.DTOrdersFromDB = dtlist[0];
                 Finance.DTDetailForGrid = dtlist[1];
-
             }
 
             string filteron = isModeFilter == false ? "" : "<br /> Pencarian Data :  Aktif";
             ViewBag.Total = "Total Data : " + TotalRecord.ToString() + " Data <br /> Data on Pages : " + totalRecordclient.ToString() + " Data" + filteron;
-
 
             //keep session filterisasi before//
             TempData["FinanceListTxt"] = Finance;
@@ -5085,7 +4853,6 @@ namespace DusColl.Controllers
                 result = resulted,
                 view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/Finance/_uiGridBillingPaymentUpload.cshtml", Finance),
             });
-
         }
         catch (Exception ex)
         {
@@ -5107,13 +4874,15 @@ namespace DusColl.Controllers
     }
 
     #endregion billing payment
+
     */
 
-        /*  
+        /*
+
       #region billing payment manual
+
       public async Task<ActionResult> clnBillPaymentRegisMNL(string menu, string caption)
       {
-
           Account = (vmAccount)Session["Account"];
           bool IsErrorTimeout = false;
           if (Account != null)
@@ -5129,10 +4898,8 @@ namespace DusColl.Controllers
               IsErrorTimeout = true;
           }
 
-
           try
           {
-
               string UserID = Account.AccountLogin.UserID;
               string UserName = Account.AccountLogin.UserName;
               string ClientID = Account.AccountLogin.ClientID;
@@ -5225,11 +4992,8 @@ namespace DusColl.Controllers
               ViewBag.rute = "Finance";
               ViewBag.action = "clnBillPaymentRegisMNL";
 
-
-
               string filteron = modFilter.isModeFilter == false ? "" : "<br /> Pencarian Data :  Aktif";
               ViewBag.Total = "Total Data : " + TotalRecord.ToString() + " Data <br /> Data on Pages : " + totalRecordclient.ToString() + " Data" + filteron;
-
 
               List<HashNetFramework.cpendaftaranOder> order = new List<cpendaftaranOder>();
               // send back to client browser//
@@ -5283,7 +5047,6 @@ namespace DusColl.Controllers
               Common = (TempData["common"] as vmCommon);
               Common = Common == null ? new vmCommon() : Common;
 
-
               // try make filter initial & set secure module name //
               if (Common.ddlJenisKontrak == null)
               {
@@ -5302,7 +5065,6 @@ namespace DusColl.Controllers
                   moderror = IsErrorTimeout,
                   view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/Finance/_uiBillingPaymentUploadMNL.cshtml", Oder),
               });
-
           }
           catch (Exception ex)
           {
@@ -5321,7 +5083,6 @@ namespace DusColl.Controllers
                   moderror = IsErrorTimeout
               }, JsonRequestBehavior.AllowGet);
           }
-
       }
 
       public async Task<ActionResult> clnOpenFilterpopMnl()
@@ -5343,8 +5104,6 @@ namespace DusColl.Controllers
 
           try
           {
-
-
               //get session filterisasi //
               modFilter = TempData["FinanceListFilterTxt"] as cFilterContract;
               Finance = TempData["FinanceListTxt"] as vmFinance;
@@ -5357,8 +5116,6 @@ namespace DusColl.Controllers
               string SelectRequest = modFilter.SelectRequest;
               string SelectRequestStatus = modFilter.SelectRequestStatus ?? "0";
               string fromdate = modFilter.fromdate ?? "";
-
-
 
               // try make filter initial & set secure module name //
               if (Common.ddlJenisRequest == null)
@@ -5391,7 +5148,6 @@ namespace DusColl.Controllers
                   opsi7 = "",
                   view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/Finance/_uiFilterData.cshtml", Finance.DetailFilter),
               });
-
           }
           catch (Exception ex)
           {
@@ -5410,14 +5166,12 @@ namespace DusColl.Controllers
                   moderror = IsErrorTimeout
               }, JsonRequestBehavior.AllowGet);
           }
-
       }
 
       [HttpPost]
       [ValidateAntiForgeryToken]
       public async Task<ActionResult> clnListFilterBillingMnl(cFilterContract model, string download)
       {
-
           Account = (vmAccount)Session["Account"];
           bool IsErrorTimeout = false;
           if (Account != null)
@@ -5435,15 +5189,11 @@ namespace DusColl.Controllers
 
           try
           {
-
-
-
               //get session filterisasi //
               modFilter = TempData["FinanceListFilterTxt"] as cFilterContract;
               Finance = TempData["FinanceListTxt"] as vmFinance;
               Common = (TempData["common"] as vmCommon);
               Common = Common == null ? new vmCommon() : Common;
-
 
               //get value from old define//
               string UserID = modFilter.UserID;
@@ -5455,7 +5205,6 @@ namespace DusColl.Controllers
               string SelectRequest = model.SelectRequest ?? "";
               string SelectRequestStatus = model.SelectRequestStatus ?? "0";
               string fromdate = modFilter.fromdate ?? "";
-
 
               //set default for paging//
               int PageNumber = 1;
@@ -5480,7 +5229,6 @@ namespace DusColl.Controllers
               string validtxt = ""; // lgOrder.CheckFilterisasiData(modFilter, download);
               if (validtxt == "")
               {
-
                   ////descript some value for db//
                   SelectClient = HasKeyProtect.Decryption(SelectClient);
                   caption = HasKeyProtect.Decryption(caption);
@@ -5493,7 +5241,6 @@ namespace DusColl.Controllers
                   List<DataTable> dtlist = await Financeddl.dbGetPayList(null, SelectClient, fromdate, SelectRequest, SelectRequestStatus, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
                   totalRecordclient = dtlist[0].Rows.Count;
                   totalPageclient = int.Parse(Math.Ceiling(decimal.Parse(totalRecordclient.ToString()) / decimal.Parse(pagingsizeclient.ToString())).ToString());
-
 
                   //back to set in filter//
                   modFilter.TotalRecord = TotalRecord;
@@ -5516,7 +5263,6 @@ namespace DusColl.Controllers
                   string filteron = isModeFilter == false ? "" : "<br /> Pencarian Data :  Aktif";
                   ViewBag.Total = "Total Data : " + TotalRecord.ToString() + " Data <br /> Data on Pages : " + totalRecordclient.ToString() + " Data" + filteron;
 
-
                   return Json(new
                   {
                       moderror = IsErrorTimeout,
@@ -5524,11 +5270,9 @@ namespace DusColl.Controllers
                       download = "",
                       message = validtxt
                   });
-
               }
               else
               {
-
                   TempData["FinanceListFilterTxt"] = modFilter;
                   TempData["FinanceListTxt"] = Finance;
                   TempData["Common"] = Common;
@@ -5541,7 +5285,6 @@ namespace DusColl.Controllers
                       download = "",
                       message = validtxt
                   });
-
               }
           }
           catch (Exception ex)
@@ -5566,7 +5309,6 @@ namespace DusColl.Controllers
       [HttpPost]
       public async Task<ActionResult> clnPaymentRegisMNL(string model)
       {
-
           Account = (vmAccount)Session["Account"];
           bool IsErrorTimeout = false;
           if (Account != null)
@@ -5584,7 +5326,6 @@ namespace DusColl.Controllers
 
           try
           {
-
               //// get from session //
               modFilter = TempData["FinanceMNLListFilterTxt"] as cFilterContract;
               Finance = TempData["FinanceMNLListTxt"] as vmFinance;
@@ -5602,7 +5343,6 @@ namespace DusColl.Controllers
               string SelectRequestStatus = modFilter.SelectRequestStatus ?? "0";
               string fromdate = modFilter.fromdate ?? "";
 
-
               //set default for paging //
               int PageNumber = 1;
               double TotalRecord = modFilter.TotalRecord;
@@ -5612,7 +5352,6 @@ namespace DusColl.Controllers
               double totalRecordclient = 0;
               double totalPageclient = 0;
               bool isModeFilter = modFilter.isModeFilter;
-
 
               //set filter//
               modFilter.SelectClient = SelectClient;
@@ -5626,7 +5365,6 @@ namespace DusColl.Controllers
 
               //decript some model apply for DB//
               caption = HasKeyProtect.Decryption(caption);
-
 
               byte[] filbyte = null;
               string resulted = "";
@@ -5677,8 +5415,6 @@ namespace DusColl.Controllers
                   }
               }
 
-
-
               //if (files != null)
               //{
               //if (!files.ContentType.Contains("text/plain"))
@@ -5699,7 +5435,6 @@ namespace DusColl.Controllers
               //}
               //else
               //{
-
               //    string resulttxt = string.Empty;
               //    using (BinaryReader b = new BinaryReader(files.InputStream))
               //    {
@@ -5749,7 +5484,6 @@ namespace DusColl.Controllers
 
               //if (result == 1)
               //{
-
               //    //set paging in grid client//
               //    List<DataTable> dtlist = await Financeddl.dbGetPayList(null, "", fromdate, SelectRequest, SelectRequestStatus, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
               //    totalRecordclient = dtlist[0].Rows.Count;
@@ -5771,8 +5505,6 @@ namespace DusColl.Controllers
               //string filteron = isModeFilter == false ? "" : "<br /> Pencarian Data :  Aktif";
               //ViewBag.Total = "Total Data : " + TotalRecord.ToString() + " Data <br /> Data on Pages : " + totalRecordclient.ToString() + " Data" + filteron;
 
-
-
               //keep session filterisasi before//
               TempData["FinanceMNLListTxt"] = Finance;
               TempData["FinanceMNLListFilterTxt"] = modFilter;
@@ -5787,7 +5519,6 @@ namespace DusColl.Controllers
                   result = resulted,
                   view = ""//CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/Finance/_uiGridBillingPaymentUpload.cshtml", Finance),
               });
-
           }
           catch (Exception ex)
           {
@@ -5811,7 +5542,6 @@ namespace DusColl.Controllers
       [HttpPost]
       public async Task<ActionResult> clnPaymentRegisrejtmnl(string kelookup)
       {
-
           Account = (vmAccount)Session["Account"];
           bool IsErrorTimeout = false;
           if (Account != null)
@@ -5829,7 +5559,6 @@ namespace DusColl.Controllers
 
           try
           {
-
               //// get from session //
               modFilter = TempData["FinanceListFilterTxt"] as cFilterContract;
               Finance = TempData["FinanceListTxt"] as vmFinance;
@@ -5846,7 +5575,6 @@ namespace DusColl.Controllers
               string SelectRequest = modFilter.SelectRequest ?? "";
               string SelectRequestStatus = modFilter.SelectRequestStatus ?? "";
               string fromdate = modFilter.fromdate ?? "";
-
 
               //set default for paging //
               int PageNumber = 1;
@@ -5880,10 +5608,8 @@ namespace DusColl.Controllers
               int result = 0;
               DataTable resultdt = new DataTable();
 
-
               DataTable dtx = Finance.DTDetailForGrid.AsEnumerable().Where(x => x.Field<string>("keylookupdata") == kelookup).CopyToDataTable();
               string reqid = dtx.Rows[0]["ID"].ToString();
-
 
               resultdt = await Financeddl.dbupdatepayment("", "", dt.Rows.Count, null, reqid, 2, null, "", caption, UserID, GroupName);
               result = int.Parse(resultdt.Rows[0][0].ToString());
@@ -5900,7 +5626,6 @@ namespace DusColl.Controllers
 
               if (result == 1)
               {
-
                   //set paging in grid client//
                   List<DataTable> dtlist = await Financeddl.dbGetPayList(null, "", fromdate, SelectRequest, SelectRequestStatus, PageNumber, pagenumberclient, pagingsizeclient, caption, UserID, GroupName);
                   totalRecordclient = dtlist[0].Rows.Count;
@@ -5916,12 +5641,10 @@ namespace DusColl.Controllers
 
                   Finance.DTOrdersFromDB = dtlist[0];
                   Finance.DTDetailForGrid = dtlist[1];
-
               }
 
               string filteron = isModeFilter == false ? "" : "<br /> Pencarian Data :  Aktif";
               ViewBag.Total = "Total Data : " + TotalRecord.ToString() + " Data <br /> Data on Pages : " + totalRecordclient.ToString() + " Data" + filteron;
-
 
               //keep session filterisasi before//
               TempData["FinanceListTxt"] = Finance;
@@ -5937,7 +5660,6 @@ namespace DusColl.Controllers
                   result = resulted,
                   view = CustomEngineView.RenderRazorViewToString(ControllerContext, "/Views/Finance/_uiGridBillingPaymentUpload.cshtml", Finance),
               });
-
           }
           catch (Exception ex)
           {
@@ -5961,10 +5683,9 @@ namespace DusColl.Controllers
       #endregion billing payment manual
 
       */
+
         public async Task<ActionResult> DwnFiletxt(string lookup)
         {
-
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -5980,7 +5701,6 @@ namespace DusColl.Controllers
                 IsErrorTimeout = true;
             }
 
-
             if (IsErrorTimeout == true)
             {
                 return RedirectToRoute("DefaultExpired");
@@ -5988,7 +5708,6 @@ namespace DusColl.Controllers
 
             try
             {
-
                 //// get from session //
                 modFilter = TempData["FinanceListFilterTxt"] as cFilterContract;
                 Finance = TempData["FinanceListTxt"] as vmFinance;
@@ -6005,7 +5724,6 @@ namespace DusColl.Controllers
                 string SelectRequest = modFilter.SelectRequest ?? "";
                 string SelectRequestStatus = modFilter.SelectRequestStatus ?? "";
                 string fromdate = modFilter.fromdate ?? "";
-
 
                 TempData["FinanceListFilterTxt"] = modFilter;
                 TempData["FinanceListTxt"] = Finance;
@@ -6060,9 +5778,6 @@ namespace DusColl.Controllers
                     return RedirectToRoute("DefaultExpired");
                 }
             }
-
         }
-
-
     }
 }

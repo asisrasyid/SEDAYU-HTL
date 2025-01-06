@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Web;
 
 namespace DusColl
 {
-
     [Serializable]
     public enum cCommandTextFinance
     {
-
         [Description("api/FDCMFinance/dbGetPiutangPayList")]
         cmdGetPiutangPayList = 1,
 
@@ -22,7 +17,7 @@ namespace DusColl
 
         [Description("api/FDCMFinance/dbGetPiutangPayListINV")]
         cmdGetPiutangPayListINV = 16,
-        
+
         [Description("api/FDCMFinance/dbGetBillPaymentupdINV")]
         cmdGetBillPaymentupdINV = 17,
 
@@ -37,7 +32,6 @@ namespace DusColl
 
         [Description("api/FDCMFinance/dbGetFakturRegisupd")]
         cmddbGetFakturRegisupd = 170,
-
 
         [Description("api/FDCMFinance/dbGetAccountingList")]
         cmdGetAccountingList = 166,
@@ -60,7 +54,6 @@ namespace DusColl
         [Description("api/FDCMFinance/dbGetRptBillingCreateRegDetail")]
         cmdGetRptBillingCreateRegDetail = 6,
 
-
         [Description("api/FDCMFinance/dbGetRptBillIDRegAHU")]
         cmdGetRptBillIDRegAHU = 99,
 
@@ -70,12 +63,10 @@ namespace DusColl
         [Description("api/FDCMFinance/dbgetcombinetxtbni")]
         cmdgetcombinetxtbni = 999988,
 
-
         [Description("api/FDCMFinance/dbGetRptRlaba")]
         cmdGetRptRlaba = 9999,
 
         [Description("api/FDCMFinance/dbGetRptNeraca")]
         cmdGetRptNeraca = 88999,
-
     }
 }

@@ -10,7 +10,6 @@
     }
 </style>
 
-
 <center>
     <h1 class="page-title">
         @ViewBag.captiondesc
@@ -117,7 +116,6 @@
     </div>
 </div>
 
-
 <div class="">
     <div class="portlet light bordered">
         <div class="portlet-title tabbable-line">
@@ -140,14 +138,14 @@
                     <tbody>
                         @foreach (var x in Model)
                         {
-                            <tr style="text-align:center;">
-                                <td style="text-align:left;font-size:16px">
-                                    @Html.Raw(x.NamaPic)
-                                </td>
-                                <td style="font-size:16px">@x.stat0.ToString()</td>
-                                <td style="font-size:16px">@x.stat1.ToString()</td>
-                                <td style="font-size:16px">@x.stat2.ToString()</td>
-                            </tr>
+                        <tr style="text-align:center;">
+                            <td style="text-align:left;font-size:16px">
+                                @Html.Raw(x.NamaPic)
+                            </td>
+                            <td style="font-size:16px">@x.stat0.ToString()</td>
+                            <td style="font-size:16px">@x.stat1.ToString()</td>
+                            <td style="font-size:16px">@x.stat2.ToString()</td>
+                        </tr>
                         }
                     </tbody>
                 </table>
@@ -173,4 +171,3 @@
             }
         });
 </script>
-

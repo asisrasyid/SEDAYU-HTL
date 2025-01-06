@@ -3,7 +3,6 @@ var elemntupload = ".modal-content";
 var popupwindowwarkah = null;
 
 var vmMasterData = function () {
-
     var onOpenAdd = function (modul, idkey, oprgt) {
         var jsoncoll = "";
         var jsonreposn = "";
@@ -37,7 +36,6 @@ var vmMasterData = function () {
                 if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
             }
         });
-
     };
 
     var onDelAdd = function (modul, idkey) {
@@ -99,7 +97,6 @@ var vmMasterData = function () {
         var frm = $(parForm);
         var valid = $(parForm).valid();
         if (valid == true) {
-
             $("#datadialogaddupdatemaster").modal("hide");
             swal({
                 title: "Konfirmasi",
@@ -149,7 +146,6 @@ var vmMasterData = function () {
                                 if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
                             },
                         });
-
                     } else {
                         $("#datadialogaddupdatemaster").modal("show");
                     }
@@ -191,7 +187,6 @@ var vmMasterData = function () {
                 if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
             }
         });
-
     };
     var onApplyFilter = function (parForm) {
         var jsoncoll = "";
@@ -203,7 +198,6 @@ var vmMasterData = function () {
             url: frm.attr('action'),
             data: frm.serialize(),
             beforeSend: function () {
-
                 App.blockUI({ target: elemntupload });
             },
             success: function (data) {
@@ -244,7 +238,6 @@ var vmMasterData = function () {
     };
 
     var onSearchCabangAjax = function (selectcab) {
-
         var Parclientid = $("#ClientId").val();
         var datajson = "[]";
         var options = "undefined";
@@ -286,7 +279,6 @@ var vmMasterData = function () {
                 }
             },
             error: function (x, y, z) {
-
                 App.unblockUI(elemtid);
                 jsoncoll = JSON.stringify(x);
                 jsonreposn = JSON.parse(jsoncoll);
@@ -295,9 +287,7 @@ var vmMasterData = function () {
         });
     };
 
-
     return {
-
         OpenAdd: function (modul, idkey, oprgt) {
             onOpenAdd(modul, idkey, oprgt);
         },
@@ -349,7 +339,6 @@ var vmMasterData = function () {
             }
         },
         init: function () {
-
             $('input.NonEdittable').css("border", "0px");
             $('input.Numberonly').on('input', function () {
                 this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');
@@ -390,8 +379,6 @@ var vmMasterData = function () {
                 var nm = this.id;
                 vmMasterData.rupiahbro(angka, "#id" + nm, "1");
             });
-
-
         },
 
         rupiahbro: function (param, param2, ishtml) {
@@ -489,7 +476,6 @@ var vmMasterData = function () {
             //vmMasterData.rupiahbro(x10, "#idNilaiHT", "1");
             //vmMasterData.rupiahbro(x11, "#idNilaiPinjamanDiterima", "1");
             //vmMasterData.rupiahbro(x12, "#idLuasTanah", "0");
-
         },
 
         initcur: function (x10, x11, x12, x13, e10, e11, e12, e13) {
@@ -504,4 +490,3 @@ var vmMasterData = function () {
         },
     }
 }();
-

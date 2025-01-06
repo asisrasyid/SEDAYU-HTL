@@ -901,7 +901,6 @@ S2.define('select2/results',[
           $option.attr('aria-selected', 'false');
         }
       });
-
     });
   };
 
@@ -6155,7 +6154,6 @@ S2.define('select2/selection/stopPropagation',[
         factory(jQuery);
     }
 }(function ($) {
-
     var toFix  = ['wheel', 'mousewheel', 'DOMMouseScroll', 'MozMousePixelScroll'],
         toBind = ( 'onwheel' in document || document.documentMode >= 9 ) ?
                     ['wheel'] : ['mousewheel', 'DomMouseScroll', 'MozMousePixelScroll'],
@@ -6225,7 +6223,6 @@ S2.define('select2/selection/stopPropagation',[
             return this.unbind('mousewheel', fn);
         }
     });
-
 
     function handler(event) {
         var orgEvent   = event || window.event,
@@ -6354,7 +6351,6 @@ S2.define('select2/selection/stopPropagation',[
         // Turn this off by setting $.event.special.mousewheel.settings.adjustOldDeltas to false.
         return special.settings.adjustOldDeltas && orgEvent.type === 'mousewheel' && absDelta % 120 === 0;
     }
-
 }));
 
 S2.define('jquery.select2',[

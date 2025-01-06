@@ -1,17 +1,12 @@
 ﻿using HashNetFramework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace DusColl
 {
     public class blReportData
     {
-
         public string CheckFilterisasiCreateReport(cFilterContract model, string isdownload = "", string idcaption = "", string cretinvoice = "")
         {
-
             string validtxt = "";
 
             if ((model.fromdate ?? "") != "" && (model.todate ?? "") != "")
@@ -27,13 +22,10 @@ namespace DusColl
                 }
             }
 
-
             if (isdownload == "1" || isdownload == "2")
             {
-
                 if (idcaption == EnumsDesc.GetDescriptionEnums((ReportType.CLAIMBASE)))
                 {
-
                     string statusclaim = (model.SelectClaimBaseStatus ?? "");
                     if (statusclaim == "")
                     {
@@ -48,12 +40,9 @@ namespace DusColl
                             validtxt = EnumsDesc.GetDescriptionEnums(ProccessOutput.FilterValidClient);
                         }
                     }
-
                 }
-
                 else if (idcaption == EnumsDesc.GetDescriptionEnums((ReportType.AktBLN)))
                 {
-
                     if ((model.fromdate ?? "") == "")
                     {
                         validtxt = EnumsDesc.GetDescriptionEnums(ProccessOutput.FilterValidPeriodeAkta);
@@ -68,10 +57,8 @@ namespace DusColl
                         }
                     }
                 }
-
                 else if (idcaption == EnumsDesc.GetDescriptionEnums((ReportType.AktaUsed)))
                 {
-
                     if ((model.fromdate ?? "") == "" || (model.todate ?? "") == "")
                     {
                         validtxt = EnumsDesc.GetDescriptionEnums(ProccessOutput.FilterValidTanggal);
@@ -79,7 +66,6 @@ namespace DusColl
 
                     if (model.UserTypeApps != (int)UserType.Notaris)
                     {
-
                         string notaris = (model.SelectNotaris ?? "") != "" ? HasKeyProtect.Decryption(model.SelectNotaris) : model.SelectNotaris ?? "";
                         if (notaris == "")
                         {
@@ -87,7 +73,6 @@ namespace DusColl
                         }
                     }
                 }
-
                 else if (idcaption == EnumsDesc.GetDescriptionEnums((ReportType.TAXaktaNotaris)))
                 {
                     if ((model.fromdate ?? "") == "")
@@ -104,20 +89,16 @@ namespace DusColl
                         }
                     }
                 }
-
                 else if (idcaption == EnumsDesc.GetDescriptionEnums((ReportType.CRETBILLREG)))
                 {
-
                     if ((model.duedate ?? "") == "" && cretinvoice == "")
                     {
                         validtxt = EnumsDesc.GetDescriptionEnums(ProccessOutput.FilterValidTempoTanggal);
                     }
                     else
                     {
-
                         if (((model.fromdate ?? "") == "" || (model.todate ?? "") == "") && cretinvoice == "")
                         {
-
                             validtxt = EnumsDesc.GetDescriptionEnums(ProccessOutput.FilterValidTanggal);
                         }
                         else
@@ -151,7 +132,6 @@ namespace DusColl
                 }
                 else if (idcaption == EnumsDesc.GetDescriptionEnums((ReportType.PiutangPendaftaran)))
                 {
-
                     string statusclaim = (model.SelectContractPaidStatus ?? "");
                     if (statusclaim == "")
                     {
@@ -166,11 +146,9 @@ namespace DusColl
                             validtxt = EnumsDesc.GetDescriptionEnums(ProccessOutput.FilterValidClient);
                         }
                     }
-
                 }
                 else if (idcaption == EnumsDesc.GetDescriptionEnums((ReportType.PendaftaranFidusia)))
                 {
-
                     string statusclaim = (model.SelectContractStatus ?? "");
                     if (statusclaim == "")
                     {
@@ -186,10 +164,8 @@ namespace DusColl
                         }
                     }
                 }
-
                 else if (idcaption == EnumsDesc.GetDescriptionEnums((ReportType.PengirimanBerkasPendaftaranMonthTodate)))
                 {
-
                     if ((model.fromdate ?? "") == "" || (model.todate ?? "") == "")
                     {
                         validtxt = EnumsDesc.GetDescriptionEnums(ProccessOutput.FilterValidTanggal);
@@ -203,11 +179,8 @@ namespace DusColl
                         }
                     }
                 }
-
             }
             return validtxt;
-
         }
-
     }
 }

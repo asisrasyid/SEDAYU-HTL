@@ -5,7 +5,6 @@
 		factory( jQuery );
 	}
 }(function( $ ) {
-
 /*
  * Translated default messages for the jQuery validation plugin.
  * Locale: PT (Portuguese; português)
@@ -33,5 +32,4 @@ $.extend($.validator.messages, {
 	nieES: "Por favor, introduza um NIE v&aacute;lido.",
 	cifES: "Por favor, introduza um CIF v&aacute;lido."
 });
-
 }));

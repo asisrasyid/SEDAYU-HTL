@@ -5,7 +5,6 @@
 		factory( jQuery );
 	}
 }(function( $ ) {
-
 /*
  * Translated default messages for the jQuery validation plugin.
  * Locale: DA (Danish; dansk)
@@ -26,5 +25,4 @@ $.extend($.validator.messages, {
 	min: $.validator.format("Angiv en værdi der mindst er {0}."),
 	creditcard: "Indtast et gyldigt kreditkortnummer."
 });
-
 }));

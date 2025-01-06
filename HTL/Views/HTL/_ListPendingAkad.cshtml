@@ -8,34 +8,34 @@
     <div class="portlet-body portlet-bodyies">
         @if ((ViewBag.user == "notaris" || ViewBag.user == "admin") && ViewBag.oprvalue != "view")
         {
-            <div class="row">
-                <div class="form-group" style="padding:0px 20px 0px 20px">
-                    <div class="col-md-12">
-                        <label class="control-label">Pilih daftar berikut :</label>
-                        @Html.DropDownListFor(m => m.CaseCaPendingAkdMulti, (IEnumerable<SelectListItem>)ViewData["SelectCasePendingAkd"], new { @class = "bs-select multi-select  mlt", multiple = "multiple", @title = "Pilih Perihal Pending " })
-                    </div>
-                </div>
-            </div>
-            <div class="row">
+        <div class="row">
+            <div class="form-group" style="padding:0px 20px 0px 20px">
                 <div class="col-md-12">
-                    <div class="note note-warning">
-                        <p>
-                        </p>
-                        Jika Perihal Kendala akad tidak ada di "daftar list" , silahkan untuk menghubungi team SIMASHT untuk ditambahkan
-                        <p></p>
-                    </div>
+                    <label class="control-label">Pilih daftar berikut :</label>
+                    @Html.DropDownListFor(m => m.CaseCaPendingAkdMulti, (IEnumerable<SelectListItem>)ViewData["SelectCasePendingAkd"], new { @class = "bs-select multi-select  mlt", multiple = "multiple", @title = "Pilih Perihal Pending " })
                 </div>
             </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="note note-warning">
+                    <p>
+                    </p>
+                    Jika Perihal Kendala akad tidak ada di "daftar list" , silahkan untuk menghubungi team SIMASHT untuk ditambahkan
+                    <p></p>
+                </div>
+            </div>
+        </div>
         }
         else
         {
-            <div class="row">
-                <div class="form-group" style="padding:0px 20px 0px 20px">
-                    <div class="col-md-12">
-                        <span class="form-control NonEdittableSpanTxt" disabled="disabled">@Model.CaseCabPendingAkdDesc</span>
-                    </div>
+        <div class="row">
+            <div class="form-group" style="padding:0px 20px 0px 20px">
+                <div class="col-md-12">
+                    <span class="form-control NonEdittableSpanTxt" disabled="disabled">@Model.CaseCabPendingAkdDesc</span>
                 </div>
             </div>
+        </div>
 
         }
     </div>

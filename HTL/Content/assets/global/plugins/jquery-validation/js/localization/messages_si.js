@@ -5,7 +5,6 @@
 		factory( jQuery );
 	}
 }(function( $ ) {
-
 /*
  * Translated default messages for the jQuery validation plugin.
  * Locale: SI (Slovenian)
@@ -29,5 +28,4 @@ $.extend($.validator.messages, {
 	max: $.validator.format("Prosimo, vnesite vrednost manjšo ali enako {0}."),
 	min: $.validator.format("Prosimo, vnesite vrednost večjo ali enako {0}.")
 });
-
 }));

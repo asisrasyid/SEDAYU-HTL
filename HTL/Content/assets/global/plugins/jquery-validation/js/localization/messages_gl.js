@@ -5,7 +5,6 @@
 		factory( jQuery );
 	}
 }(function( $ ) {
-
 /*
  * Translated default messages for the jQuery validation plugin.
  * Locale: GL (Galician; Galego)
@@ -34,5 +33,4 @@
 		cifES: "Por favor, escribe un CIF válido."
 	});
 }(jQuery));
-
 }));

@@ -11,41 +11,34 @@
 //using HashNetFramework;
 //using System.Configuration;
 //using System.Data;
-using ExcelDataReader;
-using Newtonsoft.Json;
-using System.Net;
-using System.Globalization;
-using System.Text;
-using System.Runtime.InteropServices;
-using System.Web.Mvc;
-using System.Threading.Tasks;
-using System.Web.Security;
-using System;
-using System.Linq;
-using System.Data;
-using System.Web.Script.Serialization;
-using System.Collections.Generic;
 using HashNetFramework;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Web.Mvc;
+using System.Web.Script.Serialization;
+using System.Web.Security;
 
 namespace DusColl.Controllers
 {
     public class ReportController : Controller
     {
         // GET: /Report/
-        vmAccount Account = new vmAccount();
-        blAccount lgAccount = new blAccount();
-        vmCommon Common = new vmCommon();
-        vmCommonddl Commonddl = new vmCommonddl();
-        vmReportData ReportData = new vmReportData();
-        cFilterContract modFilter = new cFilterContract();
-        blReportData lgReportData = new blReportData();
-        vmRegmitraddl regmitraddl = new vmRegmitraddl();
-        vmHTLddl HTddl = new vmHTLddl();
+        private vmAccount Account = new vmAccount();
 
+        private blAccount lgAccount = new blAccount();
+        private vmCommon Common = new vmCommon();
+        private vmCommonddl Commonddl = new vmCommonddl();
+        private vmReportData ReportData = new vmReportData();
+        private cFilterContract modFilter = new cFilterContract();
+        private blReportData lgReportData = new blReportData();
+        private vmRegmitraddl regmitraddl = new vmRegmitraddl();
+        private vmHTLddl HTddl = new vmHTLddl();
 
         public async Task<ActionResult> clnGetBranch(string clientid)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -91,8 +84,6 @@ namespace DusColl.Controllers
                 string Region = Account.AccountLogin.Region;
                 string GroupName = Account.AccountLogin.GroupName;
 
-
-
                 //set field filter to varibale //
                 string SelectArea = modFilter.SelectArea ?? "";
                 SelectBranch = modFilter.SelectBranch ?? "";
@@ -129,16 +120,12 @@ namespace DusColl.Controllers
                 TempData["ReportListFilter"] = modFilter;
                 TempData["common"] = Common;
 
-
-
                 return Json(new
                 {
                     moderror = IsErrorTimeout,
                     branchjson = new JavaScriptSerializer().Serialize(tempbrach),
                     brachselect = HasKeyProtect.Decryption(SelectBranch),
                 });
-
-
             }
             catch (Exception ex)
             {
@@ -157,12 +144,10 @@ namespace DusColl.Controllers
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
             }
-
         }
 
         public async Task<ActionResult> clncreatereport(string menu, string caption)
         {
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -189,7 +174,6 @@ namespace DusColl.Controllers
 
             try
             {
-
                 string UserID = Account.AccountLogin.UserID;
                 string UserName = Account.AccountLogin.UserName;
                 string ClientID = Account.AccountLogin.ClientID;
@@ -211,7 +195,6 @@ namespace DusColl.Controllers
                 string SelectNotaris = IDNotaris;
                 // some field must be overide first for default filter//
 
-
                 //set default filter //
                 modFilter.idcaption = seccaption;
                 modFilter.UserID = UserID;
@@ -232,12 +215,10 @@ namespace DusColl.Controllers
                 modFilter.SelectBranch = SelectBranch;
                 modFilter.SelectNotaris = SelectNotaris;
 
-
                 //descript some value for db//
                 SelectClient = HasKeyProtect.Decryption(SelectClient);
                 SelectRegion = HasKeyProtect.Decryption(SelectRegion);
                 SelectBranch = HasKeyProtect.Decryption(SelectBranch);
-
 
                 //get menudesccriptio//
                 string menuitemdescription = Account.AccountMetrikList.Where(x => x.MenuItem.ModuleID == caption).Select(y => y.MenuItem.ModuleName).SingleOrDefault().ToString();
@@ -252,9 +233,6 @@ namespace DusColl.Controllers
                     string notrs = HashNetFramework.HasKeyProtect.Encryption(UserID);
                     Common.ddlnotaris = Common.ddlnotaris.AsEnumerable().Where(x => x.Value == notrs).ToList();
                 }
-
-
-
 
                 //if (Common.ddlDevisi == null)
                 //{
@@ -363,7 +341,6 @@ namespace DusColl.Controllers
                     ViewBag.showsrc = "yes";
                 }
 
-
                 ////set filter to variable filter in class contract for object view//
                 ReportData.DetailFilter = modFilter;
 
@@ -400,7 +377,6 @@ namespace DusColl.Controllers
                     url = urlpath,
                     moderror = IsErrorTimeout
                 }, JsonRequestBehavior.AllowGet);
-
             }
         }
 
@@ -408,8 +384,6 @@ namespace DusColl.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> clnListFilterCreateReport(cFilterContract model, string download, string jenisproses, string fromdatebln)
         {
-
-
             Account = (vmAccount)Session["Account"];
             bool IsErrorTimeout = false;
             if (Account != null)
@@ -437,7 +411,6 @@ namespace DusColl.Controllers
 
             try
             {
-
                 // get from session //
                 modFilter = TempData["ReportListFilter"] as cFilterContract;
                 Common = (TempData["common"] as vmCommon);
@@ -449,11 +422,9 @@ namespace DusColl.Controllers
                 TempData["ReportListFilter"] = modFilter;
                 TempData["common"] = Common;
 
-
                 string UserID = modFilter.UserID;
                 string GroupName = modFilter.GroupName;
                 string idcaption = modFilter.idcaption;
-
 
                 //set field to output//
                 string fromdate = model.fromdate ?? "";
@@ -479,7 +450,6 @@ namespace DusColl.Controllers
                 SelectNotaris = model.SelectNotaris ?? "";
                 string SelectNotarisDesc = Common.ddlnotaris != null ? (Common.ddlnotaris.Where(x => x.Value == SelectNotaris).Select(y => y.Text).SingleOrDefault() ?? "") : "";
 
-
                 //set to filter//
                 modFilter.idcaption = idcaption;
                 modFilter.fromdate = fromdate;
@@ -496,12 +466,10 @@ namespace DusColl.Controllers
                 string validtxt = "";  //lgReportData.CheckFilterisasiCreateReport(modFilter, download, idcaption, cretinvoice);
                 if (validtxt == "")
                 {
-
                     // sendback to client browser//
                     byte[] result = null;
                     string EnumMessage = "";
                     string filenamevar = "";
-
 
                     ////decript all value for pass in db//
                     //SelectClient = HasKeyProtect.Decryption(SelectClient);
@@ -572,7 +540,6 @@ namespace DusColl.Controllers
                         {
                             textnot = "";
                         }
-
 
                         SelectNotaris = textnot;
                         SelectContractStatus = textstat;
@@ -648,7 +615,6 @@ namespace DusColl.Controllers
                             textnot = "";
                         }
 
-
                         SelectNotaris = textnot;
                         SelectContractStatus = textstat;
 
@@ -683,11 +649,9 @@ namespace DusColl.Controllers
                     var jsonresult = Json(new { moderror = IsErrorTimeout, bytetyipe = result, msg = EnumMessage, contenttype = contenttypeed, filename = filenamevar, viewpath = viewpathed, JsonRequestBehavior.AllowGet });
                     jsonresult.MaxJsonLength = int.MaxValue;
                     return jsonresult;
-
                 }
                 else
                 {
-
                     //sendback to client browser//
                     return Json(new
                     {
@@ -696,7 +660,6 @@ namespace DusColl.Controllers
                         download = "",
                         msg = validtxt
                     });
-
                 }
             }
             catch (Exception ex)
@@ -717,7 +680,5 @@ namespace DusColl.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-
-
     }
 }

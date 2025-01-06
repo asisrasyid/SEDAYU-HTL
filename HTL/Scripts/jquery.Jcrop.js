@@ -1,6 +1,6 @@
 /**
  * jquery.Jcrop.js v0.9.12
- * jQuery Image Cropping Plugin - released under MIT License 
+ * jQuery Image Cropping Plugin - released under MIT License
  * Author: Kelly Hallman <khallman@gmail.com>
  * http://github.com/tapmodo/Jcrop
  * Copyright (c) 2008-2013 Tapmodo Interactive LLC {{{
@@ -30,7 +30,6 @@
  */
 
 (function ($) {
-
   $.Jcrop = function (obj, opt) {
     var options = $.extend({}, $.Jcrop.defaults),
         docOffset,
@@ -171,7 +170,7 @@
         if ((ord === 'move') && !options.allowMove) {
           return false;
         }
-        
+
         // Fix position of crop area when dragged the very first time.
         // Necessary when crop image is in a hidden element when page is loaded.
         docOffset = getPos($img);
@@ -304,19 +303,18 @@
         $origimg.width($origimg[0].width);
         $origimg.height($origimg[0].height);
       } else {
-        // Obtain dimensions from temporary image in case the original is not loaded yet (e.g. IE 7.0). 
+        // Obtain dimensions from temporary image in case the original is not loaded yet (e.g. IE 7.0).
         var tempImage = new Image();
         tempImage.src = $origimg[0].src;
         $origimg.width(tempImage.width);
         $origimg.height(tempImage.height);
-      } 
+      }
 
       var $img = $origimg.clone().removeAttr('id').css(img_css).show();
 
       $img.width($origimg.width());
       $img.height($origimg.height());
       $origimg.after($img).hide();
-
     } else {
       $img = $origimg.css(img_css).show();
       img_mode = false;
@@ -327,8 +325,7 @@
 
     var boundx = $img.width(),
         boundy = $img.height(),
-        
-        
+
         $div = $('<div />').width(boundx).height(boundy).addClass(cssClass('holder')).css({
         position: 'relative',
         backgroundColor: options.bgColor
@@ -340,32 +337,30 @@
 
     var $img2 = $('<div />'),
 
-        $img_holder = $('<div />') 
+        $img_holder = $('<div />')
         .width('100%').height('100%').css({
           zIndex: 310,
           position: 'absolute',
           overflow: 'hidden'
         }),
 
-        $hdl_holder = $('<div />') 
-        .width('100%').height('100%').css('zIndex', 320), 
+        $hdl_holder = $('<div />')
+        .width('100%').height('100%').css('zIndex', 320),
 
-        $sel = $('<div />') 
+        $sel = $('<div />')
         .css({
           position: 'absolute',
           zIndex: 600
         }).dblclick(function(){
           var c = Coords.getFixed();
           options.onDblClick.call(api,c);
-        }).insertBefore($img).append($img_holder, $hdl_holder); 
+        }).insertBefore($img).append($img_holder, $hdl_holder);
 
     if (img_mode) {
-
       $img2 = $('<img />')
           .attr('src', $img.attr('src')).css(img_css).width(boundx).height(boundy),
 
       $img_holder.append($img2);
-
     }
 
     if (ie6mode) {
@@ -393,7 +388,7 @@
     // }}}
     // }}}
     // Internal Modules {{{
-    // Touch Module {{{ 
+    // Touch Module {{{
     var Touch = (function () {
       // Touch support detection function adapted (under MIT License)
       // from code by Jeffrey Sambells - http://github.com/iamamused/
@@ -530,8 +525,7 @@
         // This function could use some optimization I think...
         var aspect = options.aspectRatio,
             min_x = options.minSize[0] / xscale,
-            
-            
+
             //min_y = options.minSize[1]/yscale,
             max_x = options.maxSize[0] / xscale,
             max_y = options.maxSize[1] / yscale,
@@ -1047,7 +1041,7 @@
       {
         seehandles = false;
         $hdl_holder.hide();
-      } 
+      }
       //}}}
       function animMode(v) //{{{
       {
@@ -1058,13 +1052,13 @@
           animating = false;
           enableHandles();
         }
-      } 
+      }
       //}}}
       function done() //{{{
       {
         animMode(false);
         refresh();
-      } 
+      }
       //}}}
       // Insert draggable elements {{{
       // Insert border divs for outline
@@ -1120,7 +1114,7 @@
         done: done
       };
     }());
-    
+
     //}}}
     // Tracker Module {{{
     var Tracker = (function () {
@@ -1143,7 +1137,7 @@
           $(document)
             .bind('mousemove.jcrop',trackMove)
             .bind('mouseup.jcrop',trackUp);
-      } 
+      }
       //}}}
       function toBack() //{{{
       {
@@ -1151,13 +1145,13 @@
           zIndex: 290
         });
         $(document).unbind('.jcrop');
-      } 
+      }
       //}}}
       function trackMove(e) //{{{
       {
         onMove(mouseAbs(e));
         return false;
-      } 
+      }
       //}}}
       function trackUp(e) //{{{
       {
@@ -1298,7 +1292,6 @@
           $keymgr.insertBefore($img);
         }
       }
-
 
       return {
         watchKeys: watchKeys
@@ -1614,7 +1607,6 @@
   };
   //}}}
   // $.Jcrop.Loader - basic image loader {{{
-
   $.Jcrop.Loader = function(imgobj,success,error){
     var $img = $(imgobj), img = $img[0];
 
@@ -1642,7 +1634,6 @@
   //}}}
   // Global Defaults {{{
   $.Jcrop.defaults = {
-
     // Basic Settings
     allowSelect: true,
     allowMove: true,

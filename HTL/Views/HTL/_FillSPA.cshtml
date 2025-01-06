@@ -6,24 +6,24 @@
             <label class="control-label">Nomor APHT</label>
             @if (ViewBag.oprvalue != "view" && ViewBag.user != "admin")
             {
-                @Html.TextBoxFor(m => m.NoHT, new { @class = "form-control", @maxlength = "20" })
-                @Html.ValidationMessageFor(m => m.NoHT, "", new { @class = "error-block" })
+            @Html.TextBoxFor(m => m.NoHT, new { @class = "form-control", @maxlength = "20" })
+            @Html.ValidationMessageFor(m => m.NoHT, "", new { @class = "error-block" })
             }
             else
             {
-                <span class="form-control NonEdittableSpanTxt" disabled="disabled">@Model.NoHT</span>
+            <span class="form-control NonEdittableSpanTxt" disabled="disabled">@Model.NoHT</span>
             }
         </div>
         <div class="col-md-4">
             <label class="control-label">Kode Akta</label>
             @if (ViewBag.oprvalue != "view" && ViewBag.user != "admin")
             {
-                @Html.TextBoxFor(m => m.KodeAkta, new { @class = "form-control", @maxlength = "20" })
-                @Html.ValidationMessageFor(m => m.KodeAkta, "", new { @class = "error-block" })
+            @Html.TextBoxFor(m => m.KodeAkta, new { @class = "form-control", @maxlength = "20" })
+            @Html.ValidationMessageFor(m => m.KodeAkta, "", new { @class = "error-block" })
             }
             else
             {
-                <span class="form-control NonEdittableSpanTxt" disabled="disabled">@Model.KodeAkta</span>
+            <span class="form-control NonEdittableSpanTxt" disabled="disabled">@Model.KodeAkta</span>
             }
         </div>
     </div>
