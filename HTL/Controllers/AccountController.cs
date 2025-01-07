@@ -2893,12 +2893,12 @@ namespace DusColl.Controllers
                     int PropAccess = model.PropAccess;
 
                     //get user identity host//
-                    string ipAddress = "::1";   //Request.ServerVariables["REMOTE_ADDR"];
-                    string ipAddress2 = "::1"; //Request.UserHostAddress;
-                    string HostPCName = "SDB-024";  //Dns.GetHostName();
+                    string ipAddress = Request.ServerVariables["REMOTE_ADDR"];
+                    string ipAddress2 = Request.UserHostAddress;
+                    string HostPCName = Dns.GetHostName();
                     string verifiedcodeinputbyuser = model.Userkodeverified ?? "";
                     string templatename = "AccountWrongLogin";
-                    string domainname = "localhost";   //Request.Url.Host;
+                    string domainname = Request.Url.Host;
 
                     //default message//
                     int resulted = -9999;

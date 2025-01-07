@@ -37,6 +37,9 @@
             <th data-priority="1">Nama<br /> Debitur</th>
             <th data-priority="1">Wilayah</th>
             <th>Ditangani <br /> PPAT</th>
+            <th>Tidak ada <br /> penanganan (Hari)</th>
+            <th data-priority="1">Status <br /> Penanganan</th>
+            <th>Status <br /> Penagihan</th>
             <th class="all"></th>
         </tr>
     </thead>
@@ -59,12 +62,88 @@
             <td>@item["Debitur"].ToString()</td>
             <td>@item["LokasiTanahDiKota"].ToString()</td>
             <th>@item["OrderKeNotarisDesc"].ToString()</th>
+            <td>@item["NoACTION"].ToString()</td>
+            <td>
+                @if (item["StatusDesc"].ToString().Contains("Menyelesaikan Isue") || item["StatusDesc"].ToString().Contains("Sudah Akad (CN)"))
+                        {
+                @(item["StatusDesc"].ToString() + " (" + item["PosisiBerkas"].ToString() + " - " + item["GroupPosisi"].ToString() + ")")
+                        }
+                        else
+                        {
+                @item["StatusDesc"].ToString()
+                        }
+            </td>
+            <td>
+                @if (!item["StatusPenagihan"].ToString().Contains("Input Berkas"))
+                        {
+                @item["StatusPenagihan"].ToString()
+                        }
+            </td>
             <td style="background-color:#eee">
                 <div class="btn-group pull-right">
-                    <button class="btn green btn-xs btn-outline openRoyaview" data-value="@Model.FilterTransaksi.ModuleName.ToString(),@item["keylookupdata"],x4vw">
+                    <button class="btn green btn-xs btn-outline dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                         Proses
                         <i class="fa fa-angle-down"></i>
                     </button>
+                    <ul class="dropdown-menu bottom-up">
+                        <li>
+                            <a class="openRoyaview" data-value="@Model.FilterTransaksi.ModuleName.ToString(),@item["keylookupdata"],x4vw">
+                                <i class="fa fa-eye"></i> Proses
+                            </a>
+                        </li>
+                        @if (Model.Permission.AllowEdit == true)
+                                {
+                                    if (item["AllowEdit"].ToString() == "allow")
+                                    {
+                        <li>
+                            <a class="open4edit" data-value="@Model.FilterTransaksi.ModuleName.ToString(),@item["keylookupdata"],x4vwe">
+                                <i class="fa fa-pencil-square"></i>&nbsp;Ubah
+                            </a>
+                        </li>
+                                        if (item["StatusDesc"].ToString().Contains("Menyelesaikan Isue") || item["StatusDesc"].ToString().Contains("Sudah Akad (CN)"))
+                                        {
+                        <li>
+                            <a class="openedit_grouping" data-value="@HashNetFramework.HasKeyProtect.Encryption(item["NoAppl"].ToString()),@HashNetFramework.HasKeyProtect.Encryption("1"),gd">
+                                <i class="fa fa-th-large"></i>&nbsp;Posisi Pengajuan
+                            </a>
+                        </li>
+                                        }
+                                    }
+                                    if (item["AllowEditInv"].ToString() == "allow")
+                                    {
+                        <li>
+                            <a class="open4editInv" data-value="@HashNetFramework.HasKeyProtect.Encryption(item["NoAppl"].ToString()),@HashNetFramework.HasKeyProtect.Encryption("inv"),gd">
+                                <i class="fa fa-check"></i>&nbsp;Validasi Penagihan
+                            </a>
+                        </li>
+                                    }
+                                    if (item["AllowEditExpired"].ToString() == "allow")
+                                    {
+                        <li>
+                            <a class="open4editExp" data-value="@HashNetFramework.HasKeyProtect.Encryption(item["NoAppl"].ToString()),@HashNetFramework.HasKeyProtect.Encryption("inv"),gd">
+                                <i class="fa fa-check"></i>&nbsp;Validasi Siap Akad
+                            </a>
+                        </li>
+                                    }
+                                    if (item["AllowEditReject"].ToString() == "allow")
+                                    {
+                        <li>
+                            <a class="open4editRjt" data-value="@HashNetFramework.HasKeyProtect.Encryption(item["NoAppl"].ToString()),@HashNetFramework.HasKeyProtect.Encryption("inv"),gd">
+                                <i class="fa fa-check"></i>&nbsp;Validasi Aktivasi Pengajuan
+                            </a>
+                        </li>
+                                    }
+
+                                }
+                        @if (item["StatusDesc"].ToString() != "Input Berkas")
+                                {
+                        <li>
+                            <a class="open4riwayat" data-value="@HashNetFramework.HasKeyProtect.Encryption(item["NoAppl"].ToString()),@HashNetFramework.HasKeyProtect.Encryption("1"),gd">
+                                <i class="fa fa-sticky-note"></i>&nbsp;Riwayat
+                            </a>
+                        </li>
+                                }
+                    </ul>
                 </div>
             </td>
         </tr>

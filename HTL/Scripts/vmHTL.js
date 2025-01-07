@@ -1308,6 +1308,57 @@ var vmHTL = function () {
         });
     };
 
+    var onOpenFilterRoya = function () {
+        var jsoncoll = "";
+        var jsonreposn = "";
+
+        $.ajax({
+            url: "HTL/clnOpenFilterpopRoya",
+            type: "POST",
+            data: { opr: "load" },
+            //contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            beforeSend: function () {
+                App.blockUI({});
+            },
+            success: function (data) {
+                if (data.moderror == false) {
+                    App.unblockUI();
+
+                    $("#uidivfilter").html(data.view);
+                    $('.date-picker').datepicker({
+                        rtl: App.isRTL(),
+                        orientation: "left",
+                        autoclose: true
+                    });
+                    $('.select2').select2();
+
+                    $("#RequestNo").val(data.opsi1);
+                    $("#SelectDivisi").val(data.opsi2).trigger("change");
+                    $("#SelectArea").val(data.opsi3).trigger("change");
+                    $("#SelectBranch").val(data.opsi4).trigger("change");
+                    $('#SelectContractStatus').val(data.opsi5).change();
+                    $('#fromdate').datepicker().datepicker('setDate', data.opsi6);
+                    $('#todate').datepicker().datepicker('setDate', data.opsi7);
+
+                    var lengthbrn = ($('#SelectBranch > option').length) - 1;
+                    if (lengthbrn == 1) {
+                        $('#SelectBranch').val($('#SelectBranch option:eq(1)').val()).change();
+                    }
+                    $("#filterdatadialog").modal("show");
+                } else {
+                    window.location.href = data.url;
+                }
+            },
+            error: function (x, y, z) {
+                App.unblockUI(elemntupload);
+                jsoncoll = JSON.stringify(x);
+                jsonreposn = JSON.parse(jsoncoll);
+                if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
+            }
+        });
+    };
+
     var onOpenFilter = function () {
         var jsoncoll = "";
         var jsonreposn = "";
@@ -1409,6 +1460,54 @@ var vmHTL = function () {
             },
             success: function (data) {
                 if (data.moderror == false) {
+                    $(".modal-backdrop").hide();
+                    $("#filterdatadialog").modal("hide");
+                    if (data.view !== "") {
+                        $("#pagecontent").html(data.view);
+                    }
+                    App.unblockUI(elemntupload);
+                } else {
+                    window.location.href = x.url;
+                }
+            },
+            error: function (x, y, z) {
+                App.unblockUI(elemntupload);
+                jsoncoll = JSON.stringify(x);
+                jsonreposn = JSON.parse(jsoncoll);
+                if (jsonreposn.responseJSON.moderror == false) { window.location.href = jsonreposn.responseJSON.url; } else { location.reload(); }
+            },
+        });
+    };
+
+
+    var onApplyFilterRoya = function (parForm, pardownloadexcel) {
+        var jsoncoll = "";
+        var jsonreposn = "[]";
+        var frm = $(parForm);
+        $.ajax({
+            type: frm.attr('method'),
+            url: frm.attr('action'),
+            data: frm.serialize() + "&download=" + pardownloadexcel,
+            beforeSend: function () {
+                App.blockUI({ target: elemntupload });
+            },
+            success: function (data) {
+                console.log(data)
+                if (data.moderror == "1") {
+                    $(".modal-backdrop").hide();
+                    $("#filterdatadialog").modal("hide");
+                    if (data.view !== "") {
+                        $("#pagecontent").html(data.view);
+                    }
+                    App.unblockUI();
+                    swal({
+                        title: "Informasi",
+                        text: data.message,
+                        type: "info",
+                        showConfirmButton: true,
+                        confirmButtonText: "Tutup",
+                    });
+                } else if (data.moderror == false) {
                     $(".modal-backdrop").hide();
                     $("#filterdatadialog").modal("hide");
                     if (data.view !== "") {
@@ -2452,8 +2551,14 @@ var vmHTL = function () {
         OpenFilter() {
             onOpenFilter();
         },
+        OpenFilterRoya() {
+            onOpenFilterRoya();
+        },
         ApplyFilter: function (parForm, pardownloadexcel) {
             onApplyFilter(parForm, pardownloadexcel);
+        },
+        ApplyFilterRoya: function (parForm, pardownloadexcel) {
+            onApplyFilterRoya(parForm, pardownloadexcel);
         },
 
         ResetFilter: function () {
@@ -2574,6 +2679,13 @@ var vmHTL = function () {
                 var pop = $(this).attr("data-value");
                 var par0 = pop.replace(/["]/g, "");
                 vmHTL.OpenFilter(par0);
+            });
+
+            $(".OpenFilterRoya").unbind("click");
+            $(".OpenFilterRoya").bind("click", function () {
+                var pop = $(this).attr("data-value");
+                var par0 = pop.replace(/["]/g, "");
+                vmHTL.OpenFilterRoya(par0);
             });
 
             $(".LoadMenuIpt").unbind("click");
@@ -3016,6 +3128,11 @@ var vmHTL = function () {
             $(".filtehtl").unbind("click");
             $(".filtehtl").bind("click", function () {
                 vmHTL.ApplyFilter('#DashboardFilter_form', '');
+            });
+
+            $(".filteRoya").unbind("click");
+            $(".filteRoya").bind("click", function () {
+                vmHTL.ApplyFilterRoya('#DashboardFilter_form', '');
             });
 
             $("#DokumenTyped").unbind("change");

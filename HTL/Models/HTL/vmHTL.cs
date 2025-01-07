@@ -567,6 +567,76 @@ namespace DusColl
             return dta;
         }
 
+
+        public async Task<List<string>> dbGetHeaderTxListCountRoya(string KeySearch, string Divisi, string Cabang, string Area, string fromdate, string todate, int status, int PageNumber, string idcaption, string userid, string groupname)
+        {
+            DataTable dt = new DataTable();
+
+            dbAccessHelper dbaccess = new dbAccessHelper();
+            string strconnection = HasKeyProtect.DecryptionPass(OwinLibrary.GetDB());
+
+            SqlParameter[] sqlParam =
+            {
+                    new SqlParameter("@keysearch", KeySearch),
+                    new SqlParameter("@Divisi", Divisi),
+                    new SqlParameter("@Cabang", Cabang),
+                    new SqlParameter("@Area", Area),
+                    new SqlParameter("@tglfrom", fromdate),
+                    new SqlParameter("@tglto", todate),
+                    new SqlParameter("@status", status),
+                    new SqlParameter ("@moduleId",idcaption),
+                    new SqlParameter ("@UserIDLog",userid),
+                    new SqlParameter ("@UserGroupLog",groupname),
+                    new SqlParameter ("@PageNumber",PageNumber),
+                };
+
+            dt = await dbaccess.ExecuteDataTable(strconnection, "udp_app_trx_htl_list_cnt_roya", sqlParam);
+
+            List<String> dta = new List<string>();
+            if (dt.Rows.Count > 0)
+            {
+                dta.Add(dt.Rows[0][0].ToString());
+                dta.Add(dt.Rows[0][1].ToString());
+                dta.Add(dt.Rows[0][2].ToString());
+            }
+            else
+            {
+                dta.Add("0");
+                dta.Add("0");
+                dta.Add("0");
+            }
+
+            return dta;
+        }
+
+        public async Task<List<DataTable>> dbGetHeaderTxListCheckedDataRoya(string KeySearch, string Divisi, string Cabang, string Area, string fromdate, string todate, int status, int PageNumber, string idcaption, string userid, string groupname)
+        {
+            DataTable dt = new DataTable();
+            List<DataTable> dtlist = new List<DataTable>();
+            dbAccessHelper dbaccess = new dbAccessHelper();
+            string strconnection = HasKeyProtect.DecryptionPass(OwinLibrary.GetDB());
+
+            SqlParameter[] sqlParam =
+            {
+                    new SqlParameter("@keysearch", KeySearch),
+                    new SqlParameter("@Divisi", Divisi),
+                    new SqlParameter("@Cabang", Cabang),
+                    new SqlParameter("@Area", Area),
+                    new SqlParameter("@tglfrom", fromdate),
+                    new SqlParameter("@tglto", todate),
+                    new SqlParameter("@status", status),
+                    new SqlParameter ("@moduleId",idcaption),
+                    new SqlParameter ("@UserIDLog",userid),
+                    new SqlParameter ("@UserGroupLog",groupname),
+                    new SqlParameter ("@PageNumber",PageNumber),
+                };
+
+            dt = await dbaccess.ExecuteDataTable(strconnection, "udp_app_trx_htl_list_checked", sqlParam);
+
+            dtlist.Add(dt);
+            return dtlist;
+        }
+
         public async Task<List<string>> dbGetHeaderTxListCountRoyaPros(string KeySearch, string Divisi, string Cabang, string Area, string fromdate, string todate, int status, int PageNumber, string idcaption, string userid, string groupname)
         {
             DataTable dt = new DataTable();
@@ -651,6 +721,50 @@ namespace DusColl
 
             return dtlist;
         }
+        public async Task<List<DataTable>> dbGetHeaderTxListRoya(DataTable DTFromDB, string KeySearch, string Divisi, string Cabang, string Area, string fromdate, string todate, int status, int PageNumber, double pagenumberclient, double pagingsizeclient, string idcaption, string userid, string groupname)
+        {
+            DataTable dt = new DataTable();
+            List<DataTable> dtlist = new List<DataTable>();
+            if (DTFromDB == null || DTFromDB.Rows.Count == 0)
+            {
+                dbAccessHelper dbaccess = new dbAccessHelper();
+                string strconnection = HasKeyProtect.DecryptionPass(OwinLibrary.GetDB());
+
+                SqlParameter[] sqlParam =
+                 {
+                    new SqlParameter("@keysearch", KeySearch),
+                    new SqlParameter("@Divisi", Divisi),
+                    new SqlParameter("@Cabang", Cabang),
+                    new SqlParameter("@Area", Area),
+                    new SqlParameter("@tglfrom", fromdate),
+                    new SqlParameter("@tglto", todate),
+                    new SqlParameter("@status", status),
+                    new SqlParameter ("@moduleId",idcaption),
+                    new SqlParameter ("@UserIDLog",userid),
+                    new SqlParameter ("@UserGroupLog",groupname),
+                    new SqlParameter ("@PageNumber",PageNumber),
+                };
+
+                dt = await dbaccess.ExecuteDataTable(strconnection, "udp_app_trx_htl_list_roya", sqlParam);
+            }
+            else
+            {
+                dt = DTFromDB;
+            }
+
+            dtlist.Add(dt);
+
+            if (dt.Rows.Count > 0)
+            {
+                int starrow = (int.Parse(pagenumberclient.ToString()) - 1) * int.Parse(pagingsizeclient.ToString());
+                dt = dt.Rows.Cast<System.Data.DataRow>().Skip(starrow).Take(int.Parse(pagingsizeclient.ToString())).CopyToDataTable();
+            }
+
+            dtlist.Add(dt);
+
+            return dtlist;
+        }
+
         public async Task<List<DataTable>> dbGetHeaderTxListRoyaPros(DataTable DTFromDB, string KeySearch, string Divisi, string Cabang, string Area, string fromdate, string todate, int status, int PageNumber, double pagenumberclient, double pagingsizeclient, string idcaption, string userid, string groupname)
         {
             DataTable dt = new DataTable();

@@ -1439,6 +1439,8 @@
     <Content Include="Views\HTL\uiRoyaProsLst.cshtml" />
     <Content Include="Views\HTL\uiRoyaUploadDocNw.cshtml" />
     <Content Include="Views\HTL\uiHTLLstGridDRYA.cshtml" />
+    <Content Include="Views\HTL\uiHTLLstGridRoyaListPros.cshtml" />
+    <Content Include="Views\HTL\_uiFilterDataRoya.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

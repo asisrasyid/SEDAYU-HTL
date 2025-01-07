@@ -1,0 +1,93 @@
+﻿@model HashNetFramework.cFilterContract
+<div class="modal fade" id="filterdatadialog" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            @using (Ajax.BeginForm("clnHeaderTxFilterRoya", new { Controller = "HTL" }, new AjaxOptions { HttpMethod = "POST" }, new { id = "DashboardFilter_form", @class = "form-horizontal" }))
+            {
+            @Html.AntiForgeryToken();
+            @Html.HiddenFor(m => m.idcaption)
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Pencarian Data</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-body">
+
+                    @{
+                            var plchol = "";
+
+                            if (int.Parse((Model.UserTypes)) == (int)HashNetFramework.UserType.FDCM)
+                            {
+                                plchol = "No Aplikasi/No Perjanjian/Debitur/No Invoice";
+                            }
+                            else if (int.Parse((Model.UserTypes)) == (int)HashNetFramework.UserType.HO)
+                            {
+                                plchol = "No Aplikasi/No Perjanjian/Debitur";
+                            }
+                            else if (int.Parse((Model.UserTypes)) == (int)HashNetFramework.UserType.Branch)
+                            {
+                                plchol = "No Aplikasi/No Perjanjian/Debitur";
+                            }
+                            else if (int.Parse((Model.UserTypes)) == (int)HashNetFramework.UserType.Notaris)
+                            {
+                                plchol = "No Aplikasi/No Perjanjian/Debitur";
+                            }
+                    }
+
+                    <div class="">
+                        <div class="form-group" style="margin-bottom: 10px">
+                            <label class="control-label col-md-3">Kata Kunci</label>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(m => m.RequestNo, new { @class = "form-control", @placeholder = plchol })
+                            </div>
+                        </div>
+                    </div>
+
+                    @*<div class="">
+                        <div class="form-group" style="margin-bottom: 10px">
+                            <label class="control-label col-md-3">Status </label>
+                            <div class="col-md-8">
+                                @Html.DropDownListFor(m => m.SelectContractStatus, (IEnumerable<SelectListItem>)ViewData["SelectStatus"], "Pilih Status Pengajuan..", new { @class = "form-control select2" })
+                            </div>
+                        </div>
+                    </div>*@
+                    @if (int.Parse((Model.UserTypes)) == (int)HashNetFramework.UserType.FDCM)
+                        {
+                    <div class="">
+                        <div class="form-group" style="margin-bottom: 10px">
+                            <label class="control-label col-md-3">Nama PPAT </label>
+                            <div class="col-md-8">
+                                @Html.DropDownListFor(m => m.SelectNotaris, (IEnumerable<SelectListItem>)ViewData["SelectNotaris"], "Pilih Nama PPAT..", new { @class = "form-control select2" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="">
+                        <div class="form-group" style="margin-bottom: 10px">
+                            <label class="control-label col-md-3">Nama PPAT (Sudah Buat Tagihan) </label>
+                            <div class="col-md-8">
+                                @Html.DropDownListFor(m => m.SelectNotarisDesc, (IEnumerable<SelectListItem>)ViewData["SelectNotarisInv"], "Pilih Nama PPAT..", new { @class = "form-control select2" })
+                            </div>
+                        </div>
+                    </div>
+                        }
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn green filtehtlref">
+                    <i class="fa fa-circle-o"></i>
+                    <span>&nbsp;Ulangi</span>
+                </button>
+                <button type="button" class="btn green filteRoya">
+                    <i class="fa fa-search"></i>
+                    <span>&nbsp;Cari</span>
+                </button>
+            </div>
+            }
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<script src="~/Scripts/vmHTL.js"></script>
+<script>vmHTL.initbuton();</script>
